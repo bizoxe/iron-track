@@ -1,0 +1,14 @@
+[project]
+name = "irontrack"
+version = "0.1.0"
+description = "FastAPI web application for tracking workouts"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "mypy>=1.17.0",
+    "pre-commit>=4.2.0",
+    "ruff>=0.12.4",
+]
