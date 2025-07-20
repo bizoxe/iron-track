@@ -5,8 +5,10 @@ description = "FastAPI web application for tracking workouts"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "asgi-correlation-id>=4.3.4",
     "fastapi>=0.116.1",
     "fastapi-cli>=0.0.8",
+    "structlog>=25.4.0",
     "uvicorn[standard]>=0.35.0",
 ]
 
