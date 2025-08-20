@@ -1,0 +1,44 @@
+from uuid import UUID
+
+
+class Base(Exception):
+    def __init__(
+        self,
+        status_code: int,
+        message: str,
+        headers: dict[str, str] | None = None,
+    ) -> None:
+        self.status_code = status_code
+        self.message = message
+        self.headers = headers
+
+
+class UnauthorizedException(Base):
+    def __init__(
+        self,
+        message: str = "Not authenticated",
+    ) -> None:
+        super().__init__(
+            401,
+            message=message,
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+
+
+class UserNotFound(Base):
+    def __init__(
+        self,
+        user_id: UUID | int | str,
+    ) -> None:
+        super().__init__(
+            404,
+            f"User {user_id!r} was not found",
+        )
+
+
+class BadRequestException(Base):
+    def __init__(self, message: str) -> None:
+        super().__init__(
+            status_code=400,
+            message=message,
+        )
