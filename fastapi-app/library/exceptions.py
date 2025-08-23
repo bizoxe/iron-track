@@ -19,7 +19,7 @@ class UnauthorizedException(Base):
         message: str = "Not authenticated",
     ) -> None:
         super().__init__(
-            401,
+            status_code=401,
             message=message,
             headers={"WWW-Authenticate": "Bearer"},
         )
@@ -31,8 +31,8 @@ class UserNotFound(Base):
         user_id: UUID | int | str,
     ) -> None:
         super().__init__(
-            404,
-            f"User {user_id!r} was not found",
+            status_code=404,
+            message=f"User {user_id!r} was not found",
         )
 
 
@@ -41,4 +41,21 @@ class BadRequestException(Base):
         super().__init__(
             status_code=400,
             message=message,
+        )
+
+
+class ConflictException(Base):
+    def __init__(self, message: str):
+        super().__init__(
+            status_code=409,
+            message=message,
+        )
+
+
+class PermissionDeniedException(Base):
+    def __init__(self, message: str):
+        super().__init__(
+            status_code=403,
+            message=message,
+            headers={"WWW-Authenticate": "Bearer"},
         )
