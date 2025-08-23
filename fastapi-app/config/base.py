@@ -100,9 +100,22 @@ class DatabaseSettings:
 
 
 @dataclass
+class JWTSettings:
+    ALGORITHM: str = field(default_factory=lambda: os.getenv("ALGORITHM", "RS256"))
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = field(
+        default_factory=lambda: int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "10"))
+    )
+    REFRESH_TOKEN_EXPIRE_DAYS: int = field(default_factory=lambda: int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", "30")))
+    TOKEN_URL: str = field(default_factory=lambda: os.getenv("TOKEN_URL", "/api/access/signin"))
+    OAUTH_JWT_PRIVATE_KEY: Path = BASE_DIR.joinpath("certs/private.pem")
+    OAUTH_JWT_PUBLIC_KEY: Path = BASE_DIR.joinpath("certs/public.pem")
+
+
+@dataclass
 class Settings:
     log: LogSettings = field(default_factory=LogSettings)
     db: DatabaseSettings = field(default_factory=DatabaseSettings)
+    jwt: JWTSettings = field(default_factory=JWTSettings)
 
     @classmethod
     def from_env(cls, dotenv_filename: str = ".env") -> Settings:
