@@ -9,6 +9,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Final
 
+from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import (
     AsyncEngine,
     create_async_engine,
@@ -101,6 +102,8 @@ class DatabaseSettings:
 
 @dataclass
 class JWTSettings:
+    """JWT configuration."""
+
     ALGORITHM: str = field(default_factory=lambda: os.getenv("ALGORITHM", "RS256"))
     ACCESS_TOKEN_EXPIRE_MINUTES: int = field(
         default_factory=lambda: int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "10"))
@@ -112,10 +115,39 @@ class JWTSettings:
 
 
 @dataclass
+class RedisSettings:
+    """Redis configuration."""
+
+    URL: str = field(default_factory=lambda: os.getenv("REDIS_URL", "redis://localhost:6379/0"))
+    """Redis connection URL."""
+    SOCKET_CONNECT_TIMEOUT: int = field(default_factory=lambda: int(os.getenv("REDIS_CONNECT_TIMEOUT", "5")))
+    """Length of time to wait (in seconds) for a connection to become active."""
+    HEALTH_CHECK_INTERVAL: int = field(default_factory=lambda: int(os.getenv("REDIS_HEALTH_CHECK_INTERVAL", "5")))
+    """Length of time to wait (in seconds) before testing connection health."""
+    SOCKET_KEEPALIVE: bool = field(default_factory=lambda: os.getenv("REDIS_SOCKET_KEEPALIVE", "True") in TRUE_VALUES)
+    """Length of time to wait (in seconds) between keepalive commands."""
+
+    @property
+    def client(self) -> Redis:
+        return self.get_client()
+
+    def get_client(self) -> Redis:
+        return Redis.from_url(
+            url=self.URL,
+            encoding="utf-8",
+            decode_responses=False,  # must be set to False, important for fastapi-cache
+            socket_connect_timeout=self.SOCKET_CONNECT_TIMEOUT,
+            socket_keepalive=self.SOCKET_KEEPALIVE,
+            health_check_interval=self.HEALTH_CHECK_INTERVAL,
+        )
+
+
+@dataclass
 class Settings:
     log: LogSettings = field(default_factory=LogSettings)
     db: DatabaseSettings = field(default_factory=DatabaseSettings)
     jwt: JWTSettings = field(default_factory=JWTSettings)
+    redis: RedisSettings = field(default_factory=RedisSettings)
 
     @classmethod
     def from_env(cls, dotenv_filename: str = ".env") -> Settings:
