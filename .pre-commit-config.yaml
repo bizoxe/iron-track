@@ -24,6 +24,15 @@ repos:
         args:
           - --config=pyproject.toml
         pass_filenames: true
+        additional_dependencies:
+          - types-redis
+          - types-click
+          - types-pyjwt
+          - sqlalchemy[mypy]
+          - pydantic
+          - fastapi
+          - starlette
+          - structlog
 
 exclude: |
     (?x)^(
