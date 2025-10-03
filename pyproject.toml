@@ -26,9 +26,11 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "mypy>=1.17.0",
     "pre-commit>=4.2.0",
-    "ruff>=0.12.4",
+]
+lint = [
+    "mypy>=1.18.2",
+    "ruff>=0.13.2",
 ]
 
 [tool.ruff]
@@ -60,43 +62,52 @@ exclude = [
     "site-packages",
     "venv",
     "__init__.py",
-    "fastapi-app/db/alembic/*",
+    "src/db/alembic/*",
 ]
+fix = true
 line-length = 120
 indent-width = 4
+lint.fixable = ["ALL"]
+lint.ignore = [
+    "SIM117",  # multiple-with-statements
+    "COM812",  # missing-trailing-comma
+    "D100",    # pydocstyle - missing docstring in public module
+    "D101",    # pydocstyle - missing docstring in public class
+    "D102",    # pydocstyle - missing docstring in public method
+    "D103",    # pydocstyle - missing docstring in public function
+    "D104",    # pydocstyle - missing docstring in public package
+    "D105",    # pydocstyle - missing docstring in magic method
+    "D106",    # pydocstyle - missing docstring in public nested class
+    "D107",    # pydocstyle - missing docstring in __init__
+    "S106",    # hardcoded-password-func-arg
+    "ANN401",  # any-type
+    "ARG001",  # unused-function-argument
+]
+lint.select = ["ALL"]
+lint.extend-select = ["I"]
+lint.dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+src = ["src", "tests"]
 target-version = "py312"
-src = ["fastapi-app"]
-
-[tool.ruff.lint]
-extend-select = ["I"]
-fixable = ["ALL"]
-dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
-
-[tool.ruff.format]
-quote-style = "double"
-indent-style = "space"
-skip-magic-trailing-comma = false
-line-ending = "auto"
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
 
-[lint.mccabe]
+[tool.ruff.lint.mccabe]
 max-complexity = 8
+
+[tool.ruff.lint.isort]
+known-first-party = ["src"]
 
 [tool.mypy]
 python_version = "3.12"
 strict = true
-ignore_missing_imports = true
 show_error_codes = true
-pretty = true
-warn_unused_ignores = true
-warn_return_any = true
-warn_redundant_casts = true
+disallow_any_unimported = true
+disallow_subclassing_any = true
 warn_unreachable = true
 warn_unused_configs = true
+ignore_missing_imports = true
 exclude = '''(?x)(
-^.venv/
-|^alembic/
-)
-'''
+    ^.venv/
+  | ^src/db/alembic/
+)'''
