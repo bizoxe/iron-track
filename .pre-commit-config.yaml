@@ -23,6 +23,7 @@ repos:
       - id: mypy
         args:
           - --config=pyproject.toml
+        pass_filenames: true
 
 exclude: |
     (?x)^(
