@@ -9,7 +9,7 @@ console = get_console()
 
 
 @click.group(name="users", invoke_without_command=False, help="Manage application users.")
-@click.pass_context  # type: ignore
+@click.pass_context  # type: ignore[arg-type]
 def user_management_group(_: dict[str, Any]) -> None:
     """Manage application users."""
 
@@ -81,7 +81,7 @@ def create_user(
                 console.print(f"User created with email: {user.email}")
             except DuplicateKeyError:
                 console.print(
-                    f"User with email {repr(obj_in.email)} already exists in the database",
+                    f"User with email {obj_in.email!r} already exists in the database",
                     style="#FF0000",
                 )
 
@@ -102,8 +102,8 @@ def create_user(
     show_default=False,
 )
 def promote_to_superuser(email: str) -> None:
-    """
-    Promote to Superuser.
+    """Promote to Superuser.
+
     Args:
         email (str): The email address of the user to promote.
     """
@@ -131,7 +131,7 @@ def promote_to_superuser(email: str) -> None:
                     )
                     console.print(f"Upgraded user with email: {user.email} to superuser", style="#ffff00")
                 else:
-                    console.print(f"User with email: {repr(email)} not found", style="#FF0000")
+                    console.print(f"User with email: {email!r} not found", style="#FF0000")
 
     console.rule("Promote user to superuser.")
     email = email or click.prompt("Email")

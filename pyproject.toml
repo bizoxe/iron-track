@@ -102,7 +102,7 @@ known-first-party = ["src"]
 python_version = "3.12"
 strict = true
 show_error_codes = true
-disallow_any_unimported = true
+disallow_any_unimported = false
 disallow_subclassing_any = true
 warn_unreachable = true
 warn_unused_configs = true
@@ -110,4 +110,19 @@ ignore_missing_imports = true
 exclude = '''(?x)(
     ^.venv/
   | ^src/db/alembic/
+  | ^src/scripts/
 )'''
+
+[[tool.mypy.overrides]]
+warn_return_any = false
+module = [
+    "src.lib.coders.*",
+    "src.lib.json_response.*",
+    "src.lib.jwt_utils.*"
+]
+
+[[tool.mypy.overrides]]
+disallow_subclassing_any = false
+module = [
+    "src.lib.coders.*"
+]

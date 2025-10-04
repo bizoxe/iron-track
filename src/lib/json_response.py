@@ -1,7 +1,5 @@
-from typing import (
-    Any,
-    Mapping,
-)
+from collections.abc import Mapping
+from typing import Any
 
 import msgspec
 from fastapi import Response
@@ -10,9 +8,7 @@ from starlette.background import BackgroundTask
 
 
 class MsgSpecJSONResponse(Response):
-    """
-    JSON response using the high-performance `msgspec` library to serialize data to JSON.
-    """
+    """JSON response using the high-performance `msgspec` library to serialize data to JSON."""
 
     def __init__(
         self,

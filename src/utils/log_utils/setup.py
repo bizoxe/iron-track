@@ -65,7 +65,7 @@ def configure_logging() -> None:
                 "json_formatter": {
                     "()": structlog.stdlib.ProcessorFormatter,
                     "processor": structlog.processors.JSONRenderer(),
-                    "foreign_pre_chain": shared_processors + [structlog.processors.format_exc_info],
+                    "foreign_pre_chain": [*shared_processors, structlog.processors.format_exc_info],
                 },
                 "plain_console": {
                     "()": structlog.stdlib.ProcessorFormatter,
@@ -77,7 +77,7 @@ def configure_logging() -> None:
                     "processor": structlog.processors.KeyValueRenderer(
                         key_order=["timestamp", "level", "event", "logger"]
                     ),
-                    "foreign_pre_chain": shared_processors + [structlog.processors.format_exc_info],
+                    "foreign_pre_chain": [*shared_processors, structlog.processors.format_exc_info],
                 },
             },
             "handlers": {

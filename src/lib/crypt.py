@@ -8,16 +8,17 @@ from pwdlib.hashers.argon2 import Argon2Hasher
 hasher = PasswordHash((Argon2Hasher(),))
 
 
-async def get_password_hash(password: str | bytes) -> str:
+async def get_password_hash(
+    password: str | bytes,
+) -> str:
     """Get password hash.
 
     Args:
         password (str | bytes): Plaintext password
 
     Returns:
-        str: Hashed password.
+        str: Hashed password
     """
-
     return await asyncio.get_running_loop().run_in_executor(
         None,
         hasher.hash,
@@ -36,7 +37,7 @@ async def verify_password(
         hashed_password (str): The hash of the password
 
     Returns:
-        boll: True if password matches hash.
+        bool: True if password matches hash.
     """
     valid, _ = await asyncio.get_running_loop().run_in_executor(
         None,

@@ -8,6 +8,7 @@ from dataclasses import (
 from functools import lru_cache
 from pathlib import Path
 from typing import Final
+from uuid import uuid4
 
 from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import (
@@ -39,7 +40,7 @@ class DatabaseSettings:
     POSTGRES_HOST: str = field(default_factory=lambda: os.getenv("POSTGRES_HOST", "localhost"))
     POSTGRES_PORT: int = field(default_factory=lambda: int(os.getenv("POSTGRES_PORT", "5432")))
     POSTGRES_USER: str = field(default_factory=lambda: os.getenv("POSTGRES_USER", "postgres"))
-    POSTGRES_PASSWORD: str = field(default_factory=lambda: os.getenv("POSTGRES_PASSWORD", "secretpwd"))
+    POSTGRES_PASSWORD: str = field(default_factory=lambda: os.getenv("POSTGRES_PASSWORD", "supersecretpassword"))
     POSTGRES_DB: str = field(default_factory=lambda: os.getenv("POSTGRES_DB", "iron_track"))
     URL: str | None = None
 
@@ -67,6 +68,7 @@ class DatabaseSettings:
     MIGRATION_DDL_VERSION_TABLE: str = field(
         default_factory=lambda: os.getenv("DATABASE_MIGRATION_DDL_VERSION_TABLE", "ddl_version")
     )
+    PGBOUNCER_ENABLED: bool = field(default_factory=lambda: os.getenv("BG_BOUNCER_ENABLED", "True") in TRUE_VALUES)
 
     _engine_instance: AsyncEngine | None = None
 
@@ -81,6 +83,11 @@ class DatabaseSettings:
         return self.get_engine()
 
     def get_engine(self) -> AsyncEngine:
+        if self.PGBOUNCER_ENABLED:
+            return self.configure_pgbouncer_engine()
+        return self.configure_standard_engine()
+
+    def configure_standard_engine(self) -> AsyncEngine:
         if self._engine_instance is not None:
             return self._engine_instance
 
@@ -99,6 +106,26 @@ class DatabaseSettings:
         self._engine_instance = engine
         return self._engine_instance
 
+    def configure_pgbouncer_engine(self) -> AsyncEngine:
+        if self._engine_instance is not None:
+            return self._engine_instance
+
+        engine = create_async_engine(
+            url=self.get_connection_url(),
+            echo=self.ECHO,
+            poolclass=NullPool,
+            execution_options={
+                "compiled_cache": None,
+                "isolation_level": "READ COMMITTED",
+            },
+            connect_args={
+                "statement_cache_size": 0,
+                "prepared_statement_name_func": lambda: f"__asyncpg_{uuid4()}__",
+            },
+        )
+        self._engine_instance = engine
+        return self._engine_instance
+
 
 @dataclass
 class JWTSettings:
@@ -106,12 +133,12 @@ class JWTSettings:
 
     ALGORITHM: str = field(default_factory=lambda: os.getenv("ALGORITHM", "RS256"))
     ACCESS_TOKEN_EXPIRE_MINUTES: int = field(
-        default_factory=lambda: int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "10"))
+        default_factory=lambda: int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
     )
     REFRESH_TOKEN_EXPIRE_DAYS: int = field(default_factory=lambda: int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", "30")))
     TOKEN_URL: str = field(default_factory=lambda: os.getenv("TOKEN_URL", "/api/access/signin"))
-    OAUTH_JWT_PRIVATE_KEY: Path = BASE_DIR.joinpath("certs/private.pem")
-    OAUTH_JWT_PUBLIC_KEY: Path = BASE_DIR.joinpath("certs/public.pem")
+    OAUTH_JWT_PRIVATE_KEY: Path = field(default_factory=lambda: BASE_DIR / "certs" / "private.pem")
+    OAUTH_JWT_PUBLIC_KEY: Path = field(default_factory=lambda: BASE_DIR / "certs" / "public.pem")
 
 
 @dataclass
@@ -132,7 +159,7 @@ class RedisSettings:
         return self.get_client()
 
     def get_client(self) -> Redis:
-        return Redis.from_url(
+        redis_client: Redis = Redis.from_url(
             url=self.URL,
             encoding="utf-8",
             decode_responses=False,  # must be set to False, important for fastapi-cache
@@ -140,6 +167,7 @@ class RedisSettings:
             socket_keepalive=self.SOCKET_KEEPALIVE,
             health_check_interval=self.HEALTH_CHECK_INTERVAL,
         )
+        return redis_client
 
 
 @dataclass
@@ -150,8 +178,9 @@ class Settings:
     redis: RedisSettings = field(default_factory=RedisSettings)
 
     @classmethod
+    @lru_cache(maxsize=1, typed=True)
     def from_env(cls, dotenv_filename: str = ".env") -> Settings:
-        env_file = Path(f"{os.curdir}/{dotenv_filename}")
+        env_file = BASE_DIR / "config" / dotenv_filename
         if env_file.is_file():
             from dotenv import load_dotenv
 
@@ -160,6 +189,5 @@ class Settings:
         return Settings()
 
 
-@lru_cache(maxsize=1, typed=True)
 def get_settings() -> Settings:
     return Settings.from_env()

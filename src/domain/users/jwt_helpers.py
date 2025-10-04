@@ -1,8 +1,8 @@
 import datetime
 from uuid import UUID
 
-from config.base import get_settings
-from library.jwt_utils import encode_jwt
+from src.config.base import get_settings
+from src.lib.jwt_utils import encode_jwt
 
 settings = get_settings()
 

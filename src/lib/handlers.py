@@ -1,8 +1,8 @@
 from fastapi import Request
 from fastapi.exceptions import RequestValidationError
 
-from library.exceptions import Base
-from library.json_response import MsgSpecJSONResponse
+from src.lib.exceptions import Base
+from src.lib.json_response import MsgSpecJSONResponse
 
 
 async def http_exception_handler(

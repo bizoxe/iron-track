@@ -12,15 +12,15 @@ from advanced_alchemy.exceptions import NotFoundError
 from fastapi import Depends
 from jwt import PyJWTError
 
-from domain.users.deps import UserService
-from domain.users.schemas import UserAuth
-from library.exceptions import (
+from src.domain.users.deps import UserService
+from src.domain.users.schemas import UserAuth
+from src.lib.exceptions import (
     PermissionDeniedException,
     UnauthorizedException,
     UserNotFound,
 )
-from library.jwt_utils import decode_jwt
-from library.oauth2 import (
+from src.lib.jwt_utils import decode_jwt
+from src.lib.oauth2 import (
     access_token,
     refresh_token,
 )
@@ -33,14 +33,13 @@ log = logging.getLogger(__name__)
 def get_payload_from_token(authentication_token: str) -> dict[str, Any] | None:
     try:
         payload = decode_jwt(token=authentication_token)
-        return payload
     except PyJWTError:
         log.exception(
             "An error occurred when decoding the token",
-            exc_info=True,
         )
+        return None
 
-    return None
+    return payload
 
 
 def get_user_by_token_sub(pyload: dict[str, Any] | None) -> str:
@@ -64,8 +63,8 @@ class Authenticate:
             if not db_obj.is_active:
                 raise UnauthorizedException(message="Inactive user")
             return users_service.to_schema(db_obj, schema_type=UserAuth)
-        except NotFoundError:
-            raise UserNotFound(user_id=user_id)
+        except NotFoundError as exc:
+            raise UserNotFound(user_id=user_id) from exc
 
     @classmethod
     async def get_current_user(
@@ -78,8 +77,8 @@ class Authenticate:
         try:
             db_obj = await users_service.get(user_id)
             return users_service.to_schema(db_obj, schema_type=UserAuth)
-        except NotFoundError:
-            raise UserNotFound(user_id=user_id)
+        except NotFoundError as exc:
+            raise UserNotFound(user_id=user_id) from exc
 
     @classmethod
     def get_current_active_user(cls) -> Callable[[UserAuth], Awaitable[UserAuth]]:

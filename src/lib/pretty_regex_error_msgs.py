@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from re import Pattern
+from re import Pattern  # noqa: TC003
 from typing import (
     TYPE_CHECKING,
     Any,
@@ -27,7 +27,7 @@ def regex_validator(pattern: Pattern[str], error_message: str) -> GetPydanticSch
         source: type[Any],
         handler: GetCoreSchemaHandler,
     ) -> CoreSchema:
-        schema = chain_schema(
+        return chain_schema(
             steps=[
                 handler(source),
                 custom_error_schema(
@@ -37,6 +37,5 @@ def regex_validator(pattern: Pattern[str], error_message: str) -> GetPydanticSch
                 ),
             ]
         )
-        return schema
 
     return GetPydanticSchema(get_pydantic_core_schema)

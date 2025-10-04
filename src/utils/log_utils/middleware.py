@@ -30,7 +30,7 @@ class AccessInfo(TypedDict, total=False):
 
 
 class StructLogMiddleware:
-    def __init__(self, app: ASGIApp):
+    def __init__(self, app: ASGIApp) -> None:
         self.app = app
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
@@ -48,7 +48,7 @@ class StructLogMiddleware:
         try:
             info["start_time"] = time.perf_counter_ns()
             await self.app(scope, receive, inner_send)
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             await logger.aexception(
                 "An unhandled exception was caught by last resort middleware",
                 exception_class=e.__class__.__name__,
@@ -68,10 +68,12 @@ class StructLogMiddleware:
             client_host, client_port = scope["client"]
             http_method = scope["method"]
             http_version = scope["http_version"]
-            url = get_path_with_query_string(scope)  # type: ignore
+            url = get_path_with_query_string(scope)
 
             await logger.ainfo(
-                f"""{client_host}:{client_port} - "{http_method} {scope["path"]} HTTP/{http_version}" {info["status_code"]}""",
+                f"{client_host}:{client_port} - "
+                f"{http_method} {scope['path']} HTTP/{http_version} "
+                f"{info['status_code']}",
                 http={
                     "url": str(url),
                     "status_code": info["status_code"],

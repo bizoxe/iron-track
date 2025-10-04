@@ -3,7 +3,7 @@ from typing import Any
 
 import jwt
 
-from config.base import get_settings
+from src.config.base import get_settings
 
 settings = get_settings()
 
@@ -16,11 +16,8 @@ def encode_jwt(
     expire_timedelta: datetime.timedelta | None = None,
 ) -> str:
     to_encode = payload.copy()
-    time_now = datetime.datetime.now(datetime.timezone.utc)
-    if expire_timedelta:
-        expire = time_now + expire_timedelta
-    else:
-        expire = time_now + datetime.timedelta(minutes=expire_minutes)
+    time_now = datetime.datetime.now(tz=datetime.UTC)
+    expire = time_now + expire_timedelta if expire_timedelta else time_now + datetime.timedelta(minutes=expire_minutes)
 
     to_encode.update(
         iat=time_now,

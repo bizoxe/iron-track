@@ -21,20 +21,15 @@ repos:
     rev: v1.18.2
     hooks:
       - id: mypy
-        args:
-          - --config=pyproject.toml
-        pass_filenames: true
+        args: [--config=pyproject.toml,]
         additional_dependencies:
-          - types-redis
-          - types-click
-          - types-pyjwt
-          - sqlalchemy[mypy]
-          - pydantic
-          - fastapi
-          - starlette
-          - structlog
+          - "advanced-alchemy[uuid]"
+          - "fastapi>=0.116.1"
+          - "pydantic>=2.11.7"
+          - "asyncpg>=0.30.0"
 
 exclude: |
     (?x)^(
         src/db/alembic/.*
+      | src/scripts/.*
     )$

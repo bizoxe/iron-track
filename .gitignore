@@ -132,7 +132,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -289,6 +288,7 @@ pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,pycharm
 /project_notes/
-/fastapi-app/logs/
-/fastapi-app/certs/private.pem
-/fastapi-app/certs/public.pem
+/src/certs/private.pem
+/src/certs/public.pem
+/src/logs/
+

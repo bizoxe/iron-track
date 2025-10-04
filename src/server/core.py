@@ -13,10 +13,10 @@ from utils.log_utils.setup import configure_logging
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     configure_logging()
     queue_handler = logging.getHandlerByName("queue_handler")
-    queue_handler.listener.start()  # type: ignore
+    queue_handler.listener.start()  # type: ignore[union-attr]
 
     yield
-    queue_handler.listener.stop()  # type: ignore
+    queue_handler.listener.stop()  # type: ignore[union-attr]
 
 
 def create_app() -> FastAPI:

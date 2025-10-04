@@ -1,7 +1,7 @@
 from uuid import UUID
 
 
-class Base(Exception):
+class Base(Exception):  # noqa: N818
     def __init__(
         self,
         status_code: int,
@@ -45,7 +45,7 @@ class BadRequestException(Base):
 
 
 class ConflictException(Base):
-    def __init__(self, message: str):
+    def __init__(self, message: str) -> None:
         super().__init__(
             status_code=409,
             message=message,
@@ -53,9 +53,8 @@ class ConflictException(Base):
 
 
 class PermissionDeniedException(Base):
-    def __init__(self, message: str):
+    def __init__(self, message: str) -> None:
         super().__init__(
             status_code=403,
             message=message,
-            headers={"WWW-Authenticate": "Bearer"},
         )
