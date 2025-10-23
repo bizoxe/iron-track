@@ -27,6 +27,7 @@ repos:
           - "fastapi>=0.116.1"
           - "pydantic>=2.11.7"
           - "asyncpg>=0.30.0"
+          - types-click
 
 exclude: |
     (?x)^(
