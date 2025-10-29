@@ -22,6 +22,13 @@ TRUE_VALUES = {"True", "true", "1", "yes", "Y", "T"}
 
 
 @dataclass
+class AppSettings:
+    """Application configuration."""
+
+    API_V1_URL_PREFIX = "/api/v1"
+
+
+@dataclass
 class LogSettings:
     """Logger configuration."""
 
@@ -61,16 +68,19 @@ class DatabaseSettings:
     POOL_DISABLED: bool = field(default_factory=lambda: os.getenv("DATABASE_POOL_DISABLED", "False") in TRUE_VALUES)
     """Disable SQLAlchemy pool configuration."""
 
-    MIGRATION_CONFIG: str = field(
-        default_factory=lambda: os.getenv("DATABASE_MIGRATION_CONFIG", f"{BASE_DIR}/db/alembic/alembic.ini")
-    )
-    MIGRATION_PATH: str = field(default_factory=lambda: os.getenv("DATABASE_MIGRATION_PATH", f"{BASE_DIR}/db/alembic"))
-    MIGRATION_DDL_VERSION_TABLE: str = field(
-        default_factory=lambda: os.getenv("DATABASE_MIGRATION_DDL_VERSION_TABLE", "ddl_version")
-    )
+    MIGRATION_CONFIG: str = f"{BASE_DIR}/db/alembic/alembic.ini"
+    """The path to the `alembic.ini` configuration file."""
+    MIGRATION_PATH: str = f"{BASE_DIR}/db/alembic"
+    """The path to the `alembic` database migrations."""
+    MIGRATION_DDL_VERSION_TABLE: str = "ddl_version"
+    """The name to use for the `alembic` versions table name."""
+    FIXTURE_PATH: str = f"{BASE_DIR}/db/fixtures"
+    """The path to JSON fixture files to load into tables."""
     PGBOUNCER_ENABLED: bool = field(default_factory=lambda: os.getenv("BG_BOUNCER_ENABLED", "True") in TRUE_VALUES)
+    """Enable PgBouncer connection pooling for SQLAlchemy."""
 
     _engine_instance: AsyncEngine | None = None
+    """SQLAlchemy engine instance generated from settings."""
 
     def get_connection_url(self) -> str:
         if self.URL is not None:
@@ -172,6 +182,7 @@ class RedisSettings:
 
 @dataclass
 class Settings:
+    app: AppSettings = field(default_factory=AppSettings)
     log: LogSettings = field(default_factory=LogSettings)
     db: DatabaseSettings = field(default_factory=DatabaseSettings)
     jwt: JWTSettings = field(default_factory=JWTSettings)
