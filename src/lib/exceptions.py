@@ -1,6 +1,3 @@
-from uuid import UUID
-
-
 class Base(Exception):  # noqa: N818
     def __init__(
         self,
@@ -28,11 +25,10 @@ class UnauthorizedException(Base):
 class UserNotFound(Base):
     def __init__(
         self,
-        user_id: UUID | int | str,
     ) -> None:
         super().__init__(
             status_code=404,
-            message=f"User {user_id!r} was not found",
+            message="User not found",
         )
 
 
@@ -56,5 +52,13 @@ class PermissionDeniedException(Base):
     def __init__(self, message: str) -> None:
         super().__init__(
             status_code=403,
+            message=message,
+        )
+
+
+class NotFoundException(Base):
+    def __init__(self, message: str) -> None:
+        super().__init__(
+            status_code=404,
             message=message,
         )
