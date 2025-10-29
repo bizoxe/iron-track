@@ -1,9 +1,16 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    cast,
+)
 
 import click
 from rich import get_console
+
+if TYPE_CHECKING:
+    from src.db.models.role import Role as RoleModel
 
 console = get_console()
 
@@ -14,31 +21,18 @@ def user_management_group(_: dict[str, Any]) -> None:
     """Manage application users."""
 
 
-async def load_database_fixtures() -> None:
-    """Import/Synchronize Database Fixtures."""
-    from pathlib import Path
-
-    from advanced_alchemy.utils.fixtures import open_fixture_async
-    from sqlalchemy import select
-    from sqlalchemy.orm import load_only
-    from structlog import get_logger
-
-    from src.config.app_settings import alchemy
-    from src.config.base import get_settings
-    from src.db.models.role import Role
-    from src.domain.users.services import RoleService
-
-    logger = get_logger()
-    settings = get_settings()
-    fixture_path = Path(settings.db.FIXTURE_PATH) # type: ignore[attr-defined]
-    async with alchemy.with_async_session() as db_session:
-        async with RoleService.new(
-            statement=select(Role).options(load_only(Role.id, Role.slug, Role.name, Role.description)),
-            session=db_session,
-        ) as service:
-            fixture_data = await open_fixture_async(fixture_path, "role")
-            await service.upsert_many(match_fields=["name"], data=fixture_data, auto_commit=True)
-            await logger.ainfo("loaded roles")
+def check_roles_created(roles: list[RoleModel | None]) -> list[RoleModel]:
+    if not any(roles):
+        console.print(
+            "\n USER ROLES NOT CREATED",
+            style="#FF0000",
+        )
+        console.print(
+            "Kindly execute the create-roles command to initialize the database",
+            style="#FF0000",
+        )
+        raise click.Abort()
+    return cast("list[RoleModel]", roles)
 
 
 @user_management_group.command(name="create-user", help="Create a user.")
@@ -79,15 +73,13 @@ def create_user(
     superuser: bool | None,
 ) -> None:
     """Create a new user."""
-    from typing import cast
-
     import anyio
     import click
     from advanced_alchemy.exceptions import DuplicateKeyError
 
     from src.config.app_settings import alchemy
-    from src.domain.users.deps import provide_users_service
-    from src.domain.users.schemas import UserCreate
+    from src.config.constants import SUPERUSER_ROLE_SLUG
+    from src.domain.users.deps import provide_role_service, provide_users_service
 
     async def _create_user(
         email: str,
@@ -95,20 +87,27 @@ def create_user(
         name: str | None = None,
         superuser: bool = False,
     ) -> None:
-        obj_in = UserCreate(
-            name=name,
-            email=email,
-            password=password,
-            is_superuser=superuser,
-        )
+        obj_data = {
+            "name": name,
+            "email": email,
+            "password": password,
+            "is_superuser": superuser,
+        }
         async with alchemy.with_async_session() as db_session:
-            users_service = await anext(provide_users_service(db_session))
+            users_service = await anext(provide_users_service(db_session=db_session))
+            roles_service = await anext(provide_role_service(db_session=db_session))
+            default_role = await roles_service.get_one_or_none(slug=users_service.default_role)
+            superuser_role = await roles_service.get_one_or_none(slug=SUPERUSER_ROLE_SLUG)
+            default_role, superuser_role = check_roles_created([default_role, superuser_role])
             try:
-                user = await users_service.create(data=obj_in, auto_commit=True)
+                user = await users_service.create(
+                    data=obj_data | {"role_id": superuser_role.id if superuser else default_role.id},
+                    auto_commit=True,
+                )
                 console.print(f"User created with email: {user.email}", style="#ffff00")
             except DuplicateKeyError:
                 console.print(
-                    f"User with email '{obj_in.email}' already exists in the database",
+                    f"User with email '{email}' already exists in the database",
                     style="#FF0000",
                 )
 
@@ -117,7 +116,7 @@ def create_user(
     email = email or click.prompt("Email")
     password = password or click.prompt("Password", hide_input=True, confirmation_prompt=True)
     superuser = superuser or click.prompt("Create a superuser (bool value)?", show_default=True, type=click.BOOL)
-    anyio.run(_create_user, cast("str", email), cast("str", password), name, cast("bool", superuser))
+    anyio.run(_create_user, email, password, name, superuser)
 
 
 @user_management_group.command(name="promote-to-superuser", help="Promotes a user to application superuser.")
@@ -125,7 +124,7 @@ def create_user(
     "--email",
     help="Email of the user",
     type=click.STRING,
-    required=False,
+    required=True,
     show_default=False,
 )
 def promote_to_superuser(email: str) -> None:
@@ -135,25 +134,24 @@ def promote_to_superuser(email: str) -> None:
         email (str): The email address of the user to promote.
     """
     import anyio
-    import click
 
     from src.config.app_settings import alchemy
-    from src.domain.users.deps import provide_users_service
-    from src.domain.users.schemas import UserUpdate
+    from src.config.constants import SUPERUSER_ROLE_SLUG
+    from src.domain.users.deps import provide_role_service, provide_users_service
 
     async def _promote_to_superuser(email: str) -> None:
         async with alchemy.with_async_session() as db_session:
             users_service = await anext(provide_users_service(db_session=db_session))
+            role_service = await anext(provide_role_service(db_session=db_session))
+            superuser_role = await role_service.get_one_or_none(slug=SUPERUSER_ROLE_SLUG)
+            superuser_role = check_roles_created([superuser_role])[0]
             user = await users_service.get_one_or_none(email=email)
             if user:
                 console.print(f"Promoting user: {user.email}", style="#ffff00")
-                user_to_update = UserUpdate(
-                    email=email,
-                    is_superuser=True,
-                )
+                obj_data = {"is_superuser": True, "role_id": superuser_role.id}
                 user = await users_service.update(
                     item_id=user.id,
-                    data=user_to_update,
+                    data=obj_data,
                     auto_commit=True,
                 )
                 console.print(f"Upgraded user with email: '{user.email}' to superuser", style="#ffff00")
@@ -161,59 +159,75 @@ def promote_to_superuser(email: str) -> None:
                 console.print(f"User with email: {email} not found", style="#FF0000")
 
     console.rule("Promote user to superuser.")
-    email = email or click.prompt("Email")
     anyio.run(_promote_to_superuser, email)
 
 
-@user_management_group.command(name="create-roles", help="Create pre-configured application roles and assign to users.")
-def create_default_roles() -> None:
-    """Create the default Roles for the system."""
-    from typing import TYPE_CHECKING
-
+@user_management_group.command(name="create-system-admin", help="Create system default administrator.")
+@click.option(
+    "--password",
+    help="Admin password",
+    type=click.STRING,
+    required=False,
+    show_default=False,
+)
+def create_system_admin(password: str | None) -> None:
+    """Create system default administrator."""
     import anyio
-    from advanced_alchemy.utils.text import slugify
+    import click
 
     from src.config.app_settings import alchemy
-    from src.config.constants import SUPERUSER_ACCESS_ROLE
-    from src.db.models.user_role import UserRole
+    from src.config.constants import DEFAULT_ADMIN_EMAIL, SUPERUSER_ROLE_SLUG
     from src.domain.users.deps import provide_role_service, provide_users_service
 
-    if TYPE_CHECKING:
-        from collections.abc import Sequence
-
-        from src.db.models.role import Role
-        from src.db.models.user import User
-
-    def _assign_role_to_users(users: Sequence[User], role: Role, role_name: str) -> None:
-        for user in users:
-            if any(r.role_id == role.id for r in user.roles):
-                console.print(f"User '{user.email}' already has a {role_name} role", style="#FF0000")
-            else:
-                user.roles.append(UserRole(role_id=role.id))
-                console.print(f"Assigned '{user.email}' {role_name} role", style="#ffff00")
-
-    async def _create_default_roles() -> None:
-        await load_database_fixtures()
+    async def _create_system_admin(password: str) -> None:
+        obj_data = {
+            "name": "System Administrator",
+            "email": DEFAULT_ADMIN_EMAIL,
+            "password": password,
+            "is_superuser": True,
+        }
         async with alchemy.with_async_session() as db_session:
             users_service = await anext(provide_users_service(db_session=db_session))
-            roles_service = await anext(provide_role_service(db_session=db_session))
-            superuser_role = await roles_service.get_one_or_none(slug=slugify(SUPERUSER_ACCESS_ROLE))
-            default_user_role = await roles_service.get_one_or_none(slug=slugify(users_service.default_role))
-            if default_user_role:
-                all_active_users = await users_service.list(is_active=True, is_superuser=False)
-                _assign_role_to_users(
-                    users=all_active_users,
-                    role=default_user_role,
-                    role_name="default",
-                )
-            if superuser_role:
-                all_superusers = await users_service.list(is_superuser=True)
-                _assign_role_to_users(
-                    users=all_superusers,
-                    role=superuser_role,
-                    role_name="superuser",
-                )
-            await db_session.commit()
+            role_service = await anext(provide_role_service(db_session=db_session))
+            superuser_role = await role_service.get_one_or_none(slug=SUPERUSER_ROLE_SLUG)
+            superuser_role = check_roles_created(roles=[superuser_role])[0]
+            if not await users_service.exists(email=obj_data["email"]):
+                await users_service.create(data=obj_data | {"role_id": superuser_role.id}, auto_commit=True)
+                console.print("System administrator was created", style="#ffff00")
+            else:
+                console.print("System administrator already exists", style="#FF0000")
+
+    console.rule("Create system administrator.")
+    password = password or click.prompt("Password", hide_input=True, confirmation_prompt=True)
+    anyio.run(_create_system_admin, password)
+
+
+@user_management_group.command(name="create-roles", help="Create pre-configured application roles.")
+def create_default_roles() -> None:
+    """Create the default Roles for the system."""
+    from pathlib import Path
+
+    import anyio
+    from advanced_alchemy.utils.fixtures import open_fixture_async
+    from sqlalchemy import select
+    from sqlalchemy.orm import load_only
+
+    from src.config.app_settings import alchemy
+    from src.config.base import get_settings
+    from src.db.models.role import Role
+    from src.domain.users.services import RoleService
+
+    async def _create_default_roles() -> None:
+        settings = get_settings()
+        fixture_path = Path(settings.db.FIXTURE_PATH)
+        async with alchemy.with_async_session() as db_session:
+            async with RoleService.new(
+                statement=select(Role).options(load_only(Role.id, Role.slug, Role.name, Role.description)),
+                session=db_session,
+            ) as service:
+                fixture_data = await open_fixture_async(fixture_path, "role")
+                await service.upsert_many(match_fields=["name"], data=fixture_data, auto_commit=True)
+                console.print("Successfully loaded and synchronized default roles", style="#ffff00")
 
     console.rule("Creating default roles.")
     anyio.run(_create_default_roles)
