@@ -1,8 +1,11 @@
 from typing import Any
 
-import msgspec
 from fastapi.encoders import jsonable_encoder
 from fastapi_cache import Coder
+from msgspec import json as mjson
+
+_JSON_ENCODER = mjson.Encoder()
+_JSON_DECODER = mjson.Decoder(Any)
 
 
 class MsgSpecJsonCoder(Coder):
@@ -10,8 +13,8 @@ class MsgSpecJsonCoder(Coder):
 
     @classmethod
     def encode(cls, value: Any) -> bytes:
-        return msgspec.json.encode(jsonable_encoder(value))
+        return _JSON_ENCODER.encode(jsonable_encoder(value))
 
     @classmethod
     def decode(cls, value: bytes) -> Any:
-        return msgspec.json.decode(value)
+        return _JSON_DECODER.decode(value)

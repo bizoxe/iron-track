@@ -21,16 +21,9 @@ repos:
     rev: v1.18.2
     hooks:
       - id: mypy
-        args: [--config=pyproject.toml,]
         additional_dependencies:
           - "advanced-alchemy[uuid]"
           - "fastapi>=0.116.1"
           - "pydantic>=2.11.7"
           - "asyncpg>=0.30.0"
           - types-click
-
-exclude: |
-    (?x)^(
-        src/db/alembic/.*
-      | src/scripts/.*
-    )$
