@@ -1,0 +1,103 @@
+services:
+
+  valkey:
+    container_name: valkey_iron_track
+    hostname: valkey
+    image: valkey/valkey:8.1.0-bookworm
+    environment:
+      ALLOW_EMPTY_PASSWORD: "yes"
+    volumes:
+      - cache-data:/data
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    healthcheck:
+      test: [ "CMD-SHELL", "redis-cli ping | grep PONG" ]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+  postgres:
+    build:
+      context: .
+      dockerfile: ./deploy/postgres/Dockerfile
+    container_name: postgres_V17_iron_track
+    hostname: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secretpwd}
+      DB_USER: ${DB_USER:-alfacat}
+      DB_USER_PASSWORD: ${DB_USER_PASSWORD:-alfacatpwd}
+      DB_NAME: ${DB_NAME:-iron_track}
+      PGBOUNCER_ADMIN_USER: ${PGBOUNCER_ADMIN_USER:-admin}
+      PGBOUNCER_ADMIN_PASSWORD: ${PGBOUNCER_ADMIN_PASSWORD:-adminpwd}
+      PGBOUNCER_MONITOR_USER: ${PGBOUNCER_MONITOR_USER:-monitor}
+      PGBOUNCER_MONITOR_PASSWORD: ${PGBOUNCER_MONITOR_PASSWORD:-monitorpwd}
+    ports:
+      - ${POSTGRES_PORT:-5432}:${POSTGRES_PORT:-5432}
+    volumes:
+      - "pgdata:/var/lib/postgresql/data"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - custom
+
+  pgbouncer:
+    build:
+      context: .
+      dockerfile: ./deploy/pgbouncer/Dockerfile
+    container_name: pgbouncer_iron_track
+    restart: unless-stopped
+    ports:
+      - "6432:6432"
+    environment:
+      DB_HOST: ${DB_HOST:-postgres}
+      DB_NAME: ${DB_NAME:-iron_track}
+      DB_USER: ${DB_USER:-alfacat}
+      DB_USER_PASSWORD: ${DB_USER_PASSWORD:-alfacatpwd}
+      PGBOUNCER_POSTGRES_PORT: ${PGBOUNCER_POSTGRES_PORT:-5432}
+
+      PGBOUNCER_ADMIN_USER: ${PGBOUNCER_ADMIN_USER:-admin}
+      PGBOUNCER_MONITOR_USER: ${PGBOUNCER_MONITOR_USER:-monitor}
+      PGBOUNCER_ADMIN_PASSWORD: ${PGBOUNCER_ADMIN_PASSWORD:-adminpwd}
+      PGBOUNCER_MONITOR_PASSWORD: ${PGBOUNCER_MONITOR_PASSWORD:-monitorpwd}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - custom
+    healthcheck:
+      test: [ "CMD-SHELL", "PGPASSWORD=${PGBOUNCER_MONITOR_PASSWORD:-monitorpwd} psql -h localhost -p 6432 -U ${PGBOUNCER_MONITOR_USER:-monitor} -d pgbouncer -c 'SHOW STATS'" ]
+      interval: 120s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  pgadmin:
+    container_name: pg_admin_iron_track
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
+      PGADMIN_DEFAULT_PASSWORD: root
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "5050:80"
+    restart: unless-stopped
+    networks:
+      - custom
+
+volumes:
+  cache-data:
+  pgdata:
+
+networks:
+  custom:
+    driver: bridge
