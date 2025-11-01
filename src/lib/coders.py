@@ -2,19 +2,34 @@ from typing import Any
 
 from fastapi.encoders import jsonable_encoder
 from fastapi_cache import Coder
-from msgspec import json as mjson
+from msgspec import msgpack
 
-_JSON_ENCODER = mjson.Encoder()
-_JSON_DECODER = mjson.Decoder(Any)
+from src.domain.users.schemas import UserAuth
 
 
-class MsgSpecJsonCoder(Coder):
-    """Custom coder to encode and decode Redis cache results."""
+class MsgPackCoderBase(Coder):
+    """Base coder to encode and decode Redis cache results."""
+
+    _MSGPACK_ENCODER = msgpack.Encoder()
+    _MSGPACK_DECODER_DICT = msgpack.Decoder(dict)
 
     @classmethod
     def encode(cls, value: Any) -> bytes:
-        return _JSON_ENCODER.encode(jsonable_encoder(value))
+        return cls._MSGPACK_ENCODER.encode(jsonable_encoder(value))
 
     @classmethod
     def decode(cls, value: bytes) -> Any:
-        return _JSON_DECODER.decode(value)
+        raise NotImplementedError
+
+
+class MsgPackCoder(MsgPackCoderBase):
+    @classmethod
+    def decode(cls, value: bytes) -> dict[str, Any]:
+        return cls._MSGPACK_DECODER_DICT.decode(value)
+
+
+class MsgPackCoderUserAuth(MsgPackCoderBase):
+    @classmethod
+    def decode(cls, value: bytes) -> UserAuth:
+        raw_data = cls._MSGPACK_DECODER_DICT.decode(value)
+        return UserAuth.model_validate(raw_data)
