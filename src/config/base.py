@@ -5,10 +5,12 @@ from dataclasses import (
     dataclass,
     field,
 )
-from functools import lru_cache
+from functools import (
+    cached_property,
+    lru_cache,
+)
 from pathlib import Path
 from typing import Final
-from uuid import uuid4
 
 from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import (
@@ -123,14 +125,16 @@ class DatabaseSettings:
         engine = create_async_engine(
             url=self.get_connection_url(),
             echo=self.ECHO,
-            poolclass=NullPool,
+            pool_size=self.POOL_SIZE,  # must be consistent with the pgbouncer pool
+            max_overflow=self.POOL_MAX_OVERFLOW,  # must be consistent with the pgbouncer pool
+            pool_pre_ping=self.POOL_PRE_PING,
+            pool_recycle=self.POOL_RECYCLE,
             execution_options={
                 "compiled_cache": None,
                 "isolation_level": "READ COMMITTED",
             },
             connect_args={
                 "statement_cache_size": 0,
-                "prepared_statement_name_func": lambda: f"__asyncpg_{uuid4()}__",
             },
         )
         self._engine_instance = engine
@@ -146,9 +150,16 @@ class JWTSettings:
         default_factory=lambda: int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
     )
     REFRESH_TOKEN_EXPIRE_DAYS: int = field(default_factory=lambda: int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", "30")))
-    TOKEN_URL: str = field(default_factory=lambda: os.getenv("TOKEN_URL", "/api/access/signin"))
-    OAUTH_JWT_PRIVATE_KEY: Path = field(default_factory=lambda: BASE_DIR / "certs" / "private.pem")
-    OAUTH_JWT_PUBLIC_KEY: Path = field(default_factory=lambda: BASE_DIR / "certs" / "public.pem")
+    AUTH_JWT_PRIVATE_KEY: Path = field(default_factory=lambda: BASE_DIR / "certs" / "private.pem")
+    AUTH_JWT_PUBLIC_KEY: Path = field(default_factory=lambda: BASE_DIR / "certs" / "public.pem")
+
+    @cached_property
+    def auth_jwt_private_key(self) -> str:
+        return self.AUTH_JWT_PRIVATE_KEY.read_text()
+
+    @cached_property
+    def auth_jwt_public_key(self) -> str:
+        return self.AUTH_JWT_PUBLIC_KEY.read_text()
 
 
 @dataclass
