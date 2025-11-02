@@ -1,4 +1,4 @@
-class Base(Exception):  # noqa: N818
+class BaseAPIException(Exception):  # noqa: N818
     def __init__(
         self,
         status_code: int,
@@ -10,7 +10,7 @@ class Base(Exception):  # noqa: N818
         self.headers = headers
 
 
-class UnauthorizedException(Base):
+class UnauthorizedException(BaseAPIException):
     def __init__(
         self,
         message: str = "Not authenticated",
@@ -18,11 +18,10 @@ class UnauthorizedException(Base):
         super().__init__(
             status_code=401,
             message=message,
-            headers={"WWW-Authenticate": "Bearer"},
         )
 
 
-class UserNotFound(Base):
+class UserNotFound(BaseAPIException):
     def __init__(
         self,
     ) -> None:
@@ -32,7 +31,7 @@ class UserNotFound(Base):
         )
 
 
-class BadRequestException(Base):
+class BadRequestException(BaseAPIException):
     def __init__(self, message: str) -> None:
         super().__init__(
             status_code=400,
@@ -40,7 +39,7 @@ class BadRequestException(Base):
         )
 
 
-class ConflictException(Base):
+class ConflictException(BaseAPIException):
     def __init__(self, message: str) -> None:
         super().__init__(
             status_code=409,
@@ -48,7 +47,7 @@ class ConflictException(Base):
         )
 
 
-class PermissionDeniedException(Base):
+class PermissionDeniedException(BaseAPIException):
     def __init__(self, message: str) -> None:
         super().__init__(
             status_code=403,
@@ -56,7 +55,7 @@ class PermissionDeniedException(Base):
         )
 
 
-class NotFoundException(Base):
+class NotFoundException(BaseAPIException):
     def __init__(self, message: str) -> None:
         super().__init__(
             status_code=404,
