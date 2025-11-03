@@ -11,7 +11,7 @@ import structlog
 from starlette.responses import JSONResponse
 from uvicorn.protocols.utils import get_path_with_query_string
 
-from config.base import get_settings
+from src.config.base import get_settings
 
 settings = get_settings()
 
@@ -30,6 +30,8 @@ class AccessInfo(TypedDict, total=False):
 
 
 class StructLogMiddleware:
+    """ASGI middleware for structured request logging."""
+
     def __init__(self, app: ASGIApp) -> None:
         self.app = app
 
@@ -39,10 +41,13 @@ class StructLogMiddleware:
             return
 
         info = AccessInfo()
+        response_started = False
 
         async def inner_send(message: MutableMapping[str, Any]) -> None:
+            nonlocal response_started
             if message["type"] == "http.response.start":
                 info["status_code"] = message["status"]
+                response_started = True
             await send(message)
 
         try:
@@ -50,30 +55,31 @@ class StructLogMiddleware:
             await self.app(scope, receive, inner_send)
         except Exception as e:  # noqa: BLE001
             await logger.aexception(
-                "An unhandled exception was caught by last resort middleware",
+                "Unhandled exception in request lifecycle",
                 exception_class=e.__class__.__name__,
-                exc_info=e,
+                http_status=500,
             )
             info["status_code"] = 500
-            response = JSONResponse(
-                status_code=500,
-                content={
-                    "error": "Internal Server Error",
-                    "message": "An unexpected error occurred.",
-                },
-            )
-            await response(scope, receive, send)
+            if not response_started:
+                response = JSONResponse(
+                    status_code=500,
+                    content={
+                        "error": "Internal Server Error",
+                        "message": "An unexpected error occurred.",
+                    },
+                )
+                await response(scope, receive, send)
         finally:
             process_time = (time.perf_counter_ns() - info["start_time"]) / 1_000_000
-            client_host, client_port = scope["client"]
+            client_info = scope.get("client")
+            client_host, client_port = client_info if client_info is not None else ("-", 0)
             http_method = scope["method"]
             http_version = scope["http_version"]
-            url = get_path_with_query_string(scope)
+            url = get_path_with_query_string(scope)  # type: ignore[arg-type]
 
             await logger.ainfo(
-                f"{client_host}:{client_port} - "
-                f"{http_method} {scope['path']} HTTP/{http_version} "
-                f"{info['status_code']}",
+                "request_completed",
+                duration_ms=process_time,
                 http={
                     "url": str(url),
                     "status_code": info["status_code"],
@@ -81,5 +87,6 @@ class StructLogMiddleware:
                     "version": http_version,
                 },
                 network={"client": {"ip": client_host, "port": client_port}},
-                duration_ms=process_time,
+                path=scope["path"],
+                client_ip=client_host,
             )
