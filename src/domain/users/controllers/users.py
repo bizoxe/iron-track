@@ -28,7 +28,10 @@ from fastapi_cache.decorator import cache
 from src.config.app_settings import alchemy
 from src.domain.users import urls
 from src.domain.users.auth import Authenticate
-from src.domain.users.deps import UserServiceDep  # noqa: TC001
+from src.domain.users.deps import (
+    RoleServiceDep,  # noqa: TC001
+    UserServiceDep,  # noqa: TC001
+)
 from src.domain.users.schemas import (
     User,
     UserAuth,
@@ -62,11 +65,17 @@ users_router = APIRouter(
     description="A user who can login and use the system.",
 )
 async def create_user(
-    _: Annotated[UserAuth, Depends(Authenticate.superuser_required())], users_service: UserServiceDep, data: UserCreate
+    _: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
+    users_service: UserServiceDep,
+    roles_service: RoleServiceDep,
+    data: UserCreate,
 ) -> User:
     """Create a new user in the system."""
+    role_obj = await roles_service.get_default_role(
+        default_role_slug=users_service.default_role,
+    )
     try:
-        db_obj = await users_service.create(data=data)
+        db_obj = await users_service.create(data=data.model_dump() | {"role_id": role_obj.id})
         return users_service.to_schema(db_obj, schema_type=User)
     except DuplicateKeyError as exc:
         msg = f"A user with the email '{data.email}' is already registered in the system"
