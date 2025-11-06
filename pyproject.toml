@@ -14,6 +14,7 @@ dependencies = [
     "fastapi>=0.116.1",
     "fastapi-cache2>=0.2.2",
     "fastapi-cli>=0.0.8",
+    "gunicorn>=23.0.0",
     "msgspec>=0.19.0",
     "pwdlib[argon2]>=0.2.1",
     "pyjwt[crypto]>=2.10.1",
@@ -61,8 +62,8 @@ exclude = [
     "node_modules",
     "site-packages",
     "venv",
-    "__init__.py",
-    "src/db/alembic/*",
+    "src/db/alembic/versions/*.py",
+    "src/scripts/*",
 ]
 fix = true
 line-length = 120
@@ -99,19 +100,25 @@ max-complexity = 8
 known-first-party = ["src"]
 
 [tool.mypy]
-python_version = "3.12"
-strict = true
-show_error_codes = true
-disallow_any_unimported = false
-disallow_subclassing_any = true
-warn_unreachable = true
-warn_unused_configs = true
-ignore_missing_imports = true
+disallow_any_generics = false
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true
+disallow_untyped_defs = true
 exclude = '''(?x)(
     ^.venv/
   | ^src/db/alembic/
   | ^src/scripts/
 )'''
+implicit_reexport = false
+plugins = [
+  "pydantic.mypy"
+]
+strict = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_configs = true
+warn_unused_ignores = true
 
 [[tool.mypy.overrides]]
 module = [
