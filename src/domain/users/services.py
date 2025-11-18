@@ -88,7 +88,6 @@ class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
             msg = "Current password is incorrect"
             raise UnauthorizedException(message=msg)
         user_obj.hashed_password = await crypt.get_password_hash(data.new_password)
-        await self.repository.update(user_obj)
 
     def check_critical_action_forbidden(
         self,
@@ -114,6 +113,7 @@ class RoleService(service.SQLAlchemyAsyncRepositoryService[m.Role]):
         model_type = m.Role
 
     repository_type = RoleRepository
+    match_fields = ["name"]  # noqa: RUF012
 
     async def get_id_and_slug_by_slug(self, slug: str) -> m.Role:
         """Retrieve the role object with column optimization."""
