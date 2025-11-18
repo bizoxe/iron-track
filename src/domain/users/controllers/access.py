@@ -194,6 +194,7 @@ async def logout(
 async def update_password(
     user_auth: Annotated[UserAuth, Depends(Authenticate.get_current_active_user())],
     users_service: UserServiceDep,
+    redis_client: RedisClientDep,
     pwd_data: PasswordUpdate,
 ) -> Response:
     """Update user password."""
@@ -201,7 +202,10 @@ async def update_password(
         data=pwd_data,
         user_id=user_auth.id,
     )
-    await invalidate_user_cache(user_id=user_auth.id)
+    await invalidate_user_cache(
+        user_id=user_auth.id,
+        redis_client=redis_client,
+    )
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 

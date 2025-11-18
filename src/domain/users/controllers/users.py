@@ -3,8 +3,6 @@
 Defines all user account CRUD operations, requiring superuser privileges.
 """
 
-from __future__ import annotations
-
 from typing import (
     TYPE_CHECKING,
     Annotated,
@@ -15,7 +13,7 @@ from advanced_alchemy.exceptions import (
     DuplicateKeyError,
     NotFoundError,
 )
-from advanced_alchemy.filters import FilterTypes  # noqa: TC002
+from advanced_alchemy.filters import FilterTypes
 from advanced_alchemy.service import OffsetPagination
 from fastapi import (
     APIRouter,
@@ -29,8 +27,8 @@ from src.config.app_settings import alchemy
 from src.domain.users import urls
 from src.domain.users.auth import Authenticate
 from src.domain.users.deps import (
-    RoleServiceDep,  # noqa: TC001
-    UserServiceDep,  # noqa: TC001
+    RoleServiceDep,
+    UserServiceDep,
 )
 from src.domain.users.schemas import (
     User,
@@ -40,6 +38,7 @@ from src.domain.users.schemas import (
 )
 from src.lib.cache_key_builders import query_params_key_builder
 from src.lib.coders import MsgPackCoder
+from src.lib.deps import RedisClientDep
 from src.lib.exceptions import (
     ConflictException,
     UserNotFound,
@@ -133,7 +132,7 @@ async def get_list_users(
             )
         ),
     ],
-) -> OffsetPagination[UserModel]:
+) -> OffsetPagination["UserModel"]:
     """Retrieve a list of users."""
     results, count = await users_service.list_and_count(*filters)
 
@@ -149,6 +148,7 @@ async def get_list_users(
 async def update_user(
     super_user: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
     users_service: UserServiceDep,
+    redis_client: RedisClientDep,
     data: UserUpdate,
     user_id: UUID,
 ) -> User:
@@ -160,7 +160,10 @@ async def update_user(
             calling_superuser_id=super_user.id,
         )
         db_obj = await users_service.update(data=data, item_id=user_id)
-        await invalidate_user_cache(user_id=db_obj.id)
+        await invalidate_user_cache(
+            user_id=db_obj.id,
+            redis_client=redis_client,
+        )
         return users_service.to_schema(db_obj, schema_type=User)
     except (NotFoundError, DuplicateKeyError) as exc:
         if isinstance(exc, NotFoundError):
@@ -178,6 +181,7 @@ async def update_user(
 async def delete_user(
     super_user: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
     users_service: UserServiceDep,
+    redis_client: RedisClientDep,
     user_id: UUID,
 ) -> Response:
     """Delete a user from the system."""
@@ -188,7 +192,10 @@ async def delete_user(
             calling_superuser_id=super_user.id,
         )
         _ = await users_service.delete(item_id=user_id)
-        await invalidate_user_cache(user_id=user_id)
+        await invalidate_user_cache(
+            user_id=user_id,
+            redis_client=redis_client,
+        )
         return Response(status_code=status.HTTP_204_NO_CONTENT)
     except NotFoundError as exc:
         raise UserNotFound from exc

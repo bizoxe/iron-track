@@ -1,10 +1,25 @@
-from uuid import UUID
+from __future__ import annotations
 
-from fastapi_cache import FastAPICache
+from typing import TYPE_CHECKING
+
+from src.config.constants import (
+    FASTAPI_CACHE_PREFIX,
+    USER_AUTH_CACHE_PREFIX,
+)
+
+if TYPE_CHECKING:
+    from uuid import UUID
+
+    from src.lib.deps import RedisClientDep
+
+USER_AUTH_CACHE_NAMESPACE = f"{FASTAPI_CACHE_PREFIX}:{USER_AUTH_CACHE_PREFIX}"
 
 
-async def invalidate_user_cache(user_id: UUID) -> None:
+async def invalidate_user_cache(
+    user_id: UUID,
+    redis_client: RedisClientDep,
+) -> None:
     """Invalidates the cached authentication/authorization data for a user by their ID."""
-    cache_key = f"user_auth:{user_id}"
+    cache_key = f"{USER_AUTH_CACHE_NAMESPACE}:{user_id}"
 
-    await FastAPICache.clear(cache_key)
+    await redis_client.delete(cache_key)

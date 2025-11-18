@@ -22,6 +22,7 @@ from src.domain.users.schemas import (
     UserRoleRevoke,
 )
 from src.domain.users.utils import check_user_before_modify_role
+from src.lib.deps import RedisClientDep
 from src.lib.exceptions import ConflictException
 from src.lib.invalidate_cache import invalidate_user_cache
 from src.lib.json_response import MsgSpecJSONResponse
@@ -31,11 +32,15 @@ role_router = APIRouter(
 )
 
 
-@role_router.patch(path=urls.ACCOUNT_ASSIGN_ROLE)
-async def assign_new_role(
+@role_router.patch(
+    path=urls.ACCOUNT_ASSIGN_ROLE,
+    name="roles:assign",
+)
+async def assign_new_role(  # noqa: PLR0913
     super_user: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
     users_service: UserServiceDep,
     roles_service: RoleServiceDep,
+    redis_client: RedisClientDep,
     user_add_role: UserRoleAdd,
     email: str,
 ) -> MsgSpecJSONResponse:
@@ -61,17 +66,24 @@ async def assign_new_role(
         raise ConflictException(message=msg)
 
     await users_service.update(data={"role_id": new_role.id}, item_id=user_obj.id)
-    await invalidate_user_cache(user_id=user_obj.id)
+    await invalidate_user_cache(
+        user_id=user_obj.id,
+        redis_client=redis_client,
+    )
     return MsgSpecJSONResponse(
         content={"message": f"Successfully assigned the '{new_role.slug}' role to {user_obj.email}"},
     )
 
 
-@role_router.patch(path=urls.ACCOUNT_REVOKE_ROLE)
-async def revoke_and_set_default_role(
+@role_router.patch(
+    path=urls.ACCOUNT_REVOKE_ROLE,
+    name="roles:revoke",
+)
+async def revoke_and_set_default_role(  # noqa: PLR0913
     super_user: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
     users_service: UserServiceDep,
     roles_service: RoleServiceDep,
+    redis_client: RedisClientDep,
     user_revoke_role: UserRoleRevoke,
     email: str,
 ) -> MsgSpecJSONResponse:
@@ -97,7 +109,10 @@ async def revoke_and_set_default_role(
             default_role_slug=users_service.default_role,
         )
         await users_service.update(data={"role_id": default_role.id}, item_id=user_obj.id)
-        await invalidate_user_cache(user_id=user_obj.id)
+        await invalidate_user_cache(
+            user_id=user_obj.id,
+            redis_client=redis_client,
+        )
         return MsgSpecJSONResponse(
             content={
                 "message": (

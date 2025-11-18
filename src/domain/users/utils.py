@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 
 from src.domain.users.jwt_helpers import add_token_to_blacklist
 from src.lib.exceptions import (
-    BadRequestException,
+    PermissionDeniedException,
     UserNotFound,
 )
 from src.lib.invalidate_cache import invalidate_user_cache
@@ -40,7 +40,7 @@ async def check_user_before_modify_role(
         raise UserNotFound
     if not user_obj.is_active:
         msg = f"Cannot modify role for inactive user {user_obj.email}"
-        raise BadRequestException(message=msg)
+        raise PermissionDeniedException(message=msg)
 
     return user_obj
 
@@ -62,5 +62,8 @@ async def perform_logout_cleanup(refresh_jti: str, user_id: UUID, redis_client: 
             refresh_token_identifier=refresh_jti,
             redis_client=redis_client,
         ),
-        invalidate_user_cache(user_id=user_id),
+        invalidate_user_cache(
+            user_id=user_id,
+            redis_client=redis_client,
+        ),
     )
