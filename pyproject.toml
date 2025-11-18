@@ -27,12 +27,18 @@ dependencies = [
 ]
 
 [dependency-groups]
-dev = [
+dev = [{ include-group = "linting" }, { include-group = "test" }]
+linting = [
     "pre-commit>=4.2.0",
-]
-lint = [
     "mypy>=1.18.2",
     "ruff>=0.13.2",
+]
+
+test = [
+    "pytest>=8.4.2",
+    "pytest-databases[postgres,redis]==0.15.0",
+    "httpx>=0.28.1",
+    "pytest-mock>=3.15.1",
 ]
 
 [tool.ruff]
@@ -84,6 +90,8 @@ lint.ignore = [
     "S106",    # hardcoded-password-func-arg
     "ANN401",  # any-type
     "ARG001",  # unused-function-argument
+    "PT022",   # pytest-useless-yield-fixture
+    "S101",    # checks for uses of the assert keyword
 ]
 lint.select = ["ALL"]
 lint.extend-select = ["I"]
