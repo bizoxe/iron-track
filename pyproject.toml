@@ -35,11 +35,26 @@ linting = [
 ]
 
 test = [
-    "pytest>=8.4.2",
+    "pytest",
+    "pytest-sugar",
+    "pytest-xdist",
+    "pytest-cov",
+    "coverage",
     "pytest-databases[postgres,redis]==0.15.0",
-    "httpx>=0.28.1",
-    "pytest-mock>=3.15.1",
+    "httpx",
+    "pytest-mock",
 ]
+
+[tool.uv]
+default-groups = ["dev"]
+
+[tool.pytest.ini_options]
+addopts = [
+    "-ra",
+    "--ignore", "src/db/alembic",
+    "-n", "auto"
+]
+testpaths = ["tests"]
 
 [tool.ruff]
 exclude = [
