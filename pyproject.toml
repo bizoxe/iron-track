@@ -51,8 +51,7 @@ default-groups = ["dev"]
 [tool.pytest.ini_options]
 addopts = [
     "-ra",
-    "--ignore", "src/db/alembic",
-    "-n", "auto"
+    "--ignore", "src/db/alembic"
 ]
 testpaths = ["tests"]
 
@@ -152,3 +151,7 @@ module = [
 ]
 warn_return_any = false
 disallow_subclassing_any = false
+
+[[tool.mypy.overrides]]
+disallow_untyped_decorators = false
+module = ["tests.*"]
