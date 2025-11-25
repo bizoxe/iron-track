@@ -1,0 +1,16 @@
+{
+  "name": "Push Press",
+  "force": "push",
+  "difficulty_level": "expert",
+  "mechanic": "compound",
+  "equipment": "barbell",
+  "primary_muscles": [
+    "shoulders"
+  ],
+  "secondary_muscles": [
+    "quadriceps",
+    "triceps"
+  ],
+  "instructions": [],
+  "category": "olympic weightlifting"
+}

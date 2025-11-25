@@ -1,0 +1,13 @@
+{
+  "name": "Side Jackknife",
+  "force": "pull",
+  "difficulty_level": "beginner",
+  "mechanic": "compound",
+  "equipment": "body only",
+  "primary_muscles": [
+    "abdominals"
+  ],
+  "secondary_muscles": [],
+  "instructions": [],
+  "category": "strength"
+}

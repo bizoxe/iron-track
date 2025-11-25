@@ -1,0 +1,20 @@
+{
+  "name": "Iron Cross",
+  "force": "push",
+  "difficulty_level": "intermediate",
+  "mechanic": "compound",
+  "equipment": "dumbbell",
+  "primary_muscles": [
+    "shoulders"
+  ],
+  "secondary_muscles": [
+    "chest",
+    "glutes",
+    "hamstrings",
+    "lower back",
+    "quadriceps",
+    "traps"
+  ],
+  "instructions": [],
+  "category": "strength"
+}

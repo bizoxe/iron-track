@@ -1,0 +1,19 @@
+{
+  "name": "Upward Stretch",
+  "force": "static",
+  "difficulty_level": "beginner",
+  "mechanic": null,
+  "equipment": null,
+  "primary_muscles": [
+    "shoulders"
+  ],
+  "secondary_muscles": [
+    "chest",
+    "lats"
+  ],
+  "instructions": [
+    "Extend both hands straight above your head, palms touching.",
+    "Slowly push your hands up and back, keeping your back straight."
+  ],
+  "category": "stretching"
+}

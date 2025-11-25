@@ -1,0 +1,19 @@
+{
+  "name": "Kettlebell Seated Press",
+  "force": "push",
+  "difficulty_level": "intermediate",
+  "mechanic": "compound",
+  "equipment": "kettlebells",
+  "primary_muscles": [
+    "shoulders"
+  ],
+  "secondary_muscles": [
+    "triceps"
+  ],
+  "instructions": [
+    "Sit on the floor and spread your legs out comfortably.",
+    "Clean one kettlebell to your shoulder.",
+    "Press the kettlebell up and out until it is locked out overhead. Return to the starting position."
+  ],
+  "category": "strength"
+}

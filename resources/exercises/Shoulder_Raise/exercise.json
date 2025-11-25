@@ -1,0 +1,17 @@
+{
+  "name": "Shoulder Raise",
+  "force": "pull",
+  "difficulty_level": "beginner",
+  "mechanic": null,
+  "equipment": null,
+  "primary_muscles": [
+    "shoulders"
+  ],
+  "secondary_muscles": [
+    "lats"
+  ],
+  "instructions": [
+    "Relax your arms to your sides and raise your shoulders up toward your ears, then back down."
+  ],
+  "category": "stretching"
+}
