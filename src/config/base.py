@@ -19,7 +19,8 @@ from sqlalchemy.ext.asyncio import (
 )
 from sqlalchemy.pool import NullPool
 
-BASE_DIR: Final[Path] = Path(__file__).parent.parent
+BASE_DIR: Final[Path] = Path(__file__).resolve().parent.parent
+DEFAULT_DOTENV_FILE_PATH: Final[Path] = BASE_DIR / "config" / ".env"
 TRUE_VALUES = {"True", "true", "1", "yes", "Y", "T"}
 
 
@@ -27,7 +28,13 @@ TRUE_VALUES = {"True", "true", "1", "yes", "Y", "T"}
 class AppSettings:
     """Application configuration."""
 
+    ENVIRONMENT: str = field(default_factory=lambda: os.getenv("APP_ENVIRONMENT", "dev"))
     API_V1_URL_PREFIX = "/api/v1"
+    CDN_IMAGES_DEFAULT_URL: str = field(
+        default_factory=lambda: os.getenv(
+            "CDN_IMAGES_URL", "https://raw.githubusercontent.com/bizoxe/iron-track/media/resources/exercises"
+        ),
+    )
 
 
 @dataclass
@@ -35,11 +42,24 @@ class LogSettings:
     """Logger configuration."""
 
     LEVEL: int = field(default_factory=lambda: int(os.getenv("LOG_LEVEL", "20")))
+    """The minimum logging threshold for the root logger."""
     UVICORN_ACCESS_LEVEL: int = field(default_factory=lambda: int(os.getenv("UVICORN_ACCESS_LEVEL", "30")))
     UVICORN_ERROR_LEVEL: int = field(default_factory=lambda: int(os.getenv("UVICORN_ERROR_LEVEL", "20")))
-    LOG_DIR: Path = field(default_factory=lambda: BASE_DIR.joinpath(os.getenv("LOG_DIR", "logs")))
+    MIDDLEWARE_LOG_LEVEL: int = field(default_factory=lambda: int(os.getenv("MIDDLEWARE_LOG_LEVEL", "20")))
+    """Logging level for the custom ASGI middleware logger. Must be **20 (INFO)**.
+    Higher levels disable tracking of important requests needed for traffic monitoring and analysis.
+    """
     SQLALCHEMY_LEVEL: int = field(default_factory=lambda: int(os.getenv("SQLALCHEMY_LEVEL", "30")))
     """SQLAlchemy logs level."""
+
+    _settings: Settings = field(init=False, repr=False)
+
+    @property
+    def final_formatter(self) -> str:
+        """The name of the logging formatter to use based on the environment."""
+        if self._settings.app.ENVIRONMENT == "dev":
+            return "plain_console"
+        return "json_console"
 
 
 @dataclass
@@ -51,7 +71,7 @@ class DatabaseSettings:
     POSTGRES_USER: str = field(default_factory=lambda: os.getenv("POSTGRES_USER", "postgres"))
     POSTGRES_PASSWORD: str = field(default_factory=lambda: os.getenv("POSTGRES_PASSWORD", "supersecretpassword"))
     POSTGRES_DB: str = field(default_factory=lambda: os.getenv("POSTGRES_DB", "iron_track"))
-    URL: str | None = None
+    URL: str | None = field(default_factory=lambda: os.getenv("DATABASE_URL"))
 
     ECHO: bool = field(default_factory=lambda: os.getenv("DATABASE_ECHO", "False") in TRUE_VALUES)
     """Enable SQLAlchemy engine logs."""
@@ -100,6 +120,7 @@ class DatabaseSettings:
         return self.configure_standard_engine()
 
     def configure_standard_engine(self) -> AsyncEngine:
+        """Create and configure the standard SQLAlchemy asynchronous engine with an internal connection pool."""
         if self._engine_instance is not None:
             return self._engine_instance
 
@@ -119,16 +140,15 @@ class DatabaseSettings:
         return self._engine_instance
 
     def configure_pgbouncer_engine(self) -> AsyncEngine:
+        """Create the SQLAlchemy engine, disabling the internal pool (`NullPool`) for use with PgBouncer."""
         if self._engine_instance is not None:
             return self._engine_instance
 
         engine = create_async_engine(
             url=self.get_connection_url(),
             echo=self.ECHO,
-            pool_size=self.POOL_SIZE,  # must be consistent with the pgbouncer pool
-            max_overflow=self.POOL_MAX_OVERFLOW,  # must be consistent with the pgbouncer pool
-            pool_pre_ping=self.POOL_PRE_PING,
-            pool_recycle=self.POOL_RECYCLE,
+            echo_pool=self.ECHO_POOL,
+            poolclass=NullPool,
             execution_options={
                 "compiled_cache": None,
                 "isolation_level": "READ COMMITTED",
@@ -199,17 +219,19 @@ class Settings:
     jwt: JWTSettings = field(default_factory=JWTSettings)
     redis: RedisSettings = field(default_factory=RedisSettings)
 
+    def __post_init__(self) -> None:
+        self.log._settings = self  # noqa: SLF001
+
     @classmethod
-    @lru_cache(maxsize=1, typed=True)
-    def from_env(cls, dotenv_filename: str = ".env") -> Settings:
-        env_file = BASE_DIR / "config" / dotenv_filename
-        if env_file.is_file():
+    def from_env(cls, dotenv_file: Path) -> Settings:
+        if dotenv_file.is_file():
             from dotenv import load_dotenv
 
-            load_dotenv(env_file, override=True)
+            load_dotenv(dotenv_file, override=True)
 
-        return Settings()
+        return cls()
 
 
+@lru_cache(maxsize=1, typed=True)
 def get_settings() -> Settings:
-    return Settings.from_env()
+    return Settings.from_env(dotenv_file=DEFAULT_DOTENV_FILE_PATH)
