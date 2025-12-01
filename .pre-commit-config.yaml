@@ -32,3 +32,4 @@ repos:
           - "asyncpg>=0.30.0"
           - types-click
           - fastapi-cache2
+          - msgspec

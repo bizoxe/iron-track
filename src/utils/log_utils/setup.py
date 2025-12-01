@@ -1,13 +1,27 @@
-import logging.config
-from typing import Any
+from __future__ import annotations
 
+import logging.config
+from typing import (
+    TYPE_CHECKING,
+    Any,
+)
+
+import msgspec
 import structlog
 from asgi_correlation_id import correlation_id
 
-from config.base import get_settings
-from utils.log_utils.handlers import CustomQueueHandler
+from src.config.base import get_settings
+from src.utils.log_utils.handlers import CustomQueueHandler
+
+if TYPE_CHECKING:
+    from collections.abc import Mapping
 
 settings = get_settings()
+
+
+def msgspec_dumps_str(data: Mapping[str, Any], **kwargs: Any) -> str:
+    """Serialize a log record dictionary to a JSON string using msgspec."""
+    return msgspec.json.encode(data).decode()
 
 
 def add_correlation(
@@ -22,91 +36,63 @@ def add_correlation(
 
 
 def configure_logging() -> None:
-    log_dir = settings.log.LOG_DIR
-    log_dir.mkdir(exist_ok=True)
-
+    """Set up non-blocking, structured logging for the application."""
     shared_processors = [
         add_correlation,
         structlog.contextvars.merge_contextvars,
-        structlog.threadlocal.merge_threadlocal,
-        structlog.processors.TimeStamper(fmt="iso"),
+        structlog.processors.TimeStamper(fmt="iso", utc=True),
         structlog.stdlib.add_logger_name,
         structlog.stdlib.add_log_level,
-        structlog.stdlib.PositionalArgumentsFormatter(),
-        structlog.processors.StackInfoRenderer(),
-        structlog.processors.CallsiteParameterAdder(
-            [
-                structlog.processors.CallsiteParameter.FUNC_NAME,
-                structlog.processors.CallsiteParameter.LINENO,
-            ],
-        ),
-        structlog.processors.UnicodeDecoder(),
+        structlog.processors.format_exc_info,
     ]
 
-    structlog_only_processors = [
-        structlog.stdlib.ProcessorFormatter.wrap_for_formatter,
-    ]
-
-    processors: list[Any] = shared_processors + structlog_only_processors
+    processors: list[Any] = [*shared_processors, structlog.stdlib.ProcessorFormatter.wrap_for_formatter]
 
     structlog.configure(
-        processors=processors,
-        context_class=structlog.threadlocal.wrap_dict(dict),
-        logger_factory=structlog.stdlib.LoggerFactory(),
-        wrapper_class=structlog.stdlib.BoundLogger,
         cache_logger_on_first_use=True,
+        wrapper_class=structlog.make_filtering_bound_logger(settings.log.LEVEL),
+        processors=processors,
+        logger_factory=structlog.stdlib.LoggerFactory(),
     )
+    minimal_pre_chain = [
+        add_correlation,
+        structlog.processors.TimeStamper(fmt="iso", utc=True),
+        structlog.stdlib.add_logger_name,
+        structlog.stdlib.add_log_level,
+    ]
 
     logging.config.dictConfig(
         {
             "version": 1,
             "disable_existing_loggers": False,
             "formatters": {
-                "json_formatter": {
+                "json_console": {
                     "()": structlog.stdlib.ProcessorFormatter,
-                    "processor": structlog.processors.JSONRenderer(),
-                    "foreign_pre_chain": [*shared_processors, structlog.processors.format_exc_info],
+                    "processor": structlog.processors.JSONRenderer(serializer=msgspec_dumps_str),
+                    "foreign_pre_chain": minimal_pre_chain,
                 },
                 "plain_console": {
                     "()": structlog.stdlib.ProcessorFormatter,
-                    "processor": structlog.dev.ConsoleRenderer(sort_keys=True),
-                    "foreign_pre_chain": shared_processors,
-                },
-                "key_value": {
-                    "()": structlog.stdlib.ProcessorFormatter,
-                    "processor": structlog.processors.KeyValueRenderer(
-                        key_order=["timestamp", "level", "event", "logger"]
+                    "processor": structlog.dev.ConsoleRenderer(
+                        sort_keys=True,
+                        exception_formatter=structlog.dev.plain_traceback,
                     ),
-                    "foreign_pre_chain": [*shared_processors, structlog.processors.format_exc_info],
+                    "foreign_pre_chain": minimal_pre_chain,
                 },
             },
             "handlers": {
                 "console": {
                     "class": "logging.StreamHandler",
-                    "formatter": "plain_console",
-                },
-                "json_file": {
-                    "class": "logging.handlers.WatchedFileHandler",
-                    "filename": log_dir.joinpath("log_file.jsonl"),
-                    "formatter": "json_formatter",
-                    "mode": "a",
-                    "encoding": "utf-8",
-                },
-                "flat_line_file": {
-                    "class": "logging.handlers.WatchedFileHandler",
-                    "filename": log_dir.joinpath("flat_line.jsonl"),
-                    "formatter": "key_value",
-                    "mode": "a",
-                    "encoding": "utf-8",
+                    "formatter": settings.log.final_formatter,
                 },
                 "queue_handler": {
                     "class": CustomQueueHandler,
                     "listener": "logging.handlers.QueueListener",
                     "queue": {
                         "()": "queue.Queue",
-                        "maxsize": -1,
+                        "maxsize": 10000,
                     },
-                    "handlers": ["console", "json_file", "flat_line_file"],
+                    "handlers": ["console"],
                     "respect_handler_level": True,
                     "formatter": None,
                 },
@@ -118,7 +104,7 @@ def configure_logging() -> None:
                 },
                 "_uvicorn": {
                     "propagate": False,
-                    "level": settings.log.LEVEL,
+                    "level": settings.log.MIDDLEWARE_LOG_LEVEL,
                     "handlers": ["queue_handler"],
                 },
                 "uvicorn.error": {

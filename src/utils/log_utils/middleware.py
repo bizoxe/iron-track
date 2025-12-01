@@ -7,13 +7,9 @@ from typing import (
     TypedDict,
 )
 
-import structlog
 from starlette.responses import JSONResponse
+from structlog import get_logger
 from uvicorn.protocols.utils import get_path_with_query_string
-
-from src.config.base import get_settings
-
-settings = get_settings()
 
 if TYPE_CHECKING:
     from collections.abc import MutableMapping
@@ -21,7 +17,7 @@ if TYPE_CHECKING:
     from starlette.types import ASGIApp, Receive, Scope, Send
 
 
-logger = structlog.stdlib.get_logger("_uvicorn")
+logger = get_logger("_uvicorn")
 
 
 class AccessInfo(TypedDict, total=False):
