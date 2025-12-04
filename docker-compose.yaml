@@ -3,7 +3,7 @@ services:
   valkey:
     container_name: valkey_iron_track
     hostname: valkey
-    image: valkey/valkey:8.1.0-bookworm
+    image: valkey/valkey:latest
     environment:
       ALLOW_EMPTY_PASSWORD: "yes"
     volumes:
@@ -26,7 +26,7 @@ services:
     build:
       context: .
       dockerfile: ./deploy/postgres/Dockerfile
-    container_name: postgres_V17_iron_track
+    container_name: postgres_V18_iron_track
     hostname: postgres
     restart: unless-stopped
     environment:
@@ -38,17 +38,13 @@ services:
       PGBOUNCER_ADMIN_PASSWORD: ${PGBOUNCER_ADMIN_PASSWORD:-adminpwd}
       PGBOUNCER_MONITOR_USER: ${PGBOUNCER_MONITOR_USER:-monitor}
       PGBOUNCER_MONITOR_PASSWORD: ${PGBOUNCER_MONITOR_PASSWORD:-monitorpwd}
-    ports:
-      - ${POSTGRES_PORT:-5432}:${POSTGRES_PORT:-5432}
     volumes:
-      - "pgdata:/var/lib/postgresql/data"
+      - db-data:/var/lib/postgresql
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER:-alfacat} -d ${DB_NAME:-iron_track}" ]
       interval: 10s
       timeout: 5s
       retries: 3
-    networks:
-      - custom
 
   pgbouncer:
     build:
@@ -72,32 +68,14 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    networks:
-      - custom
     healthcheck:
       test: [ "CMD-SHELL", "PGPASSWORD=${PGBOUNCER_MONITOR_PASSWORD:-monitorpwd} psql -h localhost -p 6432 -U ${PGBOUNCER_MONITOR_USER:-monitor} -d pgbouncer -c 'SHOW STATS'" ]
-      interval: 120s
+      interval: 30s
       timeout: 5s
       retries: 5
       start_period: 30s
 
-  pgadmin:
-    container_name: pg_admin_iron_track
-    image: dpage/pgadmin4:latest
-    environment:
-      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
-      PGADMIN_DEFAULT_PASSWORD: root
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
-    ports:
-      - "5050:80"
-    restart: unless-stopped
-    networks:
-      - custom
 
 volumes:
-  cache-data:
-  pgdata:
-
-networks:
-  custom:
-    driver: bridge
+  cache-data: {}
+  db-data: {}

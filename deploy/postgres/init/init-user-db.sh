@@ -61,4 +61,14 @@ psql -v ON_ERROR_STOP=1 --username postgres -d "${DB_NAME}" <<-EOSQL
 	        GRANT ALL ON SEQUENCES TO ${DB_USER};
 EOSQL
 
-echo "PostgreSQL users and database initialization successfully completed ..."
+echo "Copying custom configuration files to PGDATA: ${PGDATA}..."
+
+cp /tmp/conf/postgresql.conf "${PGDATA}/postgresql.conf"
+cp /tmp/conf/pg_hba.conf "${PGDATA}/pg_hba.conf"
+
+chmod 600 "${PGDATA}/postgresql.conf"
+chmod 600 "${PGDATA}/pg_hba.conf"
+chown postgres:postgres "${PGDATA}/postgresql.conf"
+chown postgres:postgres "${PGDATA}/pg_hba.conf"
+
+echo "PostgreSQL initialization successfully completed. Database ready for use."
