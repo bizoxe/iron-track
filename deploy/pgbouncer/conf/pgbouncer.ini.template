@@ -10,7 +10,7 @@ admin_users = ${PGBOUNCER_ADMIN_USER}
 stats_users = ${PGBOUNCER_MONITOR_USER}
 
 pool_mode = transaction
-# must be less than max_connections in postgres config
+# Number of server connections in the pool, must be < max_client_conn
 default_pool_size = 100
 # You can then increase it in prod mod (> 1000)
 max_client_conn = 200
