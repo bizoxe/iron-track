@@ -46,7 +46,7 @@ Repository = "https://github.com/bizoxe/iron-track"
 Documentation = "https://github.com/bizoxe/iron-track/docs"
 
 [dependency-groups]
-dev = [{ include-group = "linting" }, { include-group = "test" }]
+dev = [{ include-group = "linting" }, { include-group = "test" }, { include-group = "docs" }]
 linting = [
     "pre-commit>=4.5.0",
     "mypy>=1.19.0",
@@ -63,9 +63,19 @@ test = [
     "httpx",
     "pytest-mock",
 ]
+docs = [
+    "sphinx",
+    "sphinx-autobuild",
+    "sphinx-copybutton",
+    "sphinx-toolbox",
+    "sphinx-design",
+    "sphinx-click",
+    "sphinxcontrib-mermaid",
+    "shibuya",
+]
 
 [tool.uv]
-default-groups = ["dev", "linting", "test"]
+default-groups = ["dev", "linting", "test", "docs"]
 
 [tool.pytest.ini_options]
 addopts = [
