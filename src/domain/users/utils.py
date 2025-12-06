@@ -25,7 +25,7 @@ async def check_user_before_modify_role(
     """Check user existence and activity status before a role modification operation.
 
     Args:
-        users_service: Dependency for user service operations.
+        users_service (UserService): Dependency for user service operations.
         email (str): The email of the user whose role is being modified.
 
     Returns:
@@ -55,7 +55,7 @@ async def perform_logout_cleanup(refresh_jti: str, user_id: UUID, redis_client: 
     Args:
         refresh_jti (str): The JWT ID (JTI) of the refresh token to be blacklisted.
         user_id (UUID): The ID of the user whose cache needs to be invalidated.
-        redis_client: The Redis asynchronous client instance.
+        redis_client (Redis): The Redis asynchronous client instance.
     """
     await asyncio.gather(
         add_token_to_blacklist(

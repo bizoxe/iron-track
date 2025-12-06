@@ -35,7 +35,7 @@ __all__ = (
 )
 
 valid_pwd = regex_validator(
-    pattern=re_compile(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"),
+    pattern=re_compile(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,}$"),
     error_message="The password must contain a minimum of eight characters, at least one uppercase letter, one "
     "lowercase letter, one number and one special character",
 )
@@ -101,10 +101,10 @@ class RoleSlug(StrEnum):
 
 
 class UserRoleAdd(BaseModel):
-    """User role add ."""
+    """User role add."""
 
     role_slug: RoleSlug
 
 
 class UserRoleRevoke(UserRoleAdd):
-    """User role revoke ."""
+    """User role revoke."""

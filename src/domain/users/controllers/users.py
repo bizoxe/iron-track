@@ -3,17 +3,14 @@
 Defines all user account CRUD operations, requiring superuser privileges.
 """
 
-from typing import (
-    TYPE_CHECKING,
-    Annotated,
-)
+from typing import Annotated
 from uuid import UUID
 
 from advanced_alchemy.exceptions import (
     DuplicateKeyError,
     NotFoundError,
 )
-from advanced_alchemy.filters import FilterTypes
+from advanced_alchemy.extensions.fastapi import filters as alchemy_filters
 from advanced_alchemy.service import OffsetPagination
 from fastapi import (
     APIRouter,
@@ -45,9 +42,6 @@ from src.lib.exceptions import (
 )
 from src.lib.invalidate_cache import invalidate_user_cache
 from src.lib.json_response import MsgSpecJSONResponse
-
-if TYPE_CHECKING:
-    from db.models import User as UserModel
 
 users_router = APIRouter(
     tags=["User Accounts"],
@@ -105,7 +99,6 @@ async def get_user(
     operation_id="ListUsers",
     name="users:list",
     summary="List of users.",
-    response_model=OffsetPagination[User],
 )
 @cache(
     expire=60,
@@ -116,7 +109,7 @@ async def get_list_users(
     _: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
     users_service: UserServiceDep,
     filters: Annotated[
-        list[FilterTypes],
+        list[alchemy_filters.FilterTypes],
         Depends(
             alchemy.provide_filters(
                 {
@@ -132,11 +125,11 @@ async def get_list_users(
             )
         ),
     ],
-) -> OffsetPagination["UserModel"]:
+) -> OffsetPagination[User]:
     """Retrieve a list of users."""
-    results, count = await users_service.list_and_count(*filters)
+    results, total = await users_service.list_and_count(*filters)
 
-    return users_service.to_schema(results, count, filters=filters, schema_type=User)
+    return users_service.to_schema(data=results, total=total, schema_type=User, filters=filters)
 
 
 @users_router.patch(

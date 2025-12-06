@@ -17,6 +17,7 @@ from structlog import get_logger
 from src.config.constants import (
     FITNESS_TRAINER_ROLE_SLUG,
     USER_AUTH_CACHE_EXPIRE_SECONDS,
+    USER_AUTH_CACHE_PREFIX,
 )
 from src.domain.users.deps import UserServiceDep
 from src.domain.users.jwt_helpers import is_token_in_blacklist
@@ -43,7 +44,7 @@ def get_payload_from_token(authentication_token: str) -> dict[str, Any]:
     """Decode a JWT token and return its payload.
 
     Args:
-        authentication_token: The raw JWT string.
+        authentication_token (str): The raw JWT string.
 
     Returns:
         The decoded JWT payload as a dictionary.
@@ -69,7 +70,7 @@ class Authenticate:
     @cache(
         expire=USER_AUTH_CACHE_EXPIRE_SECONDS,
         key_builder=user_auth_key_builder,
-        namespace="user_auth",
+        namespace=USER_AUTH_CACHE_PREFIX,
         coder=MsgPackCoderUserAuth,
     )
     async def _get_user_from_payload(
@@ -82,8 +83,8 @@ class Authenticate:
         The result of this function is aggressively cached to reduce database load.
 
         Args:
-            token_payload: The decoded JWT payload.
-            users_service: Dependency for user service operations.
+            token_payload (dict): The decoded JWT payload.
+            users_service (UserService): Dependency for user service operations.
 
         Returns:
             The UserAuth Pydantic schema object.
@@ -112,9 +113,9 @@ class Authenticate:
         is used exclusively by the token refresh endpoint.
 
         Args:
-            token: The refresh token extracted from the cookie.
-            users_service: Dependency for user service operations.
-            redis_client: Dependency for Redis client operations (blacklist check).
+            token (str): The refresh token extracted from the cookie.
+            users_service (UserService): Dependency for user service operations.
+            redis_client (Redis): Dependency for Redis client operations (blacklist check).
 
         Returns:
             The UserAuth schema object, with the internal JTI attached.
@@ -154,8 +155,8 @@ class Authenticate:
         """Authenticate the user using the access token.
 
         Args:
-            token: The access token extracted from the cookie.
-            users_service: Dependency for user service operations.
+            token (str): The access token extracted from the cookie.
+            users_service (UserService): Dependency for user service operations.
 
         Returns:
             The authenticated UserAuth schema object.
@@ -249,7 +250,7 @@ class Authenticate:
         during the token refresh process.
 
         Args:
-            token: The refresh token string from the cookie.
+            token (str): The refresh token string from the cookie.
 
         Returns:
             The unique token identifier (jti).

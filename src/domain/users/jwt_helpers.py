@@ -60,7 +60,7 @@ async def add_token_to_blacklist(refresh_token_identifier: str, redis_client: Re
 
     Args:
         refresh_token_identifier (str): The unique JTI of the token to revoke.
-        redis_client: The Redis asynchronous client instance.
+        redis_client (Redis): The Redis asynchronous client instance.
     """
     await redis_client.setex(
         name=f"revoked:{refresh_token_identifier}",
@@ -74,7 +74,7 @@ async def is_token_in_blacklist(refresh_token_identifier: str, redis_client: Red
 
     Args:
         refresh_token_identifier (str): The unique JTI of the token to check.
-        redis_client: The Redis asynchronous client instance.
+        redis_client (Redis): The Redis asynchronous client instance.
 
     Returns:
         bool: True if the token is revoked, False otherwise.

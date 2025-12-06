@@ -62,8 +62,8 @@ class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
         """Authenticate a user.
 
         Args:
-            username: User email
-            password: User password
+            username (str): User email
+            password (str | bytes): User password
 
         Raises:
             UnauthorizedException: Raised when the user doesn't exist, isn't verified, or is not active.
@@ -130,7 +130,7 @@ class RoleService(service.SQLAlchemyAsyncRepositoryService[m.Role]):
         """Retrieve the default role object with column optimization.
 
         Args:
-            default_role_slug: The slug of the default role (e.g., 'application-access').
+            default_role_slug (str): The slug of the default role (e.g., 'application-access').
 
         Returns:
             A Role object (with `id`, `name`, and `slug` loaded).
