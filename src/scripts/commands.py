@@ -237,7 +237,3 @@ def create_default_roles() -> None:
 
     console.rule("Creating default roles.")
     anyio.run(_create_default_roles)
-
-
-if __name__ == "__main__":
-    user_management_group()
