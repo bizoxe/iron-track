@@ -194,9 +194,9 @@ warn_unused_ignores = true
 
 [[tool.mypy.overrides]]
 module = [
-    "app.lib.coders.*",
-    "app.lib.json_response.*",
-    "app.lib.jwt_utils.*"
+    "src.app.lib.coders.*",
+    "src.app.lib.json_response.*",
+    "src.app.lib.jwt_utils.*"
 ]
 warn_return_any = false
 disallow_subclassing_any = false
@@ -206,4 +206,10 @@ disallow_untyped_decorators = false
 module = [
     "tests.*",
     "src.app.utils.server_cli.*"
+]
+
+[[tool.mypy.overrides]]
+ignore_errors = true
+module = [
+    "src.app.db.alembic.*"
 ]
