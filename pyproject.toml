@@ -1,3 +1,7 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 authors = [{ name = "Alex Matveev", email = "alex.matveev.dev@gmail.com" }]
 classifiers = [
@@ -30,6 +34,7 @@ dependencies = [
     "python-multipart>=0.0.20",
     "redis>=7.1.0",
     "structlog>=25.5.0",
+    "typer>=0.20.0",
     "uvicorn[standard]>=0.38.0",
     "uvloop>=0.22.1",
 ]
@@ -44,6 +49,9 @@ version = "0.1.0"
 [project.urls]
 Repository = "https://github.com/bizoxe/iron-track"
 Documentation = "https://github.com/bizoxe/iron-track/docs"
+
+[project.scripts]
+app = "app.main:run_cli"
 
 [dependency-groups]
 dev = [{ include-group = "linting" }, { include-group = "test" }, { include-group = "docs" }]
@@ -73,6 +81,19 @@ docs = [
     "sphinxcontrib-mermaid",
     "shibuya",
 ]
+
+[tool.hatch.build]
+dev-mode-dirs = ["src", "."]
+ignore-vcs = true
+sources = ["src"]
+
+[tool.hatch.build.targets.sdist]
+exclude = [".github", "docs"]
+include = ["src/*", "tests/*", "LICENSE"]
+skip-excluded-dirs = false
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
 
 [tool.uv]
 default-groups = ["dev", "linting", "test", "docs"]
@@ -112,8 +133,8 @@ exclude = [
     "node_modules",
     "site-packages",
     "venv",
-    "src/db/alembic/versions/*.py",
-    "src/scripts/*",
+    "src/app/db/alembic/versions/*.py",
+    "src/app/scripts/commands.py",
 ]
 fix = true
 line-length = 120
@@ -139,7 +160,7 @@ lint.ignore = [
 lint.select = ["ALL"]
 lint.extend-select = ["I"]
 lint.dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
-src = ["src", "tests"]
+src = ["src", "tests/"]
 target-version = "py312"
 
 [tool.ruff.lint.pydocstyle]
@@ -149,7 +170,7 @@ convention = "google"
 max-complexity = 8
 
 [tool.ruff.lint.isort]
-known-first-party = ["src"]
+known-first-party = ["tests", "app"]
 
 [tool.mypy]
 disallow_any_generics = false
@@ -158,8 +179,7 @@ disallow_untyped_decorators = true
 disallow_untyped_defs = true
 exclude = '''(?x)(
     ^.venv/
-  | ^src/db/alembic/
-  | ^src/scripts/
+  | ^src/app/db/alembic/
 )'''
 implicit_reexport = false
 plugins = [
@@ -174,13 +194,16 @@ warn_unused_ignores = true
 
 [[tool.mypy.overrides]]
 module = [
-    "src.lib.coders.*",
-    "src.lib.json_response.*",
-    "src.lib.jwt_utils.*"
+    "app.lib.coders.*",
+    "app.lib.json_response.*",
+    "app.lib.jwt_utils.*"
 ]
 warn_return_any = false
 disallow_subclassing_any = false
 
 [[tool.mypy.overrides]]
 disallow_untyped_decorators = false
-module = ["tests.*"]
+module = [
+    "tests.*",
+    "app.utils.server_cli.*"
+]
