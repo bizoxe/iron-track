@@ -3,9 +3,9 @@ from __future__ import annotations
 from datetime import timedelta
 from typing import TYPE_CHECKING
 
-from src.config.base import get_settings
-from src.config.constants import REFRESH_TOKEN_MAX_AGE
-from src.lib.jwt_utils import encode_jwt
+from app.config.base import get_settings
+from app.config.constants import REFRESH_TOKEN_MAX_AGE
+from app.lib.jwt_utils import encode_jwt
 
 if TYPE_CHECKING:
     from uuid import UUID

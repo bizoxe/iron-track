@@ -13,32 +13,30 @@ from starlette.background import (
     BackgroundTasks,
 )
 
-from src.config import constants
-from src.config.base import get_settings
-from src.domain.users import urls
-from src.domain.users.auth import Authenticate
-from src.domain.users.deps import (
+from app.config import constants
+from app.config.base import get_settings
+from app.domain.users import urls
+from app.domain.users.auth import Authenticate
+from app.domain.users.deps import (
     RoleServiceDep,
     UserServiceDep,
 )
-from src.domain.users.jwt_helpers import (
+from app.domain.users.jwt_helpers import (
     add_token_to_blacklist,
     create_access_token,
     create_refresh_token,
 )
-from src.domain.users.schemas import (
+from app.domain.users.schemas import (
     AccountRegister,
     PasswordUpdate,
     User,
     UserAuth,
 )
-from src.domain.users.utils import perform_logout_cleanup
-from src.lib.deps import RedisClientDep
-from src.lib.exceptions import (
-    ConflictException,
-)
-from src.lib.invalidate_cache import invalidate_user_cache
-from src.lib.json_response import MsgSpecJSONResponse
+from app.domain.users.utils import perform_logout_cleanup
+from app.lib.deps import RedisClientDep
+from app.lib.exceptions import ConflictException
+from app.lib.invalidate_cache import invalidate_user_cache
+from app.lib.json_response import MsgSpecJSONResponse
 
 access_router = APIRouter(
     tags=["Access"],

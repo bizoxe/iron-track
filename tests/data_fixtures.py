@@ -9,7 +9,7 @@ import pytest
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 
-from src.config.constants import DEFAULT_ADMIN_EMAIL
+from app.config.constants import DEFAULT_ADMIN_EMAIL
 
 if TYPE_CHECKING:
     from fastapi import FastAPI
@@ -29,7 +29,7 @@ def fx_app(
     Returns:
         FastAPI: The configured application instance.
     """
-    from src.server.core import create_app
+    from app.server.core import create_app
 
     app = create_app()
 

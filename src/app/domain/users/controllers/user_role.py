@@ -10,22 +10,22 @@ from fastapi import (
     Depends,
 )
 
-from src.domain.users import urls
-from src.domain.users.auth import Authenticate
-from src.domain.users.deps import (
+from app.domain.users import urls
+from app.domain.users.auth import Authenticate
+from app.domain.users.deps import (
     RoleServiceDep,
     UserServiceDep,
 )
-from src.domain.users.schemas import (
+from app.domain.users.schemas import (
     UserAuth,
     UserRoleAdd,
     UserRoleRevoke,
 )
-from src.domain.users.utils import check_user_before_modify_role
-from src.lib.deps import RedisClientDep
-from src.lib.exceptions import ConflictException
-from src.lib.invalidate_cache import invalidate_user_cache
-from src.lib.json_response import MsgSpecJSONResponse
+from app.domain.users.utils import check_user_before_modify_role
+from app.lib.deps import RedisClientDep
+from app.lib.exceptions import ConflictException
+from app.lib.invalidate_cache import invalidate_user_cache
+from app.lib.json_response import MsgSpecJSONResponse
 
 role_router = APIRouter(
     tags=["User Account Role"],

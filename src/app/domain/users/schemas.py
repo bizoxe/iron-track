@@ -21,7 +21,7 @@ from pydantic import (
     model_validator,
 )
 
-from src.lib.pretty_regex_error_msgs import regex_validator
+from app.lib.pretty_regex_error_msgs import regex_validator
 
 __all__ = (
     "AccountRegister",

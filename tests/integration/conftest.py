@@ -21,17 +21,17 @@ from sqlalchemy.ext.asyncio import (
     create_async_engine,
 )
 
-from src.config.app_settings import sqlalchemy_config
-from src.config.base import get_settings
-from src.domain.users.jwt_helpers import (
+from app.config.app_settings import sqlalchemy_config
+from app.config.base import get_settings
+from app.domain.users.jwt_helpers import (
     create_access_token,
     create_refresh_token,
 )
-from src.domain.users.services import (
+from app.domain.users.services import (
     RoleService,
     UserService,
 )
-from src.utils.log_utils.middleware import logger
+from app.utils.log_utils.middleware import logger
 from tests import constants
 from tests.helpers import add_role_to_raw_users
 
@@ -43,9 +43,6 @@ if TYPE_CHECKING:
     from pytest_databases.docker.postgres import PostgresService
     from pytest_mock import MockerFixture
     from sqlalchemy.ext.asyncio import AsyncEngine
-
-
-pytestmark = pytest.mark.anyio
 
 
 @pytest.fixture(scope="session", autouse=True)

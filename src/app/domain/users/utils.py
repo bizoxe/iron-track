@@ -3,19 +3,19 @@ from __future__ import annotations
 import asyncio
 from typing import TYPE_CHECKING
 
-from src.domain.users.jwt_helpers import add_token_to_blacklist
-from src.lib.exceptions import (
+from app.domain.users.jwt_helpers import add_token_to_blacklist
+from app.lib.exceptions import (
     PermissionDeniedException,
     UserNotFound,
 )
-from src.lib.invalidate_cache import invalidate_user_cache
+from app.lib.invalidate_cache import invalidate_user_cache
 
 if TYPE_CHECKING:
     from uuid import UUID
 
-    from src.db.models.user import User as UserModel
-    from src.domain.users.deps import UserServiceDep
-    from src.lib.deps import RedisClientDep
+    from app.db.models.user import User as UserModel
+    from app.domain.users.deps import UserServiceDep
+    from app.lib.deps import RedisClientDep
 
 
 async def check_user_before_modify_role(

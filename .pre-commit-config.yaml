@@ -33,3 +33,4 @@ repos:
           - types-click
           - fastapi-cache2
           - msgspec
+          - "pyjwt[crypto]"

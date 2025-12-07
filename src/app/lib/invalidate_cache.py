@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from src.config.constants import (
+from app.config.constants import (
     FASTAPI_CACHE_PREFIX,
     USER_AUTH_CACHE_PREFIX,
 )
@@ -10,7 +10,7 @@ from src.config.constants import (
 if TYPE_CHECKING:
     from uuid import UUID
 
-    from src.lib.deps import RedisClientDep
+    from app.lib.deps import RedisClientDep
 
 USER_AUTH_CACHE_NAMESPACE = f"{FASTAPI_CACHE_PREFIX}:{USER_AUTH_CACHE_PREFIX}"
 

@@ -10,8 +10,8 @@ import msgspec
 import structlog
 from asgi_correlation_id import correlation_id
 
-from src.config.base import get_settings
-from src.utils.log_utils.handlers import CustomQueueHandler
+from app.config.base import get_settings
+from app.utils.log_utils.handlers import CustomQueueHandler
 
 if TYPE_CHECKING:
     from collections.abc import Mapping

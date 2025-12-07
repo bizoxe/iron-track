@@ -14,13 +14,13 @@ from advanced_alchemy.service import (
 )
 from sqlalchemy.orm import load_only
 
-from src.config.constants import (
+from app.config.constants import (
     DEFAULT_ADMIN_EMAIL,
     DEFAULT_USER_ROLE_SLUG,
 )
-from src.db import models as m
-from src.lib import crypt
-from src.lib.exceptions import (
+from app.db import models as m
+from app.lib import crypt
+from app.lib.exceptions import (
     NotFoundException,
     PermissionDeniedException,
     UnauthorizedException,
@@ -29,7 +29,7 @@ from src.lib.exceptions import (
 if TYPE_CHECKING:
     from uuid import UUID
 
-    from src.domain.users.schemas import PasswordUpdate
+    from app.domain.users.schemas import PasswordUpdate
 
 
 class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):

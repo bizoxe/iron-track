@@ -10,24 +10,24 @@ from fastapi.exceptions import RequestValidationError
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 
-from src.config.app_settings import alchemy
-from src.config.base import get_settings
-from src.config.constants import FASTAPI_CACHE_PREFIX
-from src.domain.users.controllers.access import access_router
-from src.domain.users.controllers.user_role import role_router
-from src.domain.users.controllers.users import users_router
-from src.lib.exceptions import BaseAPIException
-from src.lib.handlers import (
+from app.config.app_settings import alchemy
+from app.config.base import get_settings
+from app.config.constants import FASTAPI_CACHE_PREFIX
+from app.domain.users.controllers.access import access_router
+from app.domain.users.controllers.user_role import role_router
+from app.domain.users.controllers.users import users_router
+from app.lib.exceptions import BaseAPIException
+from app.lib.handlers import (
     http_exception_handler,
     validation_exception_handler,
 )
-from src.utils.log_utils.middleware import StructLogMiddleware
-from src.utils.log_utils.setup import configure_logging
+from app.utils.log_utils.middleware import StructLogMiddleware
+from app.utils.log_utils.setup import configure_logging
 
 if TYPE_CHECKING:
     from collections.abc import AsyncIterator
 
-    from src.config.base import Settings
+    from app.config.base import Settings
 
 
 @asynccontextmanager

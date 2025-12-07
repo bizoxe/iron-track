@@ -8,7 +8,7 @@ from uuid import uuid4
 
 import jwt
 
-from src.config.base import get_settings
+from app.config.base import get_settings
 
 settings = get_settings()
 
@@ -26,14 +26,14 @@ def encode_jwt(
     and 'jti' (JWT ID) to the token payload before encoding.
 
     Args:
-        payload: The base data to include in the token (e.g., user ID, email).
-        private_key: The private key used for signing the token. Defaults
+        payload (dict): The base data to include in the token (e.g., user ID, email).
+        private_key (str): The private key used for signing the token. Defaults
             to the application's configured private key.
-        algorithm: The cryptographic algorithm used for signing (e.g., 'RS256').
+        algorithm (str): The cryptographic algorithm used for signing (e.g., 'RS256').
             Defaults to the configured algorithm.
-        expire_minutes: The token's lifespan in minutes, used only if
+        expire_minutes (int): The token's lifespan in minutes, used only if
             `expire_timedelta` is not provided.
-        expire_timedelta: Explicit timedelta defining the token's total lifespan.
+        expire_timedelta (timedelta | None): Explicit timedelta defining the token's total lifespan.
             Overrides `expire_minutes`. Used primarily for Refresh Tokens.
 
     Returns:
@@ -66,10 +66,10 @@ def decode_jwt(
     (such as expiration time).
 
     Args:
-        token: The encoded JWT string or bytes to be decoded.
-        public_key: The public key used for verifying the token's signature.
+        token (str | bytes): The encoded JWT string or bytes to be decoded.
+        public_key (str): The public key used for verifying the token's signature.
             Defaults to the application's configured public key.
-        algorithm: The cryptographic algorithm used for verification (e.g., ['RS256']).
+        algorithm (str): The cryptographic algorithm used for verification (e.g., ['RS256']).
             Defaults to the configured algorithm.
 
     Returns:

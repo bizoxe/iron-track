@@ -11,10 +11,10 @@ from sqlalchemy.orm import (
     selectinload,
 )
 
-from src.config.app_settings import DatabaseSession  # noqa: TC001
-from src.db.models.role import Role as RoleModel
-from src.db.models.user import User as UserModel
-from src.domain.users.services import (
+from app.config.app_settings import DatabaseSession  # noqa: TC001
+from app.db.models.role import Role as RoleModel
+from app.db.models.user import User as UserModel
+from app.domain.users.services import (
     RoleService,
     UserService,
 )

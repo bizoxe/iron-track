@@ -14,26 +14,26 @@ from fastapi_cache.decorator import cache
 from jwt import PyJWTError
 from structlog import get_logger
 
-from src.config.constants import (
+from app.config.constants import (
     FITNESS_TRAINER_ROLE_SLUG,
     USER_AUTH_CACHE_EXPIRE_SECONDS,
     USER_AUTH_CACHE_PREFIX,
 )
-from src.domain.users.deps import UserServiceDep
-from src.domain.users.jwt_helpers import is_token_in_blacklist
-from src.domain.users.schemas import UserAuth
-from src.lib.auth import (
+from app.domain.users.deps import UserServiceDep
+from app.domain.users.jwt_helpers import is_token_in_blacklist
+from app.domain.users.schemas import UserAuth
+from app.lib.auth import (
     access_token,
     refresh_token,
 )
-from src.lib.cache_key_builders import user_auth_key_builder
-from src.lib.coders import MsgPackCoderUserAuth
-from src.lib.deps import RedisClientDep
-from src.lib.exceptions import (
+from app.lib.cache_key_builders import user_auth_key_builder
+from app.lib.coders import MsgPackCoderUserAuth
+from app.lib.deps import RedisClientDep
+from app.lib.exceptions import (
     PermissionDeniedException,
     UnauthorizedException,
 )
-from src.lib.jwt_utils import decode_jwt
+from app.lib.jwt_utils import decode_jwt
 
 __all__ = ("Authenticate",)
 

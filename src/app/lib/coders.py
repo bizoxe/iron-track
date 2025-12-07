@@ -4,7 +4,7 @@ from fastapi.encoders import jsonable_encoder
 from fastapi_cache import Coder
 from msgspec import msgpack
 
-from src.domain.users.schemas import UserAuth
+from app.domain.users.schemas import UserAuth
 
 
 class MsgPackCoderBase(Coder):

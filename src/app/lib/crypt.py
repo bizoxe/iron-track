@@ -14,10 +14,10 @@ async def get_password_hash(
     """Get password hash.
 
     Args:
-        password (str | bytes): Plaintext password
+        password (str | bytes): Plaintext password.
 
     Returns:
-        str: Hashed password
+        str: Hashed password.
     """
     return await asyncio.get_running_loop().run_in_executor(
         None,
@@ -33,8 +33,8 @@ async def verify_password(
     """Verify password.
 
     Args:
-        password (str | bytes): The string or bytes password
-        hashed_password (str): The hash of the password
+        password (str | bytes): The string or bytes password.
+        hashed_password (str): The hash of the password.
 
     Returns:
         bool: True if password matches hash.

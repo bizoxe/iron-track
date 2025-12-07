@@ -20,28 +20,28 @@ from fastapi import (
 )
 from fastapi_cache.decorator import cache
 
-from src.config.app_settings import alchemy
-from src.domain.users import urls
-from src.domain.users.auth import Authenticate
-from src.domain.users.deps import (
+from app.config.app_settings import alchemy
+from app.domain.users import urls
+from app.domain.users.auth import Authenticate
+from app.domain.users.deps import (
     RoleServiceDep,
     UserServiceDep,
 )
-from src.domain.users.schemas import (
+from app.domain.users.schemas import (
     User,
     UserAuth,
     UserCreate,
     UserUpdate,
 )
-from src.lib.cache_key_builders import query_params_key_builder
-from src.lib.coders import MsgPackCoder
-from src.lib.deps import RedisClientDep
-from src.lib.exceptions import (
+from app.lib.cache_key_builders import query_params_key_builder
+from app.lib.coders import MsgPackCoder
+from app.lib.deps import RedisClientDep
+from app.lib.exceptions import (
     ConflictException,
     UserNotFound,
 )
-from src.lib.invalidate_cache import invalidate_user_cache
-from src.lib.json_response import MsgSpecJSONResponse
+from app.lib.invalidate_cache import invalidate_user_cache
+from app.lib.json_response import MsgSpecJSONResponse
 
 users_router = APIRouter(
     tags=["User Accounts"],

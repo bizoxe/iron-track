@@ -7,7 +7,7 @@ from unittest import mock
 import pytest
 from redis.asyncio import Redis
 
-from src.config import base
+from app.config import base
 
 if TYPE_CHECKING:
     from collections.abc import AsyncGenerator, Generator

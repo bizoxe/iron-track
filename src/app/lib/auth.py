@@ -9,8 +9,8 @@ from fastapi.openapi.models import (
 )
 from fastapi.security.base import SecurityBase
 
-from src.config.base import get_settings
-from src.lib.exceptions import UnauthorizedException
+from app.config.base import get_settings
+from app.lib.exceptions import UnauthorizedException
 
 __all__ = (
     "access_token",
