@@ -10,7 +10,7 @@ import click
 from rich import get_console
 
 if TYPE_CHECKING:
-    from src.db.models.role import Role as RoleModel
+    from app.db.models.role import Role as RoleModel
 
 console = get_console()
 
@@ -78,10 +78,10 @@ def create_user(
     from advanced_alchemy.exceptions import DuplicateKeyError
     from pydantic import ValidationError
 
-    from src.config.app_settings import sqlalchemy_config
-    from src.config.constants import SUPERUSER_ROLE_SLUG
-    from src.domain.users.deps import provide_role_service, provide_users_service
-    from src.domain.users.schemas import UserCreate
+    from app.config.app_settings import sqlalchemy_config
+    from app.config.constants import SUPERUSER_ROLE_SLUG
+    from app.domain.users.deps import provide_role_service, provide_users_service
+    from app.domain.users.schemas import UserCreate
 
     async def _create_user(
         email: str,
@@ -140,9 +140,9 @@ def promote_to_superuser(email: str) -> None:
     """
     import anyio
 
-    from src.config.app_settings import sqlalchemy_config
-    from src.config.constants import SUPERUSER_ROLE_SLUG
-    from src.domain.users.deps import provide_role_service, provide_users_service
+    from app.config.app_settings import sqlalchemy_config
+    from app.config.constants import SUPERUSER_ROLE_SLUG
+    from app.domain.users.deps import provide_role_service, provide_users_service
 
     async def _promote_to_superuser(email: str) -> None:
         async with sqlalchemy_config.get_session() as db_session:
@@ -181,9 +181,9 @@ def create_system_admin(password: str | None) -> None:
     import click
     from advanced_alchemy.exceptions import DuplicateKeyError
 
-    from src.config.app_settings import sqlalchemy_config
-    from src.config.constants import DEFAULT_ADMIN_EMAIL, SUPERUSER_ROLE_SLUG
-    from src.domain.users.deps import provide_role_service, provide_users_service
+    from app.config.app_settings import sqlalchemy_config
+    from app.config.constants import DEFAULT_ADMIN_EMAIL, SUPERUSER_ROLE_SLUG
+    from app.domain.users.deps import provide_role_service, provide_users_service
 
     async def _create_system_admin(password: str) -> None:
         obj_data = {
@@ -218,10 +218,10 @@ def create_default_roles() -> None:
     from sqlalchemy import select
     from sqlalchemy.orm import load_only
 
-    from src.config.app_settings import sqlalchemy_config
-    from src.config.base import get_settings
-    from src.db.models.role import Role
-    from src.domain.users.services import RoleService
+    from app.config.app_settings import sqlalchemy_config
+    from app.config.base import get_settings
+    from app.db.models.role import Role
+    from app.domain.users.services import RoleService
 
     async def _create_default_roles() -> None:
         settings = get_settings()

@@ -17,7 +17,7 @@ repos:
         args: [ --fix ]
         exclude: |
           (?x)^(
-              src/scripts/commands.py
+              src/app/scripts/commands.py
           )$
       - id: ruff-format
 
