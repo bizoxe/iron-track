@@ -25,6 +25,7 @@ repos:
     rev: v1.18.2
     hooks:
       - id: mypy
+        exclude: ^src/app/db/alembic/
         additional_dependencies:
           - "advanced-alchemy[uuid]"
           - "fastapi>=0.116.1"
