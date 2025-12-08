@@ -7,11 +7,6 @@ from advanced_alchemy.extensions.fastapi import (
     repository,
     service,
 )
-from advanced_alchemy.service import (
-    ModelDictT,
-    is_dict,
-    schema_dump,
-)
 from sqlalchemy.orm import load_only
 
 from app.config.constants import (
@@ -19,7 +14,6 @@ from app.config.constants import (
     DEFAULT_USER_ROLE_SLUG,
 )
 from app.db import models as m
-from app.lib import crypt
 from app.lib.exceptions import (
     NotFoundException,
     PermissionDeniedException,
@@ -45,25 +39,12 @@ class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
     system_admin_email = DEFAULT_ADMIN_EMAIL
     match_fields = ["email"]  # noqa: RUF012
 
-    async def to_model_on_create(self, data: ModelDictT[m.User]) -> ModelDictT[m.User]:
-        data = schema_dump(data)
-        return await self._populate_with_hashed_password(data)
-
-    async def to_model_on_update(self, data: ModelDictT[m.User]) -> ModelDictT[m.User]:
-        data = schema_dump(data)
-        return await self._populate_with_hashed_password(data)
-
-    async def _populate_with_hashed_password(self, data: ModelDictT[m.User]) -> ModelDictT[m.User]:
-        if is_dict(data) and (password := data.pop("password", None)) is not None:
-            data["hashed_password"] = await crypt.get_password_hash(password=password)
-        return data
-
-    async def authenticate(self, username: str, password: str | bytes) -> m.User:
+    async def authenticate(self, username: str, password: str) -> m.User:
         """Authenticate a user.
 
         Args:
-            username (str): User email
-            password (str | bytes): User password
+            username (str): User email.
+            password (str): User password.
 
         Raises:
             UnauthorizedException: Raised when the user doesn't exist, isn't verified, or is not active.
@@ -74,20 +55,19 @@ class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
         db_obj = await self.get_one_or_none(email=username)
         if (
             db_obj is None
-            or not await crypt.verify_password(password=password, hashed_password=db_obj.hashed_password)
+            or not db_obj.password.verify(password)  # type: ignore[attr-defined]
             or not db_obj.is_active
         ):
             raise UnauthorizedException(message="Invalid credentials or account is unavailable")
-
         return db_obj
 
     async def update_password(self, data: PasswordUpdate, user_id: UUID) -> None:
         """Modify stored user auth password."""
         user_obj = await self.get(user_id)
-        if not await crypt.verify_password(data.current_password, user_obj.hashed_password):
+        if not user_obj.password.verify(data.current_password):  # type: ignore[attr-defined]
             msg = "Current password is incorrect"
             raise UnauthorizedException(message=msg)
-        user_obj.hashed_password = await crypt.get_password_hash(data.new_password)
+        user_obj.password = data.new_password
 
     def check_critical_action_forbidden(
         self,
