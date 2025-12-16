@@ -9,11 +9,20 @@ if TYPE_CHECKING:
 
 
 class CustomQueueHandler(logging.handlers.QueueHandler):
+    """Prevents mutation of LogRecord objects before queuing."""
+
     @override
     def prepare(self, record: LogRecord) -> LogRecord:
-        """By default, the QueueHandler class mutates log entries before sending them to the queue.
+        """Override to prevent log record mutation by the base class.
 
-        Override the method of the base class.
+        The base class mutates log entries before sending them to the queue. This method
+        creates a shallow copy of the record, calculates the message, and returns the copy.
+
+        Args:
+            record (LogRecord): The log record to be prepared.
+
+        Returns:
+            LogRecord: A shallow copy of the record with the message attribute set.
         """
         record_copy = copy.copy(record)
         record_copy.message = record.getMessage()
