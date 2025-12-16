@@ -16,6 +16,9 @@ class IntegerPKBase(DefaultBase):
 
 
 class SmallIntPKBase(DefaultBase):
+    """Base model with a Small Integer primary key."""
+
     __abstract__ = True
 
     id: Mapped[int] = mapped_column(SmallInteger, primary_key=True)
+    """The primary key of the table."""

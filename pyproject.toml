@@ -218,3 +218,6 @@ ignore_errors = true
 module = [
     "src.app.db.alembic.*"
 ]
+
+[tool.codespell]
+ignore-words-list = "selectin,selectinload"

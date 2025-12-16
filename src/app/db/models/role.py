@@ -16,12 +16,14 @@ if TYPE_CHECKING:
 
 
 class Role(UUIDv7AuditBase, SlugKey):
-    """Role."""
+    """ORM Model representing user roles and permissions."""
 
     __tablename__ = "role"
 
     name: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
+    """The unique, displayable name of the role (e.g., 'Superuser', 'Application Access')."""
     description: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    """A brief description of the role's purpose and permissions."""
 
     # -----------
     # ORM Relationships
@@ -31,3 +33,4 @@ class Role(UUIDv7AuditBase, SlugKey):
         lazy="noload",
         viewonly=True,
     )
+    """The list of users assigned to this role."""
