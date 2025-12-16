@@ -80,6 +80,8 @@ docs = [
     "sphinx-click",
     "sphinxcontrib-mermaid",
     "shibuya",
+    "autodoc_pydantic",
+    "sphinxcontrib-typer",
 ]
 
 [tool.hatch.build]

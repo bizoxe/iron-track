@@ -206,6 +206,19 @@ wheels = [
 ]
 
 [[package]]
+name = "autodoc-pydantic"
+version = "2.2.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pydantic" },
+    { name = "pydantic-settings" },
+    { name = "sphinx" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7b/df/87120e2195f08d760bc5cf8a31cfa2381a6887517aa89453b23f1ae3354f/autodoc_pydantic-2.2.0-py3-none-any.whl", hash = "sha256:8c6a36fbf6ed2700ea9c6d21ea76ad541b621fbdf16b5a80ee04673548af4d95", size = 34001, upload-time = "2024-04-27T10:57:00.542Z" },
+]
+
+[[package]]
 name = "autodocsumm"
 version = "0.2.14"
 source = { registry = "https://pypi.org/simple" }
@@ -877,6 +890,7 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "autodoc-pydantic" },
     { name = "coverage" },
     { name = "httpx" },
     { name = "mypy" },
@@ -896,9 +910,11 @@ dev = [
     { name = "sphinx-design" },
     { name = "sphinx-toolbox" },
     { name = "sphinxcontrib-mermaid" },
+    { name = "sphinxcontrib-typer" },
     { name = "types-click" },
 ]
 docs = [
+    { name = "autodoc-pydantic" },
     { name = "shibuya" },
     { name = "sphinx" },
     { name = "sphinx-autobuild" },
@@ -907,6 +923,7 @@ docs = [
     { name = "sphinx-design" },
     { name = "sphinx-toolbox" },
     { name = "sphinxcontrib-mermaid" },
+    { name = "sphinxcontrib-typer" },
 ]
 linting = [
     { name = "mypy" },
@@ -951,6 +968,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "autodoc-pydantic" },
     { name = "coverage" },
     { name = "httpx" },
     { name = "mypy", specifier = ">=1.19.0" },
@@ -970,9 +988,11 @@ dev = [
     { name = "sphinx-design" },
     { name = "sphinx-toolbox" },
     { name = "sphinxcontrib-mermaid" },
+    { name = "sphinxcontrib-typer" },
     { name = "types-click" },
 ]
 docs = [
+    { name = "autodoc-pydantic" },
     { name = "shibuya" },
     { name = "sphinx" },
     { name = "sphinx-autobuild" },
@@ -981,6 +1001,7 @@ docs = [
     { name = "sphinx-design" },
     { name = "sphinx-toolbox" },
     { name = "sphinxcontrib-mermaid" },
+    { name = "sphinxcontrib-typer" },
 ]
 linting = [
     { name = "mypy", specifier = ">=1.19.0" },
@@ -1492,6 +1513,20 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/aa/81/05e400037eaf55ad400bcd318c05bb345b57e708887f07ddb2d20e3f0e98/pydantic_core-2.41.5-graalpy312-graalpy250_312_native-macosx_11_0_arm64.whl", hash = "sha256:aabf5777b5c8ca26f7824cb4a120a740c9588ed58df9b2d196ce92fba42ff8dc", size = 1915388, upload-time = "2025-11-04T13:42:52.215Z" },
     { url = "https://files.pythonhosted.org/packages/6e/0d/e3549b2399f71d56476b77dbf3cf8937cec5cd70536bdc0e374a421d0599/pydantic_core-2.41.5-graalpy312-graalpy250_312_native-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:c007fe8a43d43b3969e8469004e9845944f1a80e6acd47c150856bb87f230c56", size = 1942879, upload-time = "2025-11-04T13:42:56.483Z" },
     { url = "https://files.pythonhosted.org/packages/f7/07/34573da085946b6a313d7c42f82f16e8920bfd730665de2d11c0c37a74b5/pydantic_core-2.41.5-graalpy312-graalpy250_312_native-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:76d0819de158cd855d1cbb8fcafdf6f5cf1eb8e470abe056d5d161106e38062b", size = 2139017, upload-time = "2025-11-04T13:42:59.471Z" },
+]
+
+[[package]]
+name = "pydantic-settings"
+version = "2.12.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pydantic" },
+    { name = "python-dotenv" },
+    { name = "typing-inspection" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/43/4b/ac7e0aae12027748076d72a8764ff1c9d82ca75a7a52622e67ed3f765c54/pydantic_settings-2.12.0.tar.gz", hash = "sha256:005538ef951e3c2a68e1c08b292b5f2e71490def8589d4221b95dab00dafcfd0", size = 194184, upload-time = "2025-11-10T14:25:47.013Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c1/60/5d4751ba3f4a40a6891f24eec885f51afd78d208498268c734e256fb13c4/pydantic_settings-2.12.0-py3-none-any.whl", hash = "sha256:fddb9fd99a5b18da837b29710391e945b1e30c135477f484084ee513adb93809", size = 51880, upload-time = "2025-11-10T14:25:45.546Z" },
 ]
 
 [[package]]
@@ -2114,6 +2149,19 @@ wheels = [
 ]
 
 [[package]]
+name = "sphinxcontrib-typer"
+version = "0.7.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "sphinx" },
+    { name = "typer-slim", extra = ["standard"] },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/53/1f/06ff0075ee48fb606a6f495a5870b0d0eba0424cc28b5115a881b60ba086/sphinxcontrib_typer-0.7.0.tar.gz", hash = "sha256:dbc223cf2f8447fecaf7c814e4bf35d663c0ece370913a3c0c16f882f44236ce", size = 368775, upload-time = "2025-11-22T07:22:44.064Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5d/4d/00fcf57c7b8e232c6bf8d266ace87cb64601988033cf31973eab77848378/sphinxcontrib_typer-0.7.0-py3-none-any.whl", hash = "sha256:9f5a92343712be221d89667bd634502844acaabc434dec2c2a67e7d1609d4c61", size = 14515, upload-time = "2025-11-22T07:22:42.715Z" },
+]
+
+[[package]]
 name = "sqlalchemy"
 version = "2.0.44"
 source = { registry = "https://pypi.org/simple" }
@@ -2204,6 +2252,25 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/8f/28/7c85c8032b91dbe79725b6f17d2fffc595dff06a35c7a30a37bef73a1ab4/typer-0.20.0.tar.gz", hash = "sha256:1aaf6494031793e4876fb0bacfa6a912b551cf43c1e63c800df8b1a866720c37", size = 106492, upload-time = "2025-10-20T17:03:49.445Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/78/64/7713ffe4b5983314e9d436a90d5bd4f63b6054e2aca783a3cfc44cb95bbf/typer-0.20.0-py3-none-any.whl", hash = "sha256:5b463df6793ec1dca6213a3cf4c0f03bc6e322ac5e16e13ddd622a889489784a", size = 47028, upload-time = "2025-10-20T17:03:47.617Z" },
+]
+
+[[package]]
+name = "typer-slim"
+version = "0.20.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "click" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/8e/45/81b94a52caed434b94da65729c03ad0fb7665fab0f7db9ee54c94e541403/typer_slim-0.20.0.tar.gz", hash = "sha256:9fc6607b3c6c20f5c33ea9590cbeb17848667c51feee27d9e314a579ab07d1a3", size = 106561, upload-time = "2025-10-20T17:03:46.642Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5e/dd/5cbf31f402f1cc0ab087c94d4669cfa55bd1e818688b910631e131d74e75/typer_slim-0.20.0-py3-none-any.whl", hash = "sha256:f42a9b7571a12b97dddf364745d29f12221865acef7a2680065f9bb29c7dc89d", size = 47087, upload-time = "2025-10-20T17:03:44.546Z" },
+]
+
+[package.optional-dependencies]
+standard = [
+    { name = "rich" },
+    { name = "shellingham" },
 ]
 
 [[package]]
