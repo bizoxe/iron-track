@@ -23,6 +23,8 @@ sqlalchemy_config = SQLAlchemyAsyncConfig(
         script_location=settings.db.MIGRATION_PATH,
     ),
 )
-
+"""Central SQLAlchemy configuration: async engine, autocommit mode, and Alembic details."""
 alchemy: AdvancedAlchemy = AdvancedAlchemy(config=sqlalchemy_config)
+"""AdvancedAlchemy extension managing engine, session factory, and Alembic integration."""
 DatabaseSession = Annotated[AsyncSession, Depends(alchemy.provide_session())]
+"""FastAPI dependency for providing and managing the async database session lifecycle."""

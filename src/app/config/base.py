@@ -29,12 +29,15 @@ class AppSettings:
     """Application configuration."""
 
     ENVIRONMENT: str = field(default_factory=lambda: os.getenv("APP_ENVIRONMENT", "dev"))
+    """The application execution environment (e.g., 'dev', 'prod')."""
     API_V1_URL_PREFIX = "/api/v1"
+    """The default URL prefix for API Version routes."""
     CDN_IMAGES_DEFAULT_URL: str = field(
         default_factory=lambda: os.getenv(
             "CDN_IMAGES_URL", "https://raw.githubusercontent.com/bizoxe/iron-track/media/resources/exercises"
         ),
     )
+    """The default base URL for CDN-hosted exercise images."""
 
 
 @dataclass
@@ -44,10 +47,14 @@ class LogSettings:
     LEVEL: int = field(default_factory=lambda: int(os.getenv("LOG_LEVEL", "20")))
     """The minimum logging threshold for the root logger."""
     UVICORN_ACCESS_LEVEL: int = field(default_factory=lambda: int(os.getenv("UVICORN_ACCESS_LEVEL", "30")))
+    """Logging level for Uvicorn access log (HTTP requests)."""
     UVICORN_ERROR_LEVEL: int = field(default_factory=lambda: int(os.getenv("UVICORN_ERROR_LEVEL", "20")))
+    """Logging level for Uvicorn errors."""
     MIDDLEWARE_LOG_LEVEL: int = field(default_factory=lambda: int(os.getenv("MIDDLEWARE_LOG_LEVEL", "20")))
-    """Logging level for the custom ASGI middleware logger. Must be **20 (INFO)**.
-    Higher levels disable tracking of important requests needed for traffic monitoring and analysis.
+    """Logging level for the custom ASGI middleware logger.
+
+    Must be **20 (INFO)**. Higher levels disable tracking of important requests
+    needed for traffic monitoring and analysis.
     """
     SQLALCHEMY_LEVEL: int = field(default_factory=lambda: int(os.getenv("SQLALCHEMY_LEVEL", "30")))
     """SQLAlchemy logs level."""
@@ -56,7 +63,11 @@ class LogSettings:
 
     @property
     def final_formatter(self) -> str:
-        """The name of the logging formatter to use based on the environment."""
+        """Determine the logging formatter name based on the current environment.
+
+        Returns:
+            str: 'plain_console' for development, 'json_console' otherwise.
+        """
         if self._settings.app.ENVIRONMENT == "dev":
             return "plain_console"
         return "json_console"
@@ -67,11 +78,17 @@ class DatabaseSettings:
     """Database configuration."""
 
     POSTGRES_HOST: str = field(default_factory=lambda: os.getenv("POSTGRES_HOST", "localhost"))
+    """The PostgreSQL server hostname."""
     POSTGRES_PORT: int = field(default_factory=lambda: int(os.getenv("POSTGRES_PORT", "5432")))
+    """The PostgreSQL server port number."""
     POSTGRES_USER: str = field(default_factory=lambda: os.getenv("POSTGRES_USER", "postgres"))
+    """The PostgreSQL database username."""
     POSTGRES_PASSWORD: str = field(default_factory=lambda: os.getenv("POSTGRES_PASSWORD", "supersecretpassword"))
+    """The PostgreSQL database password."""
     POSTGRES_DB: str = field(default_factory=lambda: os.getenv("POSTGRES_DB", "iron_track"))
+    """The PostgreSQL database name."""
     URL: str | None = field(default_factory=lambda: os.getenv("DATABASE_URL"))
+    """Optional: The full, pre-configured database connection URL."""
 
     ECHO: bool = field(default_factory=lambda: os.getenv("DATABASE_ECHO", "False") in TRUE_VALUES)
     """Enable SQLAlchemy engine logs."""
@@ -90,21 +107,27 @@ class DatabaseSettings:
     POOL_DISABLED: bool = field(default_factory=lambda: os.getenv("DATABASE_POOL_DISABLED", "False") in TRUE_VALUES)
     """Disable SQLAlchemy pool configuration."""
 
-    MIGRATION_CONFIG: str = f"{BASE_DIR}/db/alembic/alembic.ini"
+    MIGRATION_CONFIG: str = field(default_factory=lambda: f"{BASE_DIR}/db/alembic/alembic.ini")
     """The path to the `alembic.ini` configuration file."""
-    MIGRATION_PATH: str = f"{BASE_DIR}/db/alembic"
+    MIGRATION_PATH: str = field(default_factory=lambda: f"{BASE_DIR}/db/alembic")
     """The path to the `alembic` database migrations."""
     MIGRATION_DDL_VERSION_TABLE: str = "ddl_version"
     """The name to use for the `alembic` versions table name."""
-    FIXTURE_PATH: str = f"{BASE_DIR}/db/fixtures"
+    FIXTURE_PATH: str = field(default_factory=lambda: f"{BASE_DIR}/db/fixtures")
     """The path to JSON fixture files to load into tables."""
     PGBOUNCER_ENABLED: bool = field(default_factory=lambda: os.getenv("BG_BOUNCER_ENABLED", "True") in TRUE_VALUES)
     """Enable PgBouncer connection pooling for SQLAlchemy."""
 
-    _engine_instance: AsyncEngine | None = None
-    """SQLAlchemy engine instance generated from settings."""
+    _engine_instance: AsyncEngine | None = field(default=None, init=False)
 
     def get_connection_url(self) -> str:
+        """Construct the full PostgreSQL connection URL.
+
+        The method prioritizes the explicit URL attribute if it is set.
+
+        Returns:
+            str: The full connection URL string.
+        """
         if self.URL is not None:
             return self.URL
 
@@ -112,15 +135,17 @@ class DatabaseSettings:
 
     @property
     def engine(self) -> AsyncEngine:
+        """Retrieve the SQLAlchemy engine instance."""
         return self.get_engine()
 
     def get_engine(self) -> AsyncEngine:
+        """Retrieve or initialize the appropriate SQLAlchemy engine."""
         if self.PGBOUNCER_ENABLED:
             return self.configure_pgbouncer_engine()
         return self.configure_standard_engine()
 
     def configure_standard_engine(self) -> AsyncEngine:
-        """Create and configure the standard SQLAlchemy asynchronous engine with an internal connection pool."""
+        """Create and configure the standard SQLAlchemy async engine with pooling."""
         if self._engine_instance is not None:
             return self._engine_instance
 
@@ -140,7 +165,7 @@ class DatabaseSettings:
         return self._engine_instance
 
     def configure_pgbouncer_engine(self) -> AsyncEngine:
-        """Create the SQLAlchemy engine, disabling the internal pool (`NullPool`) for use with PgBouncer."""
+        """Create the SQLAlchemy engine for PgBouncer compatibility."""
         if self._engine_instance is not None:
             return self._engine_instance
 
@@ -166,19 +191,26 @@ class JWTSettings:
     """JWT configuration."""
 
     ALGORITHM: str = field(default_factory=lambda: os.getenv("ALGORITHM", "RS256"))
+    """JWT signing algorithm (e.g., 'RS256' or 'HS256')."""
     ACCESS_TOKEN_EXPIRE_MINUTES: int = field(
         default_factory=lambda: int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
     )
+    """Lifetime of the access token in minutes."""
     REFRESH_TOKEN_EXPIRE_DAYS: int = field(default_factory=lambda: int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", "30")))
+    """Lifetime of the refresh token in days."""
     AUTH_JWT_PRIVATE_KEY: Path = field(default_factory=lambda: BASE_DIR / "certs" / "private.pem")
+    """Path to the private key file used for signing tokens."""
     AUTH_JWT_PUBLIC_KEY: Path = field(default_factory=lambda: BASE_DIR / "certs" / "public.pem")
+    """Path to the public key file used for verifying tokens."""
 
     @cached_property
     def auth_jwt_private_key(self) -> str:
+        """Read the content of the private key file."""
         return self.AUTH_JWT_PRIVATE_KEY.read_text()
 
     @cached_property
     def auth_jwt_public_key(self) -> str:
+        """Read the content of the public key file."""
         return self.AUTH_JWT_PUBLIC_KEY.read_text()
 
 
@@ -197,9 +229,11 @@ class RedisSettings:
 
     @property
     def client(self) -> Redis:
+        """Retrieve the configured asynchronous Redis client."""
         return self.get_client()
 
     def get_client(self) -> Redis:
+        """Initialize and configure the asynchronous Redis client."""
         redis_client: Redis = Redis.from_url(
             url=self.URL,
             encoding="utf-8",
@@ -213,6 +247,16 @@ class RedisSettings:
 
 @dataclass
 class Settings:
+    """Container class holding all application configuration settings.
+
+    Attributes:
+        app (AppSettings): Application-level settings.
+        log (LogSettings): Logging configuration.
+        db (DatabaseSettings): Database connection and pool settings.
+        jwt (JWTSettings): JWT token configuration.
+        redis (RedisSettings): Redis client and connection settings.
+    """
+
     app: AppSettings = field(default_factory=AppSettings)
     log: LogSettings = field(default_factory=LogSettings)
     db: DatabaseSettings = field(default_factory=DatabaseSettings)
@@ -224,6 +268,7 @@ class Settings:
 
     @classmethod
     def from_env(cls, dotenv_file: Path) -> Settings:
+        """Load environment variables from a dotenv file and initialize settings."""
         if dotenv_file.is_file():
             from dotenv import load_dotenv
 
@@ -234,4 +279,5 @@ class Settings:
 
 @lru_cache(maxsize=1, typed=True)
 def get_settings() -> Settings:
+    """Load and cache application configuration."""
     return Settings.from_env(dotenv_file=DEFAULT_DOTENV_FILE_PATH)
