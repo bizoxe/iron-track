@@ -1,4 +1,4 @@
-"""Define CLI commands for server management.
+"""A module for CLI to manage the server.
 
 This module defines a custom Typer group (`server_cli_group`) that wraps the base
 `fastapi dev` and `fastapi run` commands from `fastapi-cli`.

@@ -6,37 +6,28 @@ app = create_app()
 def run_cli() -> None:
     """Entry point for the command-line interface (CLI).
 
-    Initializes the main application entry point (based on Typer)
-    and integrates multiple command groups to provide comprehensive tooling:
+    Initializes the main Typer application and integrates multiple command groups
+    to provide comprehensive tooling for the application.
 
-    * Server Management: Commands for running the application in development
-      (`dev`) and production (`run`) mode, using custom default settings for the entrypoint.
-    * Database Migrations: Commands for managing database schemas and migrations
-      provided by `advanced_alchemy`.
-    * Custom Tools: Application-specific commands, such as those for user management.
+    The following command groups are included:
 
-    It collects these command groups and executes the CLI application.
+    * **Server Management:** Commands for running the application in development (`dev`)
+      and production (`run`) mode.
+    * **Database Migrations:** Commands for managing database schemas and migrations
+      (provided by `advanced_alchemy`).
+    * **Custom Tools:** Application-specific commands, such as those for user management.
 
-    Example:
+    Examples:
         1. Start Development Server:
-           Start the server in development mode, automatically using the default app entrypoint.
-           ``app server dev``
-
+            ``app server dev``
         2. View Database Help:
-           View available Advanced Alchemy database commands (e.g., upgrade, revision, stamp).
-           ``app database --help``
-
+            ``app database --help``
         3. Apply Migrations:
-           Apply all pending database migrations.
-           ``app database upgrade head``
-
+            ``app database upgrade head``
         4. View User Management Help:
-           View available user management subcommands.
-           ``app users --help``
-
+            ``app users --help``
         5. Create New User:
-           Create a new user account via the custom command group.
-           ``app users create-user --name "User Example" --email user@example.com --password secretpwd``
+            ``app users create-user --name "User Example" --email user@example.com --password secretpwd``
     """
     from advanced_alchemy.extensions.fastapi.cli import register_database_commands
     from typer import Typer

@@ -46,6 +46,7 @@ repos:
           - fastapi-cache2
           - msgspec
           - "pyjwt[crypto]"
+          - typer
   - repo: https://github.com/sphinx-contrib/sphinx-lint
     rev: "v1.0.2"
     hooks:
