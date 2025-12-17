@@ -25,11 +25,11 @@ def check_roles_created(roles: list[RoleModel | None]) -> list[RoleModel]:
     if not any(roles):
         console.print(
             "\n USER ROLES NOT CREATED",
-            style="#FF0000",
+            style="red",
         )
         console.print(
             "Kindly execute the create-roles command to initialize the database",
-            style="#FF0000",
+            style="red",
         )
         raise click.Abort()
     return cast("list[RoleModel]", roles)
@@ -106,15 +106,15 @@ def create_user(
                     data=obj_data.model_dump() | {"role_id": superuser_role.id if superuser else default_role.id},
                     auto_commit=True,
                 )
-                console.print(f"User created with email: {user.email}", style="#ffff00")
+                console.print(f"User created with email: {user.email}", style="green")
         except (DuplicateKeyError, ValidationError) as exc:
             if isinstance(exc, DuplicateKeyError):
                 console.print(
                     f"User with email '{email}' already exists in the database",
-                    style="#FF0000",
+                    style="red",
                 )
             else:
-                console.print("Incorrect email address or short password", style="#FF0000")
+                console.print("Incorrect email address or short password", style="red")
 
     console.rule("Create a new application user.")
     name = name or click.prompt("Full Name", show_default=False)
@@ -152,16 +152,16 @@ def promote_to_superuser(email: str) -> None:
             superuser_role = check_roles_created([superuser_role])[0]
             user = await users_service.get_one_or_none(email=email)
             if user:
-                console.print(f"Promoting user: {user.email}", style="#ffff00")
+                console.print(f"Promoting user: {user.email}", style="green")
                 obj_data = {"is_superuser": True, "role_id": superuser_role.id}
                 user = await users_service.update(
                     item_id=user.id,
                     data=obj_data,
                     auto_commit=True,
                 )
-                console.print(f"Upgraded user with email: '{user.email}' to superuser", style="#ffff00")
+                console.print(f"Upgraded user with email: '{user.email}' to superuser", style="green")
             else:
-                console.print(f"User with email: {email} not found", style="#FF0000")
+                console.print(f"User with email: {email} not found", style="red")
 
     console.rule("Promote user to superuser.")
     anyio.run(_promote_to_superuser, email)
@@ -199,9 +199,9 @@ def create_system_admin(password: str | None) -> None:
             superuser_role = check_roles_created(roles=[superuser_role])[0]
             try:
                 await users_service.create(data=obj_data | {"role_id": superuser_role.id}, auto_commit=True)
-                console.print("System administrator was created", style="#ffff00")
+                console.print("System administrator was created", style="green")
             except DuplicateKeyError:
-                console.print("System administrator already exists", style="#FF0000")
+                console.print("System administrator already exists", style="red")
 
     console.rule("Create system administrator.")
     password = password or click.prompt("Password", hide_input=True, confirmation_prompt=True)
@@ -233,7 +233,7 @@ def create_default_roles() -> None:
         ) as service:
             fixture_data = await open_fixture_async(fixture_path, "role")
             await service.upsert_many(match_fields=["name"], data=fixture_data, auto_commit=True)
-            console.print("Successfully loaded and synchronized default roles", style="#ffff00")
+            console.print("Successfully loaded and synchronized default roles", style="green")
 
     console.rule("Creating default roles.")
     anyio.run(_create_default_roles)
