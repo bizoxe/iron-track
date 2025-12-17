@@ -10,6 +10,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 
+from app.__about__ import __version__ as current_version
 from app.config.app_settings import alchemy
 from app.config.base import get_settings
 from app.config.constants import FASTAPI_CACHE_PREFIX
@@ -32,6 +33,18 @@ if TYPE_CHECKING:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI, settings: Settings) -> AsyncIterator[None]:
+    """Manage application lifecycle resources.
+
+    Handles the setup and teardown of essential asynchronous services, including
+    logging queue, Redis client, and application-level caches.
+
+    Args:
+        app (FastAPI): The main application instance.
+        settings (Settings): The application settings object.
+
+    Yields:
+        AsyncIterator[None]: Context manager flow control.
+    """
     configure_logging()
     queue_handler = logging.getHandlerByName("queue_handler")
     queue_handler.listener.start()  # type: ignore[union-attr]
@@ -46,19 +59,42 @@ async def lifespan(app: FastAPI, settings: Settings) -> AsyncIterator[None]:
 
 
 def _init_error_handlers(app: FastAPI) -> None:
+    """Register custom exception handlers.
+
+    Args:
+        app (FastAPI): The main application instance.
+    """
     app.add_exception_handler(BaseAPIException, http_exception_handler)  # type: ignore[arg-type]
     app.add_exception_handler(RequestValidationError, validation_exception_handler)  # type: ignore[arg-type]
 
 
 def _init_routers(app: FastAPI, settings: Settings) -> None:
+    """Include all domain-specific routers into the application.
+
+    Args:
+        app (FastAPI): The main application instance.
+        settings (Settings): The application settings object.
+    """
     app.include_router(access_router, prefix=settings.app.API_V1_URL_PREFIX)
     app.include_router(users_router, prefix=settings.app.API_V1_URL_PREFIX)
     app.include_router(role_router, prefix=settings.app.API_V1_URL_PREFIX)
 
 
 def create_app() -> FastAPI:
+    """Create and configure the core FastAPI application instance.
+
+    Returns:
+        FastAPI: The fully configured application instance.
+    """
     settings = get_settings()
-    _app = FastAPI(lifespan=lambda app: lifespan(app, settings=settings))
+    _app = FastAPI(
+        title="IronTrack",
+        version=current_version,
+        description=(
+            "IronTrack is a high-performance, asynchronous backend service built on FastAPI and Advanced-Alchemy."
+        ),
+        lifespan=lambda app: lifespan(app, settings=settings),
+    )
     alchemy.init_app(_app)
     _init_routers(app=_app, settings=settings)
     _init_error_handlers(app=_app)
