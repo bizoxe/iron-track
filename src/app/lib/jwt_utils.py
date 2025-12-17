@@ -37,7 +37,7 @@ def encode_jwt(
             Overrides `expire_minutes`. Used primarily for Refresh Tokens.
 
     Returns:
-        The encoded JWT string.
+        str: The encoded JWT string.
     """
     to_encode = payload.copy()
     time_now = datetime.now(tz=UTC)
@@ -73,7 +73,7 @@ def decode_jwt(
             Defaults to the configured algorithm.
 
     Returns:
-        The decoded payload as a dictionary.
+        dict: The decoded payload as a dictionary.
 
     Raises:
         jwt.InvalidSignatureError: If the token signature is invalid.

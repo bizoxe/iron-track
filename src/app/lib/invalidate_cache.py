@@ -19,7 +19,15 @@ async def invalidate_user_cache(
     user_id: UUID,
     redis_client: RedisClientDep,
 ) -> None:
-    """Invalidates the cached authentication/authorization data for a user by their ID."""
+    """Invalidate the cached data for a user by ID.
+
+    This function constructs the specific cache key using predefined namespaces
+    and deletes the corresponding entry in Redis.
+
+    Args:
+        user_id (UUID): The unique identifier of the user.
+        redis_client (Redis): An asynchronous Redis client instance.
+    """
     cache_key = f"{USER_AUTH_CACHE_NAMESPACE}:{user_id}"
 
     await redis_client.delete(cache_key)

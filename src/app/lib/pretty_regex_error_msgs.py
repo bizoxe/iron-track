@@ -23,6 +23,19 @@ if TYPE_CHECKING:
 
 @validate_call
 def regex_validator(pattern: Pattern[str], error_message: str) -> GetPydanticSchema:
+    """Create a Pydantic validator that checks a string against a regex pattern.
+
+    If validation fails, a custom "value_error" with the provided message is raised,
+    improving error readability compared to default Pydantic errors.
+
+    Args:
+        pattern (Pattern[str]): The compiled regular expression pattern to enforce.
+        error_message (str): The custom error message to display on validation failure.
+
+    Returns:
+        GetPydanticSchema: A Pydantic object to be used in model field annotations.
+    """
+
     def get_pydantic_core_schema(
         source: type[Any],
         handler: GetCoreSchemaHandler,

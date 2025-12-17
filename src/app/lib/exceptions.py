@@ -1,4 +1,6 @@
 class BaseAPIException(Exception):  # noqa: N818
+    """Base exception for all API-related errors."""
+
     def __init__(
         self,
         status_code: int,
@@ -11,6 +13,8 @@ class BaseAPIException(Exception):  # noqa: N818
 
 
 class UnauthorizedException(BaseAPIException):
+    """401 Unauthorized exception."""
+
     def __init__(
         self,
         message: str = "Not authenticated",
@@ -22,6 +26,8 @@ class UnauthorizedException(BaseAPIException):
 
 
 class UserNotFound(BaseAPIException):
+    """404 User not found exception."""
+
     def __init__(
         self,
     ) -> None:
@@ -32,6 +38,8 @@ class UserNotFound(BaseAPIException):
 
 
 class BadRequestException(BaseAPIException):
+    """400 Bad Request exception."""
+
     def __init__(self, message: str) -> None:
         super().__init__(
             status_code=400,
@@ -40,6 +48,8 @@ class BadRequestException(BaseAPIException):
 
 
 class ConflictException(BaseAPIException):
+    """409 Conflict exception."""
+
     def __init__(self, message: str) -> None:
         super().__init__(
             status_code=409,
@@ -48,6 +58,8 @@ class ConflictException(BaseAPIException):
 
 
 class PermissionDeniedException(BaseAPIException):
+    """403 Permission Denied exception."""
+
     def __init__(self, message: str) -> None:
         super().__init__(
             status_code=403,
@@ -56,6 +68,8 @@ class PermissionDeniedException(BaseAPIException):
 
 
 class NotFoundException(BaseAPIException):
+    """404 Not Found exception."""
+
     def __init__(self, message: str) -> None:
         super().__init__(
             status_code=404,
