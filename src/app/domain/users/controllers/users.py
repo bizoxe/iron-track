@@ -63,7 +63,14 @@ async def create_user(
     roles_service: RoleServiceDep,
     data: UserCreate,
 ) -> User:
-    """Create a new user in the system."""
+    """Create a new user in the system.
+
+    Returns:
+        ~app.domain.users.schemas.User: The newly created user.
+
+    Raises:
+        ConflictException: If a user with the provided email already exists.
+    """
     role_obj = await roles_service.get_default_role(
         default_role_slug=users_service.default_role,
     )
@@ -86,7 +93,14 @@ async def get_user(
     users_service: UserServiceDep,
     user_id: UUID,
 ) -> User:
-    """Retrieve a user by ID."""
+    """Retrieve a user by ID.
+
+    Returns:
+        ~app.domain.users.schemas.User: The detailed user.
+
+    Raises:
+        UserNotFound: If the user with the given ID is not found.
+    """
     try:
         db_obj = await users_service.get(user_id)
         return users_service.to_schema(db_obj, schema_type=User)
@@ -126,7 +140,11 @@ async def get_list_users(
         ),
     ],
 ) -> OffsetPagination[User]:
-    """Retrieve a list of users."""
+    """Retrieve a list of users.
+
+    Returns:
+        OffsetPagination[~app.domain.users.schemas.User]: Paginated list of users.
+    """
     results, total = await users_service.list_and_count(*filters)
 
     return users_service.to_schema(data=results, total=total, schema_type=User, filters=filters)
@@ -145,7 +163,17 @@ async def update_user(
     data: UserUpdate,
     user_id: UUID,
 ) -> User:
-    """Update user by ID."""
+    """Update user details by ID.
+
+    This action also invalidates the user's authentication cache in Redis.
+
+    Returns:
+        ~app.domain.users.schemas.User: The updated user.
+
+    Raises:
+        UserNotFound: If the user is not found.
+        ConflictException: If the new email provided is already in use by another user.
+    """
     try:
         user_obj = await users_service.get(user_id)
         users_service.check_critical_action_forbidden(
@@ -177,7 +205,16 @@ async def delete_user(
     redis_client: RedisClientDep,
     user_id: UUID,
 ) -> Response:
-    """Delete a user from the system."""
+    """Delete a user from the system.
+
+    This action also invalidates the user's authentication cache in Redis.
+
+    Returns:
+        Response: HTTP 204 No Content on successful deletion.
+
+    Raises:
+        UserNotFound: If the user is not found.
+    """
     try:
         user_obj = await users_service.get(user_id)
         users_service.check_critical_action_forbidden(

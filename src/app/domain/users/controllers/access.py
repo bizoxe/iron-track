@@ -1,3 +1,9 @@
+"""User Access and Authentication Endpoints.
+
+Handles user registration, login (JWT token issuance via cookies), token refreshing, logout,
+and user-specific profile actions.
+"""
+
 from typing import Annotated
 
 from advanced_alchemy.exceptions import DuplicateKeyError
@@ -58,7 +64,14 @@ async def signup(
     roles_service: RoleServiceDep,
     account_register: AccountRegister,
 ) -> User:
-    """User Signup."""
+    """User Signup.
+
+    Returns:
+        ~app.domain.users.schemas.User: The newly registered user.
+
+    Raises:
+        ConflictException: If a user with this email already exists.
+    """
     role_obj = await roles_service.get_default_role(
         default_role_slug=users_service.default_role,
     )
@@ -83,7 +96,14 @@ async def login_for_access_token(
     users_service: UserServiceDep,
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
 ) -> Response:
-    """Issue access and refresh tokens. Store tokens in cookies."""
+    """Issue access and refresh tokens. Store tokens in cookies.
+
+    Returns:
+        Response: HTTP 204 No Content response with access and refresh tokens set as cookies.
+
+    Raises:
+        UnauthorizedException: If authentication fails (handled by dependencies).
+    """
     user = await users_service.authenticate(
         username=form_data.username,
         password=form_data.password,
@@ -122,7 +142,13 @@ async def user_auth_refresh_token(
     user_auth: Annotated[UserAuth, Depends(Authenticate.get_current_user_for_refresh)],
     redis_client: RedisClientDep,
 ) -> Response:
-    """Get the user by the refresh token and issue a new access token."""
+    """Get the user by the refresh token and issue a new access token.
+
+    The expired refresh token is added to the blacklist as a background task.
+
+    Returns:
+        Response: HTTP 204 No Content response with new access and refresh tokens.
+    """
     access_token = create_access_token(
         user_id=user_auth.id,
         email=user_auth.email,
@@ -165,7 +191,14 @@ async def logout(
     refresh_jti: Annotated[str, Depends(Authenticate.get_refresh_jti)],
     redis_client: RedisClientDep,
 ) -> Response:
-    """User Logout."""
+    """User Logout.
+
+    Deletes access and refresh tokens from cookies and invalidates the refresh token JTI
+    in Redis as a background task.
+
+    Returns:
+        Response: HTTP 204 No Content response.
+    """
     background_tasks = BackgroundTasks()
     background_tasks.add_task(
         func=perform_logout_cleanup,
@@ -195,7 +228,13 @@ async def update_password(
     redis_client: RedisClientDep,
     pwd_data: PasswordUpdate,
 ) -> Response:
-    """Update user password."""
+    """Update user password.
+
+    This action also invalidates the user's authentication cache in Redis.
+
+    Returns:
+        Response: HTTP 204 No Content response.
+    """
     await users_service.update_password(
         data=pwd_data,
         user_id=user_auth.id,
@@ -216,5 +255,9 @@ async def update_password(
 async def user_auth_get_self_info(
     user_auth: Annotated[UserAuth, Depends(Authenticate.get_current_active_user())],
 ) -> UserAuth:
-    """Get self account info."""
+    """Get self account info.
+
+    Returns:
+        UserAuth: The authenticated user's details.
+    """
     return user_auth

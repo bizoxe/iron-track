@@ -49,8 +49,12 @@ async def assign_new_role(  # noqa: PLR0913
     This operation requires superuser privileges. **Self-assignment is forbidden**
     (superuser modifying their own account) for security.
 
+    Returns:
+        MsgSpecJSONResponse: Success message indicating the assigned role.
+
     Raises:
         PermissionDeniedException: If the superuser attempts to modify their own account or the system admin.
+        ConflictException: If the user already has the requested role.
     """
     user_obj = await check_user_before_modify_role(
         users_service=users_service,
@@ -89,11 +93,15 @@ async def revoke_and_set_default_role(  # noqa: PLR0913
 ) -> MsgSpecJSONResponse:
     """Revoke the specified role from the user by email and set the default role.
 
-    This operation requires superuser privileges. **Self-assignment is forbidden**
+    This operation requires superuser privileges. **Self-modification is forbidden**
     (superuser modifying their own account) for security.
+
+    Returns:
+        MsgSpecJSONResponse: Success message indicating the revoked and default roles.
 
     Raises:
         PermissionDeniedException: If the superuser attempts to modify their own account or the system admin.
+        ConflictException: If the user does not currently have the role that is requested for revocation.
     """
     user_obj = await check_user_before_modify_role(
         users_service=users_service,

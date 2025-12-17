@@ -56,6 +56,8 @@ class User(BaseModel):
 
 
 class UserCreate(BaseModel):
+    """Properties required to create a new user."""
+
     name: str | None = None
     email: EmailStr
     password: Annotated[str, MinLen(3), MaxLen(20)]
@@ -64,14 +66,18 @@ class UserCreate(BaseModel):
 
 
 class UserUpdate(BaseModel):
+    """Data transfer object for optional user account updates."""
+
     name: str | None = None
     email: EmailStr | None = None
     password: Annotated[str, MinLen(3), MaxLen(20)] | None = None
-    is_active: bool | None = True
-    is_superuser: bool | None = False
+    is_active: bool | None = None
+    is_superuser: bool | None = None
 
 
 class AccountRegister(BaseModel):
+    """Information provided by a user during public registration."""
+
     name: str | None = None
     email: EmailStr
     password: Annotated[str, valid_pwd]
@@ -79,6 +85,7 @@ class AccountRegister(BaseModel):
 
     @model_validator(mode="after")
     def check_passwords_match(self) -> Self:
+        """Ensure the 'password' and 'confirm_password' fields match."""
         if self.confirm_password != self.password:
             msg = "Passwords don't match"
             raise ValueError(msg)
@@ -86,25 +93,31 @@ class AccountRegister(BaseModel):
 
 
 class UserAuth(User):
+    """User model used for authentication context."""
+
     joined_at: date
     _refresh_jti: str | None = PrivateAttr(default=None)
 
 
 class PasswordUpdate(BaseModel):
+    """Input data for password rotation."""
+
     current_password: str
     new_password: Annotated[str, valid_pwd]
 
 
 class RoleSlug(StrEnum):
+    """Available user role slugs."""
+
     SUPERUSER = "superuser"
     FITNESS_TRAINER = "fitness-trainer"
 
 
 class UserRoleAdd(BaseModel):
-    """User role add."""
+    """Payload for granting a specific role to a user."""
 
     role_slug: RoleSlug
 
 
 class UserRoleRevoke(UserRoleAdd):
-    """User role revoke."""
+    """Payload for revoking a specific role from a user."""

@@ -26,7 +26,7 @@ def create_access_token(
         email (str): The user's email address.
 
     Returns:
-        The encoded access token string.
+        str: The encoded access token string.
     """
     jwt_payload = {
         "sub": str(user_id),
@@ -42,7 +42,7 @@ def create_refresh_token(user_id: UUID) -> str:
         user_id (UUID): The unique identifier of the user.
 
     Returns:
-        The encoded refresh token string.
+        str: The encoded refresh token string.
     """
     jwt_payload = {
         "sub": str(user_id),

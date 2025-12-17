@@ -47,10 +47,10 @@ class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
             password (str): User password.
 
         Raises:
-            UnauthorizedException: Raised when the user doesn't exist, isn't verified, or is not active.
+            UnauthorizedException: If the user is not found, not verified, or inactive.
 
         Returns:
-            User: The user object.
+            ~app.db.models.user.User: The user object.
         """
         db_obj = await self.get_one_or_none(email=username)
         if (
@@ -62,7 +62,15 @@ class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
         return db_obj
 
     async def update_password(self, data: PasswordUpdate, user_id: UUID) -> None:
-        """Modify stored user auth password."""
+        """Modify the stored user password.
+
+        Args:
+            data (PasswordUpdate): The Pydantic schema with current and new passwords.
+            user_id (UUID): The unique ID of the target user.
+
+        Raises:
+            UnauthorizedException: If the current password is incorrect.
+        """
         user_obj = await self.get(user_id)
         if not user_obj.password.verify(data.current_password):  # type: ignore[attr-defined]
             msg = "Current password is incorrect"
@@ -74,7 +82,15 @@ class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
         target_user: m.User,
         calling_superuser_id: UUID,
     ) -> None:
-        """Disallow destructive action on self or system admin."""
+        """Disallow destructive action on self or system admin.
+
+        Args:
+            target_user (:py:class:`~app.db.models.user.User`): The user object targeted for action.
+            calling_superuser_id (UUID): UUID of the superuser calling the action.
+
+        Raises:
+            PermissionDeniedException: If target is the system admin or the caller themselves.
+        """
         if target_user.email == self.system_admin_email:
             msg = "Forbidden: Cannot modify the primary system administrator account"
             raise PermissionDeniedException(message=msg)
@@ -85,10 +101,10 @@ class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
 
 
 class RoleService(service.SQLAlchemyAsyncRepositoryService[m.Role]):
-    """Handles database operations for users."""
+    """Handles database operations for roles."""
 
     class RoleRepository(repository.SQLAlchemyAsyncRepository[m.Role]):
-        """User SQLAlchemy Repository."""
+        """Role SQLAlchemy Repository."""
 
         model_type = m.Role
 
@@ -113,11 +129,11 @@ class RoleService(service.SQLAlchemyAsyncRepositoryService[m.Role]):
             default_role_slug (str): The slug of the default role (e.g., 'application-access').
 
         Returns:
-            A Role object (with `id`, `name`, and `slug` loaded).
+            Role: A Role object (with `id`, `name`, and `slug` loaded).
 
         Raises:
             NotFoundError: Signals a **critical infrastructure failure**. This role is required,
-                            and its absence means that the initial database seeding did not complete.
+                           and its absence means that the initial database seeding did not complete.
         """
         return await self.get_one(
             slug=default_role_slug,

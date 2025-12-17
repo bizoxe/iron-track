@@ -24,7 +24,14 @@ if TYPE_CHECKING:
 
 
 async def provide_users_service(db_session: DatabaseSession) -> AsyncGenerator[UserService, None]:
-    """Provide a new, scoped instance of the UserService."""
+    """Provide a new, scoped instance of the UserService.
+
+    Args:
+        db_session (DatabaseSession): The current database session.
+
+    Yields:
+        UserService: The new service instance.
+    """
     async with UserService.new(
         session=db_session,
         load=[
@@ -39,7 +46,14 @@ UserServiceDep = Annotated[UserService, Depends(provide_users_service)]
 
 
 async def provide_role_service(db_session: DatabaseSession) -> AsyncGenerator[RoleService, None]:
-    """Provide a new, scoped instance of the RoleService."""
+    """Provide a new, scoped instance of the RoleService.
+
+    Args:
+        db_session (DatabaseSession): The current database session.
+
+    Yields:
+        RoleService: The new service instance.
+    """
     async with RoleService.new(
         session=db_session,
     ) as service:

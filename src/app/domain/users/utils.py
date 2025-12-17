@@ -22,18 +22,18 @@ async def check_user_before_modify_role(
     users_service: UserServiceDep,
     email: str,
 ) -> UserModel:
-    """Check user existence and activity status before a role modification operation.
+    """Check user existence and activity status before role modification.
 
     Args:
         users_service (UserService): Dependency for user service operations.
         email (str): The email of the user whose role is being modified.
 
     Returns:
-        The User model object from the database.
+        ~app.db.models.user.User: The User model object from the database.
 
     Raises:
         UserNotFound: If no user is found with the given email.
-        BadRequestException: If the user is found but their account is inactive.
+        PermissionDeniedException: If the user is found but their account is inactive.
     """
     user_obj = await users_service.get_one_or_none(email=email)
     if user_obj is None:
@@ -46,7 +46,7 @@ async def check_user_before_modify_role(
 
 
 async def perform_logout_cleanup(refresh_jti: str, user_id: UUID, redis_client: RedisClientDep) -> None:
-    """Perform necessary asynchronous cleanup tasks upon user logout.
+    """Perform asynchronous cleanup tasks upon user logout.
 
     This function is intended to be executed as a FastAPI background task
     to non-blocking revoke the refresh token and immediately invalidate

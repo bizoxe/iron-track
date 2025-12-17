@@ -47,7 +47,7 @@ def get_payload_from_token(authentication_token: str) -> dict[str, Any]:
         authentication_token (str): The raw JWT string.
 
     Returns:
-        The decoded JWT payload as a dictionary.
+        dict: The decoded JWT payload as a dictionary.
 
     Raises:
         UnauthorizedException: If the token is invalid, malformed, or expired (HTTP 401).
@@ -64,7 +64,7 @@ def get_payload_from_token(authentication_token: str) -> dict[str, Any]:
 
 
 class Authenticate:
-    """A collection of FastAPI dependency methods for user authentication and authorization."""
+    """Provides FastAPI dependency factories for authentication and authorization."""
 
     @classmethod
     @cache(
@@ -78,7 +78,7 @@ class Authenticate:
         token_payload: dict[str, Any],
         users_service: UserServiceDep,
     ) -> UserAuth:
-        """Load UserAuth schema from the database based on JWT payload 'sub' claim.
+        """Load UserAuth schema from the database using the JWT 'sub' claim.
 
         The result of this function is aggressively cached to reduce database load.
 
@@ -87,10 +87,10 @@ class Authenticate:
             users_service (UserService): Dependency for user service operations.
 
         Returns:
-            The UserAuth Pydantic schema object.
+            UserAuth: The authenticated user.
 
         Raises:
-            UnauthorizedException: If the user specified in the token's 'sub' claim is not found (HTTP 401).
+            UnauthorizedException: If the user is not found (HTTP 401).
         """
         user_id = token_payload["sub"]
         try:
@@ -118,7 +118,7 @@ class Authenticate:
             redis_client (Redis): Dependency for Redis client operations (blacklist check).
 
         Returns:
-            The UserAuth schema object, with the internal JTI attached.
+            UserAuth: The authenticated user with JTI attached.
 
         Raises:
             UnauthorizedException: If the token is invalid, blacklisted, or the user is inactive (HTTP 401).
@@ -159,7 +159,7 @@ class Authenticate:
             users_service (UserService): Dependency for user service operations.
 
         Returns:
-            The authenticated UserAuth schema object.
+            UserAuth: The authenticated user.
         """
         token_payload = get_payload_from_token(authentication_token=token)
         return cast(
@@ -178,9 +178,9 @@ class Authenticate:
         basic authorization (account status check).
 
         Returns:
-            A FastAPI dependency function.
+            Callable: A FastAPI dependency function.
 
-        Raises in the returned function:
+        Raises:
             UnauthorizedException: If the user is found but not active (HTTP 401).
         """
 
@@ -200,9 +200,9 @@ class Authenticate:
         It chains with `get_current_active_user` and performs the final authorization check.
 
         Returns:
-            A FastAPI dependency function.
+            Callable: A FastAPI dependency function.
 
-        Raises in the returned function:
+        Raises:
             PermissionDeniedException: If the user is not a superuser (HTTP 403).
         """
 
@@ -223,9 +223,9 @@ class Authenticate:
         It chains with `get_current_active_user` and performs the final role check.
 
         Returns:
-            A FastAPI dependency function.
+            Callable: A FastAPI dependency function.
 
-        Raises in the returned function:
+        Raises:
             PermissionDeniedException: If the user does not have the required role (HTTP 403).
         """
 
@@ -253,7 +253,7 @@ class Authenticate:
             token (str): The refresh token string from the cookie.
 
         Returns:
-            The unique token identifier (jti).
+            str: The JTI claim.
         """
         token_payload = get_payload_from_token(authentication_token=token)
         token_identifier: str = token_payload["jti"]
