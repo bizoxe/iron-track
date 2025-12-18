@@ -23,7 +23,7 @@ repos:
     rev: v0.14.9
     hooks:
       - id: ruff
-        args: [ --fix ]
+        args: [ --fix, --exit-non-zero-on-fix ]
       - id: ruff-format
   - repo: https://github.com/codespell-project/codespell
     rev: v2.4.1
@@ -32,21 +32,14 @@ repos:
         exclude: "uv.lock"
         additional_dependencies:
           - tomli
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.19.1
+  - repo: local
     hooks:
       - id: mypy
-        exclude: ^src/app/db/alembic/
-        additional_dependencies:
-          - "advanced-alchemy[uuid]"
-          - "fastapi>=0.116.1"
-          - "pydantic>=2.11.7"
-          - "asyncpg>=0.30.0"
-          - types-click
-          - fastapi-cache2
-          - msgspec
-          - "pyjwt[crypto]"
-          - typer
+        name: mypy
+        entry: uv run dmypy run src/app
+        language: system
+        types: [ python ]
+        pass_filenames: false
   - repo: https://github.com/sphinx-contrib/sphinx-lint
     rev: "v1.0.2"
     hooks:
