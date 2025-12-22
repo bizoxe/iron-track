@@ -1,8 +1,6 @@
 Contribution Guide
 ==================
 
-.. _setting-up-environment:
-
 Setting up the environment
 --------------------------
 
@@ -32,7 +30,7 @@ Workflow
 
 1. `Fork <https://github.com/bizoxe/iron-track/fork>`_ the `repository <https://github.com/bizoxe/iron-track>`_.
 2. Clone your fork locally with git.
-3. `Set up the environment <#setting-up-environment>`_ using ``make install``.
+3. `Setting up the environment`_ using ``make install``.
 4. Create a branch for your changes.
 5. Make your changes and ensure they follow the project style.
 6. (Optional) Run ``make lint`` or ``uv run pre-commit run --all-files`` manually to apply fixes and check types before committing.
@@ -54,7 +52,7 @@ Project documentation
 
 The documentation is located in the ``/docs`` directory and is built with `ReST <https://docutils.sourceforge.io/rst.html>`_ and `Sphinx <https://www.sphinx-doc.org/en/master/>`_.
 
-If you are unfamiliar with these tools, read the `ReStructuredText primer <https://www.sphinx-doc.org/en/master/lib/usage/restructuredtext/basics.html>`_ and the `Sphinx quickstart <https://www.sphinx-doc.org/en/master/lib/usage/quickstart.html>`_.
+If you are unfamiliar with these tools, read the `ReStructuredText primer <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`_ and the `Sphinx quickstart <https://www.sphinx-doc.org/en/master/usage/quickstart.html>`_.
 
 Docs theme
 ++++++++++
@@ -78,19 +76,3 @@ Alternatively, you can build them with:
 
      make docs
 
-
-Creating a new release
-----------------------
-
-1. Increment the version in `pyproject.toml <pyproject.toml>`_.
-
-   .. note:: The version should follow `Semantic Versioning <https://semver.org/>`_ and `PEP 440 <https://www.python.org/dev/peps/pep-0440/>`_.
-
-2. Commit your changes and ensure they are merged into the ``main`` branch.
-3. On GitHub, navigate to the `Releases tab <https://github.com/bizoxe/iron-track/releases>`_.
-4. Click **"Draft a new release"**.
-5. Give it a title and a tag, both using the format ``vX.X.X``.
-6. Fill in the release description (you can use GitHub's auto-generate feature and edit as needed).
-7. **Publish** the release.
-8. Go to the `Actions <https://github.com/bizoxe/iron-track/actions>`_ tab and approve the workflow if required.
-9. Verify that the workflow runs successfully.

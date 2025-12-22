@@ -98,6 +98,14 @@ autodoc_pydantic_model_show_validator_summary = True
 # -- Style configuration -----------------------------------------
 html_theme = "shibuya"
 html_static_path = ["_static"]
+html_logo = "_static/logo.svg"
+html_theme_options = {
+    "github_url": "https://github.com/bizoxe/iron-track",
+    "nav_links": [
+        {"title": "Installation", "url": "usage/installation"},
+        {"title": "API Reference", "url": "api/index"},
+    ],
+}
 html_show_sourcelink = True
 html_title = "IronTrack Docs"
 html_context = {
