@@ -180,17 +180,20 @@ known-first-party = ["tests", "app"]
 "src/app/main.py" = ["PLC0415"]
 
 [tool.mypy]
+python_version = "3.12"
+explicit_package_bases = true
+mypy_path = "src"
 disallow_any_generics = false
 disallow_incomplete_defs = true
 disallow_untyped_decorators = true
 disallow_untyped_defs = true
-exclude = '''(?x)(
-    ^.venv/
-  | ^src/app/db/alembic/
-)'''
+exclude = [
+    '^src/app/db/alembic/',
+    '^\.venv/',
+]
 implicit_reexport = false
 plugins = [
-  "pydantic.mypy"
+    "pydantic.mypy"
 ]
 strict = true
 warn_redundant_casts = true
@@ -198,12 +201,13 @@ warn_return_any = true
 warn_unreachable = true
 warn_unused_configs = true
 warn_unused_ignores = true
+ignore_missing_imports = true
 
 [[tool.mypy.overrides]]
 module = [
-    "src.app.lib.coders.*",
-    "src.app.lib.json_response.*",
-    "src.app.lib.jwt_utils.*"
+    "app.lib.coders.*",
+    "app.lib.json_response.*",
+    "app.lib.jwt_utils.*"
 ]
 warn_return_any = false
 disallow_subclassing_any = false
@@ -212,13 +216,7 @@ disallow_subclassing_any = false
 disallow_untyped_decorators = false
 module = [
     "tests.*",
-    "src.app.utils.server_cli.*"
-]
-
-[[tool.mypy.overrides]]
-ignore_errors = true
-module = [
-    "src.app.db.alembic.*"
+    "app.utils.server_cli.*"
 ]
 
 [tool.codespell]
@@ -260,3 +258,55 @@ replace = 'version = "{new_version}"'
 filename = "src/app/__about__.py"
 search = '__version__ = "{current_version}"'
 replace = '__version__ = "{new_version}"'
+
+[tool.git-cliff.changelog]
+header = """
+Changelog
+=========
+
+All notable changes to this project will be documented in this file.
+"""
+body = """
+{% if version %}
+`Release [v{{ version | trim_start_matches(pat="v") }}] - {{ timestamp | date(format="%Y-%m-%d") }} <https://github.com/bizoxe/iron-track/releases/tag/v{{ version | trim_start_matches(pat="v") }}>`_
+-----------------------------------------------------------------------------------------------------------------------
+
+* `See All commits in v{{ version | trim_start_matches(pat="v") }} <https://github.com/bizoxe/iron-track/commits/v{{ version | trim_start_matches(pat="v") }}>`_
+{% else %}
+[Unreleased]
+------------
+{% endif %}
+{% for group, commits in commits | group_by(attribute="group") %}
+{{ group | upper_first }}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{% for commit in commits %}
+* (`{{ commit.id | truncate(length=7, end="") }} <https://github.com/bizoxe/iron-track/commit/{{ commit.id }}>`_) \
+{% if commit.breaking %}[**breaking**] {% endif %}- {{ commit.message | upper_first }} ({{ commit.author.name }})
+{% endfor %}
+{% endfor %}
+"""
+footer = """
+IronTrack Changelog
+"""
+trim = true
+
+[tool.git-cliff.git]
+conventional_commits = true
+filter_unconventional = true
+split_commits = false
+commit_parsers = [
+  { message = ".*!", group = "💥 Breaking Changes" },
+  { message = "^feat", group = "🚀 Features" },
+  { message = "^fix", group = "🐛 Bug Fixes" },
+  { message = "^doc", group = "📚 Documentation" },
+  { message = "^perf", group = "⚡ Performance" },
+  { message = "^refactor", group = "🛠️ Refactor" },
+  { message = "^style", group = "🎨 Styling" },
+  { message = "^test", group = "🧪 Testing" },
+  { message = "^chore\\(release\\): prepare for", skip = true },
+  { message = "^chore", group = "⚙️ Miscellaneous Tasks" },
+  { body = ".*security", group = "🛡️ Security" },
+]
+tag_pattern = "v[0-9]*"
+sort_commits = "newest"
+filter_commits = true
