@@ -1,0 +1,153 @@
+Changelog
+=========
+
+All notable changes to this project will be documented in this file.
+
+[Unreleased]
+------------
+
+
+⚙️ Miscellaneous Tasks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* (`ed63919 <https://github.com/bizoxe/iron-track/commit/ed639194b3e87967a446e7a29cfc6fec3bb523dc>`_) - Allow local imports in tests data fixtures (alexander)
+
+* (`41ec569 <https://github.com/bizoxe/iron-track/commit/41ec569a68e41abedde60b0926269f26db4730eb>`_) - Configure github actions and release tools (alexander)
+
+* (`b02eeeb <https://github.com/bizoxe/iron-track/commit/b02eeeb06fd17296fd6d7e68d87d8668d16df823>`_) - Configure Makefile (alexander)
+
+* (`3211b88 <https://github.com/bizoxe/iron-track/commit/3211b887764105adcbc5a6f53160d900ee74098b>`_) - Configure git-cliff (alexander)
+
+* (`4520288 <https://github.com/bizoxe/iron-track/commit/45202889e7bc9c891c7aafa52ee833245894b50d>`_) - Configure bump-my-version for automated releases (alexander)
+
+* (`ccbc75e <https://github.com/bizoxe/iron-track/commit/ccbc75eb8b57cc6462c0027c7f9758aa8d05ee2d>`_) - Configure sphinx build settings (alexander)
+
+* (`92a44ec <https://github.com/bizoxe/iron-track/commit/92a44ecf18d0bee7422cfb1b1d559a8b0368a50d>`_) - Update and expand pre-commit hooks (alexander)
+
+* (`8440a7e <https://github.com/bizoxe/iron-track/commit/8440a7ec8a697813ede05ec219bed65c373fce55>`_) - Initialize Alembic database migrations (alexander)
+
+* (`94f1712 <https://github.com/bizoxe/iron-track/commit/94f17124fae7a07e353242d5e4d00563bd9bbb30>`_) - Remove old migration files from Git index prior to re-init (alexander)
+
+* (`8cdaf2e <https://github.com/bizoxe/iron-track/commit/8cdaf2e1e84e21fea7910680e47b196e76a0cc73>`_) - Update dependencies and initialize project metadata (alexander)
+
+* (`645c86c <https://github.com/bizoxe/iron-track/commit/645c86c630f2f5f6167a7cb7dc62a0b7c0ba47fa>`_) - Update logging configuration (alexander)
+
+* (`08eef8d <https://github.com/bizoxe/iron-track/commit/08eef8d701c057c6a4741c55f29f3bfafc11e031>`_) - Add system-default muscle_groups, equipment, and exercise JSON data (alexander)
+
+* (`06266a2 <https://github.com/bizoxe/iron-track/commit/06266a2187d0cebbebdd80fbb4a37fad3dcd92db>`_) - Add User + Role models (alexander)
+
+* (`bd0f51f <https://github.com/bizoxe/iron-track/commit/bd0f51f46c8d52724fccb5427e50d5c685ecf551>`_) - Add add_token_to_blacklist + is_token_in_blacklist funcs (alexander)
+
+* (`38c1383 <https://github.com/bizoxe/iron-track/commit/38c1383eb0daa28cb2d437b276d831c46b657e48>`_) - Update JWTSettings class (alexander)
+
+* (`adfd6ba <https://github.com/bizoxe/iron-track/commit/adfd6ba198f06b77f5c6e920a6effafcea15dd30>`_) - Implement custom MsgPackCoderUserAuth class to encode/decode cache data (alexander)
+
+* (`ea44aca <https://github.com/bizoxe/iron-track/commit/ea44acaa2feff9e968996f80352e17b441fa37fa>`_) - Add Docker Compose stack for local development (alexander)
+
+* (`f10a530 <https://github.com/bizoxe/iron-track/commit/f10a53086d968e1d72689474641438fdf80732eb>`_) - Configure pgbouncer (alexander)
+
+* (`cf0e31f <https://github.com/bizoxe/iron-track/commit/cf0e31f3c45e25e620cfbf5e69965ea6b6107062>`_) - Configure postgres (alexander)
+
+* (`ef0277d <https://github.com/bizoxe/iron-track/commit/ef0277de6c315f4c10e972042fd31d971fca9cd9>`_) - Implement cli command to create system admin (alexander)
+
+* (`9518258 <https://github.com/bizoxe/iron-track/commit/95182589630a1e670bfdd8e24dcbda4bda70024b>`_) - Add NotFoundException class (alexander)
+
+* (`e3f44cf <https://github.com/bizoxe/iron-track/commit/e3f44cf9d42c4251821a42829942e85ddc38dd54>`_) - Add application settings (alexander)
+
+* (`e533a79 <https://github.com/bizoxe/iron-track/commit/e533a79885bf4e64b6b28a523fbb6b871a04c7f6>`_) - Implement CLI command to create and assign default roles (alexander)
+
+* (`c3a4158 <https://github.com/bizoxe/iron-track/commit/c3a41580d01bb91e03aad3c0aee39cdce21c5654>`_) - Update mypy + ruff configuration in pyproject.toml (alexander)
+
+* (`4419314 <https://github.com/bizoxe/iron-track/commit/4419314e9e6cdd13a7adc70b244d387085b19723>`_) - Add mypy hook (alexander)
+
+
+⚡ Performance
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* (`45c7ecc <https://github.com/bizoxe/iron-track/commit/45c7eccd5f9ccc5594286d4ecd5d83714e20dbea>`_) - Optimize user password update to avoid redundant SELECT query (alexander)
+
+
+🐛 Bug Fixes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* (`03ee0df <https://github.com/bizoxe/iron-track/commit/03ee0dfb871c9341aeb7a642182b4e51f6784baf>`_) - Remove redundant frozen flag to fix uv sync conflict (alexander)
+
+* (`c1bcb06 <https://github.com/bizoxe/iron-track/commit/c1bcb062852b8772b51d4b71041987f615fa1098>`_) - Switch user cache invalidation to direct Redis delete (alexander)
+
+* (`deedf60 <https://github.com/bizoxe/iron-track/commit/deedf60d35da7fb3925c003ed76e70355a8d9597>`_) - Add role_id in User CRUD by user create (alexander)
+
+
+📚 Documentation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* (`c6be633 <https://github.com/bizoxe/iron-track/commit/c6be6331003f07fc54cce5ae8aad4427427bbc40>`_) - Add root index file and usage guide (alexander)
+
+* (`e2f0412 <https://github.com/bizoxe/iron-track/commit/e2f0412b464966b5b54eeb892a138f418041bb37>`_) - Add CONTRIBUTING.rst with workflow and release guides (alexander)
+
+* (`39904af <https://github.com/bizoxe/iron-track/commit/39904afaeb09d0e95862377532c6ae4d7f3c43d2>`_) - Generate files for users management and db seeder (alexander)
+
+* (`d6393df <https://github.com/bizoxe/iron-track/commit/d6393df5aa5ffc91ff4b806071d9e6979298dfea>`_) - Generate files and add docstrings (alexander)
+
+* (`c576d0c <https://github.com/bizoxe/iron-track/commit/c576d0cae9b9f249d6b779e093b9675240db7e20>`_) - Generate files and update docstrings (alexander)
+
+* (`8cdace5 <https://github.com/bizoxe/iron-track/commit/8cdace5b2fd6cf1b3ace74e6a1bc65f87b2487ea>`_) - Generate files and update docstrings (alexander)
+
+* (`768e754 <https://github.com/bizoxe/iron-track/commit/768e75423f11bc6cf42d3ea43de3807196b7229d>`_) - Generate files and update docstrings (alexander)
+
+* (`4c051fd <https://github.com/bizoxe/iron-track/commit/4c051fdf0b6589464a8cd351a0f8516aaf49869e>`_) - Generate files and update docstrings for main.py (alexander)
+
+* (`4f6b05a <https://github.com/bizoxe/iron-track/commit/4f6b05a5ebc448f68bb78523644d7bd370e97410>`_) - Generate files and update docstrings for user, role and base models (alexander)
+
+* (`7a1cf0b <https://github.com/bizoxe/iron-track/commit/7a1cf0bbffd67f78c2ad32426a6636d6db10b3a2>`_) - Generate files and update docstrings (alexander)
+
+* (`3c3a786 <https://github.com/bizoxe/iron-track/commit/3c3a7863c0201690983da8cbefbcb6a570514523>`_) - Add docstrings for encode_jwt/decode_jwt functions (alexander)
+
+
+🚀 Features
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* (`4bf89fb <https://github.com/bizoxe/iron-track/commit/4bf89fb4083c4bcb46593f0a0711274573da394f>`_) - Introduce custom server commands with default entrypoint (alexander)
+
+* (`b6cf415 <https://github.com/bizoxe/iron-track/commit/b6cf415d38085c858de65d25e81f27666e25c737>`_) - Migrate PostgreSQL from v17 to v18 (alexander)
+
+* (`95e0e1d <https://github.com/bizoxe/iron-track/commit/95e0e1d5e3cf5b6c241a6c16f40dce6dd573f46d>`_) - Modernize application architecture and integrate services (alexander)
+
+* (`68817b6 <https://github.com/bizoxe/iron-track/commit/68817b674071b991cec8b65590e9c18d5edae5df>`_) - Configure test environment, fixtures, and constants (alexander)
+
+* (`f13e46c <https://github.com/bizoxe/iron-track/commit/f13e46c5d2af5fabecf25cfefe7437a33b1f57a0>`_) - Implement full authentication and access management API (alexander)
+
+* (`ef94601 <https://github.com/bizoxe/iron-track/commit/ef94601883112671a2223cf00f358413fbc71cf2>`_) - Implement User CRUD endpoints (Requires Superuser) (alexander)
+
+* (`2ebf21e <https://github.com/bizoxe/iron-track/commit/2ebf21e7f74afb62f27a466307e926fdc9d602c2>`_) - Implement assign and revoke role (alexander)
+
+* (`4776178 <https://github.com/bizoxe/iron-track/commit/477617894657e6f4f791103737b978cc6b72afab>`_) - Implement Authenticate class for user authentication/authorization (alexander)
+
+* (`07fbd4b <https://github.com/bizoxe/iron-track/commit/07fbd4b1e0a72c5e5c781a188ac15b0c01c4d5af>`_) - Introduce JWTCookieSecurity for precise token handling (alexander)
+
+
+🛠️ Refactor
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* (`c6a748d <https://github.com/bizoxe/iron-track/commit/c6a748da5a8156ecbb70664e135da5438eda1f02>`_) - Remove redundant password utility functions (alexander)
+
+* (`b851e32 <https://github.com/bizoxe/iron-track/commit/b851e32d8d0764bccaa612cfe00887b2941ca3cd>`_) - Integrate advanced-alchemy PasswordHash type (alexander)
+
+* (`e83d6a8 <https://github.com/bizoxe/iron-track/commit/e83d6a8353d90c0b2d91c8d363c222f48f392100>`_) - Move application source code into 'src/app' directory (alexander)
+
+* (`be0863e <https://github.com/bizoxe/iron-track/commit/be0863e187a380fb198537d11aad0b44807ec59f>`_) - Update docstrings (alexander)
+
+* (`1aa3a1c <https://github.com/bizoxe/iron-track/commit/1aa3a1cc8fa7b20923bc0c9d28f4f9dbaf622c5e>`_) - Centralize CLI logic and add user management group (alexander)
+
+* (`d0a5e6c <https://github.com/bizoxe/iron-track/commit/d0a5e6c2362b6579f2c6697e399c30c973890c72>`_) - Use sqlalchemy_config.get_session() for direct session management (alexander)
+
+* (`a9fb397 <https://github.com/bizoxe/iron-track/commit/a9fb397f09fd634c29a5898539581c95ee44141c>`_) - Simplify pgbouncer entrypoint variable handling (alexander)
+
+* (`e31f493 <https://github.com/bizoxe/iron-track/commit/e31f493fd0287a6f1a101ed95dbb1ceb73592581>`_) - Migrate logging to Stdout-only (alexander)
+
+* (`f7f4d43 <https://github.com/bizoxe/iron-track/commit/f7f4d43af9e0f1e440d108efb300f27cf022b14f>`_) - Improve error handling and logging reliability in StructLogMiddleware (alexander)
+
+* (`4a9f987 <https://github.com/bizoxe/iron-track/commit/4a9f98741c3b05e9443d404a59c82209e90c19da>`_) - Rename base class to BaseAPIException (alexander)
+
+* (`4e9d720 <https://github.com/bizoxe/iron-track/commit/4e9d7202ab58cb3d9f26203cdcfeabd224a6b4ae>`_) - Reuse global msgspec JSON objects (alexander)
+
+IronTrack Changelog

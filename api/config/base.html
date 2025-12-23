@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Base Settings Models - IronTrack Docs</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="SQLAlchemy and Dependency Configuration" href="app_settings.html" /><link rel="prev" title="Application Configuration" href="index.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=14737038" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Base Settings Models"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="irontrack" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="irontrack" height="28" loading="lazy" />
+      <strong>irontrack</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../usage/installation.html">Installation</a></li><li class="link"><a href="../index.html">API Reference</a></li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/bizoxe/iron-track" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../usage/index.html">Usage Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../usage/installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage/development.html">Development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage/cli-guide.html">CLI Guide</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../scripts/index.html">Application Scripts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../scripts/commands.html">User Management CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scripts/seeder.html">Database Seeding Script</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../server/index.html">Core Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../server/core.html">Server Core</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Application Configuration</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Base Settings Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="app_settings.html">SQLAlchemy and Dependency Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="constants.html">Application Constants</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../db/index.html">ORM Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../db/base.html">Base Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/user.html">User Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/role.html">Role Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../lib/index.html">Core Utilities (lib)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../lib/auth.html">JWT Cookie Security Scheme</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/cache_key_builders.html">Cache Key Builders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/coders.html">Cache Serialization Coders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/deps.html">Module Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/handlers.html">Exception Handlers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/invalidate_cache.html">Cache Invalidation Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/json_response.html">Custom JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/jwt_utils.html">JWT Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../utils/index.html">Utilities and Helpers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../utils/log_utils/index.html">Structured Logging Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../utils/log_utils/handlers.html">Logging Handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../utils/log_utils/setup.html">Logging Setup and Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../utils/log_utils/middleware.html">ASGI Logging Middleware</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../utils/server_cli.html">Server CLI Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../main.html">Entry Point (main.py)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../domain/index.html">Domains Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../domain/users/index.html">Users Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/access.html">Access Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/users.html">User CRUD Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/user_role.html">User Role Management Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/users/services.html">User and Role Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/users/schemas.html">User Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/users/utils.html">User Utilities and Helpers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/users/deps.html">User Domain Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contribution-guide.html">Contribution Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#configuration-loader">Configuration Loader</a></li>
+<li><a class="reference internal" href="#settings-container-settings">Settings Container (<cite>Settings</cite>)</a><ul>
+<li><a class="reference internal" href="#app.config.base.Settings"><code class="docutils literal notranslate"><span class="pre">Settings</span></code></a><ul>
+<li><a class="reference internal" href="#app.config.base.Settings.app"><code class="docutils literal notranslate">app</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.Settings.log"><code class="docutils literal notranslate">log</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.Settings.db"><code class="docutils literal notranslate">db</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.Settings.jwt"><code class="docutils literal notranslate">jwt</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.Settings.redis"><code class="docutils literal notranslate">redis</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#application-settings-appsettings">Application Settings (<cite>AppSettings</cite>)</a><ul>
+<li><a class="reference internal" href="#app.config.base.AppSettings"><code class="docutils literal notranslate"><span class="pre">AppSettings</span></code></a><ul>
+<li><a class="reference internal" href="#app.config.base.AppSettings.ENVIRONMENT"><code class="docutils literal notranslate">ENVIRONMENT</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.AppSettings.API_V1_URL_PREFIX"><code class="docutils literal notranslate">API_V1_URL_PREFIX</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.AppSettings.CDN_IMAGES_DEFAULT_URL"><code class="docutils literal notranslate">CDN_IMAGES_DEFAULT_URL</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#logger-settings-logsettings">Logger Settings (<cite>LogSettings</cite>)</a><ul>
+<li><a class="reference internal" href="#app.config.base.LogSettings"><code class="docutils literal notranslate"><span class="pre">LogSettings</span></code></a><ul>
+<li><a class="reference internal" href="#app.config.base.LogSettings.LEVEL"><code class="docutils literal notranslate">LEVEL</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.LogSettings.UVICORN_ACCESS_LEVEL"><code class="docutils literal notranslate">UVICORN_ACCESS_LEVEL</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.LogSettings.UVICORN_ERROR_LEVEL"><code class="docutils literal notranslate">UVICORN_ERROR_LEVEL</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.LogSettings.MIDDLEWARE_LOG_LEVEL"><code class="docutils literal notranslate">MIDDLEWARE_LOG_LEVEL</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.LogSettings.SQLALCHEMY_LEVEL"><code class="docutils literal notranslate">SQLALCHEMY_LEVEL</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.LogSettings.final_formatter"><code class="docutils literal notranslate">final_formatter</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#database-settings-databasesettings">Database Settings (<cite>DatabaseSettings</cite>)</a><ul>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings"><code class="docutils literal notranslate"><span class="pre">DatabaseSettings</span></code></a><ul>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings.POSTGRES_HOST"><code class="docutils literal notranslate">POSTGRES_HOST</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings.POSTGRES_PORT"><code class="docutils literal notranslate">POSTGRES_PORT</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings.POSTGRES_USER"><code class="docutils literal notranslate">POSTGRES_USER</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings.POSTGRES_PASSWORD"><code class="docutils literal notranslate">POSTGRES_PASSWORD</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings.POSTGRES_DB"><code class="docutils literal notranslate">POSTGRES_DB</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings.URL"><code class="docutils literal notranslate">URL</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings.ECHO"><code class="docutils literal notranslate">ECHO</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings.ECHO_POOL"><code class="docutils literal notranslate">ECHO_POOL</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings.POOL_MAX_OVERFLOW"><code class="docutils literal notranslate">POOL_MAX_OVERFLOW</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings.POOL_SIZE"><code class="docutils literal notranslate">POOL_SIZE</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings.POOL_TIMEOUT"><code class="docutils literal notranslate">POOL_TIMEOUT</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings.POOL_RECYCLE"><code class="docutils literal notranslate">POOL_RECYCLE</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings.POOL_PRE_PING"><code class="docutils literal notranslate">POOL_PRE_PING</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings.POOL_DISABLED"><code class="docutils literal notranslate">POOL_DISABLED</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings.MIGRATION_CONFIG"><code class="docutils literal notranslate">MIGRATION_CONFIG</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings.MIGRATION_PATH"><code class="docutils literal notranslate">MIGRATION_PATH</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings.MIGRATION_DDL_VERSION_TABLE"><code class="docutils literal notranslate">MIGRATION_DDL_VERSION_TABLE</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings.FIXTURE_PATH"><code class="docutils literal notranslate">FIXTURE_PATH</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings.PGBOUNCER_ENABLED"><code class="docutils literal notranslate">PGBOUNCER_ENABLED</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings.get_connection_url"><code class="docutils literal notranslate">get_connection_url()</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.DatabaseSettings.engine"><code class="docutils literal notranslate">engine</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#jwt-settings-jwtsettings">JWT Settings (<cite>JWTSettings</cite>)</a><ul>
+<li><a class="reference internal" href="#app.config.base.JWTSettings"><code class="docutils literal notranslate"><span class="pre">JWTSettings</span></code></a><ul>
+<li><a class="reference internal" href="#app.config.base.JWTSettings.ALGORITHM"><code class="docutils literal notranslate">ALGORITHM</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.JWTSettings.ACCESS_TOKEN_EXPIRE_MINUTES"><code class="docutils literal notranslate">ACCESS_TOKEN_EXPIRE_MINUTES</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.JWTSettings.REFRESH_TOKEN_EXPIRE_DAYS"><code class="docutils literal notranslate">REFRESH_TOKEN_EXPIRE_DAYS</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.JWTSettings.AUTH_JWT_PRIVATE_KEY"><code class="docutils literal notranslate">AUTH_JWT_PRIVATE_KEY</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.JWTSettings.AUTH_JWT_PUBLIC_KEY"><code class="docutils literal notranslate">AUTH_JWT_PUBLIC_KEY</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#redis-settings-redissettings">Redis Settings (<cite>RedisSettings</cite>)</a><ul>
+<li><a class="reference internal" href="#app.config.base.RedisSettings"><code class="docutils literal notranslate"><span class="pre">RedisSettings</span></code></a><ul>
+<li><a class="reference internal" href="#app.config.base.RedisSettings.URL"><code class="docutils literal notranslate">URL</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.RedisSettings.SOCKET_CONNECT_TIMEOUT"><code class="docutils literal notranslate">SOCKET_CONNECT_TIMEOUT</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.RedisSettings.HEALTH_CHECK_INTERVAL"><code class="docutils literal notranslate">HEALTH_CHECK_INTERVAL</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.RedisSettings.SOCKET_KEEPALIVE"><code class="docutils literal notranslate">SOCKET_KEEPALIVE</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.RedisSettings.client"><code class="docutils literal notranslate">client</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">irontrack</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">API Reference</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Application Configuration</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Base Settings Models</strong>
+        <meta itemprop="position" content="4" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+        <article class="yue" role="main">
+          <section id="module-app.config.base">
+<span id="base-settings-models"></span><h1>Base Settings Models<a class="headerlink" href="#module-app.config.base" title="Link to this heading">¶</a></h1>
+<p>Defines all application settings models (dataclasses) and the central function for loading configuration.</p>
+<p>—</p>
+<section id="configuration-loader">
+<h2>Configuration Loader<a class="headerlink" href="#configuration-loader" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">app.config.base.</span></span><span class="sig-name descname"><span class="pre">get_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#get_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Load and cache application configuration.</p>
+</dd></dl>
+
+<p>—</p>
+</section>
+<section id="settings-container-settings">
+<h2>Settings Container (<cite>Settings</cite>)<a class="headerlink" href="#settings-container-settings" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.config.base.Settings">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.config.base.</span></span><span class="sig-name descname"><span class="pre">Settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jwt=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redis=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#Settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.Settings" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Container class holding all application configuration settings.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.Settings.app">
+<span class="sig-name descname"><span class="pre">app</span></span><a class="headerlink" href="#app.config.base.Settings.app" title="Link to this definition">¶</a></dt>
+<dd><p>Application-level settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#app.config.base.AppSettings" title="app.config.base.AppSettings">AppSettings</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.Settings.log">
+<span class="sig-name descname"><span class="pre">log</span></span><a class="headerlink" href="#app.config.base.Settings.log" title="Link to this definition">¶</a></dt>
+<dd><p>Logging configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#app.config.base.LogSettings" title="app.config.base.LogSettings">LogSettings</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.Settings.db">
+<span class="sig-name descname"><span class="pre">db</span></span><a class="headerlink" href="#app.config.base.Settings.db" title="Link to this definition">¶</a></dt>
+<dd><p>Database connection and pool settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#app.config.base.DatabaseSettings" title="app.config.base.DatabaseSettings">DatabaseSettings</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.Settings.jwt">
+<span class="sig-name descname"><span class="pre">jwt</span></span><a class="headerlink" href="#app.config.base.Settings.jwt" title="Link to this definition">¶</a></dt>
+<dd><p>JWT token configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#app.config.base.JWTSettings" title="app.config.base.JWTSettings">JWTSettings</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.Settings.redis">
+<span class="sig-name descname"><span class="pre">redis</span></span><a class="headerlink" href="#app.config.base.Settings.redis" title="Link to this definition">¶</a></dt>
+<dd><p>Redis client and connection settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#app.config.base.RedisSettings" title="app.config.base.RedisSettings">RedisSettings</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>—</p>
+</section>
+<section id="application-settings-appsettings">
+<h2>Application Settings (<cite>AppSettings</cite>)<a class="headerlink" href="#application-settings-appsettings" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.config.base.AppSettings">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.config.base.</span></span><span class="sig-name descname"><span class="pre">AppSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ENVIRONMENT=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CDN_IMAGES_DEFAULT_URL=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#AppSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.AppSettings" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Application configuration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.AppSettings.ENVIRONMENT">
+<span class="sig-name descname"><span class="pre">ENVIRONMENT</span></span><a class="headerlink" href="#app.config.base.AppSettings.ENVIRONMENT" title="Link to this definition">¶</a></dt>
+<dd><p>The application execution environment (e.g., ‘dev’, ‘prod’).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.AppSettings.API_V1_URL_PREFIX">
+<span class="sig-name descname"><span class="pre">API_V1_URL_PREFIX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/api/v1'</span></em><a class="headerlink" href="#app.config.base.AppSettings.API_V1_URL_PREFIX" title="Link to this definition">¶</a></dt>
+<dd><p>The default URL prefix for API Version routes.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.AppSettings.CDN_IMAGES_DEFAULT_URL">
+<span class="sig-name descname"><span class="pre">CDN_IMAGES_DEFAULT_URL</span></span><a class="headerlink" href="#app.config.base.AppSettings.CDN_IMAGES_DEFAULT_URL" title="Link to this definition">¶</a></dt>
+<dd><p>The default base URL for CDN-hosted exercise images.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>—</p>
+</section>
+<section id="logger-settings-logsettings">
+<h2>Logger Settings (<cite>LogSettings</cite>)<a class="headerlink" href="#logger-settings-logsettings" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.config.base.LogSettings">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.config.base.</span></span><span class="sig-name descname"><span class="pre">LogSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">LEVEL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UVICORN_ACCESS_LEVEL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UVICORN_ERROR_LEVEL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MIDDLEWARE_LOG_LEVEL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SQLALCHEMY_LEVEL=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#LogSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.LogSettings" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Logger configuration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.LogSettings.LEVEL">
+<span class="sig-name descname"><span class="pre">LEVEL</span></span><a class="headerlink" href="#app.config.base.LogSettings.LEVEL" title="Link to this definition">¶</a></dt>
+<dd><p>The minimum logging threshold for the root logger.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.LogSettings.UVICORN_ACCESS_LEVEL">
+<span class="sig-name descname"><span class="pre">UVICORN_ACCESS_LEVEL</span></span><a class="headerlink" href="#app.config.base.LogSettings.UVICORN_ACCESS_LEVEL" title="Link to this definition">¶</a></dt>
+<dd><p>Logging level for Uvicorn access log (HTTP requests).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.LogSettings.UVICORN_ERROR_LEVEL">
+<span class="sig-name descname"><span class="pre">UVICORN_ERROR_LEVEL</span></span><a class="headerlink" href="#app.config.base.LogSettings.UVICORN_ERROR_LEVEL" title="Link to this definition">¶</a></dt>
+<dd><p>Logging level for Uvicorn errors.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.LogSettings.MIDDLEWARE_LOG_LEVEL">
+<span class="sig-name descname"><span class="pre">MIDDLEWARE_LOG_LEVEL</span></span><a class="headerlink" href="#app.config.base.LogSettings.MIDDLEWARE_LOG_LEVEL" title="Link to this definition">¶</a></dt>
+<dd><p>Logging level for the custom ASGI middleware logger.</p>
+<p>Must be <strong>20 (INFO)</strong>. Higher levels disable tracking of important requests
+needed for traffic monitoring and analysis.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.LogSettings.SQLALCHEMY_LEVEL">
+<span class="sig-name descname"><span class="pre">SQLALCHEMY_LEVEL</span></span><a class="headerlink" href="#app.config.base.LogSettings.SQLALCHEMY_LEVEL" title="Link to this definition">¶</a></dt>
+<dd><p>SQLAlchemy logs level.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="app.config.base.LogSettings.final_formatter">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">final_formatter</span></span><a class="headerlink" href="#app.config.base.LogSettings.final_formatter" title="Link to this definition">¶</a></dt>
+<dd><p>Determine the logging formatter name based on the current environment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>‘plain_console’ for development, ‘json_console’ otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p>—</p>
+</section>
+<section id="database-settings-databasesettings">
+<h2>Database Settings (<cite>DatabaseSettings</cite>)<a class="headerlink" href="#database-settings-databasesettings" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.config.base.</span></span><span class="sig-name descname"><span class="pre">DatabaseSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">POSTGRES_HOST=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POSTGRES_PORT=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POSTGRES_USER=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POSTGRES_PASSWORD=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POSTGRES_DB=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">URL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ECHO=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ECHO_POOL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POOL_MAX_OVERFLOW=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POOL_SIZE=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POOL_TIMEOUT=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POOL_RECYCLE=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POOL_PRE_PING=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POOL_DISABLED=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MIGRATION_CONFIG=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MIGRATION_PATH=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MIGRATION_DDL_VERSION_TABLE='ddl_version'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FIXTURE_PATH=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PGBOUNCER_ENABLED=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#DatabaseSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.DatabaseSettings" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Database configuration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POSTGRES_HOST">
+<span class="sig-name descname"><span class="pre">POSTGRES_HOST</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POSTGRES_HOST" title="Link to this definition">¶</a></dt>
+<dd><p>The PostgreSQL server hostname.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POSTGRES_PORT">
+<span class="sig-name descname"><span class="pre">POSTGRES_PORT</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POSTGRES_PORT" title="Link to this definition">¶</a></dt>
+<dd><p>The PostgreSQL server port number.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POSTGRES_USER">
+<span class="sig-name descname"><span class="pre">POSTGRES_USER</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POSTGRES_USER" title="Link to this definition">¶</a></dt>
+<dd><p>The PostgreSQL database username.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POSTGRES_PASSWORD">
+<span class="sig-name descname"><span class="pre">POSTGRES_PASSWORD</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POSTGRES_PASSWORD" title="Link to this definition">¶</a></dt>
+<dd><p>The PostgreSQL database password.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POSTGRES_DB">
+<span class="sig-name descname"><span class="pre">POSTGRES_DB</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POSTGRES_DB" title="Link to this definition">¶</a></dt>
+<dd><p>The PostgreSQL database name.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings.URL">
+<span class="sig-name descname"><span class="pre">URL</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.URL" title="Link to this definition">¶</a></dt>
+<dd><p>The full, pre-configured database connection URL.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings.ECHO">
+<span class="sig-name descname"><span class="pre">ECHO</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.ECHO" title="Link to this definition">¶</a></dt>
+<dd><p>Enable SQLAlchemy engine logs.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings.ECHO_POOL">
+<span class="sig-name descname"><span class="pre">ECHO_POOL</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.ECHO_POOL" title="Link to this definition">¶</a></dt>
+<dd><p>Enable SQLAlchemy connection pool logs.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POOL_MAX_OVERFLOW">
+<span class="sig-name descname"><span class="pre">POOL_MAX_OVERFLOW</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POOL_MAX_OVERFLOW" title="Link to this definition">¶</a></dt>
+<dd><p>Max overflow for SQLAlchemy connection pool</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POOL_SIZE">
+<span class="sig-name descname"><span class="pre">POOL_SIZE</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POOL_SIZE" title="Link to this definition">¶</a></dt>
+<dd><p>Pool size for SQLAlchemy connection pool</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POOL_TIMEOUT">
+<span class="sig-name descname"><span class="pre">POOL_TIMEOUT</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POOL_TIMEOUT" title="Link to this definition">¶</a></dt>
+<dd><p>Time in seconds for timing connections out of the connection pool.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POOL_RECYCLE">
+<span class="sig-name descname"><span class="pre">POOL_RECYCLE</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POOL_RECYCLE" title="Link to this definition">¶</a></dt>
+<dd><p>Amount of time to wait before recycling connections.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POOL_PRE_PING">
+<span class="sig-name descname"><span class="pre">POOL_PRE_PING</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POOL_PRE_PING" title="Link to this definition">¶</a></dt>
+<dd><p>Optionally ping database before fetching a session from the connection pool.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POOL_DISABLED">
+<span class="sig-name descname"><span class="pre">POOL_DISABLED</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POOL_DISABLED" title="Link to this definition">¶</a></dt>
+<dd><p>Disable SQLAlchemy pool configuration.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings.MIGRATION_CONFIG">
+<span class="sig-name descname"><span class="pre">MIGRATION_CONFIG</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.MIGRATION_CONFIG" title="Link to this definition">¶</a></dt>
+<dd><p>The path to the <cite>alembic.ini</cite> configuration file.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings.MIGRATION_PATH">
+<span class="sig-name descname"><span class="pre">MIGRATION_PATH</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.MIGRATION_PATH" title="Link to this definition">¶</a></dt>
+<dd><p>The path to the <cite>alembic</cite> database migrations.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings.MIGRATION_DDL_VERSION_TABLE">
+<span class="sig-name descname"><span class="pre">MIGRATION_DDL_VERSION_TABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ddl_version'</span></em><a class="headerlink" href="#app.config.base.DatabaseSettings.MIGRATION_DDL_VERSION_TABLE" title="Link to this definition">¶</a></dt>
+<dd><p>The name to use for the <cite>alembic</cite> versions table name.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings.FIXTURE_PATH">
+<span class="sig-name descname"><span class="pre">FIXTURE_PATH</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.FIXTURE_PATH" title="Link to this definition">¶</a></dt>
+<dd><p>The path to JSON fixture files to load into tables.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings.PGBOUNCER_ENABLED">
+<span class="sig-name descname"><span class="pre">PGBOUNCER_ENABLED</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.PGBOUNCER_ENABLED" title="Link to this definition">¶</a></dt>
+<dd><p>Enable PgBouncer connection pooling for SQLAlchemy.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings.get_connection_url">
+<span class="sig-name descname"><span class="pre">get_connection_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#DatabaseSettings.get_connection_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.DatabaseSettings.get_connection_url" title="Link to this definition">¶</a></dt>
+<dd><p>Construct the full PostgreSQL connection URL.</p>
+<p>The method prioritizes the explicit URL attribute if it is set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The full connection URL string.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="app.config.base.DatabaseSettings.engine">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">engine</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.engine" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve the SQLAlchemy engine instance.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>—</p>
+</section>
+<section id="jwt-settings-jwtsettings">
+<h2>JWT Settings (<cite>JWTSettings</cite>)<a class="headerlink" href="#jwt-settings-jwtsettings" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.config.base.JWTSettings">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.config.base.</span></span><span class="sig-name descname"><span class="pre">JWTSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ALGORITHM=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ACCESS_TOKEN_EXPIRE_MINUTES=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">REFRESH_TOKEN_EXPIRE_DAYS=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AUTH_JWT_PRIVATE_KEY=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AUTH_JWT_PUBLIC_KEY=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#JWTSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.JWTSettings" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>JWT configuration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.JWTSettings.ALGORITHM">
+<span class="sig-name descname"><span class="pre">ALGORITHM</span></span><a class="headerlink" href="#app.config.base.JWTSettings.ALGORITHM" title="Link to this definition">¶</a></dt>
+<dd><p>JWT signing algorithm (e.g., ‘RS256’ or ‘HS256’).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.JWTSettings.ACCESS_TOKEN_EXPIRE_MINUTES">
+<span class="sig-name descname"><span class="pre">ACCESS_TOKEN_EXPIRE_MINUTES</span></span><a class="headerlink" href="#app.config.base.JWTSettings.ACCESS_TOKEN_EXPIRE_MINUTES" title="Link to this definition">¶</a></dt>
+<dd><p>Lifetime of the access token in minutes.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.JWTSettings.REFRESH_TOKEN_EXPIRE_DAYS">
+<span class="sig-name descname"><span class="pre">REFRESH_TOKEN_EXPIRE_DAYS</span></span><a class="headerlink" href="#app.config.base.JWTSettings.REFRESH_TOKEN_EXPIRE_DAYS" title="Link to this definition">¶</a></dt>
+<dd><p>Lifetime of the refresh token in days.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.JWTSettings.AUTH_JWT_PRIVATE_KEY">
+<span class="sig-name descname"><span class="pre">AUTH_JWT_PRIVATE_KEY</span></span><a class="headerlink" href="#app.config.base.JWTSettings.AUTH_JWT_PRIVATE_KEY" title="Link to this definition">¶</a></dt>
+<dd><p>Path to the private key file used for signing tokens.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.JWTSettings.AUTH_JWT_PUBLIC_KEY">
+<span class="sig-name descname"><span class="pre">AUTH_JWT_PUBLIC_KEY</span></span><a class="headerlink" href="#app.config.base.JWTSettings.AUTH_JWT_PUBLIC_KEY" title="Link to this definition">¶</a></dt>
+<dd><p>Path to the public key file used for verifying tokens.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>—</p>
+</section>
+<section id="redis-settings-redissettings">
+<h2>Redis Settings (<cite>RedisSettings</cite>)<a class="headerlink" href="#redis-settings-redissettings" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.config.base.RedisSettings">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.config.base.</span></span><span class="sig-name descname"><span class="pre">RedisSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">URL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SOCKET_CONNECT_TIMEOUT=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HEALTH_CHECK_INTERVAL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SOCKET_KEEPALIVE=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#RedisSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.RedisSettings" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Redis configuration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.RedisSettings.URL">
+<span class="sig-name descname"><span class="pre">URL</span></span><a class="headerlink" href="#app.config.base.RedisSettings.URL" title="Link to this definition">¶</a></dt>
+<dd><p>Redis connection URL.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.RedisSettings.SOCKET_CONNECT_TIMEOUT">
+<span class="sig-name descname"><span class="pre">SOCKET_CONNECT_TIMEOUT</span></span><a class="headerlink" href="#app.config.base.RedisSettings.SOCKET_CONNECT_TIMEOUT" title="Link to this definition">¶</a></dt>
+<dd><p>Length of time to wait (in seconds) for a connection to become active.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.RedisSettings.HEALTH_CHECK_INTERVAL">
+<span class="sig-name descname"><span class="pre">HEALTH_CHECK_INTERVAL</span></span><a class="headerlink" href="#app.config.base.RedisSettings.HEALTH_CHECK_INTERVAL" title="Link to this definition">¶</a></dt>
+<dd><p>Length of time to wait (in seconds) before testing connection health.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.RedisSettings.SOCKET_KEEPALIVE">
+<span class="sig-name descname"><span class="pre">SOCKET_KEEPALIVE</span></span><a class="headerlink" href="#app.config.base.RedisSettings.SOCKET_KEEPALIVE" title="Link to this definition">¶</a></dt>
+<dd><p>Length of time to wait (in seconds) between keepalive commands.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="app.config.base.RedisSettings.client">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">client</span></span><a class="headerlink" href="#app.config.base.RedisSettings.client" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve the configured asynchronous Redis client.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="index.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Application Configuration</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="app_settings.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">SQLAlchemy and Dependency Configuration</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2025, Alexander Matveev</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+<a href="https://github.com/bizoxe/iron-track" aria-label="GitHub">
+  <iconify-icon icon="simple-icons:github"></iconify-icon>
+</a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/shibuya.js?v=c1cf1a6b"></script></body>
+</html>
