@@ -221,7 +221,7 @@ module = [
 ]
 
 [tool.codespell]
-ignore-words-list = "selectin,selectinload"
+ignore-words-list = "selectin,selectinload,Flyes,Delt"
 
 [tool.bumpversion]
 current_version = "0.1.0"
