@@ -1,0 +1,71 @@
+name: Docs Build
+
+on:
+  release:
+    types: [published]
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - 'src/**'
+      - 'pyproject.toml'
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'src/**'
+  workflow_dispatch:
+
+env:
+  UV_LOCKED: "1"
+  PYTHON_VERSION: "3.12"
+
+jobs:
+  docs:
+    name: Build and Deploy Docs
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Install uv & Python
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: uv sync --no-default-groups --group docs --frozen
+
+      - name: Generate Changelog
+        if: github.event_name != 'pull_request'
+        uses: orhun/git-cliff-action@v4
+        with:
+          config: pyproject.toml
+          args: --verbose --output docs/changelog.rst
+
+      - name: Commit Changelog to main
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/changelog.rst
+          git commit -m "docs: update changelog [skip ci]" || echo "No changes to commit"
+          git push origin main
+
+      - name: Build Docs
+        run: |
+          uv run make docs
+          touch docs/_build/html/.nojekyll
+
+      - name: Deploy to GitHub Pages
+        if: github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: docs/_build/html
+          branch: gh-pages
+          clean: true
