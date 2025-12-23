@@ -10,6 +10,8 @@ All notable changes to this project will be documented in this file.
 ⚙️ Miscellaneous Tasks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+* (`6a3e59b <https://github.com/bizoxe/iron-track/commit/6a3e59b69c1a586213b626d1eac0f9a47cbbee82>`_) - Update README.md (alexander)
+
 * (`ed63919 <https://github.com/bizoxe/iron-track/commit/ed639194b3e87967a446e7a29cfc6fec3bb523dc>`_) - Allow local imports in tests data fixtures (alexander)
 
 * (`41ec569 <https://github.com/bizoxe/iron-track/commit/41ec569a68e41abedde60b0926269f26db4730eb>`_) - Configure github actions and release tools (alexander)
@@ -70,6 +72,8 @@ All notable changes to this project will be documented in this file.
 🐛 Bug Fixes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+* (`7afcc39 <https://github.com/bizoxe/iron-track/commit/7afcc39cbd9b45760e323d47faa14d5b99825a99>`_) - Fix typos in exercises and configure codespell ignores (alexander)
+
 * (`03ee0df <https://github.com/bizoxe/iron-track/commit/03ee0dfb871c9341aeb7a642182b4e51f6784baf>`_) - Remove redundant frozen flag to fix uv sync conflict (alexander)
 
 * (`c1bcb06 <https://github.com/bizoxe/iron-track/commit/c1bcb062852b8772b51d4b71041987f615fa1098>`_) - Switch user cache invalidation to direct Redis delete (alexander)
@@ -79,6 +83,8 @@ All notable changes to this project will be documented in this file.
 
 📚 Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* (`86b0b0f <https://github.com/bizoxe/iron-track/commit/86b0b0f418e9b6c379e062be074bbcd4373a1f35>`_) - Update changelog [skip ci] (github-actions[bot])
 
 * (`c6be633 <https://github.com/bizoxe/iron-track/commit/c6be6331003f07fc54cce5ae8aad4427427bbc40>`_) - Add root index file and usage guide (alexander)
 
