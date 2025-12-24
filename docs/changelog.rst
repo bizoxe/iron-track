@@ -84,6 +84,8 @@ All notable changes to this project will be documented in this file.
 📚 Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+* (`c63e697 <https://github.com/bizoxe/iron-track/commit/c63e69758f2146a24e3b4ed29725122c39e246af>`_) - Update changelog [skip ci] (github-actions[bot])
+
 * (`86b0b0f <https://github.com/bizoxe/iron-track/commit/86b0b0f418e9b6c379e062be074bbcd4373a1f35>`_) - Update changelog [skip ci] (github-actions[bot])
 
 * (`c6be633 <https://github.com/bizoxe/iron-track/commit/c6be6331003f07fc54cce5ae8aad4427427bbc40>`_) - Add root index file and usage guide (alexander)
@@ -133,6 +135,8 @@ All notable changes to this project will be documented in this file.
 
 🛠️ Refactor
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* (`068e581 <https://github.com/bizoxe/iron-track/commit/068e581f5f90933cba52769fd827aeaf966f0677>`_) - Secure JWT handling and update CodeQL (alexander)
 
 * (`c6a748d <https://github.com/bizoxe/iron-track/commit/c6a748da5a8156ecbb70664e135da5438eda1f02>`_) - Remove redundant password utility functions (alexander)
 
