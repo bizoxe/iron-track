@@ -288,5 +288,5 @@ pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,pycharm
 /project_notes/
-/src/app/certs/private.pem
-/src/app/certs/public.pem
+/src/app/certs/jwt-private.pem
+/src/app/certs/jwt-public.pem

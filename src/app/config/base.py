@@ -19,6 +19,8 @@ from sqlalchemy.ext.asyncio import (
 )
 from sqlalchemy.pool import NullPool
 
+from app.lib.exceptions import JWTKeyNotFoundError
+
 BASE_DIR: Final[Path] = Path(__file__).resolve().parent.parent
 DEFAULT_DOTENV_FILE_PATH: Final[Path] = BASE_DIR / "config" / ".env"
 TRUE_VALUES = {"True", "true", "1", "yes", "Y", "T"}
@@ -198,20 +200,29 @@ class JWTSettings:
     """Lifetime of the access token in minutes."""
     REFRESH_TOKEN_EXPIRE_DAYS: int = field(default_factory=lambda: int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", "30")))
     """Lifetime of the refresh token in days."""
-    AUTH_JWT_PRIVATE_KEY: Path = field(default_factory=lambda: BASE_DIR / "certs" / "private.pem")
+    AUTH_JWT_PRIVATE_KEY_PATH: Path = field(default_factory=lambda: BASE_DIR / "certs" / "jwt-private.pem")
     """Path to the private key file used for signing tokens."""
-    AUTH_JWT_PUBLIC_KEY: Path = field(default_factory=lambda: BASE_DIR / "certs" / "public.pem")
+    AUTH_JWT_PUBLIC_KEY_PATH: Path = field(default_factory=lambda: BASE_DIR / "certs" / "jwt-public.pem")
     """Path to the public key file used for verifying tokens."""
+
+    def _get_jwt_key(self, env_var: str, path: Path) -> str:
+        if key_from_env := os.getenv(env_var):
+            return key_from_env
+        if path.is_file():
+            return path.read_text()
+
+        msg = f"JWT key not found. Define environment variable '{env_var}' or place file at '{path}'"
+        raise JWTKeyNotFoundError(message=msg)
 
     @cached_property
     def auth_jwt_private_key(self) -> str:
-        """Read the content of the private key file."""
-        return self.AUTH_JWT_PRIVATE_KEY.read_text()
+        """Read the content of the private key from file or environment."""
+        return self._get_jwt_key("AUTH_JWT_PRIVATE_KEY", self.AUTH_JWT_PRIVATE_KEY_PATH)
 
     @cached_property
     def auth_jwt_public_key(self) -> str:
-        """Read the content of the public key file."""
-        return self.AUTH_JWT_PUBLIC_KEY.read_text()
+        """Read the content of the public key from file or environment."""
+        return self._get_jwt_key("AUTH_JWT_PUBLIC_KEY", self.AUTH_JWT_PUBLIC_KEY_PATH)
 
 
 @dataclass

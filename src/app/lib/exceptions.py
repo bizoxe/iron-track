@@ -75,3 +75,10 @@ class NotFoundException(BaseAPIException):
             status_code=404,
             message=message,
         )
+
+
+class JWTKeyNotFoundError(FileNotFoundError):
+    """Raised when JWT key is missing in both environment and filesystem."""
+
+    def __init__(self, message: str) -> None:
+        super().__init__(message)
