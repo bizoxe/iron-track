@@ -213,8 +213,8 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#app.config.base.JWTSettings.ALGORITHM"><code class="docutils literal notranslate">ALGORITHM</span></code></a></li>
 <li><a class="reference internal" href="#app.config.base.JWTSettings.ACCESS_TOKEN_EXPIRE_MINUTES"><code class="docutils literal notranslate">ACCESS_TOKEN_EXPIRE_MINUTES</span></code></a></li>
 <li><a class="reference internal" href="#app.config.base.JWTSettings.REFRESH_TOKEN_EXPIRE_DAYS"><code class="docutils literal notranslate">REFRESH_TOKEN_EXPIRE_DAYS</span></code></a></li>
-<li><a class="reference internal" href="#app.config.base.JWTSettings.AUTH_JWT_PRIVATE_KEY"><code class="docutils literal notranslate">AUTH_JWT_PRIVATE_KEY</span></code></a></li>
-<li><a class="reference internal" href="#app.config.base.JWTSettings.AUTH_JWT_PUBLIC_KEY"><code class="docutils literal notranslate">AUTH_JWT_PUBLIC_KEY</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.JWTSettings.AUTH_JWT_PRIVATE_KEY_PATH"><code class="docutils literal notranslate">AUTH_JWT_PRIVATE_KEY_PATH</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.JWTSettings.AUTH_JWT_PUBLIC_KEY_PATH"><code class="docutils literal notranslate">AUTH_JWT_PUBLIC_KEY_PATH</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -589,7 +589,7 @@ needed for traffic monitoring and analysis.</p>
 <h2>JWT Settings (<cite>JWTSettings</cite>)<a class="headerlink" href="#jwt-settings-jwtsettings" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.config.base.JWTSettings">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.config.base.</span></span><span class="sig-name descname"><span class="pre">JWTSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ALGORITHM=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ACCESS_TOKEN_EXPIRE_MINUTES=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">REFRESH_TOKEN_EXPIRE_DAYS=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AUTH_JWT_PRIVATE_KEY=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AUTH_JWT_PUBLIC_KEY=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#JWTSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.JWTSettings" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.config.base.</span></span><span class="sig-name descname"><span class="pre">JWTSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ALGORITHM=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ACCESS_TOKEN_EXPIRE_MINUTES=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">REFRESH_TOKEN_EXPIRE_DAYS=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AUTH_JWT_PRIVATE_KEY_PATH=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AUTH_JWT_PUBLIC_KEY_PATH=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#JWTSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.JWTSettings" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>JWT configuration.</p>
 <dl class="py attribute">
@@ -611,14 +611,14 @@ needed for traffic monitoring and analysis.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="app.config.base.JWTSettings.AUTH_JWT_PRIVATE_KEY">
-<span class="sig-name descname"><span class="pre">AUTH_JWT_PRIVATE_KEY</span></span><a class="headerlink" href="#app.config.base.JWTSettings.AUTH_JWT_PRIVATE_KEY" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="app.config.base.JWTSettings.AUTH_JWT_PRIVATE_KEY_PATH">
+<span class="sig-name descname"><span class="pre">AUTH_JWT_PRIVATE_KEY_PATH</span></span><a class="headerlink" href="#app.config.base.JWTSettings.AUTH_JWT_PRIVATE_KEY_PATH" title="Link to this definition">¶</a></dt>
 <dd><p>Path to the private key file used for signing tokens.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="app.config.base.JWTSettings.AUTH_JWT_PUBLIC_KEY">
-<span class="sig-name descname"><span class="pre">AUTH_JWT_PUBLIC_KEY</span></span><a class="headerlink" href="#app.config.base.JWTSettings.AUTH_JWT_PUBLIC_KEY" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="app.config.base.JWTSettings.AUTH_JWT_PUBLIC_KEY_PATH">
+<span class="sig-name descname"><span class="pre">AUTH_JWT_PUBLIC_KEY_PATH</span></span><a class="headerlink" href="#app.config.base.JWTSettings.AUTH_JWT_PUBLIC_KEY_PATH" title="Link to this definition">¶</a></dt>
 <dd><p>Path to the public key file used for verifying tokens.</p>
 </dd></dl>
 

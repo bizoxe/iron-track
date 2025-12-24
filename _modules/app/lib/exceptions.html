@@ -279,6 +279,13 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="76">            <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">,</span>
 </span><span data-line="77">        <span class="p">)</span></div>
 
+</span><span data-line="78">
+</span><span data-line="79">
+</span><span data-line="80"><span class="k">class</span><span class="w"> </span><span class="nc">JWTKeyNotFoundError</span><span class="p">(</span><span class="ne">FileNotFoundError</span><span class="p">):</span>
+</span><span data-line="81"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Raised when JWT key is missing in both environment and filesystem.&quot;&quot;&quot;</span>
+</span><span data-line="82">
+</span><span data-line="83">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="84">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 </span></pre></div>
         </article><button class="back-to-top" type="button">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
