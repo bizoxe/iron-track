@@ -38,7 +38,7 @@ dependencies = [
     "uvicorn[standard]>=0.38.0",
     "uvloop>=0.22.1",
 ]
-description = "FastAPI web application for tracking workouts"
+description = "High-performance backend API for tracking workouts."
 keywords = ["fastapi", "sqlalchemy", "alembic", "api", "asgi", "workouts", "tracking"]
 license = { text = "MIT" }
 name = "irontrack"
