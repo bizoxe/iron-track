@@ -84,7 +84,7 @@ All notable changes to this project will be documented in this file.
 📚 Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* (`c6cd789 <https://github.com/bizoxe/iron-track/commit/c6cd789a0e1e6260604687bd64481e4a4b79d3a3>`_) - Finalize README layout with header and tech stack (alexander)
+* (`2fcab9c <https://github.com/bizoxe/iron-track/commit/2fcab9c19fbee5e6b47648289f46324a623fce36>`_) - Finalize README layout with  header and tech stack (alexander)
 
 * (`9871551 <https://github.com/bizoxe/iron-track/commit/987155159855d51b08193f0ddcdc8b56f5106f90>`_) - Update changelog [skip ci] (github-actions[bot])
 
