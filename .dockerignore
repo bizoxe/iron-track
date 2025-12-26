@@ -1,0 +1,7 @@
+.venv
+venv
+__pycache__
+*.pyc
+dist/
+tmp/
+src/app/config/.env

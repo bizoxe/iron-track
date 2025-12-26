@@ -1,0 +1,48 @@
+services:
+
+  valkey:
+    hostname: valkey
+    image: valkey/valkey:latest
+    environment:
+      ALLOW_EMPTY_PASSWORD: "yes"
+    volumes:
+      - cache-data:/data
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    healthcheck:
+      test: [ "CMD-SHELL", "redis-cli ping | grep PONG" ]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+  postgres:
+    image: postgres:latest
+    hostname: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: "alfacatpwd"
+      POSTGRES_USER: "alfacat"
+      POSTGRES_DB: "iron_track"
+    volumes:
+      - db-data:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U alfacat" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  cache-data: {}
+  db-data: {}

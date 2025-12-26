@@ -21,7 +21,7 @@ WARN := $(shell printf "$(YELLOW)⚠$(NC)")
 ERROR := $(shell printf "$(RED)✖$(NC)")
 
 # Define configuration
-COMPOSE_INFRA_FILE := deploy/app/docker-compose.infra.yaml
+COMPOSE_INFRA_FILE := deploy/docker-compose.infra.yaml
 COMPOSE_INFRA      := docker compose -f $(COMPOSE_INFRA_FILE)
 POSTGRES_CONTAINER := postgres_V18_iron_track
 PGBOUNCER_USERLIST := deploy/pgbouncer/conf/userlist.txt

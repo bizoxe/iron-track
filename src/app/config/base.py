@@ -117,7 +117,7 @@ class DatabaseSettings:
     """The name to use for the `alembic` versions table name."""
     FIXTURE_PATH: str = field(default_factory=lambda: f"{BASE_DIR}/db/fixtures")
     """The path to JSON fixture files to load into tables."""
-    PGBOUNCER_ENABLED: bool = field(default_factory=lambda: os.getenv("BG_BOUNCER_ENABLED", "True") in TRUE_VALUES)
+    PGBOUNCER_ENABLED: bool = field(default_factory=lambda: os.getenv("PGBOUNCER_ENABLED", "True") in TRUE_VALUES)
     """Enable PgBouncer connection pooling for SQLAlchemy."""
 
     _engine_instance: AsyncEngine | None = field(default=None, init=False)

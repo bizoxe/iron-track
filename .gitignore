@@ -290,3 +290,4 @@ pyrightconfig.json
 /project_notes/
 /src/app/certs/jwt-private.pem
 /src/app/certs/jwt-public.pem
+/.env.docker
