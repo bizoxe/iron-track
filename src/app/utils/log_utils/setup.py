@@ -102,7 +102,7 @@ def configure_logging() -> None:
                     "handlers": ["queue_handler"],
                     "level": settings.log.LEVEL,
                 },
-                "_uvicorn": {
+                "app.access": {
                     "propagate": False,
                     "level": settings.log.MIDDLEWARE_LOG_LEVEL,
                     "handlers": ["queue_handler"],

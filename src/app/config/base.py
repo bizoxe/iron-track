@@ -30,6 +30,8 @@ TRUE_VALUES = {"True", "true", "1", "yes", "Y", "T"}
 class AppSettings:
     """Application configuration."""
 
+    NAME: str = field(default_factory=lambda: "IronTrack")
+    """Application name."""
     ENVIRONMENT: str = field(default_factory=lambda: os.getenv("APP_ENVIRONMENT", "dev"))
     """The application execution environment (e.g., 'dev', 'prod')."""
     API_V1_URL_PREFIX = "/api/v1"

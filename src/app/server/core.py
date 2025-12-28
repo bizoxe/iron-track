@@ -14,6 +14,7 @@ from app.__about__ import __version__ as current_version
 from app.config.app_settings import alchemy
 from app.config.base import get_settings
 from app.config.constants import FASTAPI_CACHE_PREFIX
+from app.domain.system.controllers import system_router
 from app.domain.users.controllers.access import access_router
 from app.domain.users.controllers.user_role import role_router
 from app.domain.users.controllers.users import users_router
@@ -78,6 +79,7 @@ def _init_routers(app: FastAPI, settings: Settings) -> None:
     app.include_router(access_router, prefix=settings.app.API_V1_URL_PREFIX)
     app.include_router(users_router, prefix=settings.app.API_V1_URL_PREFIX)
     app.include_router(role_router, prefix=settings.app.API_V1_URL_PREFIX)
+    app.include_router(system_router)
 
 
 def create_app() -> FastAPI:
@@ -88,7 +90,7 @@ def create_app() -> FastAPI:
     """
     settings = get_settings()
     _app = FastAPI(
-        title="IronTrack",
+        title=settings.app.NAME,
         version=current_version,
         description=(
             "IronTrack is a high-performance, asynchronous backend service built on FastAPI and Advanced-Alchemy."

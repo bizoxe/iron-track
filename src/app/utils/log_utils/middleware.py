@@ -17,7 +17,15 @@ if TYPE_CHECKING:
     from starlette.types import ASGIApp, Receive, Scope, Send
 
 
-logger = get_logger("_uvicorn")
+logger = get_logger("app.access")
+
+EXCLUDED_LOG_PATHS = {
+    "/health",
+    "/docs",
+    "/redoc",
+    "/openapi.json",
+    "/favicon.ico",
+}
 
 
 class AccessInfo(TypedDict, total=False):
@@ -66,6 +74,9 @@ class StructLogMiddleware:
                 )
                 await response(scope, receive, send)
         finally:
+            path = scope["path"]
+            if path in EXCLUDED_LOG_PATHS:
+                return  # noqa: B012
             process_time = (time.perf_counter_ns() - info["start_time"]) / 1_000_000
             client_info = scope.get("client")
             client_host, client_port = client_info if client_info is not None else ("-", 0)
