@@ -17,15 +17,17 @@ if TYPE_CHECKING:
     from starlette.types import ASGIApp, Receive, Scope, Send
 
 
-logger = get_logger("app.access")
+EXCLUDED_LOG_PATHS = frozenset(
+    {
+        "/health",
+        "/docs",
+        "/redoc",
+        "/openapi.json",
+        "/favicon.ico",
+    }
+)
 
-EXCLUDED_LOG_PATHS = {
-    "/health",
-    "/docs",
-    "/redoc",
-    "/openapi.json",
-    "/favicon.ico",
-}
+logger = get_logger("app.access")
 
 
 class AccessInfo(TypedDict, total=False):
@@ -75,25 +77,32 @@ class StructLogMiddleware:
                 await response(scope, receive, send)
         finally:
             path = scope["path"]
-            if path in EXCLUDED_LOG_PATHS:
-                return  # noqa: B012
-            process_time = (time.perf_counter_ns() - info["start_time"]) / 1_000_000
-            client_info = scope.get("client")
-            client_host, client_port = client_info if client_info is not None else ("-", 0)
-            http_method = scope["method"]
-            http_version = scope["http_version"]
-            url = get_path_with_query_string(scope)  # type: ignore[arg-type]
+            if path not in EXCLUDED_LOG_PATHS:
+                process_time = (time.perf_counter_ns() - info["start_time"]) / 1_000_000
+                headers = scope.get("headers", ())
+                client_host = next((v.decode() for k, v in headers if k == b"x-real-ip"), None)
+                client_port = 0
+                if not client_host:
+                    client_host = next(
+                        (v.decode().split(",")[0].strip() for k, v in headers if k == b"x-forwarded-for"), None
+                    )
+                if not client_host:
+                    client_info = scope.get("client")
+                    client_host, client_port = client_info if client_info else ("-", client_port)
+                http_method = scope["method"]
+                http_version = scope["http_version"]
+                url = get_path_with_query_string(scope)  # type: ignore[arg-type]
 
-            await logger.ainfo(
-                "request_completed",
-                duration_ms=process_time,
-                http={
-                    "url": str(url),
-                    "status_code": info["status_code"],
-                    "method": http_method,
-                    "version": http_version,
-                },
-                network={"client": {"ip": client_host, "port": client_port}},
-                path=scope["path"],
-                client_ip=client_host,
-            )
+                await logger.ainfo(
+                    "request_completed",
+                    duration_ms=process_time,
+                    http={
+                        "url": str(url),
+                        "status_code": info["status_code"],
+                        "method": http_method,
+                        "version": http_version,
+                    },
+                    network={"client": {"ip": client_host, "port": client_port}},
+                    path=scope["path"],
+                    client_ip=client_host,
+                )

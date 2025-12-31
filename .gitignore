@@ -291,3 +291,5 @@ pyrightconfig.json
 /src/app/certs/jwt-private.pem
 /src/app/certs/jwt-public.pem
 /.env.docker
+/deploy/certs/local-cert.pem
+/deploy/certs/local-key.pem

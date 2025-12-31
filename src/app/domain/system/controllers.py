@@ -23,11 +23,11 @@ from app.lib.json_response import MsgSpecJSONResponse
 if TYPE_CHECKING:
     from collections.abc import Awaitable
 
-system_router = APIRouter(tags=["System"])
+OnlineOffline = Literal["online", "offline"]
 
 logger = get_logger()
 
-OnlineOffline = Literal["online", "offline"]
+system_router = APIRouter(tags=["System"])
 
 
 @system_router.get(

@@ -1,0 +1,101 @@
+server {
+    listen 80;
+    server_name ${SERVER_NAME};
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    listen 443 quic reuseport;
+
+    server_name ${SERVER_NAME};
+
+    # Statistics zone for Angie Console
+    status_zone app_vhost_zone;
+
+    # SSL certificates
+    ssl_certificate     ${SSL_CERT_PATH};
+    ssl_certificate_key ${SSL_KEY_PATH};
+
+    # SSL Settings
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers off;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 1d;
+
+    # Headers (HTTP/3 + Security)
+    add_header Alt-Svc 'h3=":443"; ma=86400' always;
+    add_header X-Protocol $server_protocol always;
+
+    # Security snippet
+    include /etc/angie/snippets/security.conf;
+
+    location / {
+        # Anti-DoS Limits (zones in angie.conf)
+        limit_req zone=api_limit burst=30 nodelay;
+        limit_conn addr_limit 20;
+
+        add_header Alt-Svc 'h3=":443"; ma=86400' always;
+        add_header X-Protocol $server_protocol always;
+        include /etc/angie/snippets/security.conf;
+
+        # Dynamic CORS (via map in angie.conf)
+        if ($request_method = 'OPTIONS') {
+            add_header Access-Control-Allow-Origin $allow_origin always;
+            add_header Access-Control-Allow-Methods 'GET, POST, PUT, PATCH, DELETE, OPTIONS' always;
+            add_header Access-Control-Allow-Headers 'Authorization,Content-Type,Accept,Origin' always;
+            add_header Access-Control-Max-Age 1728000 always;
+
+            add_header Alt-Svc 'h3=":443"; ma=86400' always;
+            add_header X-Protocol $server_protocol always;
+
+            return 204;
+        }
+        add_header Access-Control-Allow-Origin $allow_origin always;
+        add_header Access-Control-Allow-Credentials "true" always;
+
+        # Proxying to Unix socket
+        proxy_pass http://app_backend;
+        proxy_next_upstream error timeout http_503;
+
+        # Proxy params snippet
+        include /etc/angie/snippets/proxy_params.conf;
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+
+        proxy_buffering on;
+        proxy_buffer_size 8k;
+        proxy_buffers 8 8k;
+
+        proxy_socket_keepalive on;
+        tcp_nodelay on;
+    }
+}
+
+## ----------------------- MONITORING DASHBOARD --------------------- ##
+server {
+    listen 8080;
+    server_name _;
+
+    allow 172.16.0.0/12;
+    allow 127.0.0.1;
+    deny all;
+
+    add_header Cache-Control "no-store, no-cache, must-revalidate" always;
+
+    location /console/ {
+        auto_redirect on;
+        alias /usr/share/angie-console-light/html/;
+        index index.html;
+    }
+
+    location /console/api/ {
+        api /status/;
+    }
+
+    location = / {
+        return 302 /console/;
+    }
+}

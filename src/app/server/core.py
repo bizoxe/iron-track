@@ -96,6 +96,9 @@ def create_app() -> FastAPI:
             "IronTrack is a high-performance, asynchronous backend service built on FastAPI and Advanced-Alchemy."
         ),
         lifespan=lambda app: lifespan(app, settings=settings),
+        docs_url="/docs" if settings.app.ENVIRONMENT == "dev" else None,
+        redoc_url="/redoc" if settings.app.ENVIRONMENT == "dev" else None,
+        openapi_url="/openapi.json" if settings.app.ENVIRONMENT == "dev" else None,
     )
     alchemy.init_app(_app)
     _init_routers(app=_app, settings=settings)

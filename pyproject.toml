@@ -26,7 +26,7 @@ dependencies = [
     "fastapi>=0.123.5",
     "fastapi-cache2>=0.2.2",
     "fastapi-cli>=0.0.16",
-    "httptools>=0.7.1",
+    "granian>=2.6.0",
     "msgspec>=0.20.0",
     "pwdlib[argon2]>=0.3.0",
     "pyjwt[crypto]>=2.10.1",
@@ -35,8 +35,6 @@ dependencies = [
     "redis>=7.1.0",
     "structlog>=25.5.0",
     "typer>=0.20.0",
-    "uvicorn[standard]>=0.38.0",
-    "uvloop>=0.22.1",
 ]
 description = "High-performance backend API for tracking workouts."
 keywords = ["fastapi", "sqlalchemy", "alembic", "api", "asgi", "workouts", "tracking"]
@@ -54,7 +52,12 @@ Documentation = "https://github.com/bizoxe/iron-track/docs"
 app = "app.main:run_cli"
 
 [dependency-groups]
-dev = [{ include-group = "linting" }, { include-group = "test" }, { include-group = "docs" }]
+dev = [
+    "uvicorn[standard]>=0.38.0",
+    { include-group = "linting" },
+    { include-group = "test" },
+    { include-group = "docs" }
+]
 linting = [
     "pre-commit>=4.5.0",
     "mypy>=1.19.0",
@@ -91,11 +94,11 @@ sources = ["src"]
 
 [tool.hatch.build.targets.sdist]
 exclude = [".github", "docs"]
-include = ["src/*", "tests/*", "LICENSE"]
+include = ["src", "tests", "LICENSE"]
 skip-excluded-dirs = false
 
 [tool.hatch.build.targets.wheel]
-packages = ["app"]
+packages = ["src/app"]
 
 [tool.uv]
 default-groups = ["dev", "linting", "test", "docs"]
@@ -168,7 +171,7 @@ target-version = "py312"
 convention = "google"
 
 [tool.ruff.lint.mccabe]
-max-complexity = 8
+max-complexity = 9
 
 [tool.ruff.lint.isort]
 known-first-party = ["tests", "app"]

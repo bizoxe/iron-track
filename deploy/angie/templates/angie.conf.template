@@ -1,0 +1,76 @@
+user angie;
+worker_processes auto;
+worker_cpu_affinity auto;
+worker_rlimit_nofile 65535;
+
+thread_pool default threads=32 max_queue=65536;
+error_log /var/log/angie/error.log warn;
+pid /run/angie.pid;
+
+events {
+    worker_connections 10240;
+    use epoll;
+    multi_accept on;
+}
+
+http {
+    aio threads;
+    directio 512;
+
+    # HTTP/3 (QUIC) optimization
+    quic_gso on;
+    quic_retry on;
+
+    include /etc/angie/mime.types;
+    default_type application/octet-stream;
+
+    # Optimization and compression snippet
+    include /etc/angie/snippets/optimization.conf;
+
+    # Logs filter
+    map $request_uri $should_log {
+        ~^/health  0;
+        ~^/console 0;
+        default    1;
+    }
+
+    # CORS map
+    map $http_origin $allow_origin {
+        default "";
+        "~^${ALLOWED_ORIGINS_REGEX}$" $http_origin;
+    }
+
+    # WebSocket support (map the 'Upgrade' header to the 'Connection' header)
+    # If $http_upgrade is present, set Connection to 'upgrade', otherwise 'close'
+    map $http_upgrade $connection_upgrade {
+        default upgrade;
+        '' close;
+    }
+
+    # Strict CSP: No inlines, only self domain and API connections allowed
+    map $host $csp_header {
+    default "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' ${ALLOWED_ORIGINS_REGEX};";
+    }
+
+    # Anti-DoS zones
+    limit_req_zone $binary_remote_addr zone=api_limit:10m rate=20r/s;
+    limit_conn_zone $binary_remote_addr zone=addr_limit:10m;
+
+    log_format main '$remote_addr - $remote_user [$time_local] "$request" '
+                '$status $body_bytes_sent "$http_referer" '
+                '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log /var/log/angie/access.log main if=$should_log;
+
+    # Upstream with Passive Health Checks
+    upstream app_backend {
+        zone granian_backend_zone 1m;
+        server unix:/run/app/granian.sock max_fails=3 fail_timeout=10s;
+
+        keepalive 64;
+        keepalive_requests 1000;
+        keepalive_timeout 60s;
+    }
+
+    include /etc/angie/conf.d/*.conf;
+}
