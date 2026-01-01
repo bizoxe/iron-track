@@ -236,4 +236,5 @@ pgbouncer-sync: ## Sync Postgres roles to PgBouncer userlist (usage: make pgboun
 	@docker exec -i $(POSTGRES_CONTAINER) psql -U postgres -d postgres -t -q -A -c \
 		"SELECT '\"' || rolname || '\" \"' || rolpassword || '\"' FROM pg_authid WHERE rolname IN ($(SYNC_USERS));" \
 		>> $(PGBOUNCER_USERLIST)
+	@chmod 644 $(PGBOUNCER_USERLIST)
 	@echo "${OK} Sync complete! ✨"
