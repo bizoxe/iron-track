@@ -2,32 +2,42 @@ services:
 
   valkey:
     container_name: valkey_iron_track
+    image: valkey/valkey:8.0.6-trixie
     hostname: valkey
-    image: valkey/valkey:latest
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    command: [
+      "valkey-server",
+      "--maxmemory", "256mb",
+      "--maxmemory-policy", "allkeys-lru",
+      "--appendonly", "yes"
+    ]
+    ports:
+      - "127.0.0.1:6379:6379"
     environment:
       ALLOW_EMPTY_PASSWORD: "yes"
     volumes:
       - cache-data:/data
-    command: redis-server --appendonly yes
-    restart: unless-stopped
-    ports:
-      - "6379:6379"
+    healthcheck:
+      test: [ "CMD", "valkey-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
     logging:
       options:
-        max-size: 10m
+        max-size: "10m"
         max-file: "3"
-    healthcheck:
-      test: [ "CMD-SHELL", "redis-cli ping | grep PONG" ]
-      interval: 5s
-      timeout: 3s
-      retries: 3
 
   postgres:
+    container_name: postgres_V18_iron_track
+    hostname: postgres
     build:
       context: .
       dockerfile: ./deploy/postgres/Dockerfile
-    container_name: postgres_V18_iron_track
-    hostname: postgres
     restart: unless-stopped
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secretpwd}
@@ -47,27 +57,28 @@ services:
       retries: 3
 
   pgbouncer:
+    container_name: pgbouncer_iron_track
     build:
       context: .
       dockerfile: ./deploy/pgbouncer/Dockerfile
-    container_name: pgbouncer_iron_track
     restart: unless-stopped
     ports:
       - "6432:6432"
+    depends_on:
+      postgres:
+        condition: service_healthy
     environment:
       DB_HOST: ${DB_HOST:-postgres}
       DB_NAME: ${DB_NAME:-iron_track}
       DB_USER: ${DB_USER:-alfacat}
       DB_USER_PASSWORD: ${DB_USER_PASSWORD:-alfacatpwd}
       PGBOUNCER_POSTGRES_PORT: ${PGBOUNCER_POSTGRES_PORT:-5432}
-
       PGBOUNCER_ADMIN_USER: ${PGBOUNCER_ADMIN_USER:-admin}
-      PGBOUNCER_MONITOR_USER: ${PGBOUNCER_MONITOR_USER:-monitor}
       PGBOUNCER_ADMIN_PASSWORD: ${PGBOUNCER_ADMIN_PASSWORD:-adminpwd}
+      PGBOUNCER_MONITOR_USER: ${PGBOUNCER_MONITOR_USER:-monitor}
       PGBOUNCER_MONITOR_PASSWORD: ${PGBOUNCER_MONITOR_PASSWORD:-monitorpwd}
-    depends_on:
-      postgres:
-        condition: service_healthy
+    volumes:
+      - ./deploy/pgbouncer/conf/userlist.txt:/etc/pgbouncer/userlist.txt:ro
     healthcheck:
       test: [ "CMD-SHELL", "PGPASSWORD=${PGBOUNCER_MONITOR_PASSWORD:-monitorpwd} psql -h localhost -p 6432 -U ${PGBOUNCER_MONITOR_USER:-monitor} -d pgbouncer -c 'SHOW STATS'" ]
       interval: 30s
@@ -75,7 +86,89 @@ services:
       retries: 5
       start_period: 30s
 
+  app:
+    container_name: app_iron_track
+    build:
+      context: .
+      dockerfile: deploy/app/run/Dockerfile
+    restart: unless-stopped
+    command: >
+      sh -c "rm -f /run/app/granian.sock && 
+      granian --uds /run/app/granian.sock --uds-permissions 438 app.main:app"
+    depends_on:
+      pgbouncer:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+    env_file:
+      - .env.docker
+    volumes:
+      - sockets:/run/app:rw
+    healthcheck:
+      test: [
+        "CMD", "python", "-c",
+        "import socket; s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM); s.connect('/run/app/granian.sock'); s.sendall(b'GET /health HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n'); response = s.recv(1024); s.close(); exit(0) if b'200 OK' in response else exit(1)"
+      ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+
+  migrator:
+    build:
+      context: .
+      dockerfile: deploy/app/run/Dockerfile
+    restart: "no"
+    command: app database upgrade --no-prompt
+    depends_on:
+      pgbouncer:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+    env_file:
+      - .env.docker
+
+  angie:
+    container_name: angie_iron_track
+    build:
+      context: .
+      dockerfile: deploy/angie/Dockerfile
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          cpus: "0.25"
+          memory: 128M
+        limits:
+          cpus: "1.0"
+          memory: 512M
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+      - "8080:8080"
+    depends_on:
+      app:
+        condition: service_healthy
+    env_file:
+      - .env.docker
+    volumes:
+      - ./deploy/certs:/certs:ro
+      - sockets:/run/app:rw
+    healthcheck:
+      test: [ "CMD", "curl", "-s", "-f", "http://localhost:8080/console/" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
 
 volumes:
   cache-data: {}
   db-data: {}
+  sockets: {}

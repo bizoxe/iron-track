@@ -50,7 +50,7 @@ def configure_logging() -> None:
 
     structlog.configure(
         cache_logger_on_first_use=True,
-        wrapper_class=structlog.make_filtering_bound_logger(settings.log.LEVEL),
+        wrapper_class=structlog.make_filtering_bound_logger(settings.log.STRUCTLOG_LEVEL),
         processors=processors,
         logger_factory=structlog.stdlib.LoggerFactory(),
     )
@@ -109,12 +109,12 @@ def configure_logging() -> None:
                 },
                 "uvicorn.error": {
                     "propagate": False,
-                    "level": settings.log.UVICORN_ERROR_LEVEL,
+                    "level": settings.log.ASGI_ERROR_LEVEL,
                     "handlers": ["queue_handler"],
                 },
                 "uvicorn.access": {
                     "propagate": False,
-                    "level": settings.log.UVICORN_ACCESS_LEVEL,
+                    "level": settings.log.ASGI_ACCESS_LEVEL,
                     "handlers": ["queue_handler"],
                 },
                 "sqlalchemy.engine": {
@@ -125,6 +125,16 @@ def configure_logging() -> None:
                 "sqlalchemy.pool": {
                     "propagate": False,
                     "level": settings.log.SQLALCHEMY_LEVEL,
+                    "handlers": ["queue_handler"],
+                },
+                "_granian": {
+                    "propagate": False,
+                    "level": settings.log.ASGI_ERROR_LEVEL,
+                    "handlers": ["queue_handler"],
+                },
+                "granian.access": {
+                    "propagate": False,
+                    "level": settings.log.ASGI_ACCESS_LEVEL,
                     "handlers": ["queue_handler"],
                 },
             },

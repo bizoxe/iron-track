@@ -76,3 +76,19 @@ async def check_system_health(
         content=SystemHealth(database_status=db_status, cache_status=cache_status),
         status_code=status.HTTP_200_OK if healthy else status.HTTP_503_SERVICE_UNAVAILABLE,
     )
+
+
+@system_router.get(
+    path=urls.SYSTEM_PING,
+    operation_id="SystemPing",
+    name="system:ping",
+    summary="Ping Check",
+)
+async def ping() -> MsgSpecJSONResponse:
+    """Check the health status of the application.
+
+    Returns:
+        MsgSpecJSONResponse: A JSON response containing a simple "OK" message
+        to confirm the server is reachable.
+    """
+    return MsgSpecJSONResponse(content={"message": "OK"})

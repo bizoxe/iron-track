@@ -36,8 +36,19 @@ dependencies = [
     "structlog>=25.5.0",
     "typer>=0.20.0",
 ]
-description = "High-performance backend API for tracking workouts."
-keywords = ["fastapi", "sqlalchemy", "alembic", "api", "asgi", "workouts", "tracking"]
+description = "IronTrack: A high-performance, asynchronous API for workout tracking."
+keywords = [
+    "fastapi",
+    "advanced-alchemy",
+    "sqlalchemy",
+    "alembic",
+    "granian",
+    "pgbouncer",
+    "postgresql",
+    "redis",
+    "workout-tracker",
+    "fitness-api"
+]
 license = { text = "MIT" }
 name = "irontrack"
 readme = "README.md"

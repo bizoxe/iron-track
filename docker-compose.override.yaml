@@ -1,0 +1,55 @@
+x-development-volumes: &development-volumes
+  volumes:
+    - ./src:/workspace/app/src/
+    - ./tests:/workspace/app/tests/
+    - ./docs:/workspace/app/docs/
+    - ./Makefile:/workspace/app/Makefile
+    - ./pyproject.toml:/workspace/app/pyproject.toml
+    - ./uv.lock:/workspace/app/uv.lock
+    - ./.env.docker:/workspace/app/src/app/config/.env
+
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: deploy/app/dev/Dockerfile
+    tty: true
+    restart: unless-stopped
+    command: app server dev
+    env_file:
+      - .env.docker
+    <<: *development-volumes
+    ports:
+      - "8000:8000"
+    depends_on:
+      pgbouncer:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+
+  migrator:
+    build:
+      context: .
+      dockerfile: deploy/app/dev/Dockerfile
+    command: app database upgrade --no-prompt
+    restart: "no"
+    env_file:
+      - .env.docker
+    <<: *development-volumes
+    depends_on:
+      pgbouncer:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+
+  pgadmin:
+    container_name: pg_admin_iron_track
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
+      PGADMIN_DEFAULT_PASSWORD: root
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "5050:80"
+    restart: unless-stopped

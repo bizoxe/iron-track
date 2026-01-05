@@ -48,17 +48,23 @@ class AppSettings:
 class LogSettings:
     """Logger configuration."""
 
-    LEVEL: int = field(default_factory=lambda: int(os.getenv("LOG_LEVEL", "20")))
-    """The minimum logging threshold for the root logger."""
-    UVICORN_ACCESS_LEVEL: int = field(default_factory=lambda: int(os.getenv("UVICORN_ACCESS_LEVEL", "30")))
-    """Logging level for Uvicorn access log (HTTP requests)."""
-    UVICORN_ERROR_LEVEL: int = field(default_factory=lambda: int(os.getenv("UVICORN_ERROR_LEVEL", "20")))
-    """Logging level for Uvicorn errors."""
-    MIDDLEWARE_LOG_LEVEL: int = field(default_factory=lambda: int(os.getenv("MIDDLEWARE_LOG_LEVEL", "20")))
-    """Logging level for the custom ASGI middleware logger.
+    LEVEL: int = field(default_factory=lambda: int(os.getenv("LOG_LEVEL", "30")))
+    """Standard library log level for the root logger."""
+    STRUCTLOG_LEVEL: int = field(default=20)
+    """Fixed structlog filtering level.
 
-    Must be **20 (INFO)**. Higher levels disable tracking of important requests
-    needed for traffic monitoring and analysis.
+    Must be **20 (INFO)** to ensure middleware logs are not dropped before reaching
+    the standard logging library.
+    """
+    ASGI_ACCESS_LEVEL: int = field(default_factory=lambda: int(os.getenv("ASGI_ACCESS_LEVEL", "40")))
+    """Logging level for the server's internal access logs."""
+    ASGI_ERROR_LEVEL: int = field(default_factory=lambda: int(os.getenv("ASGI_ERROR_LEVEL", "20")))
+    """Logging level for the server's runtime events and errors."""
+    MIDDLEWARE_LOG_LEVEL: int = field(default=20)
+    """Fixed logging level for the ASGI access middleware.
+
+    Must be **20 (INFO)**. Higher levels disable tracking of important requests needed for traffic
+    monitoring and analysis.
     """
     SQLALCHEMY_LEVEL: int = field(default_factory=lambda: int(os.getenv("SQLALCHEMY_LEVEL", "30")))
     """SQLAlchemy logs level."""
@@ -115,7 +121,7 @@ class DatabaseSettings:
     """The path to the `alembic.ini` configuration file."""
     MIGRATION_PATH: str = field(default_factory=lambda: f"{BASE_DIR}/db/alembic")
     """The path to the `alembic` database migrations."""
-    MIGRATION_DDL_VERSION_TABLE: str = "ddl_version"
+    MIGRATION_DDL_VERSION_TABLE: str = field(default="ddl_version")
     """The name to use for the `alembic` versions table name."""
     FIXTURE_PATH: str = field(default_factory=lambda: f"{BASE_DIR}/db/fixtures")
     """The path to JSON fixture files to load into tables."""
