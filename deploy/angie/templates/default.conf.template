@@ -32,6 +32,8 @@ server {
 
     location / {
         # Anti-DoS Limits (zones in angie.conf)
+        # Production: MUST be enabled in Production
+        # Benchmarks: needs to be commented
         limit_req zone=api_limit burst=30 nodelay;
         limit_conn addr_limit 20;
 
@@ -74,7 +76,7 @@ server {
     }
 }
 
-## ----------------------- MONITORING DASHBOARD --------------------- ##
+# --- MONITORING DASHBOARD ---
 server {
     listen 8080;
     server_name _;

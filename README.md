@@ -3,34 +3,36 @@
     <img src="docs/_static/logo.svg" width="350" alt="IronTrack Logo">
   </a>
 
-  <h3>Asynchronous workout tracking API built with FastAPI and PostgreSQL.</h3>
+  <h3>Asynchronous workout tracking API powered by FastAPI and Advanced Alchemy.</h3>
 </div>
 
 ---
 
-[![Docs](https://img.shields.io/badge/docs-view%20now-blue.svg?style=flat&logo=sphinx)](https://bizoxe.github.io/iron-track/)
+[![Docs](https://img.shields.io/badge/docs-view%20now-blue.svg?style=flat&logo=sphinx&logoColor=white)](https://bizoxe.github.io/iron-track/)
 [![CI Status](https://github.com/bizoxe/iron-track/actions/workflows/ci.yaml/badge.svg)](https://github.com/bizoxe/iron-track/actions/workflows/ci.yaml)
-[![Coverage Status](https://codecov.io/gh/bizoxe/iron-track/branch/main/graph/badge.svg)](https://codecov.io/gh/bizoxe/iron-track)
+[![Coverage Status](https://img.shields.io/codecov/c/github/bizoxe/iron-track?logo=codecov&logoColor=white)](https://codecov.io/gh/bizoxe/iron-track)
 [![Release Status](https://github.com/bizoxe/iron-track/actions/workflows/release.yaml/badge.svg)](https://github.com/bizoxe/iron-track/actions/workflows/release.yaml)
 
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Mypy](https://img.shields.io/badge/types-Mypy-3776ab.svg?logo=python&logoColor=white)](https://github.com/python/mypy)
 [![Docs Quality](https://github.com/bizoxe/iron-track/actions/workflows/docs.yaml/badge.svg)](https://github.com/bizoxe/iron-track/actions/workflows/docs.yaml)
 
-[![Python 3.12](https://img.shields.io/badge/python-3.12-3776ab.svg?logo=python&logoColor=white)](https://www.python.org/downloads/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-005571.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
-[![Advanced Alchemy](https://img.shields.io/badge/Advanced_Alchemy-24292e?style=flat&logo=litestar&logoColor=white)](https://docs.advanced-alchemy.litestar.dev/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-3776ab.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.12](https://img.shields.io/badge/Python-3.12-3776ab?logo=python&logoColor=white)](https://www.python.org/downloads/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Granian](https://img.shields.io/badge/Granian-E97033?logo=rust&logoColor=white)](https://github.com/emmett-framework/granian)
+[![Angie](https://img.shields.io/badge/Angie-B33033?logo=nginx&logoColor=white)](https://angie.software)
+[![Advanced Alchemy](https://img.shields.io/badge/ORM-Advanced--Alchemy-edb641?logo=python&logoColor=white)](https://docs.advanced-alchemy.litestar.dev/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-4bc51d?logo=opensourceinitiative&logoColor=white)](https://opensource.org/licenses/MIT)
 
 ---
 
 ## ✨ Key Features
 
-* ⚡ **Backend**: **FastAPI**, **Asyncpg** and **PgBouncer** for high-concurrency performance.
+* ⚡ **Performance**: **Angie** (HTTP/3), **Granian** (Rust) and **FastAPI** for high-concurrency.
 * 🏗️ **Architecture**: **Repository pattern** powered by **Advanced Alchemy** (SQLAlchemy).
 * 📦 **Data**: **1000+ real exercises** and reference data included in **JSON** for rapid initialization.
-* 🛡️ **Quality**: Strict **Mypy** typing, **Pydantic v2** validation, and structured logging via **structlog**.
-* ⚙️ **Tooling**: Project management with **uv**, linting via **Ruff**, and automated **pre-commit** hooks.
+* 🛡️ **Quality**: Strict **Mypy** typing, **Pydantic v2** validation, and **structlog** logging.
+* ⚙️ **Tooling**: Managed by **uv** with **Ruff** linting and automated **pre-commit** hooks.
 
 ---
 
@@ -38,14 +40,16 @@
 
 | Category              | Technology                                                                                                                                              |
 |:----------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Web Server**        | [Angie](https://en.angie.software/angie/docs/) & [Granian](https://github.com/emmett-framework/granian)                                                 |
 | **Language**          | [Python 3.12+](https://www.python.org/) (Typed, Async)                                                                                                  |
 | **Framework**         | [FastAPI](https://fastapi.tiangolo.com/)                                                                                                                |
 | **ORM & Repository**  | [Advanced Alchemy](https://docs.advanced-alchemy.litestar.dev/latest/)                                                                                  |
-| **Logging**           | [structlog](https://www.structlog.org/)                                                                                                                 |
-| **Package Manager**   | [uv](https://github.com/astral-sh/uv)                                                                                                                   |
 | **Database**          | [PostgreSQL](https://www.postgresql.org/)                                                                                                               |
 | **Connection Pooler** | [PgBouncer](https://www.pgbouncer.org/)                                                                                                                 |
 | **Migrations**        | [Alembic](https://alembic.sqlalchemy.org/)                                                                                                              |
+| **Caching**           | [Valkey](https://valkey.io/docs/) (Redis-compatible)                                                                                                    |
+| **Logging**           | [structlog](https://www.structlog.org/)                                                                                                                 |
+| **Package Manager**   | [uv](https://github.com/astral-sh/uv)                                                                                                                   |
 | **Configuration**     | Native Python Dataclasses                                                                                                                               |
 | **Documentation**     | [Sphinx](https://www.sphinx-doc.org/) (with [Shibuya](https://shibuya.lepture.com/) theme)                                                              |
 | **Quality Control**   | [Ruff](https://github.com/astral-sh/ruff), [Mypy](https://github.com/python/mypy), [Pre-commit](https://pre-commit.com/), [Pytest](https://pytest.org/) |
@@ -69,7 +73,7 @@ Install dependencies and set up your local configuration files:
 make install
 
 # Copy the development environment template
-cp .env.local src/app/config/.env
+cp .env.local.template src/app/config/.env
 ```
 
 ### 3. Security Setup (JWT Keys)
@@ -107,13 +111,20 @@ app server dev
 
 ---
 
+## 📈 Performance Baseline
+
+The project is architected for high-concurrency environments. Performance metrics, including hardware specifications, comparative analysis of ASGI runtimes (Granian vs. Uvicorn), proxy overhead evaluations, and other baseline data, are documented in the [benchmarks](./benchmarks/BENCHMARKS.md) directory.
+
+---
+
 ## 📂 Project Structure
 
 ```text
-├── src/app/   # Application core and business logic.
-├── deploy/    # Infrastructure and deployment setup (PostgreSQL, PgBouncer, etc.).
-├── docs/      # Sphinx documentation source files.
-└── tests/     # Unit and integration tests.
+├── src/app/       # Application core and business logic.
+├── deploy/        # Infrastructure and deployment setup (PostgreSQL, Angie, etc.).
+├── benchmarks/    # Performance testing suite, load scripts, and baseline reports.
+├── docs/          # Sphinx documentation source files.
+└── tests/         # Unit and integration tests.
 ```
 
 ---

@@ -2,29 +2,36 @@
 ${DB_NAME} = host=${DB_HOST} port=${PGBOUNCER_POSTGRES_PORT} dbname=${DB_NAME} user=${DB_USER} password=${DB_USER_PASSWORD}
 
 [pgbouncer]
+# --- Network ---
 listen_addr = *
 listen_port = 6432
 auth_type = scram-sha-256
 auth_file = /etc/pgbouncer/userlist.txt
+
+# --- Administrative ---
 admin_users = ${PGBOUNCER_ADMIN_USER}
 stats_users = ${PGBOUNCER_MONITOR_USER}
 
+# --- Pool Configuration ---
 pool_mode = transaction
-# Number of server connections in the pool, must be < max_client_conn
 default_pool_size = 100
-# You can then increase it in prod mod (> 1000)
-max_client_conn = 200
+min_pool_size = 40
+max_client_conn = 500
+max_prepared_statements = 20
+verbose = 0
 
-# Logging
-log_connections = 1
-log_disconnections = 1
-log_pooler_errors = 1
-
-# Settings for transaction pooling compatibility
+# --- Compatibility & Cleanup ---
 ignore_startup_parameters = extra_float_digits
 server_reset_query = DISCARD ALL
 
-# Timeouts
+# --- Timeouts ---
 server_idle_timeout = 60
 server_lifetime = 3600
 client_idle_timeout = 300
+
+# --- Logging ---
+log_connections = 0
+log_disconnections = 0
+log_pooler_errors = 1
+
+stats_period = 300

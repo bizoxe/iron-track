@@ -4,6 +4,8 @@ worker_cpu_affinity auto;
 worker_rlimit_nofile 65535;
 
 thread_pool default threads=32 max_queue=65536;
+# Production: warn
+# Benchmarks: crit
 error_log /var/log/angie/error.log warn;
 pid /run/angie.pid;
 
@@ -65,11 +67,13 @@ http {
     # Upstream with Passive Health Checks
     upstream app_backend {
         zone granian_backend_zone 1m;
+        # Production: unix:/run/app/granian.sock max_fails=3 fail_timeout=10s;
+        # Benchmarks: unix:/run/app/granian.sock max_fails=0;
         server unix:/run/app/granian.sock max_fails=3 fail_timeout=10s;
 
-        keepalive 64;
-        keepalive_requests 1000;
-        keepalive_timeout 60s;
+        keepalive 256;
+        keepalive_requests 10000;
+        keepalive_timeout 300s;
     }
 
     include /etc/angie/conf.d/*.conf;
