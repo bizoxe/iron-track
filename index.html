@@ -127,6 +127,11 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l4"><a class="reference internal" href="api/domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="api/domain/system/index.html">System Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/system/controllers.html">System Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/system/schemas.html">System Domain Schemas</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -191,13 +196,17 @@ data-aria-dark="Switch to auto color mode">
         <article class="yue" role="main">
           <section id="irontrack">
 <h1>IronTrack<a class="headerlink" href="#irontrack" title="Link to this heading">¶</a></h1>
-<a class="reference external image-reference" href="https://www.python.org/downloads/release/python-3120/"><img alt="https://img.shields.io/badge/python-3.12+-blue.svg" src="https://img.shields.io/badge/python-3.12+-blue.svg" />
+<a class="reference external image-reference" href="https://www.python.org/downloads/"><img alt="https://img.shields.io/badge/python-3.12-3776ab.svg?logo=python&amp;logoColor=white" src="https://img.shields.io/badge/python-3.12-3776ab.svg?logo=python&amp;logoColor=white" />
 </a>
-<a class="reference external image-reference" href="https://fastapi.tiangolo.com"><img alt="https://img.shields.io/badge/framework-FastAPI-009688.svg" src="https://img.shields.io/badge/framework-FastAPI-009688.svg" />
+<a class="reference external image-reference" href="https://fastapi.tiangolo.com/"><img alt="https://img.shields.io/badge/FastAPI-009688.svg?logo=fastapi&amp;logoColor=white" src="https://img.shields.io/badge/FastAPI-009688.svg?logo=fastapi&amp;logoColor=white" />
 </a>
-<a class="reference external image-reference" href="https://docs.advanced-alchemy.litestar.dev/latest/"><img alt="https://img.shields.io/badge/ORM-Advanced--Alchemy-orange.svg" src="https://img.shields.io/badge/ORM-Advanced--Alchemy-orange.svg" />
+<a class="reference external image-reference" href="https://github.com/emmett-framework/granian"><img alt="https://img.shields.io/badge/Granian-E97033?logo=rust&amp;logoColor=white" src="https://img.shields.io/badge/Granian-E97033?logo=rust&amp;logoColor=white" />
 </a>
-<a class="reference external image-reference" href="https://opensource.org/licenses/MIT"><img alt="https://img.shields.io/badge/license-MIT-blue.svg" src="https://img.shields.io/badge/license-MIT-blue.svg" />
+<a class="reference external image-reference" href="https://angie.software"><img alt="https://img.shields.io/badge/Angie-B33033?logo=nginx&amp;logoColor=white" src="https://img.shields.io/badge/Angie-B33033?logo=nginx&amp;logoColor=white" />
+</a>
+<a class="reference external image-reference" href="https://docs.advanced-alchemy.litestar.dev/"><img alt="https://img.shields.io/badge/ORM-Advanced--Alchemy-edb641?logo=python&amp;logoColor=white" src="https://img.shields.io/badge/ORM-Advanced--Alchemy-edb641?logo=python&amp;logoColor=white" />
+</a>
+<a class="reference external image-reference" href="https://opensource.org/licenses/MIT"><img alt="https://img.shields.io/badge/license-MIT-4bc51d.svg?logo=opensourceinitiative&amp;logoColor=white" src="https://img.shields.io/badge/license-MIT-4bc51d.svg?logo=opensourceinitiative&amp;logoColor=white" />
 </a>
 <p><strong>IronTrack</strong> is a high-performance, asynchronous backend service built on <strong>FastAPI</strong> and <strong>Advanced-Alchemy</strong>.</p>
 <p>It is designed for comprehensive management of workout data, user accounts, and authentication.</p>
@@ -207,7 +216,7 @@ data-aria-dark="Switch to auto color mode">
 <section id="i-architecture-and-design-patterns">
 <h3>I. Architecture and Design Patterns<a class="headerlink" href="#i-architecture-and-design-patterns" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p><strong>Layered Architecture:</strong> The project features a clear separation of concerns: <strong>`domain`</strong> (business logic, controllers, services), <strong>`db`</strong> (models and migrations), <strong>`config`</strong>, and <strong>`lib`</strong> (shared utilities). This ensures high modularity and ease of maintenance.</p></li>
+<li><p><strong>Layered Architecture:</strong> Architected with strict separation of concerns: <strong>`domain`</strong> (business logic, controllers, services), <strong>`db`</strong> (models and migrations), <strong>`config`</strong>, and <strong>`lib`</strong> (shared utilities). This ensures high modularity and ease of maintenance.</p></li>
 <li><p><strong>Service and Repository Patterns:</strong> Uses <strong>Advanced-Alchemy</strong> to implement the Service and Repository architectural patterns, ensuring clean, asynchronous <strong>SQLAlchemy</strong> data operations and strict isolation of business logic.</p></li>
 <li><p><strong>Managed DB Migrations (Alembic):</strong> Employs <strong>Alembic</strong> for creating, applying, and reverting versioned database schema migrations.</p></li>
 </ul>
@@ -215,6 +224,7 @@ data-aria-dark="Switch to auto color mode">
 <section id="ii-performance-optimization">
 <h3>II. Performance &amp; Optimization<a class="headerlink" href="#ii-performance-optimization" title="Link to this heading">¶</a></h3>
 <ul class="simple">
+<li><p><strong>Rust-Powered ASGI Server (Granian):</strong> Hosted on <strong>Granian</strong>, a high-performance ASGI server built in Rust, ensuring extremely low latency and high throughput for asynchronous tasks.</p></li>
 <li><p><strong>Optimized JSON Response:</strong> Implements <strong>MsgSpecJSONResponse</strong> to replace the standard <strong>FastAPI</strong> serializer, utilizing the <strong>Msgspec</strong> library for faster JSON encoding of responses.</p></li>
 <li><p><strong>Connection Pool Manager (PgBouncer):</strong> Uses <strong>PgBouncer</strong> for efficient management of the <strong>PostgreSQL</strong> connection pool, enhancing performance in an asynchronous environment.</p></li>
 <li><p><strong>Custom ASGI Middleware:</strong> A custom handler implemented for accurate request timing, centralized exception interception, and logging of HTTP request metrics.</p></li>
@@ -231,6 +241,7 @@ data-aria-dark="Switch to auto color mode">
 <section id="iv-engineering-practices-ci-cd">
 <h3>IV. Engineering Practices &amp; CI/CD<a class="headerlink" href="#iv-engineering-practices-ci-cd" title="Link to this heading">¶</a></h3>
 <ul class="simple">
+<li><p><strong>Edge Proxy (Angie):</strong> Deployed with <strong>Angie</strong> as a high-performance gateway, handling secure TLS termination and request buffering to protect and offload the application server.</p></li>
 <li><p><strong>CI/CD and Containerization:</strong> Implements multi-stage <strong>Docker</strong> builds (Builder/Runner) and dependency optimization using <strong>uv</strong> (<strong>Astral</strong>). Deployment is fully containerized (<cite>docker-compose</cite>). Automated migration application (<strong>Alembic</strong>) during deployment with service health checks (<cite>healthcheck</cite>).</p></li>
 <li><p><strong>Project Packaging (Hatchling):</strong> Utilizes the modern <strong>Hatchling</strong> tool for project building and packaging.</p></li>
 <li><dl class="simple">

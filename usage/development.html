@@ -127,6 +127,11 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l4"><a class="reference internal" href="../api/domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../api/domain/system/index.html">System Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/domain/system/controllers.html">System Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/domain/system/schemas.html">System Domain Schemas</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -154,6 +159,12 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li><a class="reference internal" href="#startup-sequence">Startup Sequence</a></li>
 <li><a class="reference internal" href="#database-migrations">Database Migrations</a></li>
+<li><a class="reference internal" href="#networking-ipc">Networking &amp; IPC</a></li>
+<li><a class="reference internal" href="#production-tuning">Production Tuning</a><ul>
+<li><a class="reference internal" href="#host-system-configuration">Host System Configuration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ssl-certificates">SSL &amp; Certificates</a></li>
 <li><a class="reference internal" href="#makefile-reference">Makefile Reference</a></li>
 </ul>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
@@ -228,6 +239,55 @@ data-aria-dark="Switch to auto color mode">
 </span></pre></div>
 </div>
 </section>
+<section id="networking-ipc">
+<h2>Networking &amp; IPC<a class="headerlink" href="#networking-ipc" title="Link to this heading">¶</a></h2>
+<p>The stack uses <strong>Unix Domain Sockets (UDS)</strong> for inter-container communication between <strong>Angie</strong> and <strong>Granian</strong>.</p>
+<ul class="simple">
+<li><p><strong>Socket Path</strong>: Shared via a Docker volume at <code class="docutils literal notranslate"><span class="pre">/run/app/granian.sock</span></code>.</p></li>
+<li><p><strong>Permissions</strong>: Granian is configured with <code class="docutils literal notranslate"><span class="pre">--uds-permissions</span> <span class="pre">438</span></code> (octal <code class="docutils literal notranslate"><span class="pre">666</span></code>) to allow Angie to read/write to the socket.</p></li>
+<li><p><strong>Healthchecks</strong>: The application health is verified by a Python script performing a raw HTTP/1.1 request directly over the Unix socket.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The API does not listen on a TCP port (e.g., 8000). All requests must be routed through the Angie proxy.</p>
+</div>
+</section>
+<section id="production-tuning">
+<h2>Production Tuning<a class="headerlink" href="#production-tuning" title="Link to this heading">¶</a></h2>
+<section id="host-system-configuration">
+<h3>Host System Configuration<a class="headerlink" href="#host-system-configuration" title="Link to this heading">¶</a></h3>
+<p>For optimal <strong>HTTP/3 (QUIC)</strong> performance, you must increase the UDP receive and send buffer sizes on the <strong>host machine</strong>.</p>
+<dl>
+<dt><strong>1. Create a dedicated configuration file</strong></dt><dd><p>To maintain a clean system, avoid modifying the main <code class="docutils literal notranslate"><span class="pre">sysctl.conf</span></code>.
+Create a separate file for Angie:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">sudo<span class="w"> </span>nano<span class="w"> </span>/etc/sysctl.d/99-angie-quic.conf
+</span></pre></div>
+</div>
+</dd>
+<dt><strong>2. Add network buffer parameters</strong></dt><dd><p>Paste the following lines into the file:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span><span data-line="1">net.core.rmem_max=2500000
+</span><span data-line="2">net.core.wmem_max=2500000
+</span></pre></div>
+</div>
+</dd>
+<dt><strong>3. Apply changes</strong></dt><dd><p>Load the new configuration immediately without a reboot:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">sudo<span class="w"> </span>sysctl<span class="w"> </span>--system
+</span></pre></div>
+</div>
+</dd>
+</dl>
+</section>
+</section>
+<section id="ssl-certificates">
+<h2>SSL &amp; Certificates<a class="headerlink" href="#ssl-certificates" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Development</strong>: Self-signed certificates (via <code class="docutils literal notranslate"><span class="pre">mkcert</span></code>) should be placed in <code class="docutils literal notranslate"><span class="pre">deploy/certs</span></code>.</p></li>
+<li><p><strong>Production</strong>: Use <strong>Certbot</strong> on the host. Since Angie mounts <code class="docutils literal notranslate"><span class="pre">deploy/certs</span></code> as read-only (<code class="docutils literal notranslate"><span class="pre">:ro</span></code>), reload the service after certificate renewal:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>angie_iron_track<span class="w"> </span>angie<span class="w"> </span>-s<span class="w"> </span>reload
+</span></pre></div>
+</div>
+</section>
 <section id="makefile-reference">
 <h2>Makefile Reference<a class="headerlink" href="#makefile-reference" title="Link to this heading">¶</a></h2>
 <div class="table-wrapper colwidths-given docutils container">
@@ -283,7 +343,7 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="21"><span class="nv">ERROR</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">$(</span>shell<span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>RED<span class="k">)</span><span class="s2">✖</span><span class="k">$(</span>NC<span class="k">)</span><span class="s2">&quot;</span><span class="k">)</span>
 </span><span data-line="22">
 </span><span data-line="23"><span class="c"># Define configuration</span>
-</span><span data-line="24"><span class="nv">COMPOSE_INFRA_FILE</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span>deploy/app/docker-compose.infra.yaml
+</span><span data-line="24"><span class="nv">COMPOSE_INFRA_FILE</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span>deploy/docker-compose.infra.yaml
 </span><span data-line="25"><span class="nv">COMPOSE_INFRA</span><span class="w">      </span><span class="o">:=</span><span class="w"> </span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span><span class="k">$(</span>COMPOSE_INFRA_FILE<span class="k">)</span>
 </span><span data-line="26"><span class="nv">POSTGRES_CONTAINER</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span>postgres_V18_iron_track
 </span><span data-line="27"><span class="nv">PGBOUNCER_USERLIST</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span>deploy/pgbouncer/conf/userlist.txt
@@ -498,7 +558,8 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="236"><span class="w">	</span>@docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-i<span class="w"> </span><span class="k">$(</span>POSTGRES_CONTAINER<span class="k">)</span><span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-d<span class="w"> </span>postgres<span class="w"> </span>-t<span class="w"> </span>-q<span class="w"> </span>-A<span class="w"> </span>-c<span class="w"> </span><span class="se">\</span>
 </span><span data-line="237"><span class="w">		</span><span class="s2">&quot;SELECT &#39;\&quot;&#39; || rolname || &#39;\&quot; \&quot;&#39; || rolpassword || &#39;\&quot;&#39; FROM pg_authid WHERE rolname IN (</span><span class="k">$(</span>SYNC_USERS<span class="k">)</span><span class="s2">);&quot;</span><span class="w"> </span><span class="se">\</span>
 </span><span data-line="238"><span class="w">		</span>&gt;&gt;<span class="w"> </span><span class="k">$(</span>PGBOUNCER_USERLIST<span class="k">)</span>
-</span><span data-line="239"><span class="w">	</span>@echo<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OK</span><span class="si">}</span><span class="s2"> Sync complete! ✨&quot;</span>
+</span><span data-line="239"><span class="w">	</span>@chmod<span class="w"> </span><span class="m">644</span><span class="w"> </span><span class="k">$(</span>PGBOUNCER_USERLIST<span class="k">)</span>
+</span><span data-line="240"><span class="w">	</span>@echo<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OK</span><span class="si">}</span><span class="s2"> Sync complete! ✨&quot;</span>
 </span></pre></div>
 </div>
 </div>

@@ -45,6 +45,59 @@ To apply migrations manually:
 
     docker compose run --rm migrator
 
+Networking & IPC
+----------------
+
+The stack uses **Unix Domain Sockets (UDS)** for inter-container communication between **Angie** and **Granian**.
+
+* **Socket Path**: Shared via a Docker volume at ``/run/app/granian.sock``.
+* **Permissions**: Granian is configured with ``--uds-permissions 438`` (octal ``666``) to allow Angie to read/write to the socket.
+* **Healthchecks**: The application health is verified by a Python script performing a raw HTTP/1.1 request directly over the Unix socket.
+
+.. note::
+   The API does not listen on a TCP port (e.g., 8000). All requests must be routed through the Angie proxy.
+
+Production Tuning
+-----------------
+
+Host System Configuration
++++++++++++++++++++++++++
+
+For optimal **HTTP/3 (QUIC)** performance, you must increase the UDP receive and send buffer sizes on the **host machine**.
+
+**1. Create a dedicated configuration file**
+    To maintain a clean system, avoid modifying the main ``sysctl.conf``.
+    Create a separate file for Angie:
+
+    .. code-block:: bash
+
+        sudo nano /etc/sysctl.d/99-angie-quic.conf
+
+**2. Add network buffer parameters**
+    Paste the following lines into the file:
+
+    .. code-block:: text
+
+        net.core.rmem_max=2500000
+        net.core.wmem_max=2500000
+
+**3. Apply changes**
+    Load the new configuration immediately without a reboot:
+
+    .. code-block:: bash
+
+        sudo sysctl --system
+
+SSL & Certificates
+------------------
+
+* **Development**: Self-signed certificates (via ``mkcert``) should be placed in ``deploy/certs``.
+* **Production**: Use **Certbot** on the host. Since Angie mounts ``deploy/certs`` as read-only (``:ro``), reload the service after certificate renewal:
+
+.. code-block:: bash
+
+    docker exec angie_iron_track angie -s reload
+
 Makefile Reference
 ------------------
 
@@ -67,3 +120,4 @@ Makefile Reference
 
     .. literalinclude:: ../../Makefile
         :language: make
+

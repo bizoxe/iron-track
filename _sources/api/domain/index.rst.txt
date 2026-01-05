@@ -13,3 +13,4 @@ Functional Sub-Domains
     :hidden:
 
     users/index
+    system/index

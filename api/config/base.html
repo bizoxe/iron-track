@@ -127,6 +127,11 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/system/index.html">System Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../domain/system/controllers.html">System Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/system/schemas.html">System Domain Schemas</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -162,6 +167,7 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li><a class="reference internal" href="#application-settings-appsettings">Application Settings (<cite>AppSettings</cite>)</a><ul>
 <li><a class="reference internal" href="#app.config.base.AppSettings"><code class="docutils literal notranslate"><span class="pre">AppSettings</span></code></a><ul>
+<li><a class="reference internal" href="#app.config.base.AppSettings.NAME"><code class="docutils literal notranslate">NAME</span></code></a></li>
 <li><a class="reference internal" href="#app.config.base.AppSettings.ENVIRONMENT"><code class="docutils literal notranslate">ENVIRONMENT</span></code></a></li>
 <li><a class="reference internal" href="#app.config.base.AppSettings.API_V1_URL_PREFIX"><code class="docutils literal notranslate">API_V1_URL_PREFIX</span></code></a></li>
 <li><a class="reference internal" href="#app.config.base.AppSettings.CDN_IMAGES_DEFAULT_URL"><code class="docutils literal notranslate">CDN_IMAGES_DEFAULT_URL</span></code></a></li>
@@ -172,8 +178,9 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#logger-settings-logsettings">Logger Settings (<cite>LogSettings</cite>)</a><ul>
 <li><a class="reference internal" href="#app.config.base.LogSettings"><code class="docutils literal notranslate"><span class="pre">LogSettings</span></code></a><ul>
 <li><a class="reference internal" href="#app.config.base.LogSettings.LEVEL"><code class="docutils literal notranslate">LEVEL</span></code></a></li>
-<li><a class="reference internal" href="#app.config.base.LogSettings.UVICORN_ACCESS_LEVEL"><code class="docutils literal notranslate">UVICORN_ACCESS_LEVEL</span></code></a></li>
-<li><a class="reference internal" href="#app.config.base.LogSettings.UVICORN_ERROR_LEVEL"><code class="docutils literal notranslate">UVICORN_ERROR_LEVEL</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.LogSettings.STRUCTLOG_LEVEL"><code class="docutils literal notranslate">STRUCTLOG_LEVEL</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.LogSettings.ASGI_ACCESS_LEVEL"><code class="docutils literal notranslate">ASGI_ACCESS_LEVEL</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.LogSettings.ASGI_ERROR_LEVEL"><code class="docutils literal notranslate">ASGI_ERROR_LEVEL</span></code></a></li>
 <li><a class="reference internal" href="#app.config.base.LogSettings.MIDDLEWARE_LOG_LEVEL"><code class="docutils literal notranslate">MIDDLEWARE_LOG_LEVEL</span></code></a></li>
 <li><a class="reference internal" href="#app.config.base.LogSettings.SQLALCHEMY_LEVEL"><code class="docutils literal notranslate">SQLALCHEMY_LEVEL</span></code></a></li>
 <li><a class="reference internal" href="#app.config.base.LogSettings.final_formatter"><code class="docutils literal notranslate">final_formatter</span></code></a></li>
@@ -352,9 +359,15 @@ data-aria-dark="Switch to auto color mode">
 <h2>Application Settings (<cite>AppSettings</cite>)<a class="headerlink" href="#application-settings-appsettings" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.config.base.AppSettings">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.config.base.</span></span><span class="sig-name descname"><span class="pre">AppSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ENVIRONMENT=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CDN_IMAGES_DEFAULT_URL=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#AppSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.AppSettings" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.config.base.</span></span><span class="sig-name descname"><span class="pre">AppSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">NAME=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ENVIRONMENT=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CDN_IMAGES_DEFAULT_URL=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#AppSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.AppSettings" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Application configuration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.AppSettings.NAME">
+<span class="sig-name descname"><span class="pre">NAME</span></span><a class="headerlink" href="#app.config.base.AppSettings.NAME" title="Link to this definition">¶</a></dt>
+<dd><p>Application name.</p>
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.AppSettings.ENVIRONMENT">
 <span class="sig-name descname"><span class="pre">ENVIRONMENT</span></span><a class="headerlink" href="#app.config.base.AppSettings.ENVIRONMENT" title="Link to this definition">¶</a></dt>
@@ -381,33 +394,41 @@ data-aria-dark="Switch to auto color mode">
 <h2>Logger Settings (<cite>LogSettings</cite>)<a class="headerlink" href="#logger-settings-logsettings" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.config.base.LogSettings">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.config.base.</span></span><span class="sig-name descname"><span class="pre">LogSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">LEVEL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UVICORN_ACCESS_LEVEL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">UVICORN_ERROR_LEVEL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MIDDLEWARE_LOG_LEVEL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SQLALCHEMY_LEVEL=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#LogSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.LogSettings" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.config.base.</span></span><span class="sig-name descname"><span class="pre">LogSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">LEVEL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">STRUCTLOG_LEVEL=20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ASGI_ACCESS_LEVEL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ASGI_ERROR_LEVEL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MIDDLEWARE_LOG_LEVEL=20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SQLALCHEMY_LEVEL=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#LogSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.LogSettings" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Logger configuration.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.LogSettings.LEVEL">
 <span class="sig-name descname"><span class="pre">LEVEL</span></span><a class="headerlink" href="#app.config.base.LogSettings.LEVEL" title="Link to this definition">¶</a></dt>
-<dd><p>The minimum logging threshold for the root logger.</p>
+<dd><p>Standard library log level for the root logger.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="app.config.base.LogSettings.UVICORN_ACCESS_LEVEL">
-<span class="sig-name descname"><span class="pre">UVICORN_ACCESS_LEVEL</span></span><a class="headerlink" href="#app.config.base.LogSettings.UVICORN_ACCESS_LEVEL" title="Link to this definition">¶</a></dt>
-<dd><p>Logging level for Uvicorn access log (HTTP requests).</p>
+<dt class="sig sig-object py" id="app.config.base.LogSettings.STRUCTLOG_LEVEL">
+<span class="sig-name descname"><span class="pre">STRUCTLOG_LEVEL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#app.config.base.LogSettings.STRUCTLOG_LEVEL" title="Link to this definition">¶</a></dt>
+<dd><p>Fixed structlog filtering level.</p>
+<p>Must be <strong>20 (INFO)</strong> to ensure middleware logs are not dropped before reaching
+the standard logging library.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="app.config.base.LogSettings.UVICORN_ERROR_LEVEL">
-<span class="sig-name descname"><span class="pre">UVICORN_ERROR_LEVEL</span></span><a class="headerlink" href="#app.config.base.LogSettings.UVICORN_ERROR_LEVEL" title="Link to this definition">¶</a></dt>
-<dd><p>Logging level for Uvicorn errors.</p>
+<dt class="sig sig-object py" id="app.config.base.LogSettings.ASGI_ACCESS_LEVEL">
+<span class="sig-name descname"><span class="pre">ASGI_ACCESS_LEVEL</span></span><a class="headerlink" href="#app.config.base.LogSettings.ASGI_ACCESS_LEVEL" title="Link to this definition">¶</a></dt>
+<dd><p>Logging level for the server’s internal access logs.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.LogSettings.ASGI_ERROR_LEVEL">
+<span class="sig-name descname"><span class="pre">ASGI_ERROR_LEVEL</span></span><a class="headerlink" href="#app.config.base.LogSettings.ASGI_ERROR_LEVEL" title="Link to this definition">¶</a></dt>
+<dd><p>Logging level for the server’s runtime events and errors.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.LogSettings.MIDDLEWARE_LOG_LEVEL">
-<span class="sig-name descname"><span class="pre">MIDDLEWARE_LOG_LEVEL</span></span><a class="headerlink" href="#app.config.base.LogSettings.MIDDLEWARE_LOG_LEVEL" title="Link to this definition">¶</a></dt>
-<dd><p>Logging level for the custom ASGI middleware logger.</p>
-<p>Must be <strong>20 (INFO)</strong>. Higher levels disable tracking of important requests
-needed for traffic monitoring and analysis.</p>
+<span class="sig-name descname"><span class="pre">MIDDLEWARE_LOG_LEVEL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#app.config.base.LogSettings.MIDDLEWARE_LOG_LEVEL" title="Link to this definition">¶</a></dt>
+<dd><p>Fixed logging level for the ASGI access middleware.</p>
+<p>Must be <strong>20 (INFO)</strong>. Higher levels disable tracking of important requests needed for traffic
+monitoring and analysis.</p>
 </dd></dl>
 
 <dl class="py attribute">

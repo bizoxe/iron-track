@@ -66,6 +66,8 @@ All notable changes to this project will be documented in this file.
 ⚡ Performance
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+* (`d8cb3b7 <https://github.com/bizoxe/iron-track/commit/d8cb3b7e70c6a4d96ff45e7ac9277581708f3303>`_) - Optimize infra for high-load and document benchmarks (alexander)
+
 * (`45c7ecc <https://github.com/bizoxe/iron-track/commit/45c7eccd5f9ccc5594286d4ecd5d83714e20dbea>`_) - Optimize user password update to avoid redundant SELECT query (alexander)
 
 
@@ -83,6 +85,10 @@ All notable changes to this project will be documented in this file.
 
 📚 Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* (`c51d2ce <https://github.com/bizoxe/iron-track/commit/c51d2ce768061a3f10b26cdd70e7f098d399ee37>`_) - Generate api documentation for system domain (alexander)
+
+* (`136c3a6 <https://github.com/bizoxe/iron-track/commit/136c3a6bb278d51091c4aea4f5b52987a79e8b58>`_) - Update changelog [skip ci] (github-actions[bot])
 
 * (`2fcab9c <https://github.com/bizoxe/iron-track/commit/2fcab9c19fbee5e6b47648289f46324a623fce36>`_) - Finalize README layout with  header and tech stack (alexander)
 
@@ -117,6 +123,12 @@ All notable changes to this project will be documented in this file.
 
 🚀 Features
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* (`916c4bf <https://github.com/bizoxe/iron-track/commit/916c4bf329a234933c956096effd5c0efccfb6c0>`_) - Implement multi-stage docker and angie orchestration (alexander)
+
+* (`271016d <https://github.com/bizoxe/iron-track/commit/271016d3fc75cd0bdcc031432849ec060feb25c7>`_) - Pin alpine version and tighten postgres security (alexander)
+
+* (`a436738 <https://github.com/bizoxe/iron-track/commit/a436738b396cbda172a10d502ae27d8ba53d352b>`_) - Configure healthcheck (alexander)
 
 * (`4bf89fb <https://github.com/bizoxe/iron-track/commit/4bf89fb4083c4bcb46593f0a0711274573da394f>`_) - Introduce custom server commands with default entrypoint (alexander)
 

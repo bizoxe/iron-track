@@ -178,8 +178,6 @@ data-aria-dark="Switch to auto color mode">
         <li><a href="api/scripts/commands.html#cmdoption-app-users-promote-to-superuser-email">--email</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     app.config.base
 
@@ -192,6 +190,22 @@ data-aria-dark="Switch to auto color mode">
 
       <ul>
         <li><a href="api/config/constants.html#module-app.config.constants">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    app.domain.system.controllers
+
+      <ul>
+        <li><a href="api/domain/system/controllers.html#module-app.domain.system.controllers">module</a>
+</li>
+      </ul></li>
+      <li>
+    app.domain.system.schemas
+
+      <ul>
+        <li><a href="api/domain/system/schemas.html#module-app.domain.system.schemas">module</a>
 </li>
       </ul></li>
       <li>
@@ -217,6 +231,10 @@ data-aria-dark="Switch to auto color mode">
 </li>
       </ul></li>
       <li><a href="api/config/base.html#app.config.base.AppSettings">AppSettings (class in app.config.base)</a>
+</li>
+      <li><a href="api/config/base.html#app.config.base.LogSettings.ASGI_ACCESS_LEVEL">ASGI_ACCESS_LEVEL (app.config.base.LogSettings attribute)</a>
+</li>
+      <li><a href="api/config/base.html#app.config.base.LogSettings.ASGI_ERROR_LEVEL">ASGI_ERROR_LEVEL (app.config.base.LogSettings attribute)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.JWTSettings.AUTH_JWT_PRIVATE_KEY_PATH">AUTH_JWT_PRIVATE_KEY_PATH (app.config.base.JWTSettings attribute)</a>
 </li>
@@ -247,6 +265,8 @@ data-aria-dark="Switch to auto color mode">
       <li><a href="api/domain/users/services.html#app.domain.users.services.UserService.check_critical_action_forbidden">check_critical_action_forbidden() (app.domain.users.services.UserService method)</a>
 </li>
       <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.AccountRegister.check_passwords_match">check_passwords_match() (app.domain.users.schemas.AccountRegister method)</a>
+</li>
+      <li><a href="api/domain/system/controllers.html#app.domain.system.controllers.check_system_health">check_system_health() (in module app.domain.system.controllers)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.RedisSettings.client">client (app.config.base.RedisSettings property)</a>
 </li>
@@ -468,6 +488,10 @@ data-aria-dark="Switch to auto color mode">
 </li>
         <li><a href="api/config/constants.html#module-app.config.constants">app.config.constants</a>
 </li>
+        <li><a href="api/domain/system/controllers.html#module-app.domain.system.controllers">app.domain.system.controllers</a>
+</li>
+        <li><a href="api/domain/system/schemas.html#module-app.domain.system.schemas">app.domain.system.schemas</a>
+</li>
         <li><a href="api/domain/users/deps.html#module-app.domain.users.deps">app.domain.users.deps</a>
 </li>
         <li><a href="api/utils/server_cli.html#module-app.utils.server_cli">app.utils.server_cli</a>
@@ -491,6 +515,8 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/config/base.html#app.config.base.AppSettings.NAME">NAME (app.config.base.AppSettings attribute)</a>
+</li>
       <li><a href="api/db/role.html#app.db.models.role.Role.name">name (app.db.models.role.Role attribute)</a>
 
       <ul>
@@ -531,16 +557,18 @@ data-aria-dark="Switch to auto color mode">
 </li>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.PGBOUNCER_ENABLED">PGBOUNCER_ENABLED (app.config.base.DatabaseSettings attribute)</a>
 </li>
+      <li><a href="api/domain/system/controllers.html#app.domain.system.controllers.ping">ping() (in module app.domain.system.controllers)</a>
+</li>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_DISABLED">POOL_DISABLED (app.config.base.DatabaseSettings attribute)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_MAX_OVERFLOW">POOL_MAX_OVERFLOW (app.config.base.DatabaseSettings attribute)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_PRE_PING">POOL_PRE_PING (app.config.base.DatabaseSettings attribute)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_RECYCLE">POOL_RECYCLE (app.config.base.DatabaseSettings attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_RECYCLE">POOL_RECYCLE (app.config.base.DatabaseSettings attribute)</a>
+</li>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_SIZE">POOL_SIZE (app.config.base.DatabaseSettings attribute)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_TIMEOUT">POOL_TIMEOUT (app.config.base.DatabaseSettings attribute)</a>
@@ -629,17 +657,21 @@ data-aria-dark="Switch to auto color mode">
 </li>
       <li><a href="api/config/base.html#app.config.base.RedisSettings.SOCKET_KEEPALIVE">SOCKET_KEEPALIVE (app.config.base.RedisSettings attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/config/base.html#app.config.base.LogSettings.SQLALCHEMY_LEVEL">SQLALCHEMY_LEVEL (app.config.base.LogSettings attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/lib/exceptions.html#app.lib.exceptions.BaseAPIException.status_code">status_code (app.lib.exceptions.BaseAPIException attribute)</a>
+</li>
+      <li><a href="api/config/base.html#app.config.base.LogSettings.STRUCTLOG_LEVEL">STRUCTLOG_LEVEL (app.config.base.LogSettings attribute)</a>
 </li>
       <li><a href="api/utils/log_utils/middleware.html#app.utils.log_utils.middleware.StructLogMiddleware">StructLogMiddleware (class in app.utils.log_utils.middleware)</a>
 </li>
       <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.RoleSlug.SUPERUSER">SUPERUSER (app.domain.users.schemas.RoleSlug attribute)</a>
 </li>
       <li><a href="api/config/constants.html#app.config.constants.SUPERUSER_ROLE_SLUG">SUPERUSER_ROLE_SLUG (in module app.config.constants)</a>
+</li>
+      <li><a href="api/domain/system/schemas.html#app.domain.system.schemas.SystemHealth">SystemHealth (class in app.domain.system.schemas)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -665,10 +697,10 @@ data-aria-dark="Switch to auto color mode">
         <li><a href="api/config/base.html#app.config.base.RedisSettings.URL">(app.config.base.RedisSettings attribute)</a>
 </li>
       </ul></li>
-      <li><a href="api/db/user.html#app.db.models.user.User">User (class in app.db.models.user)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/db/user.html#app.db.models.user.User">User (class in app.db.models.user)</a>
+</li>
       <li><a href="api/config/constants.html#app.config.constants.USER_AUTH_CACHE_EXPIRE_SECONDS">USER_AUTH_CACHE_EXPIRE_SECONDS (in module app.config.constants)</a>
 </li>
       <li><a href="api/config/constants.html#app.config.constants.USER_AUTH_CACHE_PREFIX">USER_AUTH_CACHE_PREFIX (in module app.config.constants)</a>
@@ -680,10 +712,6 @@ data-aria-dark="Switch to auto color mode">
       <li><a href="api/db/role.html#app.db.models.role.Role.users">users (app.db.models.role.Role attribute)</a>
 </li>
       <li><a href="api/domain/users/deps.html#app.domain.users.deps.UserServiceDep">UserServiceDep (in module app.domain.users.deps)</a>
-</li>
-      <li><a href="api/config/base.html#app.config.base.LogSettings.UVICORN_ACCESS_LEVEL">UVICORN_ACCESS_LEVEL (app.config.base.LogSettings attribute)</a>
-</li>
-      <li><a href="api/config/base.html#app.config.base.LogSettings.UVICORN_ERROR_LEVEL">UVICORN_ERROR_LEVEL (app.config.base.LogSettings attribute)</a>
 </li>
   </ul></td>
 </tr></table>

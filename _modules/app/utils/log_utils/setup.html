@@ -127,6 +127,11 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/domain/system/index.html">System Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/system/controllers.html">System Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/system/schemas.html">System Domain Schemas</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -241,7 +246,7 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="50">
 </span><span data-line="51">    <span class="n">structlog</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span>
 </span><span data-line="52">        <span class="n">cache_logger_on_first_use</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span><span data-line="53">        <span class="n">wrapper_class</span><span class="o">=</span><span class="n">structlog</span><span class="o">.</span><span class="n">make_filtering_bound_logger</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">LEVEL</span><span class="p">),</span>
+</span><span data-line="53">        <span class="n">wrapper_class</span><span class="o">=</span><span class="n">structlog</span><span class="o">.</span><span class="n">make_filtering_bound_logger</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">STRUCTLOG_LEVEL</span><span class="p">),</span>
 </span><span data-line="54">        <span class="n">processors</span><span class="o">=</span><span class="n">processors</span><span class="p">,</span>
 </span><span data-line="55">        <span class="n">logger_factory</span><span class="o">=</span><span class="n">structlog</span><span class="o">.</span><span class="n">stdlib</span><span class="o">.</span><span class="n">LoggerFactory</span><span class="p">(),</span>
 </span><span data-line="56">    <span class="p">)</span>
@@ -293,19 +298,19 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="102">                    <span class="s2">&quot;handlers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;queue_handler&quot;</span><span class="p">],</span>
 </span><span data-line="103">                    <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">LEVEL</span><span class="p">,</span>
 </span><span data-line="104">                <span class="p">},</span>
-</span><span data-line="105">                <span class="s2">&quot;_uvicorn&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span data-line="105">                <span class="s2">&quot;app.access&quot;</span><span class="p">:</span> <span class="p">{</span>
 </span><span data-line="106">                    <span class="s2">&quot;propagate&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
 </span><span data-line="107">                    <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">MIDDLEWARE_LOG_LEVEL</span><span class="p">,</span>
 </span><span data-line="108">                    <span class="s2">&quot;handlers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;queue_handler&quot;</span><span class="p">],</span>
 </span><span data-line="109">                <span class="p">},</span>
 </span><span data-line="110">                <span class="s2">&quot;uvicorn.error&quot;</span><span class="p">:</span> <span class="p">{</span>
 </span><span data-line="111">                    <span class="s2">&quot;propagate&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-</span><span data-line="112">                    <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">UVICORN_ERROR_LEVEL</span><span class="p">,</span>
+</span><span data-line="112">                    <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">ASGI_ERROR_LEVEL</span><span class="p">,</span>
 </span><span data-line="113">                    <span class="s2">&quot;handlers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;queue_handler&quot;</span><span class="p">],</span>
 </span><span data-line="114">                <span class="p">},</span>
 </span><span data-line="115">                <span class="s2">&quot;uvicorn.access&quot;</span><span class="p">:</span> <span class="p">{</span>
 </span><span data-line="116">                    <span class="s2">&quot;propagate&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-</span><span data-line="117">                    <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">UVICORN_ACCESS_LEVEL</span><span class="p">,</span>
+</span><span data-line="117">                    <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">ASGI_ACCESS_LEVEL</span><span class="p">,</span>
 </span><span data-line="118">                    <span class="s2">&quot;handlers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;queue_handler&quot;</span><span class="p">],</span>
 </span><span data-line="119">                <span class="p">},</span>
 </span><span data-line="120">                <span class="s2">&quot;sqlalchemy.engine&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -318,9 +323,19 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="127">                    <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">SQLALCHEMY_LEVEL</span><span class="p">,</span>
 </span><span data-line="128">                    <span class="s2">&quot;handlers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;queue_handler&quot;</span><span class="p">],</span>
 </span><span data-line="129">                <span class="p">},</span>
-</span><span data-line="130">            <span class="p">},</span>
-</span><span data-line="131">        <span class="p">}</span>
-</span><span data-line="132">    <span class="p">)</span></div>
+</span><span data-line="130">                <span class="s2">&quot;_granian&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span data-line="131">                    <span class="s2">&quot;propagate&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+</span><span data-line="132">                    <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">ASGI_ERROR_LEVEL</span><span class="p">,</span>
+</span><span data-line="133">                    <span class="s2">&quot;handlers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;queue_handler&quot;</span><span class="p">],</span>
+</span><span data-line="134">                <span class="p">},</span>
+</span><span data-line="135">                <span class="s2">&quot;granian.access&quot;</span><span class="p">:</span> <span class="p">{</span>
+</span><span data-line="136">                    <span class="s2">&quot;propagate&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+</span><span data-line="137">                    <span class="s2">&quot;level&quot;</span><span class="p">:</span> <span class="n">settings</span><span class="o">.</span><span class="n">log</span><span class="o">.</span><span class="n">ASGI_ACCESS_LEVEL</span><span class="p">,</span>
+</span><span data-line="138">                    <span class="s2">&quot;handlers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;queue_handler&quot;</span><span class="p">],</span>
+</span><span data-line="139">                <span class="p">},</span>
+</span><span data-line="140">            <span class="p">},</span>
+</span><span data-line="141">        <span class="p">}</span>
+</span><span data-line="142">    <span class="p">)</span></div>
 
 </span></pre></div>
         </article><button class="back-to-top" type="button">

@@ -127,6 +127,11 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l4"><a class="reference internal" href="../api/domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../api/domain/system/index.html">System Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/domain/system/controllers.html">System Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/domain/system/schemas.html">System Domain Schemas</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -217,12 +222,12 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="2">make<span class="w"> </span>install
 </span><span data-line="3">
 </span><span data-line="4"><span class="c1"># 2. Copy the local development template to the config directory</span>
-</span><span data-line="5">cp<span class="w"> </span>.env.local<span class="w"> </span>src/app/config/.env
+</span><span data-line="5">cp<span class="w"> </span>.env.local.template<span class="w"> </span>src/app/config/.env
 </span></pre></div>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">.env.local</span></code> is pre-configured to connect to services via <code class="docutils literal notranslate"><span class="pre">localhost</span></code>. It uses port <code class="docutils literal notranslate"><span class="pre">5432</span></code> for a <strong>direct connection</strong> to PostgreSQL (used for simplicity of deployment in the local environment).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">.env.local.template</span></code> is pre-configured to connect to services via <code class="docutils literal notranslate"><span class="pre">localhost</span></code>. It uses port <code class="docutils literal notranslate"><span class="pre">5432</span></code> for a <strong>direct connection</strong> to PostgreSQL (used for simplicity of deployment in the local environment).</p>
 </div>
 </section>
 <section id="infrastructure-setup-docker">
@@ -234,7 +239,7 @@ data-aria-dark="Switch to auto color mode">
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This command starts the essential database and cache using the configuration in <code class="docutils literal notranslate"><span class="pre">deploy/app/docker-compose.infra.yaml</span></code>.</p>
+<p>This command starts the essential database and cache using the configuration in <code class="docutils literal notranslate"><span class="pre">deploy/docker-compose.infra.yaml</span></code>.</p>
 </div>
 </section>
 <section id="initial-system-setup">
