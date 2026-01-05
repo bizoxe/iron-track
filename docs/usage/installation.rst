@@ -32,10 +32,10 @@ First, install the project dependencies and set up your local configuration file
     make install
 
     # 2. Copy the local development template to the config directory
-    cp .env.local src/app/config/.env
+    cp .env.local.template src/app/config/.env
 
 .. tip::
-   The ``.env.local`` is pre-configured to connect to services via ``localhost``. It uses port ``5432`` for a **direct connection** to PostgreSQL (used for simplicity of deployment in the local environment).
+   The ``.env.local.template`` is pre-configured to connect to services via ``localhost``. It uses port ``5432`` for a **direct connection** to PostgreSQL (used for simplicity of deployment in the local environment).
 
 3. Infrastructure Setup (Docker)
 --------------------------------
@@ -48,7 +48,7 @@ The application requires PostgreSQL and Valkey. Run these services in Docker to 
     make infra-up
 
 .. note::
-   This command starts the essential database and cache using the configuration in ``deploy/app/docker-compose.infra.yaml``.
+   This command starts the essential database and cache using the configuration in ``deploy/docker-compose.infra.yaml``.
 
 4. Initial System Setup
 -----------------------
@@ -90,3 +90,4 @@ Next Steps
 
 * Explore the :doc:`cli-guide` for a full list of **available CLI commands**.
 * Check the :doc:`development` guide for further technical information and advanced setups.
+

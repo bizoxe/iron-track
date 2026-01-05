@@ -1,13 +1,17 @@
 IronTrack
 =========
 
-.. image:: https://img.shields.io/badge/python-3.12+-blue.svg
-    :target: https://www.python.org/downloads/release/python-3120/
-.. image:: https://img.shields.io/badge/framework-FastAPI-009688.svg
-    :target: https://fastapi.tiangolo.com
-.. image:: https://img.shields.io/badge/ORM-Advanced--Alchemy-orange.svg
-    :target: https://docs.advanced-alchemy.litestar.dev/latest/
-.. image:: https://img.shields.io/badge/license-MIT-blue.svg
+.. image:: https://img.shields.io/badge/python-3.12-3776ab.svg?logo=python&logoColor=white
+    :target: https://www.python.org/downloads/
+.. image:: https://img.shields.io/badge/FastAPI-009688.svg?logo=fastapi&logoColor=white
+    :target: https://fastapi.tiangolo.com/
+.. image:: https://img.shields.io/badge/Granian-E97033?logo=rust&logoColor=white
+    :target: https://github.com/emmett-framework/granian
+.. image:: https://img.shields.io/badge/Angie-B33033?logo=nginx&logoColor=white
+    :target: https://angie.software
+.. image:: https://img.shields.io/badge/ORM-Advanced--Alchemy-edb641?logo=python&logoColor=white
+    :target: https://docs.advanced-alchemy.litestar.dev/
+.. image:: https://img.shields.io/badge/license-MIT-4bc51d.svg?logo=opensourceinitiative&logoColor=white
     :target: https://opensource.org/licenses/MIT
 
 **IronTrack** is a high-performance, asynchronous backend service built on **FastAPI** and **Advanced-Alchemy**.
@@ -22,13 +26,14 @@ Key Features
 I. Architecture and Design Patterns
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* **Layered Architecture:** The project features a clear separation of concerns: **`domain`** (business logic, controllers, services), **`db`** (models and migrations), **`config`**, and **`lib`** (shared utilities). This ensures high modularity and ease of maintenance.
+* **Layered Architecture:** Architected with strict separation of concerns: **`domain`** (business logic, controllers, services), **`db`** (models and migrations), **`config`**, and **`lib`** (shared utilities). This ensures high modularity and ease of maintenance.
 * **Service and Repository Patterns:** Uses **Advanced-Alchemy** to implement the Service and Repository architectural patterns, ensuring clean, asynchronous **SQLAlchemy** data operations and strict isolation of business logic.
 * **Managed DB Migrations (Alembic):** Employs **Alembic** for creating, applying, and reverting versioned database schema migrations.
 
 II. Performance & Optimization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+* **Rust-Powered ASGI Server (Granian):** Hosted on **Granian**, a high-performance ASGI server built in Rust, ensuring extremely low latency and high throughput for asynchronous tasks.
 * **Optimized JSON Response:** Implements **MsgSpecJSONResponse** to replace the standard **FastAPI** serializer, utilizing the **Msgspec** library for faster JSON encoding of responses.
 * **Connection Pool Manager (PgBouncer):** Uses **PgBouncer** for efficient management of the **PostgreSQL** connection pool, enhancing performance in an asynchronous environment.
 * **Custom ASGI Middleware:** A custom handler implemented for accurate request timing, centralized exception interception, and logging of HTTP request metrics.
@@ -43,6 +48,7 @@ III. Security & Administration
 IV. Engineering Practices & CI/CD
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+* **Edge Proxy (Angie):** Deployed with **Angie** as a high-performance gateway, handling secure TLS termination and request buffering to protect and offload the application server.
 * **CI/CD and Containerization:** Implements multi-stage **Docker** builds (Builder/Runner) and dependency optimization using **uv** (**Astral**). Deployment is fully containerized (`docker-compose`). Automated migration application (**Alembic**) during deployment with service health checks (`healthcheck`).
 * **Project Packaging (Hatchling):** Utilizes the modern **Hatchling** tool for project building and packaging.
 * **Testing and Code Standards:**
@@ -89,3 +95,4 @@ Navigation
 
     contribution-guide
     changelog
+

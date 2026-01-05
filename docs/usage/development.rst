@@ -96,7 +96,7 @@ SSL & Certificates
 
 .. code-block:: bash
 
-    docker exec iron_track_angie angie -s reload
+    docker exec angie_iron_track angie -s reload
 
 Makefile Reference
 ------------------
@@ -120,3 +120,4 @@ Makefile Reference
 
     .. literalinclude:: ../../Makefile
         :language: make
+
