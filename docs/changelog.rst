@@ -88,7 +88,7 @@ All notable changes to this project will be documented in this file.
 📚 Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* (`ff5c517 <https://github.com/bizoxe/iron-track/commit/ff5c517148b2d767f463dfc4297dfa03b142a3ff>`_) - Update changelog for v0.1.0 (alexander)
+* (`5815f5e <https://github.com/bizoxe/iron-track/commit/5815f5e0005a15753bfb59d864149b0c64c565ab>`_) - Update changelog for v0.1.0 (alexander)
 
 * (`7eb6b84 <https://github.com/bizoxe/iron-track/commit/7eb6b8494ea5cb5852d9a22e2d78e4e03f91b8f4>`_) - Update changelog [skip ci] (github-actions[bot])
 
