@@ -86,6 +86,10 @@ All notable changes to this project will be documented in this file.
 📚 Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+* (`d2e50f9 <https://github.com/bizoxe/iron-track/commit/d2e50f905c0c7f6c6ac565689fbdaba4778edb03>`_) - Update changelog for v0.1.0 (alexander)
+
+* (`7eb6b84 <https://github.com/bizoxe/iron-track/commit/7eb6b8494ea5cb5852d9a22e2d78e4e03f91b8f4>`_) - Update changelog [skip ci] (github-actions[bot])
+
 * (`c51d2ce <https://github.com/bizoxe/iron-track/commit/c51d2ce768061a3f10b26cdd70e7f098d399ee37>`_) - Generate api documentation for system domain (alexander)
 
 * (`136c3a6 <https://github.com/bizoxe/iron-track/commit/136c3a6bb278d51091c4aea4f5b52987a79e8b58>`_) - Update changelog [skip ci] (github-actions[bot])
@@ -175,5 +179,13 @@ All notable changes to this project will be documented in this file.
 * (`4a9f987 <https://github.com/bizoxe/iron-track/commit/4a9f98741c3b05e9443d404a59c82209e90c19da>`_) - Rename base class to BaseAPIException (alexander)
 
 * (`4e9d720 <https://github.com/bizoxe/iron-track/commit/4e9d7202ab58cb3d9f26203cdcfeabd224a6b4ae>`_) - Reuse global msgspec JSON objects (alexander)
+
+
+🧪 Testing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* (`294eb61 <https://github.com/bizoxe/iron-track/commit/294eb61eb208f4f88205b056ae57681b78c651c9>`_) - Add tests for system health (alexander)
+
+* (`476c6ce <https://github.com/bizoxe/iron-track/commit/476c6ce582eecd19e903693c0b5d0a01fd4cb957>`_) - Add tests for users, roles and access controllers (alexander)
 
 IronTrack Changelog
