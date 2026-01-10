@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import (
+    TYPE_CHECKING,
+    NoReturn,
+)
 from unittest import mock
 
 import pytest
+import structlog
 from redis.asyncio import Redis
 
 from app.config import base
@@ -31,16 +35,29 @@ def anyio_backend() -> str:
 
 @pytest.fixture(scope="session", autouse=True)
 def _path_settings() -> Generator[None, None, None]:
-    """Path the settings."""
+    """Patch the settings."""
     base_dir = Path(__file__).parent.parent
     env_testing_file = base_dir / ".env.testing"
 
     settings = base.Settings.from_env(dotenv_file=env_testing_file)
-    patcher = mock.patch.object(base, "get_settings", return_value=settings)
-    patcher.start()
+    with mock.patch.object(base, "get_settings", return_value=settings):
+        yield
 
-    yield
-    patcher.stop()
+
+@pytest.fixture(scope="session", autouse=True)
+def _configure_structlog_for_tests() -> None:
+    """Disable all logging output during test session by dropping all events."""
+
+    def drop_everything(_, __, ___) -> NoReturn:  # type: ignore[no-untyped-def] # noqa: ANN001
+        raise structlog.DropEvent
+
+    structlog.configure(
+        processors=[
+            drop_everything,
+        ],
+        logger_factory=structlog.PrintLoggerFactory(),
+        cache_logger_on_first_use=False,
+    )
 
 
 @pytest.fixture(scope="session", name="redis")

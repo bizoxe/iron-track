@@ -5,7 +5,6 @@ from typing import (
     TYPE_CHECKING,
     Any,
 )
-from unittest import mock
 
 import pytest
 from advanced_alchemy.base import UUIDv7AuditBase
@@ -31,38 +30,17 @@ from app.domain.users.services import (
     RoleService,
     UserService,
 )
-from app.utils.log_utils.middleware import logger
 from tests import constants
 from tests.helpers import add_role_to_raw_users
 
 if TYPE_CHECKING:
-    from collections.abc import AsyncGenerator, Generator
+    from collections.abc import AsyncGenerator
     from uuid import UUID
 
     from fastapi import FastAPI
     from pytest_databases.docker.postgres import PostgresService
     from pytest_mock import MockerFixture
     from sqlalchemy.ext.asyncio import AsyncEngine
-
-
-@pytest.fixture(scope="session", autouse=True)
-def _patch_middleware_logging() -> Generator[None, None, None]:
-    """Mock logger's ainfo and aexception methods at the session level.
-
-    Patches the asynchronous methods 'ainfo' and 'aexception' on the global logger
-    object using unittest.mock.AsyncMock. This prevents log output from being
-    written to the console throughout the entire test session.
-    """
-    patches = [
-        mock.patch.object(logger, "ainfo", new_callable=mock.AsyncMock),
-        mock.patch.object(logger, "aexception", new_callable=mock.AsyncMock),
-    ]
-    for p in patches:
-        p.start()
-
-    yield
-    for p in reversed(patches):
-        p.stop()
 
 
 @pytest.fixture(scope="session", name="engine")

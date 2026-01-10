@@ -1,9 +1,12 @@
+from datetime import timedelta
 from typing import (
     TYPE_CHECKING,
     Any,
 )
 
 import anyio
+
+from app.lib.jwt_utils import encode_jwt
 
 if TYPE_CHECKING:
     from uuid import UUID
@@ -48,7 +51,7 @@ async def wait_for_blacklist_entry(
         interval: The time in seconds to wait between checks.
 
     Returns:
-        True if the key is found before the timeout expires, False otherwise.
+        bool: True if the key is found before the timeout expires, False otherwise.
     """
     end_time = anyio.current_time() + timeout
 
@@ -58,3 +61,31 @@ async def wait_for_blacklist_entry(
         await anyio.sleep(interval)
 
     return False
+
+
+def create_expired_access_token(
+    user_id: "UUID",
+    email: str,
+) -> str:
+    """Create an expiring JWT access token."""
+    jwt_payload = {
+        "sub": str(user_id),
+        "email": email,
+    }
+
+    return encode_jwt(
+        payload=jwt_payload,
+        expire_minutes=-1,
+    )
+
+
+def create_expired_refresh_token(user_id: "UUID") -> str:
+    """Create an expiring JWT refresh token."""
+    jwt_payload = {
+        "sub": str(user_id),
+    }
+
+    return encode_jwt(
+        payload=jwt_payload,
+        expire_timedelta=timedelta(minutes=-1),
+    )

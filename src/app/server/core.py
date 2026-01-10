@@ -90,6 +90,7 @@ def create_app() -> FastAPI:
     """
     settings = get_settings()
     _app = FastAPI(
+        debug=settings.app.DEBUG,
         title=settings.app.NAME,
         version=current_version,
         description=(

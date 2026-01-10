@@ -30,11 +30,13 @@ TRUE_VALUES = {"True", "true", "1", "yes", "Y", "T"}
 class AppSettings:
     """Application configuration."""
 
-    NAME: str = field(default_factory=lambda: "IronTrack")
+    DEBUG: bool = field(default_factory=lambda: os.getenv("FASTAPI_DEBUG", "False") in TRUE_VALUES)
+    """Whether to run the FastAPI application in debug mode."""
+    NAME: str = field(default="IronTrack")
     """Application name."""
     ENVIRONMENT: str = field(default_factory=lambda: os.getenv("APP_ENVIRONMENT", "dev"))
     """The application execution environment (e.g., 'dev', 'prod')."""
-    API_V1_URL_PREFIX = "/api/v1"
+    API_V1_URL_PREFIX: str = field(default="/api/v1")
     """The default URL prefix for API Version routes."""
     CDN_IMAGES_DEFAULT_URL: str = field(
         default_factory=lambda: os.getenv(

@@ -41,7 +41,7 @@ async def validation_exception_handler(
     Returns:
         Response: A JSON response (422 status code) containing structured error details.
     """
-    errors = [{"type": err["type"], "field": err["loc"][0], "message": err["msg"]} for err in exc.errors()]
+    errors = [{"type": err["type"], "field": err["loc"][-1], "message": err["msg"]} for err in exc.errors()]
 
     return MsgSpecJSONResponse(
         status_code=422,

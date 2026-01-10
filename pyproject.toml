@@ -114,10 +114,41 @@ packages = ["src/app"]
 [tool.uv]
 default-groups = ["dev", "linting", "test", "docs"]
 
+[tool.coverage.run]
+branch = true
+source = ["src/app"]
+omit = [
+    "tests/*",
+    "src/app/__about__.py",
+    "src/app/db/alembic/*",
+    "src/app/main.py",
+    "src/app/scripts/*",
+    "src/app/utils/server_cli.py",
+    "src/app/db/models/base.py",
+    "src/app/domain/*/urls.py",
+    "src/app/utils/log_utils/setup.py",
+    "**/__init__.py",
+    "src/app/config/*",
+]
+
+[tool.coverage.report]
+omit = ["*/tests/*"]
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "if __name__ == .__main__.:",
+    "@(abc\\.)?abstractmethod",
+    "class .*\\bProtocol\\):",
+    "raise NotImplementedError",
+    "def __repr__",
+    "raise AssertionError",
+]
+
 [tool.pytest.ini_options]
 addopts = [
     "-ra",
-    "--ignore", "src/db/alembic"
+    "--ignore", "src/app/db/alembic"
 ]
 testpaths = ["tests"]
 
@@ -193,6 +224,7 @@ known-first-party = ["tests", "app"]
 "src/app/config/base.py" = ["PLC0415"]
 "src/app/main.py" = ["PLC0415"]
 "tests/data_fixtures.py" = ["PLC0415"]
+"tests/*" = ["PLR0913", "FBT001"]
 
 [tool.mypy]
 python_version = "3.12"
@@ -235,7 +267,7 @@ module = [
 ]
 
 [tool.codespell]
-ignore-words-list = "selectin,selectinload,Flyes,Delt"
+ignore-words-list = "selectin,selectinload,Flyes,Delt,Te"
 
 [tool.bumpversion]
 current_version = "0.1.0"

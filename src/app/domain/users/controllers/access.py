@@ -239,11 +239,19 @@ async def update_password(
         data=pwd_data,
         user_id=user_auth.id,
     )
-    await invalidate_user_cache(
+    background_task = BackgroundTask(
+        func=invalidate_user_cache,
         user_id=user_auth.id,
         redis_client=redis_client,
     )
-    return Response(status_code=status.HTTP_204_NO_CONTENT)
+    response = Response(
+        status_code=status.HTTP_204_NO_CONTENT,
+        background=background_task,
+    )
+    response.delete_cookie("access_token")
+    response.delete_cookie("refresh_token")
+
+    return response
 
 
 @access_router.get(
