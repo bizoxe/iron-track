@@ -3,8 +3,10 @@ Changelog
 
 All notable changes to this project will be documented in this file.
 
-[Unreleased]
-------------
+`Release [v0.1.0] - 2026-01-10 <https://github.com/bizoxe/iron-track/releases/tag/v0.1.0>`_
+-----------------------------------------------------------------------------------------------------------------------
+
+* `See All commits in v0.1.0 <https://github.com/bizoxe/iron-track/commits/v0.1.0>`_
 
 
 ⚙️ Miscellaneous Tasks
@@ -85,6 +87,8 @@ All notable changes to this project will be documented in this file.
 
 📚 Documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* (`d36efd1 <https://github.com/bizoxe/iron-track/commit/d36efd1a14b9d3d33410a27e54305d6f3b690a75>`_) - Finalize changelog for v0.1.0 (alexander)
 
 * (`5815f5e <https://github.com/bizoxe/iron-track/commit/5815f5e0005a15753bfb59d864149b0c64c565ab>`_) - Update changelog for v0.1.0 (alexander)
 
