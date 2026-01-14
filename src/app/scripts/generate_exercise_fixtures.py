@@ -1,10 +1,12 @@
-# -----------------------------------------------------------------------------
-# SCRIPT: generate_exercise_fixtures.py
-# DESCRIPTION: Generates the consolidated 'all_exercises.json' fixture file
-#              by scanning individual exercise folders, transforming data
-#              (name-to-ID mapping, slug generation, URL creation), and combining
-#              the results into a single output file for database seeding.
-# -----------------------------------------------------------------------------
+"""Generate consolidated exercise fixtures for database seeding.
+
+This script scans individual exercise folders, transforms data (name-to-ID mapping,
+slug generation, URL creation), and combines the results into a single
+'all_exercises.json' fixture file.
+
+Example:
+    $ python src/app/scripts/generate_exercise_fixtures.py
+"""
 
 import json
 from pathlib import Path
@@ -12,18 +14,14 @@ from typing import Any
 
 from structlog import get_logger
 
-from src.config.base import get_settings
-
-
-settings = get_settings()
-
 logger = get_logger()
 
-PROJECT_ROOT_DIR = Path(__file__).resolve().parent.parent.parent
+PROJECT_ROOT_DIR = Path(__file__).resolve().parents[3]
+APP_DIR = Path(__file__).resolve().parents[1]
 
 EXERCISES_DIR = PROJECT_ROOT_DIR / "resources" / "exercises"
-FIXTURES_DIR = PROJECT_ROOT_DIR / "src" / "db" / "fixtures"
-OUTPUT_FILE = PROJECT_ROOT_DIR / "src" / "db" / "fixtures" / "all_exercises.json"
+FIXTURES_DIR = APP_DIR / "db" / "fixtures"
+OUTPUT_FILE = APP_DIR / "db" / "fixtures" / "all_exercises.json"
 BASE_IMAGES_CDN_URL = "https://raw.githubusercontent.com/bizoxe/iron-track/media/resources/exercises"
 
 
@@ -44,15 +42,15 @@ def load_and_create_id_map(filename: str, lookup_key: str = "name") -> dict[str,
     filepath = FIXTURES_DIR / filename
 
     if not filepath.exists():
-        logger.error(f"Fixture file not found: {filepath}. Cannot create ID map.")
+        logger.error("fixture_file_not_found", path=str(filepath))
         return {}
 
     try:
-        with open(filepath, "r", encoding="utf-8") as f:
+        with filepath.open(encoding="utf-8") as f:
             data = json.load(f)
             return {item[lookup_key]: item["id"] for item in data}
     except Exception as e:
-        logger.error(f"Error loading or parsing fixture file {filename}: {e}")
+        logger.exception("error_loading_fixture", filename=filename, error=str(e))
         return {}
 
 
@@ -69,7 +67,6 @@ def map_names_to_ids(exercise_data: dict[str, Any]) -> None:
 
     def process_list_field(key: str, id_map: dict[str, int]) -> None:
         """Helper to process muscle/equipment lists."""
-
         value = exercise_data.get(key)
 
         name_list: list[str] = []
@@ -86,16 +83,16 @@ def map_names_to_ids(exercise_data: dict[str, Any]) -> None:
                 id_list.append(item_id)
             else:
                 logger.warning(
-                    f"Item '{name}' not found in map for field '{key}' "
-                    f"in exercise '{exercise_data.get('name', 'N/A')}'."
+                    "item_not_found_in_map",
+                    item_name=name,
+                    field=key,
+                    exercise=exercise_data.get("name", "N/A"),
                 )
 
         exercise_data[key] = id_list
 
     process_list_field("primary_muscles", MUSCLE_MAP)
-
     process_list_field("secondary_muscles", MUSCLE_MAP)
-
     process_list_field("equipment", EQUIPMENT_MAP)
 
 
@@ -109,7 +106,7 @@ def get_exercises_data() -> list[dict[str, Any]]:
         A list of exercise data dictionaries ready for database seeding.
     """
     if not MUSCLE_MAP or not EQUIPMENT_MAP:
-        logger.error("Skipping exercise data generation due to missing fixture maps.")
+        logger.error("missing_fixture_maps_aborting")
         return []
 
     exercises_list: list[dict[str, Any]] = []
@@ -117,22 +114,21 @@ def get_exercises_data() -> list[dict[str, Any]]:
     try:
         subfolders = [d.name for d in EXERCISES_DIR.iterdir() if d.is_dir()]
         subfolders.sort()
-
     except FileNotFoundError:
-        logger.error(f"Root folder '{EXERCISES_DIR}' not found. Exiting.")
+        logger.exception("root_folder_not_found", path=str(EXERCISES_DIR))
         return exercises_list
 
-    logger.info(f"Found {len(subfolders)} exercise folders to process.")
+    logger.info("folders_found", count=len(subfolders))
 
     for folder_name in subfolders:
         exercise_json_path = EXERCISES_DIR / folder_name / "exercise.json"
 
         if not exercise_json_path.exists():
-            logger.warning(f"JSON file not found for folder: '{folder_name}'. Skipping.")
+            logger.warning("json_file_missing", folder=folder_name)
             continue
 
         try:
-            with open(exercise_json_path, "r", encoding="utf-8") as f:
+            with exercise_json_path.open(encoding="utf-8") as f:
                 exercise_data = json.load(f)
 
             instructions_list = exercise_data.get("instructions", [])
@@ -158,12 +154,12 @@ def get_exercises_data() -> list[dict[str, Any]]:
             )
 
             exercises_list.append(exercise_data)
-            logger.debug(f"Successfully processed and added exercise: '{db_slug}'")
+            logger.debug("exercise_processed", slug=db_slug)
 
         except json.JSONDecodeError:
-            logger.error(f"Invalid JSON format in file: '{exercise_json_path}'. Skipping.")
+            logger.exception("invalid_json_format", path=str(exercise_json_path))
         except Exception as e:
-            logger.error(f"Unexpected error processing '{folder_name}': {e}")
+            logger.exception("unexpected_error_processing_folder", folder=folder_name, error=str(e))
 
     return exercises_list
 
@@ -178,21 +174,29 @@ def create_json_file(exercises: list[dict[str, Any]]) -> None:
     OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
 
     try:
-        with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+        with OUTPUT_FILE.open("w", encoding="utf-8") as f:
             json.dump(data_to_save, f, ensure_ascii=False, indent=2)
-        logger.info(f"Successfully created output file: '{OUTPUT_FILE}'.")
-    except IOError as e:
-        logger.error(f"Error writing to output file '{OUTPUT_FILE}': {e}")
+        logger.info("output_file_created", path=str(OUTPUT_FILE))
+    except OSError as e:
+        logger.exception("error_writing_output", path=str(OUTPUT_FILE), error=str(e))
 
 
 if __name__ == "__main__":
-    logger.info("--- Starting Exercise Data Generation Script ---")
+    import logging
+
+    import structlog
+
+    logging.basicConfig(level=logging.INFO)
+    structlog.configure(
+        wrapper_class=structlog.make_filtering_bound_logger(logging.INFO),  # Фильтрация на уровне structlog
+    )
+    logger.info("start_exercise_generation")
 
     all_exercises = get_exercises_data()
 
     if all_exercises:
         create_json_file(all_exercises)
-        logger.info(f"Script finished. Total exercises processed: {len(all_exercises)}.")
-        logger.info(f"Images Base URL used: {BASE_IMAGES_CDN_URL}")
+        logger.info("generation_finished", total=len(all_exercises))
+        logger.info("images_base_url", url=BASE_IMAGES_CDN_URL)
     else:
-        logger.warning("No exercises were successfully processed. Output file was not created.")
+        logger.warning("no_exercises_processed_empty_output")

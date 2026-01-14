@@ -1,4 +1,4 @@
-# ruff: noqa: C901, PLR0912, PLR0915, INP001
+# ruff: noqa: C901, PLR0912, PLR0915
 import json
 from pathlib import Path
 from typing import Any
@@ -115,7 +115,7 @@ def main() -> None:
 
     enriched = sum(1 for ex in exercises if ex["tags"])
     logger.info(
-        "Exercises processed successfully",
+        "exercises_processed_successfully",
         exrecises=len(exercises),
         enriched=enriched,
     )
