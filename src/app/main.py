@@ -1,6 +1,5 @@
 import structlog
 import uvicorn
-
 from server.core import create_app
 
 app = create_app()

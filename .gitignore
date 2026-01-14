@@ -292,3 +292,5 @@ pyrightconfig.json
 /src/certs/public.pem
 /src/logs/
 
+/src/app/certs/jwt-private.pem
+/src/app/certs/jwt-public.pem
