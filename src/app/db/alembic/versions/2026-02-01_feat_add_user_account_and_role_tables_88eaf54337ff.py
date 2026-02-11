@@ -1,8 +1,8 @@
-"""Add user_account, role tables
+"""feat: add user_account and role tables
 
-Revision ID: 91d65a940a39
+Revision ID: 88eaf54337ff
 Revises: 64ea2d0439f6
-Create Date: 2025-12-08 08:27:08.506311+00:00
+Create Date: 2026-02-01 10:58:45.094549+00:00
 
 """
 
@@ -13,8 +13,6 @@ import sqlalchemy as sa
 from alembic import op
 from advanced_alchemy.types import EncryptedString, EncryptedText, GUID, ORA_JSONB, DateTimeUTC, StoredObject, PasswordHash
 from sqlalchemy import Text  # noqa: F401
-from advanced_alchemy.types.password_hash.pwdlib import PwdlibHasher
-from pwdlib.hashers.argon2 import Argon2Hasher as PwdlibArgon2Hasher
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
@@ -27,10 +25,9 @@ sa.ORA_JSONB = ORA_JSONB
 sa.EncryptedString = EncryptedString
 sa.EncryptedText = EncryptedText
 sa.StoredObject = StoredObject
-sa.PasswordHash = PasswordHash
 
 # revision identifiers, used by Alembic.
-revision = '91d65a940a39'
+revision = '88eaf54337ff'
 down_revision = '64ea2d0439f6'
 branch_labels = None
 depends_on = None
@@ -73,13 +70,9 @@ def schema_upgrades() -> None:
     sa.Column('id', sa.GUID(length=16), nullable=False),
     sa.Column('name', sa.String(length=255), nullable=True),
     sa.Column('email', sa.String(length=255), nullable=False),
-    sa.Column(
-        'password', sa.PasswordHash(length=128, backend=PwdlibHasher(hasher=PwdlibArgon2Hasher())),
-        nullable=False,
-    ),
+    sa.Column('password', sa.String(length=255), nullable=False),
     sa.Column('is_active', sa.Boolean(), nullable=False),
     sa.Column('is_superuser', sa.Boolean(), nullable=False),
-    sa.Column('joined_at', sa.Date(), nullable=False),
     sa.Column('role_id', sa.GUID(length=16), nullable=False),
     sa.Column('sa_orm_sentinel', sa.Integer(), nullable=True),
     sa.Column('created_at', sa.DateTimeUTC(timezone=True), nullable=False),

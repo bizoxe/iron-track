@@ -91,8 +91,30 @@ For optimal **HTTP/3 (QUIC)** performance, you must increase the UDP receive and
 SSL & Certificates
 ------------------
 
-* **Development**: Self-signed certificates (via ``mkcert``) should be placed in ``deploy/certs``.
-* **Production**: Use **Certbot** on the host. Since Angie mounts ``deploy/certs`` as read-only (``:ro``), reload the service after certificate renewal:
+Development (Local HTTPS)
++++++++++++++++++++++++++
+
+Use ``mkcert`` to create a locally-trusted development certificate.
+
+**1. Install local CA (once per machine)**
+
+.. code-block:: bash
+
+    mkcert -install
+
+**2. Generate certificates**
+
+.. code-block:: bash
+
+    mkdir -p deploy/certs
+    mkcert -cert-file deploy/certs/local-cert.pem \
+           -key-file deploy/certs/local-key.pem \
+           app.localhost localhost 127.0.0.1 ::1
+
+Production
+++++++++++
+
+Use **Certbot** on the host. Since Angie mounts ``deploy/certs`` as read-only (``:ro``), reload the service after certificate renewal:
 
 .. code-block:: bash
 

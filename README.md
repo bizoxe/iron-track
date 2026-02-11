@@ -21,7 +21,7 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Granian](https://img.shields.io/badge/Granian-E97033?logo=rust&logoColor=white)](https://github.com/emmett-framework/granian)
 [![Angie](https://img.shields.io/badge/Angie-B33033?logo=nginx&logoColor=white)](https://angie.software)
-[![Advanced Alchemy](https://img.shields.io/badge/ORM-Advanced--Alchemy-edb641?logo=python&logoColor=white)](https://docs.advanced-alchemy.litestar.dev/)
+[![Advanced Alchemy](https://img.shields.io/badge/Litestar%20Org-%E2%AD%90%20Advanced%20Alchemy-edb641.svg?logo=python&logoColor=white)](https://advanced-alchemy.litestar.dev/latest/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-4bc51d?logo=opensourceinitiative&logoColor=white)](https://opensource.org/licenses/MIT)
 
 ---
@@ -43,7 +43,7 @@
 | **Web Server**        | [Angie](https://en.angie.software/angie/docs/) & [Granian](https://github.com/emmett-framework/granian)                                                 |
 | **Language**          | [Python 3.12+](https://www.python.org/) (Typed, Async)                                                                                                  |
 | **Framework**         | [FastAPI](https://fastapi.tiangolo.com/)                                                                                                                |
-| **ORM & Repository**  | [Advanced Alchemy](https://docs.advanced-alchemy.litestar.dev/latest/)                                                                                  |
+| **ORM & Repository**  | [Advanced Alchemy](https://advanced-alchemy.litestar.dev/latest/)                                                                                       |
 | **Database**          | [PostgreSQL](https://www.postgresql.org/)                                                                                                               |
 | **Connection Pooler** | [PgBouncer](https://www.pgbouncer.org/)                                                                                                                 |
 | **Migrations**        | [Alembic](https://alembic.sqlalchemy.org/)                                                                                                              |
@@ -77,13 +77,24 @@ cp .env.local.template src/app/config/.env
 ```
 
 ### 3. Security Setup (JWT Keys)
-The application requires RSA private and public keys for authentication.
+The application uses the **Ed25519** algorithm (EdDSA) for secure token signing. This requires a **JWK (JSON Web Key)** stored in your environment configuration.
 
-* **Generate Online**: Use the [JSEncrypt demo](https://travistidwell.com/jsencrypt/demo/) to create a pair (ensure you save them in **PEM** format).
-* **Generate via OpenSSL**: Follow the detailed guide in [src/app/certs/README.md](src/app/certs/README.md) (ensure you have **OpenSSL** installed).
-* **Setup**: Place the keys in `src/app/certs/` with the following **exact names**:
-  * `jwt-private.pem` (Private Key)
-  * `jwt-public.pem` (Public Key)
+* **Generate the Key**: Create a new secure key pair using the Makefile shortcut:
+```bash
+make gen-key
+```
+
+* **Setup**:
+  * **Copy** the output from the command above.
+  * **Open** your `src/app/config/.env` file.
+  * **Assign** the value to `JWT_PRIVATE_KEY` using single quotes to avoid shell parsing issues:
+```bash
+# src/app/config/.env
+JWT_PRIVATE_KEY='{"crv": "Ed25519", "x": "...", "d": "...", "kty": "OKP"}'
+```
+
+> [!NOTE]
+> A single Ed25519 JWK contains both the private and public components required for the EdDSA flow.
 
 ### 4. Infrastructure & Data
 ```bash
@@ -99,6 +110,9 @@ make seed
 > [!IMPORTANT]
 > **Creating roles is mandatory**. You must execute app users create-roles before registering any users, as it initializes the base permission system.
 
+> [!NOTE]
+> **Seeding**: The `make seed` command and the Exercise Catalog models are currently in development and not included in this release.
+
 ### 5. Run Server
 ```bash
 app server dev
@@ -111,9 +125,9 @@ app server dev
 
 ---
 
-## 📈 Performance Baseline
+## 📈 Performance & Scalability
 
-The project is architected for high-concurrency environments. Performance metrics, including hardware specifications, comparative analysis of ASGI runtimes (Granian vs. Uvicorn), proxy overhead evaluations, and other baseline data, are documented in the [benchmarks](./benchmarks/BENCHMARKS.md) directory.
+The project is architected for high-concurrency environments. Detailed metrics, hardware specifications, and reproduction commands are documented in the [Performance & Benchmarks](./benchmarks/BENCHMARKS.md) directory.
 
 ---
 
@@ -121,8 +135,9 @@ The project is architected for high-concurrency environments. Performance metric
 
 ```text
 ├── src/app/       # Application core and business logic.
+├── dev/adr/       # Architecture Decision Records (design rationale and history).
 ├── deploy/        # Infrastructure and deployment setup (PostgreSQL, Angie, etc.).
-├── benchmarks/    # Performance testing suite, load scripts, and baseline reports.
+├── benchmarks/    # Performance testing suite, load scripts, and results.
 ├── docs/          # Sphinx documentation source files.
 └── tests/         # Unit and integration tests.
 ```

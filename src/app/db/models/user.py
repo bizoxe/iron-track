@@ -1,18 +1,13 @@
 from __future__ import annotations
 
-from datetime import date
 from typing import TYPE_CHECKING
 from uuid import UUID  # noqa: TC003
 
 from advanced_alchemy.base import UUIDv7AuditBase
 from advanced_alchemy.types import (
     GUID,
-    PasswordHash,
 )
-from advanced_alchemy.types.password_hash.pwdlib import PwdlibHasher
-from pwdlib.hashers.argon2 import Argon2Hasher as PwdlibArgon2Hasher
 from sqlalchemy import (
-    Date,
     ForeignKey,
     String,
 )
@@ -41,17 +36,12 @@ class User(UUIDv7AuditBase):
     """The user's full name."""
     email: Mapped[str] = mapped_column(String(length=255), unique=True, nullable=False, index=True)
     """The unique email address for the user, used for login."""
-    password: Mapped[str] = mapped_column(
-        PasswordHash(backend=PwdlibHasher(hasher=PwdlibArgon2Hasher())),
-        nullable=False,
-    )
-    """The Argon2 hashed password for authentication."""
+    password: Mapped[str] = mapped_column(String(length=255), nullable=False, deferred=True)
+    """The hashed password for authentication."""
     is_active: Mapped[bool] = mapped_column(default=True, nullable=False)
     """Indicates if the user account is active."""
     is_superuser: Mapped[bool] = mapped_column(default=False, nullable=False)
     """Indicates if the user has administrative privileges."""
-    joined_at: Mapped[date] = mapped_column(Date, default=date.today)
-    """The date the user account was created."""
 
     role_id: Mapped[UUID] = mapped_column(GUID, ForeignKey("role.id", ondelete="RESTRICT"), nullable=False)
     """Foreign key linking to the user's role (Role.id)."""

@@ -6,14 +6,8 @@ from typing import (
 )
 
 from fastapi import Depends
-from sqlalchemy.orm import (
-    load_only,
-    selectinload,
-)
 
 from app.config.app_settings import DatabaseSession  # noqa: TC001
-from app.db.models.role import Role as RoleModel
-from app.db.models.user import User as UserModel
 from app.domain.users.services import (
     RoleService,
     UserService,
@@ -27,16 +21,13 @@ async def provide_users_service(db_session: DatabaseSession) -> AsyncGenerator[U
     """Provide a new, scoped instance of the UserService.
 
     Args:
-        db_session (DatabaseSession): The current database session.
+        db_session (AsyncSession): The current database session.
 
     Yields:
         UserService: The new service instance.
     """
     async with UserService.new(
         session=db_session,
-        load=[
-            selectinload(UserModel.role).options(load_only(RoleModel.name, RoleModel.slug)),
-        ],
         error_messages={"duplicate_key": "This user already exists.", "integrity": "User operation failed."},
     ) as service:
         yield service
@@ -49,7 +40,7 @@ async def provide_role_service(db_session: DatabaseSession) -> AsyncGenerator[Ro
     """Provide a new, scoped instance of the RoleService.
 
     Args:
-        db_session (DatabaseSession): The current database session.
+        db_session (AsyncSession): The current database session.
 
     Yields:
         RoleService: The new service instance.

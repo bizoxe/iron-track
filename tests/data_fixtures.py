@@ -6,14 +6,11 @@ from typing import (
 )
 
 import pytest
-from fastapi_cache import FastAPICache
-from fastapi_cache.backends.redis import RedisBackend
 
 from app.config.constants import DEFAULT_ADMIN_EMAIL
 
 if TYPE_CHECKING:
     from fastapi import FastAPI
-    from redis.asyncio import Redis
 
 pytestmark = pytest.mark.anyio
 
@@ -22,7 +19,6 @@ pytestmark = pytest.mark.anyio
 def fx_app(
     pytestconfig: pytest.Config,
     monkeypatch: pytest.MonkeyPatch,
-    redis: Redis,
 ) -> FastAPI:
     """Create and configure the FastAPI application for testing.
 
@@ -31,12 +27,7 @@ def fx_app(
     """
     from app.server.core import create_app
 
-    app = create_app()
-
-    FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache-test")
-    app.state.redis_client = redis
-
-    return app
+    return create_app()
 
 
 @pytest.fixture(scope="session", name="raw_users")

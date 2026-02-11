@@ -13,7 +13,10 @@ services:
       "valkey-server",
       "--maxmemory", "256mb",
       "--maxmemory-policy", "allkeys-lru",
-      "--appendonly", "yes"
+      "--appendonly", "no",
+      "--save", "",
+      "--databases", "1",
+      "--tcp-backlog", "2048"
     ]
     ports:
       - "127.0.0.1:6379:6379"
@@ -62,6 +65,10 @@ services:
       context: .
       dockerfile: ./deploy/pgbouncer/Dockerfile
     restart: unless-stopped
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
     ports:
       - "6432:6432"
     depends_on:

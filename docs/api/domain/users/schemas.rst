@@ -1,7 +1,7 @@
 User Domain Schemas
 ===================
 
-Pydantic Data Transfer Objects (DTOs) for the Users sub-domain.
+Pydantic & Struct Data Transfer Objects (DTOs) for the Users sub-domain.
 
 Utility Definitions
 -------------------
@@ -10,21 +10,18 @@ Utility Definitions
     :members: SUPERUSER, FITNESS_TRAINER
     :undoc-members:
 
-.. data:: app.domain.users.schemas.valid_pwd
-    :annotation: str
-
-    **Password requirements:** Minimum eight characters, at least one uppercase letter, one lowercase letter, one number, and one special character (``@$!%*?&_``).
+.. autoclass:: app.domain.users.schemas.PasswordValidator
 
 ---
 
 User Information Models
 -----------------------
 
-.. autopydantic_model:: app.domain.users.schemas.User
-    :model-signature-prefix: class
+.. autoclass:: app.domain.users.schemas.User
+    :undoc-members:
 
-.. autopydantic_model:: app.domain.users.schemas.UserAuth
-    :model-signature-prefix: class
+.. autoclass:: app.domain.users.schemas.UserAuth
+    :undoc-members:
 
 ---
 
@@ -32,10 +29,8 @@ User CRUD Models
 ----------------
 
 .. autopydantic_model:: app.domain.users.schemas.UserCreate
-    :model-signature-prefix: class
 
 .. autopydantic_model:: app.domain.users.schemas.UserUpdate
-    :model-signature-prefix: class
 
 ---
 
@@ -43,12 +38,15 @@ User Authentication Models
 --------------------------
 
 .. autopydantic_model:: app.domain.users.schemas.AccountRegister
-    :model-signature-prefix: class
+   :field-show-constraints: false
+   :model-show-validator-summary: false
+   :field-list-validators: false
+   :model-show-validator-members: false
 
 .. automethod:: app.domain.users.schemas.AccountRegister.check_passwords_match
 
 .. autopydantic_model:: app.domain.users.schemas.PasswordUpdate
-    :model-signature-prefix: class
+   :field-show-constraints: false
 
 ---
 
@@ -56,7 +54,8 @@ Role Management Models
 ----------------------
 
 .. autopydantic_model:: app.domain.users.schemas.UserRoleAdd
-    :model-signature-prefix: class
 
 .. autopydantic_model:: app.domain.users.schemas.UserRoleRevoke
-    :model-signature-prefix: class
+   :model-show-field-summary: false
+   :inherited-members: UserRoleAdd
+

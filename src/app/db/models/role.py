@@ -12,7 +12,7 @@ from sqlalchemy.orm import (
 )
 
 if TYPE_CHECKING:
-    from .user import User
+    from .user import User as UserModel
 
 
 class Role(UUIDv7AuditBase, SlugKey):
@@ -28,7 +28,8 @@ class Role(UUIDv7AuditBase, SlugKey):
     # -----------
     # ORM Relationships
     # ------------
-    users: Mapped[list[User]] = relationship(
+    users: Mapped[list[UserModel]] = relationship(
+        "User",
         back_populates="role",
         lazy="noload",
         viewonly=True,

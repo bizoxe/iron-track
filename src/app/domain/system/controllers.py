@@ -1,27 +1,19 @@
-from __future__ import annotations
+from typing import Literal
 
-from typing import (
-    TYPE_CHECKING,
-    Literal,
-    cast,
-)
-
+from cashews import cache
+from cashews.exceptions import CacheBackendInteractionError
 from fastapi import (
     APIRouter,
     status,
 )
-from redis import RedisError
 from sqlalchemy import text
+from starlette.responses import PlainTextResponse
 from structlog import get_logger
 
-from app.config.app_settings import DatabaseSession  # noqa: TC001
+from app.config.app_settings import DatabaseSession
 from app.domain.system import urls
 from app.domain.system.schemas import SystemHealth
-from app.lib.deps import RedisClientDep  # noqa: TC001
 from app.lib.json_response import MsgSpecJSONResponse
-
-if TYPE_CHECKING:
-    from collections.abc import Awaitable
 
 OnlineOffline = Literal["online", "offline"]
 
@@ -34,11 +26,10 @@ system_router = APIRouter(tags=["System"])
     path=urls.SYSTEM_HEALTH,
     operation_id="SystemHealth",
     name="system:health",
-    summary="Health Check",
+    summary="Health Check.",
 )
 async def check_system_health(
     db_session: DatabaseSession,
-    redis_client: RedisClientDep,
 ) -> MsgSpecJSONResponse:
     """Check the health of critical system components.
 
@@ -53,8 +44,9 @@ async def check_system_health(
     db_status: OnlineOffline = "online" if db_ping else "offline"
 
     try:
-        cache_ping = await cast("Awaitable[bool]", redis_client.ping())
-    except RedisError:
+        await cache.ping()
+        cache_ping = True
+    except (CacheBackendInteractionError, TimeoutError):
         cache_ping = False
     cache_status: OnlineOffline = "online" if cache_ping else "offline"
 
@@ -82,13 +74,12 @@ async def check_system_health(
     path=urls.SYSTEM_PING,
     operation_id="SystemPing",
     name="system:ping",
-    summary="Ping Check",
+    summary="Ping Check.",
 )
-async def ping() -> MsgSpecJSONResponse:
+def ping() -> PlainTextResponse:
     """Check the health status of the application.
 
     Returns:
-        MsgSpecJSONResponse: A JSON response containing a simple "OK" message
-        to confirm the server is reachable.
+        PlainTextResponse: A plain text response "OK" to confirm the server is reachable.
     """
-    return MsgSpecJSONResponse(content={"message": "OK"})
+    return PlainTextResponse(content=b"OK")

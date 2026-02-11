@@ -10,7 +10,6 @@ if TYPE_CHECKING:
     from fastapi import FastAPI
     from httpx import AsyncClient
     from pytest_mock import MockerFixture
-    from redis.asyncio import Redis
 
 pytestmark = pytest.mark.anyio
 
@@ -65,7 +64,7 @@ pytestmark = pytest.mark.anyio
         pytest.param(
             constants.USER_EXAMPLE_EMAIL,
             "stub",
-            status.HTTP_422_UNPROCESSABLE_ENTITY,
+            status.HTTP_422_UNPROCESSABLE_CONTENT,
             id="error_invalid_role_slug",
         ),
     ],
@@ -84,7 +83,7 @@ async def test_assign_new_role(
     )
     response = await superuser_client.patch(
         url=app.url_path_for("roles:assign", email=email),
-        json={"role_slug": role_slug},
+        json={"roleSlug": role_slug},
     )
     assert response.status_code == status_code
 
@@ -93,7 +92,6 @@ async def test_assign_new_role_cache_invalidated(
     app: "FastAPI",
     superuser_client: "AsyncClient",
     mocker: "MockerFixture",
-    redis_client: "Redis",
 ) -> None:
     mock_invalidate_cache = mocker.patch(
         "app.domain.users.controllers.user_role.invalidate_user_cache",
@@ -101,12 +99,11 @@ async def test_assign_new_role_cache_invalidated(
     )
     response = await superuser_client.patch(
         url=app.url_path_for("roles:assign", email=constants.USER_EXAMPLE_EMAIL),
-        json={"role_slug": "fitness-trainer"},
+        json={"roleSlug": "fitness-trainer"},
     )
     assert response.status_code == status.HTTP_200_OK
     mock_invalidate_cache.assert_called_once_with(
         user_id=constants.USER_EXAMPLE_ID,
-        redis_client=redis_client,
     )
     response_data = response.json()
     success_msg = response_data["message"]
@@ -155,7 +152,7 @@ async def test_assign_new_role_cache_invalidated(
         pytest.param(
             constants.FITNESS_TRAINER_EMAIL,
             "stub",
-            status.HTTP_422_UNPROCESSABLE_ENTITY,
+            status.HTTP_422_UNPROCESSABLE_CONTENT,
             id="error_invalid_role_slug",
         ),
     ],
@@ -174,7 +171,7 @@ async def test_revoke_and_set_default_role(
     )
     response = await superuser_client.patch(
         url=app.url_path_for("roles:revoke", email=email),
-        json={"role_slug": role_slug},
+        json={"roleSlug": role_slug},
     )
     assert response.status_code == status_code
 
@@ -182,7 +179,6 @@ async def test_revoke_and_set_default_role(
 async def test_revoke_and_set_default_role_cache_invalidated(
     app: "FastAPI",
     superuser_client: "AsyncClient",
-    redis_client: "Redis",
     mocker: "MockerFixture",
 ) -> None:
     mock_invalidate_cache = mocker.patch(
@@ -191,12 +187,11 @@ async def test_revoke_and_set_default_role_cache_invalidated(
     )
     response = await superuser_client.patch(
         url=app.url_path_for("roles:revoke", email=constants.FITNESS_TRAINER_EMAIL),
-        json={"role_slug": "fitness-trainer"},
+        json={"roleSlug": "fitness-trainer"},
     )
     assert response.status_code == status.HTTP_200_OK
     mock_invalidate_cache.assert_called_once_with(
         user_id=constants.FITNESS_TRAINER_ID,
-        redis_client=redis_client,
     )
 
 
@@ -235,12 +230,12 @@ async def test_assign_and_revoke_role(
     )
     response = await superuser_client.patch(
         url=app.url_path_for("roles:assign", email=constants.USER_EXAMPLE_EMAIL),
-        json={"role_slug": role_to_assign},
+        json={"roleSlug": role_to_assign},
     )
     assert response.status_code == status.HTTP_200_OK
     response_revoke_conflict = await superuser_client.patch(
         url=app.url_path_for("roles:revoke", email=constants.USER_EXAMPLE_EMAIL),
-        json={"role_slug": role_to_revoke_incorrect},
+        json={"roleSlug": role_to_revoke_incorrect},
     )
     assert response_revoke_conflict.status_code == status.HTTP_409_CONFLICT
     revoke_conflict_data = response_revoke_conflict.json()
@@ -252,7 +247,7 @@ async def test_assign_and_revoke_role(
     assert msg_conflict == msg_expected
     response_revoke = await superuser_client.patch(
         url=app.url_path_for("roles:revoke", email=constants.USER_EXAMPLE_EMAIL),
-        json={"role_slug": role_to_revoke},
+        json={"roleSlug": role_to_revoke},
     )
     assert response_revoke.status_code == status.HTTP_200_OK
     response_revoke_data = response_revoke.json()

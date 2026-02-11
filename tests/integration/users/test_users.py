@@ -10,7 +10,6 @@ if TYPE_CHECKING:
     from fastapi import FastAPI
     from httpx import AsyncClient
     from pytest_mock import MockerFixture
-    from redis.asyncio import Redis
 
 pytestmark = pytest.mark.anyio
 
@@ -23,7 +22,7 @@ pytestmark = pytest.mark.anyio
                 "name": "Test User1",
                 "email": "test.user@example.com",
                 "password": "Test_Password1",
-                "is_superuser": False,
+                "isSuperuser": False,
             },
             status.HTTP_201_CREATED,
             id="success_create_regular_user",
@@ -42,7 +41,7 @@ pytestmark = pytest.mark.anyio
                 "name": "Admin User",
                 "email": "admin@example.com",
                 "password": "Test_Password3",
-                "is_superuser": True,
+                "isSuperuser": True,
             },
             status.HTTP_201_CREATED,
             id="success_create_admin",
@@ -53,7 +52,7 @@ pytestmark = pytest.mark.anyio
                 "email": "user@example.com",
                 "password": "Te",
             },
-            status.HTTP_422_UNPROCESSABLE_ENTITY,
+            status.HTTP_422_UNPROCESSABLE_CONTENT,
             id="error_password_too_short",
         ),
         pytest.param(
@@ -62,7 +61,7 @@ pytestmark = pytest.mark.anyio
                 "email": "bad.com",
                 "password": "Test_Password4",
             },
-            status.HTTP_422_UNPROCESSABLE_ENTITY,
+            status.HTTP_422_UNPROCESSABLE_CONTENT,
             id="error_invalid_email",
         ),
     ],
@@ -82,10 +81,10 @@ async def test_create_user(
     if status_code == status.HTTP_201_CREATED:
         assert "id" in response_data
         assert response_data["email"] == create_data["email"]
-        assert response_data["is_superuser"] is create_data.get("is_superuser", False)
-        assert response_data["is_active"] is True
+        assert response_data["isSuperuser"] is create_data.get("isSuperuser", False)
+        assert response_data["isActive"] is True
         assert "password" not in response_data
-    if status_code == status.HTTP_422_UNPROCESSABLE_ENTITY:
+    if status_code == status.HTTP_422_UNPROCESSABLE_CONTENT:
         error_detail = response_data["details"][0]
         assert error_detail["field"] in ("password", "email")
 
@@ -152,7 +151,7 @@ async def test_get_list_users_filtered(
 ) -> None:
     response = await superuser_client.get(
         app.url_path_for("users:list"),
-        params={"searchString": search, "searchIgnoreCase": True},
+        params={"searchString": search},
     )
     assert response.status_code == status_code
     response_data = response.json()
@@ -201,7 +200,7 @@ async def test_get_list_users_pagination(
                 "name": "Admin",
                 "email": "admin@example.com",
                 "password": "Admin_pwd",
-                "is_superuser": True,
+                "isSuperuser": True,
             },
             status.HTTP_200_OK,
             id="success_update_to_admin",
@@ -229,24 +228,24 @@ async def test_get_list_users_pagination(
         pytest.param(
             constants.USER_EXAMPLE_ID,
             {"name": "New Name", "email": "bad.example.com"},
-            status.HTTP_422_UNPROCESSABLE_ENTITY,
+            status.HTTP_422_UNPROCESSABLE_CONTENT,
             id="error_incorrect_email",
         ),
         pytest.param(
             constants.USER_EXAMPLE_ID,
             {"name": "New Name", "password": "Te"},
-            status.HTTP_422_UNPROCESSABLE_ENTITY,
+            status.HTTP_422_UNPROCESSABLE_CONTENT,
             id="error_to_short_pwd",
         ),
         pytest.param(
             constants.SUPERUSER_ID,
-            {"is_superuser": False},
+            {"isSuperuser": False},
             status.HTTP_403_FORBIDDEN,
             id="error_self_action_forbidden",
         ),
         pytest.param(
             constants.DEFAULT_ADMIN_ID,
-            {"is_superuser": False},
+            {"isSuperuser": False},
             status.HTTP_403_FORBIDDEN,
             id="error_action_on_system_admin_forbidden",
         ),
@@ -269,7 +268,7 @@ async def test_update_user(
         json=update_data,
     )
     assert response.status_code == status_code
-    if status_code == status.HTTP_422_UNPROCESSABLE_ENTITY:
+    if status_code == status.HTTP_422_UNPROCESSABLE_CONTENT:
         response_data = response.json()
         error_detail = response_data["details"][0]
         assert error_detail["field"] in ("password", "email")
@@ -279,7 +278,6 @@ async def test_update_user_cache_invalidate_called(
     superuser_client: "AsyncClient",
     app: "FastAPI",
     mocker: "MockerFixture",
-    redis_client: "Redis",
 ) -> None:
     mock_invalidate_cache = mocker.patch(
         "app.domain.users.controllers.users.invalidate_user_cache",
@@ -301,7 +299,6 @@ async def test_update_user_cache_invalidate_called(
     assert "password" not in response_data
     mock_invalidate_cache.assert_called_once_with(
         user_id=constants.USER_EXAMPLE_ID,
-        redis_client=redis_client,
     )
 
 
@@ -328,7 +325,6 @@ async def test_delete_user_cache_invalidated(
     superuser_client: "AsyncClient",
     app: "FastAPI",
     mocker: "MockerFixture",
-    redis_client: "Redis",
 ) -> None:
     mock_invalidate_cache = mocker.patch(
         "app.domain.users.controllers.users.invalidate_user_cache",
@@ -339,7 +335,6 @@ async def test_delete_user_cache_invalidated(
     )
     mock_invalidate_cache.assert_called_once_with(
         user_id=constants.USER_EXAMPLE_ID,
-        redis_client=redis_client,
     )
 
 

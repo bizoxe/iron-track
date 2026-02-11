@@ -39,22 +39,19 @@ from app.domain.users.schemas import (
     UserAuth,
 )
 from app.domain.users.utils import perform_logout_cleanup
-from app.lib.deps import RedisClientDep
 from app.lib.exceptions import ConflictException
 from app.lib.invalidate_cache import invalidate_user_cache
 from app.lib.json_response import MsgSpecJSONResponse
 
+settings = get_settings()
+
 access_router = APIRouter(
     tags=["Access"],
-    default_response_class=MsgSpecJSONResponse,
 )
-
-settings = get_settings()
 
 
 @access_router.post(
     path=urls.ACCOUNT_REGISTER,
-    status_code=status.HTTP_201_CREATED,
     operation_id="AccountRegister",
     name="access:signup",
     summary="Register a new user.",
@@ -63,11 +60,11 @@ async def signup(
     users_service: UserServiceDep,
     roles_service: RoleServiceDep,
     account_register: AccountRegister,
-) -> User:
+) -> MsgSpecJSONResponse:
     """User Signup.
 
     Returns:
-        ~app.domain.users.schemas.User: The newly registered user.
+        ~app.domain.users.schemas.User: The newly registered user data.
 
     Raises:
         ConflictException: If a user with this email already exists.
@@ -77,9 +74,11 @@ async def signup(
     )
     try:
         user = await users_service.create(
-            data=account_register.model_dump() | {"role_id": role_obj.id},
+            data=account_register.model_dump(exclude_unset=True) | {"role_id": role_obj.id},
+            auto_refresh=False,
         )
-        return users_service.to_schema(user, schema_type=User)
+        user_dto = users_service.to_schema(user, schema_type=User)
+        return MsgSpecJSONResponse(content=user_dto, status_code=status.HTTP_201_CREATED)
     except DuplicateKeyError as exc:
         msg = "A user with this email already exists"
         raise ConflictException(message=msg) from exc
@@ -140,7 +139,6 @@ async def login_for_access_token(
 )
 async def user_auth_refresh_token(
     user_auth: Annotated[UserAuth, Depends(Authenticate.get_current_user_for_refresh)],
-    redis_client: RedisClientDep,
 ) -> Response:
     """Get the user by the refresh token and issue a new access token.
 
@@ -157,7 +155,6 @@ async def user_auth_refresh_token(
     background_task = BackgroundTask(
         func=add_token_to_blacklist,
         refresh_token_identifier=user_auth._refresh_jti,  # type: ignore[arg-type]  # noqa: SLF001
-        redis_client=redis_client,
     )
     response = Response(status_code=status.HTTP_204_NO_CONTENT, background=background_task)
     response.set_cookie(
@@ -184,12 +181,11 @@ async def user_auth_refresh_token(
     path=urls.ACCOUNT_LOGOUT,
     operation_id="AccountLogout",
     name="access:logout",
-    summary="Log out, delete tokens from cookie.",
+    summary="Log out, delete tokens from cookies.",
 )
 async def logout(
     user_auth: Annotated[UserAuth, Depends(Authenticate.get_current_active_user())],
     refresh_jti: Annotated[str, Depends(Authenticate.get_refresh_jti)],
-    redis_client: RedisClientDep,
 ) -> Response:
     """User Logout.
 
@@ -204,7 +200,6 @@ async def logout(
         func=perform_logout_cleanup,
         refresh_jti=refresh_jti,
         user_id=user_auth.id,
-        redis_client=redis_client,
     )
     response = Response(
         status_code=status.HTTP_204_NO_CONTENT,
@@ -225,12 +220,12 @@ async def logout(
 async def update_password(
     user_auth: Annotated[UserAuth, Depends(Authenticate.get_current_active_user())],
     users_service: UserServiceDep,
-    redis_client: RedisClientDep,
     pwd_data: PasswordUpdate,
 ) -> Response:
     """Update user password.
 
-    This action also invalidates the user's authentication cache in Redis.
+    This action also invalidates the user's authentication cache in Redis and deletes
+    access and refresh tokens from cookies.
 
     Returns:
         Response: HTTP 204 No Content response.
@@ -242,7 +237,6 @@ async def update_password(
     background_task = BackgroundTask(
         func=invalidate_user_cache,
         user_id=user_auth.id,
-        redis_client=redis_client,
     )
     response = Response(
         status_code=status.HTTP_204_NO_CONTENT,
@@ -258,14 +252,14 @@ async def update_password(
     path=urls.ACCOUNT_PROFILE,
     operation_id="AccountProfile",
     name="access:profile",
-    summary="Get information about yourself by the user.",
+    summary="Get information about yourself.",
 )
 async def user_auth_get_self_info(
     user_auth: Annotated[UserAuth, Depends(Authenticate.get_current_active_user())],
-) -> UserAuth:
+) -> MsgSpecJSONResponse:
     """Get self account info.
 
     Returns:
-        UserAuth: The authenticated user's details.
+        UserAuth: The authenticated user's details data.
     """
-    return user_auth
+    return MsgSpecJSONResponse(content=user_auth)

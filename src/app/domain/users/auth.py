@@ -5,20 +5,25 @@ from collections.abc import (
 from typing import (
     Annotated,
     Any,
-    cast,
 )
 
 from advanced_alchemy.exceptions import NotFoundError
+from cashews import cache
 from fastapi import Depends
-from fastapi_cache.decorator import cache
-from jwt import PyJWTError
+from joserfc.errors import JoseError
+from joserfc.jwt import JWTClaimsRegistry
+from sqlalchemy.orm import (
+    load_only,
+    selectinload,
+)
 from structlog import get_logger
 
 from app.config.constants import (
     FITNESS_TRAINER_ROLE_SLUG,
-    USER_AUTH_CACHE_EXPIRE_SECONDS,
-    USER_AUTH_CACHE_PREFIX,
+    USER_AUTH_CACHE_TTL,
 )
+from app.db.models.role import Role
+from app.db.models.user import User
 from app.domain.users.deps import UserServiceDep
 from app.domain.users.jwt_helpers import is_token_in_blacklist
 from app.domain.users.schemas import UserAuth
@@ -26,9 +31,6 @@ from app.lib.auth import (
     access_token,
     refresh_token,
 )
-from app.lib.cache_key_builders import user_auth_key_builder
-from app.lib.coders import MsgPackCoderUserAuth
-from app.lib.deps import RedisClientDep
 from app.lib.exceptions import (
     PermissionDeniedException,
     UnauthorizedException,
@@ -38,6 +40,11 @@ from app.lib.jwt_utils import decode_jwt
 __all__ = ("Authenticate",)
 
 log = get_logger()
+
+claims_registry = JWTClaimsRegistry(
+    exp={"essential": True},
+    iat={"essential": True},
+)
 
 
 def get_payload_from_token(authentication_token: str) -> dict[str, Any]:
@@ -53,14 +60,18 @@ def get_payload_from_token(authentication_token: str) -> dict[str, Any]:
         UnauthorizedException: If the token is invalid, malformed, or expired (HTTP 401).
     """
     try:
-        return decode_jwt(token=authentication_token)
-    except PyJWTError as exc:
-        log.exception(
+        claims = decode_jwt(token=authentication_token).claims
+        claims_registry.validate(claims=claims)
+    except JoseError as exc:
+        log.warning(
             "JWT decode failed",
-            error=str(exc),
+            error_type=type(exc).__name__,
+            error_detail=str(exc),
         )
         msg = "Invalid or expired token"
         raise UnauthorizedException(message=msg) from exc
+    else:
+        return claims
 
 
 class Authenticate:
@@ -68,10 +79,8 @@ class Authenticate:
 
     @classmethod
     @cache(
-        expire=USER_AUTH_CACHE_EXPIRE_SECONDS,
-        key_builder=user_auth_key_builder,
-        namespace=USER_AUTH_CACHE_PREFIX,
-        coder=MsgPackCoderUserAuth,
+        ttl=USER_AUTH_CACHE_TTL,
+        key="user_auth:{token_payload[sub]}",
     )
     async def _get_user_from_payload(
         cls,
@@ -94,7 +103,19 @@ class Authenticate:
         """
         user_id = token_payload["sub"]
         try:
-            db_obj = await users_service.get(user_id)
+            db_obj = await users_service.get(
+                item_id=user_id,
+                load=[
+                    load_only(
+                        User.id,
+                        User.name,
+                        User.email,
+                        User.is_active,
+                        User.is_superuser,
+                    ),
+                    selectinload(User.role).load_only(Role.slug),
+                ],
+            )
             return users_service.to_schema(db_obj, schema_type=UserAuth)
         except NotFoundError as exc:
             msg = "Invalid authentication credentials"
@@ -105,7 +126,6 @@ class Authenticate:
         cls,
         token: Annotated[str, Depends(refresh_token)],
         users_service: UserServiceDep,
-        redis_client: RedisClientDep,
     ) -> UserAuth:
         """Authenticate the user using the refresh token.
 
@@ -115,7 +135,6 @@ class Authenticate:
         Args:
             token (str): The refresh token extracted from the cookie.
             users_service (UserService): Dependency for user service operations.
-            redis_client (Redis): Dependency for Redis client operations (blacklist check).
 
         Returns:
             UserAuth: The authenticated user with JTI attached.
@@ -127,17 +146,13 @@ class Authenticate:
         refresh_jti = token_payload["jti"]
         token_exists = await is_token_in_blacklist(
             refresh_token_identifier=refresh_jti,
-            redis_client=redis_client,
         )
         if token_exists:
             msg = "Invalid credentials"
             raise UnauthorizedException(message=msg)
-        user_auth = cast(
-            "UserAuth",
-            await cls._get_user_from_payload(
-                token_payload=token_payload,
-                users_service=users_service,
-            ),
+        user_auth = await cls._get_user_from_payload(
+            token_payload=token_payload,
+            users_service=users_service,
         )
         if not user_auth.is_active:
             msg = "Invalid credentials or account is unavailable"
@@ -162,12 +177,9 @@ class Authenticate:
             UserAuth: The authenticated user.
         """
         token_payload = get_payload_from_token(authentication_token=token)
-        return cast(
-            "UserAuth",
-            await cls._get_user_from_payload(
-                token_payload=token_payload,
-                users_service=users_service,
-            ),
+        return await cls._get_user_from_payload(
+            token_payload=token_payload,
+            users_service=users_service,
         )
 
     @classmethod

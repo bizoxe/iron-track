@@ -77,8 +77,8 @@ class NotFoundException(BaseAPIException):
         )
 
 
-class JWTKeyNotFoundError(FileNotFoundError):
-    """Raised when JWT key is missing in both environment and filesystem."""
+class JWTKeyConfigError(RuntimeError):
+    """Raised when the JWT private key is missing, corrupted, or invalid."""
 
     def __init__(self, message: str) -> None:
         super().__init__(message)

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from copy import deepcopy
 from pathlib import Path
 from typing import (
     TYPE_CHECKING,
@@ -117,9 +118,10 @@ async def fx_seed_test_data(
     session: AsyncSession,
     raw_users: list[dict[str, Any]],
 ) -> None:
+    users_to_create = deepcopy(raw_users)
     users_service = UserService(session)
     raw_users_with_roles = add_role_to_raw_users(
-        raw_users=raw_users,
+        raw_users=users_to_create,
         role_map=seed_roles,
     )
     await users_service.create_many(raw_users_with_roles, auto_commit=False)

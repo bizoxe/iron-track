@@ -1,7 +1,4 @@
-from datetime import (
-    date,
-    datetime,
-)
+from datetime import datetime
 from enum import StrEnum
 from re import compile as re_compile
 from typing import (
@@ -15,13 +12,15 @@ from annotated_types import (
     MinLen,
 )
 from pydantic import (
-    BaseModel,
     EmailStr,
-    PrivateAttr,
     model_validator,
 )
 
-from app.lib.pretty_regex_error_msgs import regex_validator
+from app.lib.pretty_regex_error_msgs import RegexValidator
+from app.lib.schema import (
+    CamelizedBaseSchema,
+    CamelizedBaseStruct,
+)
 
 __all__ = (
     "AccountRegister",
@@ -34,28 +33,31 @@ __all__ = (
     "UserUpdate",
 )
 
-valid_pwd = regex_validator(
+
+class PasswordValidator(
+    RegexValidator,
     pattern=re_compile(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,}$"),
     error_message="The password must contain a minimum of eight characters, at least one uppercase letter, one "
     "lowercase letter, one number and one special character",
-)
+):
+    """Validator for user passwords."""
 
 
-class User(BaseModel):
+class User(CamelizedBaseStruct):
     """User properties to use for a response."""
 
     id: UUID
-    name: str | None = None
+    name: str | None
     email: str
-    is_active: bool = False
-    is_superuser: bool = False
+    is_active: bool
+    is_superuser: bool
     role_name: str
     role_slug: str
     created_at: datetime
     updated_at: datetime
 
 
-class UserCreate(BaseModel):
+class UserCreate(CamelizedBaseSchema):
     """Properties required to create a new user."""
 
     name: str | None = None
@@ -65,7 +67,7 @@ class UserCreate(BaseModel):
     is_superuser: bool = False
 
 
-class UserUpdate(BaseModel):
+class UserUpdate(CamelizedBaseSchema):
     """Data transfer object for optional user account updates."""
 
     name: str | None = None
@@ -75,12 +77,12 @@ class UserUpdate(BaseModel):
     is_superuser: bool | None = None
 
 
-class AccountRegister(BaseModel):
+class AccountRegister(CamelizedBaseSchema):
     """Information provided by a user during public registration."""
 
     name: str | None = None
     email: EmailStr
-    password: Annotated[str, valid_pwd]
+    password: Annotated[str, PasswordValidator]
     confirm_password: str
 
     @model_validator(mode="after")
@@ -92,18 +94,25 @@ class AccountRegister(BaseModel):
         return self
 
 
-class UserAuth(User):
+class UserAuth(CamelizedBaseStruct, dict=True):
     """User model used for authentication context."""
 
-    joined_at: date
-    _refresh_jti: str | None = PrivateAttr(default=None)
+    id: UUID
+    name: str | None
+    email: str
+    is_active: bool
+    is_superuser: bool
+    role_slug: str
+
+    def __post_init__(self) -> None:
+        self._refresh_jti = None
 
 
-class PasswordUpdate(BaseModel):
+class PasswordUpdate(CamelizedBaseSchema):
     """Input data for password rotation."""
 
     current_password: str
-    new_password: Annotated[str, valid_pwd]
+    new_password: Annotated[str, PasswordValidator]
 
 
 class RoleSlug(StrEnum):
@@ -113,7 +122,7 @@ class RoleSlug(StrEnum):
     FITNESS_TRAINER = "fitness-trainer"
 
 
-class UserRoleAdd(BaseModel):
+class UserRoleAdd(CamelizedBaseSchema):
     """Payload for granting a specific role to a user."""
 
     role_slug: RoleSlug

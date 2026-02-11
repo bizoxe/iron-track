@@ -1,10 +1,17 @@
-from collections.abc import Mapping
-from typing import Any
+from __future__ import annotations
+
+from typing import (
+    TYPE_CHECKING,
+    Any,
+)
 
 from fastapi import Response
-from fastapi.encoders import jsonable_encoder
 from msgspec import json as mjson
-from starlette.background import BackgroundTask
+
+if TYPE_CHECKING:
+    from collections.abc import Mapping
+
+    from starlette.background import BackgroundTask
 
 _JSON_ENCODER = mjson.Encoder()
 
@@ -34,13 +41,10 @@ class MsgSpecJSONResponse(Response):
     def render(self, content: Any) -> bytes:
         """Serialize the content using the `msgspec` encoder.
 
-        The content is first passed through `fastapi.encoders.jsonable_encoder`
-        to handle standard FastAPI types (e.g., Pydantic models).
-
         Args:
             content: The data to serialize.
 
         Returns:
             bytes: Serialized JSON content as bytes.
         """
-        return _JSON_ENCODER.encode(jsonable_encoder(content))
+        return _JSON_ENCODER.encode(content)

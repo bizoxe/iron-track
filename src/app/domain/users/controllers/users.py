@@ -10,17 +10,16 @@ from advanced_alchemy.exceptions import (
     DuplicateKeyError,
     NotFoundError,
 )
-from advanced_alchemy.extensions.fastapi import filters as alchemy_filters
-from advanced_alchemy.service import OffsetPagination
 from fastapi import (
     APIRouter,
     Depends,
+    Query,
     Response,
     status,
 )
-from fastapi_cache.decorator import cache
+from sqlalchemy.orm import undefer
 
-from app.config.app_settings import alchemy
+from app.db.models.user import User as UserModel
 from app.domain.users import urls
 from app.domain.users.auth import Authenticate
 from app.domain.users.deps import (
@@ -33,9 +32,7 @@ from app.domain.users.schemas import (
     UserCreate,
     UserUpdate,
 )
-from app.lib.cache_key_builders import query_params_key_builder
-from app.lib.coders import MsgPackCoder
-from app.lib.deps import RedisClientDep
+from app.domain.users.utils import UserFilters
 from app.lib.exceptions import (
     ConflictException,
     UserNotFound,
@@ -45,14 +42,12 @@ from app.lib.json_response import MsgSpecJSONResponse
 
 users_router = APIRouter(
     tags=["User Accounts"],
-    default_response_class=MsgSpecJSONResponse,
 )
 
 
 @users_router.post(
     path=urls.USER_CREATE,
     operation_id="CreateUser",
-    status_code=status.HTTP_201_CREATED,
     name="users:create",
     summary="Create a new user.",
     description="A user who can login and use the system.",
@@ -62,11 +57,11 @@ async def create_user(
     users_service: UserServiceDep,
     roles_service: RoleServiceDep,
     data: UserCreate,
-) -> User:
+) -> MsgSpecJSONResponse:
     """Create a new user in the system.
 
     Returns:
-        ~app.domain.users.schemas.User: The newly created user.
+        ~app.domain.users.schemas.User: The newly created user data.
 
     Raises:
         ConflictException: If a user with the provided email already exists.
@@ -75,8 +70,9 @@ async def create_user(
         default_role_slug=users_service.default_role,
     )
     try:
-        db_obj = await users_service.create(data=data.model_dump() | {"role_id": role_obj.id})
-        return users_service.to_schema(db_obj, schema_type=User)
+        db_obj = await users_service.create(data=data.model_dump(exclude_unset=True) | {"role_id": role_obj.id})
+        user_dto = users_service.to_schema(db_obj, schema_type=User)
+        return MsgSpecJSONResponse(content=user_dto, status_code=status.HTTP_201_CREATED)
     except DuplicateKeyError as exc:
         msg = f"A user with the email '{data.email}' is already registered in the system"
         raise ConflictException(message=msg) from exc
@@ -92,18 +88,19 @@ async def get_user(
     _: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
     users_service: UserServiceDep,
     user_id: UUID,
-) -> User:
+) -> MsgSpecJSONResponse:
     """Retrieve a user by ID.
 
     Returns:
-        ~app.domain.users.schemas.User: The detailed user.
+        ~app.domain.users.schemas.User: The detailed user data.
 
     Raises:
         UserNotFound: If the user with the given ID is not found.
     """
     try:
         db_obj = await users_service.get(user_id)
-        return users_service.to_schema(db_obj, schema_type=User)
+        user_dto = users_service.to_schema(db_obj, schema_type=User)
+        return MsgSpecJSONResponse(content=user_dto)
     except NotFoundError as exc:
         raise UserNotFound from exc
 
@@ -114,40 +111,19 @@ async def get_user(
     name="users:list",
     summary="List of users.",
 )
-@cache(
-    expire=60,
-    coder=MsgPackCoder,
-    key_builder=query_params_key_builder,
-)
 async def get_list_users(
     _: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
     users_service: UserServiceDep,
-    filters: Annotated[
-        list[alchemy_filters.FilterTypes],
-        Depends(
-            alchemy.provide_filters(
-                {
-                    "id_filter": UUID,
-                    "pagination_type": "limit_offset",
-                    "search": "name,email",
-                    "pagination_size": 20,
-                    "created_at": True,
-                    "updated_at": True,
-                    "sort_field": "name",
-                    "sort_order": "asc",
-                }
-            )
-        ),
-    ],
-) -> OffsetPagination[User]:
+    params: Annotated[UserFilters, Query()],
+) -> MsgSpecJSONResponse:
     """Retrieve a list of users.
 
     Returns:
-        OffsetPagination[~app.domain.users.schemas.User]: Paginated list of users.
+        OffsetPagination[~app.domain.users.schemas.User]: Paginated list of users data.
     """
-    results, total = await users_service.list_and_count(*filters)
-
-    return users_service.to_schema(data=results, total=total, schema_type=User, filters=filters)
+    filters = params.aa_technical_filters
+    user_dto = await users_service.get_users_paginated_dto(filters)
+    return MsgSpecJSONResponse(content=user_dto)
 
 
 @users_router.patch(
@@ -159,23 +135,25 @@ async def get_list_users(
 async def update_user(
     super_user: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
     users_service: UserServiceDep,
-    redis_client: RedisClientDep,
     data: UserUpdate,
     user_id: UUID,
-) -> User:
+) -> MsgSpecJSONResponse:
     """Update user details by ID.
 
     This action also invalidates the user's authentication cache in Redis.
 
     Returns:
-        ~app.domain.users.schemas.User: The updated user.
+        ~app.domain.users.schemas.User: The updated user data.
 
     Raises:
         UserNotFound: If the user is not found.
         ConflictException: If the new email provided is already in use by another user.
     """
     try:
-        user_obj = await users_service.get(user_id)
+        user_obj = await users_service.get(
+            user_id,
+            load=[undefer(UserModel.password)],
+        )
         users_service.check_critical_action_forbidden(
             target_user=user_obj,
             calling_superuser_id=super_user.id,
@@ -183,9 +161,9 @@ async def update_user(
         db_obj = await users_service.update(data=data, item_id=user_id)
         await invalidate_user_cache(
             user_id=db_obj.id,
-            redis_client=redis_client,
         )
-        return users_service.to_schema(db_obj, schema_type=User)
+        user_dto = users_service.to_schema(db_obj, schema_type=User)
+        return MsgSpecJSONResponse(content=user_dto)
     except (NotFoundError, DuplicateKeyError) as exc:
         if isinstance(exc, NotFoundError):
             raise UserNotFound from exc
@@ -202,7 +180,6 @@ async def update_user(
 async def delete_user(
     super_user: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
     users_service: UserServiceDep,
-    redis_client: RedisClientDep,
     user_id: UUID,
 ) -> Response:
     """Delete a user from the system.
@@ -224,7 +201,6 @@ async def delete_user(
         _ = await users_service.delete(item_id=user_id)
         await invalidate_user_cache(
             user_id=user_id,
-            redis_client=redis_client,
         )
         return Response(status_code=status.HTTP_204_NO_CONTENT)
     except NotFoundError as exc:

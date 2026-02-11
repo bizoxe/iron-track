@@ -238,3 +238,9 @@ pgbouncer-sync: ## Sync Postgres roles to PgBouncer userlist (usage: make pgboun
 		>> $(PGBOUNCER_USERLIST)
 	@chmod 644 $(PGBOUNCER_USERLIST)
 	@echo "${OK} Sync complete! ✨"
+
+.PHONY: gen-key
+gen-key: ## Generate a new Ed25519 JWK for JWT_PRIVATE_KEY
+	@echo "${INFO} Generating new Ed25519 key pair... 🔑"
+	@uv run python -c "import json; from joserfc.jwk import OKPKey; print(json.dumps(OKPKey.generate_key('Ed25519').as_dict(private=True)))"
+	@echo "${OK} Generation complete!"

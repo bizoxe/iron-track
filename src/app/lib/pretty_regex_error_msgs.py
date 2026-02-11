@@ -4,12 +4,10 @@ from re import Pattern  # noqa: TC003
 from typing import (
     TYPE_CHECKING,
     Any,
+    ClassVar,
 )
 
-from pydantic import (
-    GetPydanticSchema,
-    validate_call,
-)
+from pydantic import validate_call
 from pydantic_core.core_schema import (
     chain_schema,
     custom_error_schema,
@@ -21,34 +19,38 @@ if TYPE_CHECKING:
     from pydantic_core.core_schema import CoreSchema
 
 
-@validate_call
-def regex_validator(pattern: Pattern[str], error_message: str) -> GetPydanticSchema:
-    """Create a Pydantic validator that checks a string against a regex pattern.
+class RegexValidator:
+    """Base class for creating reusable Pydantic regex validators."""
 
-    If validation fails, a custom "value_error" with the provided message is raised,
-    improving error readability compared to default Pydantic errors.
+    __slots__ = ()
+    pattern: ClassVar[Pattern[str]]
+    error_message: ClassVar[str]
 
-    Args:
-        pattern (Pattern[str]): The compiled regular expression pattern to enforce.
-        error_message (str): The custom error message to display on validation failure.
+    @classmethod
+    @validate_call
+    def __init_subclass__(cls, pattern: Pattern[str], error_message: str) -> None:
+        """Configure the validator subclass with a specific regex pattern.
 
-    Returns:
-        GetPydanticSchema: A Pydantic object to be used in model field annotations.
-    """
+        Args:
+            pattern (Pattern[str]): The compiled regular expression to validate against.
+            error_message (str): The custom message returned when validation fails.
+        """
+        cls.pattern = pattern
+        cls.error_message = error_message
 
-    def get_pydantic_core_schema(
-        source: type[Any],
-        handler: GetCoreSchemaHandler,
-    ) -> CoreSchema:
+    @classmethod
+    def __get_pydantic_core_schema__(cls, source: type[Any], handler: GetCoreSchemaHandler) -> CoreSchema:
+        """Generate the Pydantic Core Schema for the validator.
+
+        Integrates the custom regex check into the standard validation chain.
+        """
         return chain_schema(
             steps=[
                 handler(source),
                 custom_error_schema(
-                    schema=str_schema(pattern=pattern),
+                    schema=str_schema(pattern=cls.pattern),
                     custom_error_type="value_error",
-                    custom_error_context={"error": error_message},
+                    custom_error_context={"error": cls.error_message},
                 ),
             ]
         )
-
-    return GetPydanticSchema(get_pydantic_core_schema)

@@ -5,15 +5,13 @@ from contextlib import asynccontextmanager
 from typing import TYPE_CHECKING
 
 from asgi_correlation_id import CorrelationIdMiddleware
+from cashews import cache
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
-from fastapi_cache import FastAPICache
-from fastapi_cache.backends.redis import RedisBackend
 
 from app.__about__ import __version__ as current_version
 from app.config.app_settings import alchemy
 from app.config.base import get_settings
-from app.config.constants import FASTAPI_CACHE_PREFIX
 from app.domain.system.controllers import system_router
 from app.domain.users.controllers.access import access_router
 from app.domain.users.controllers.user_role import role_router
@@ -23,6 +21,7 @@ from app.lib.handlers import (
     http_exception_handler,
     validation_exception_handler,
 )
+from app.lib.serializers import cashews_registry
 from app.utils.log_utils.middleware import StructLogMiddleware
 from app.utils.log_utils.setup import configure_logging
 
@@ -49,13 +48,15 @@ async def lifespan(app: FastAPI, settings: Settings) -> AsyncIterator[None]:
     configure_logging()
     queue_handler = logging.getHandlerByName("queue_handler")
     queue_handler.listener.start()  # type: ignore[union-attr]
-
-    redis_client = settings.redis.client
-    FastAPICache.init(RedisBackend(redis_client), prefix=FASTAPI_CACHE_PREFIX)
-    app.state.redis_client = redis_client
+    cashews_registry()
+    cache.setup(
+        settings_url=settings.redis.URL,
+        client_side=True,
+        suppress=False,
+        socket_timeout=0.5,
+    )
 
     yield
-    await redis_client.aclose()
     queue_handler.listener.stop()  # type: ignore[union-attr]
 
 

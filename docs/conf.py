@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import importlib.metadata
+import re
 import warnings
+from datetime import datetime
 from functools import partial
 from typing import (
     TYPE_CHECKING,
@@ -19,8 +21,9 @@ if TYPE_CHECKING:
 warnings.filterwarnings("ignore", category=SAWarning)
 
 # -- Project information --------------------------------------
+curren_year = datetime.now().year  # noqa: DTZ005
 project = importlib.metadata.metadata("irontrack")["Name"]
-copyright = "2025, Alexander Matveev"
+copyright = f"{curren_year}, Alexander Matveev"
 author = "Alex Matveev"
 release = importlib.metadata.version("irontrack")
 
@@ -46,11 +49,11 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
     "anyio": ("https://anyio.readthedocs.io/en/stable/", None),
-    "click": ("https://click.palletsprojects.com/en/8.1.x/", None),
+    "click": ("https://click.palletsprojects.com/en/stable/", None),
     "structlog": ("https://www.structlog.org/en/stable/", None),
     "fastapi": ("https://fastapi.tiangolo.com/", None),
     "msgspec": ("https://jcristharif.com/msgspec/", None),
-    "advanced-alchemy": ("https://docs.advanced-alchemy.litestar.dev/latest/", None),
+    "advanced-alchemy": ("https://advanced-alchemy.litestar.dev/latest/", None),
     "pydantic": ("https://docs.pydantic.dev/latest/", None),
 }
 
@@ -73,15 +76,18 @@ autodoc_default_options = {
     "typehints-format": "short",
 }
 
-autodoc_typehints = "none"
+autodoc_typehints = "signature"
 autosectionlabel_prefix_document = True
 autodoc_preserve_defaults = False
+python_use_unqualified_type_names = True
+add_module_names = False
 suppress_warnings = [
     "autosectionlabel.*",
 ]
 todo_include_todos = True
 
 # -- Autodoc Pydantic configuration -------------------------------------------
+autodoc_pydantic_model_signature_prefix = "class"
 autodoc_pydantic_model_members = True
 autodoc_pydantic_model_show_paramlist = False
 autodoc_pydantic_model_show_json = False
@@ -122,6 +128,7 @@ EXCLUDED_ORM_MEMBERS = {
     "awaitable_attrs",
     "to_dict",
 }
+ANNOTATED_RE = re.compile(r"Annotated\[([^,\[]*(?:\[[^\]]*\])?),\s*.*\]")
 
 
 def autodoc_skip_member_hook(
@@ -136,6 +143,25 @@ def autodoc_skip_member_hook(
         return True
 
     return skip
+
+
+def simplify_annotated(
+    app: Sphinx,
+    what: str,
+    name: str,
+    obj: Any,
+    options: dict[str, Any],
+    signature: str | None,
+    return_annotation: str | None,
+) -> tuple[str | None, str | None]:
+    if signature:
+        signature = ANNOTATED_RE.sub(r"\1", signature)
+
+        signature = signature.replace("~", "")
+    if return_annotation:
+        return_annotation = return_annotation.replace("~", "")
+
+    return signature, return_annotation
 
 
 def update_html_context(
@@ -153,5 +179,6 @@ def setup(app: Sphinx) -> dict[str, bool]:
     app.setup_extension("shibuya")
     app.connect("html-page-context", update_html_context)
     app.connect("autodoc-skip-member", autodoc_skip_member_hook)
+    app.connect("autodoc-process-signature", simplify_annotated)
 
     return {"parallel_read_safe": True, "parallel_write_safe": True}

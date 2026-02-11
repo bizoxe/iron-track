@@ -1,21 +1,32 @@
 from __future__ import annotations
 
 import asyncio
-from typing import TYPE_CHECKING
+from datetime import datetime  # noqa: TC003
+from typing import (
+    TYPE_CHECKING,
+    Annotated,
+    ClassVar,
+    Literal,
+)
+
+from advanced_alchemy.extensions.fastapi import filters as aa_filters
+from pydantic import Field
 
 from app.domain.users.jwt_helpers import add_token_to_blacklist
 from app.lib.exceptions import (
     PermissionDeniedException,
     UserNotFound,
 )
+from app.lib.filters import CommonFilters
 from app.lib.invalidate_cache import invalidate_user_cache
 
 if TYPE_CHECKING:
     from uuid import UUID
 
+    from advanced_alchemy.filters import StatementFilter
+
     from app.db.models.user import User as UserModel
     from app.domain.users.deps import UserServiceDep
-    from app.lib.deps import RedisClientDep
 
 
 async def check_user_before_modify_role(
@@ -45,7 +56,7 @@ async def check_user_before_modify_role(
     return user_obj
 
 
-async def perform_logout_cleanup(refresh_jti: str, user_id: UUID, redis_client: RedisClientDep) -> None:
+async def perform_logout_cleanup(refresh_jti: str, user_id: UUID) -> None:
     """Perform asynchronous cleanup tasks upon user logout.
 
     This function is intended to be executed as a FastAPI background task
@@ -55,15 +66,51 @@ async def perform_logout_cleanup(refresh_jti: str, user_id: UUID, redis_client: 
     Args:
         refresh_jti (str): The JWT ID (JTI) of the refresh token to be blacklisted.
         user_id (UUID): The ID of the user whose cache needs to be invalidated.
-        redis_client (Redis): The Redis asynchronous client instance.
     """
     await asyncio.gather(
         add_token_to_blacklist(
             refresh_token_identifier=refresh_jti,
-            redis_client=redis_client,
         ),
         invalidate_user_cache(
             user_id=user_id,
-            redis_client=redis_client,
         ),
     )
+
+
+class UserFilters(CommonFilters):
+    """Specific filters for User domain."""
+
+    search_fields: ClassVar[set[str]] = {"name", "email"}
+    order_by: Annotated[
+        Literal["name", "email", "createdAt"],
+        Field(description="Field to order by."),
+    ] = "name"
+    is_active: Annotated[
+        bool | None,
+        Field(description="Filter by active or inactive status."),
+    ] = None
+    created_before: Annotated[
+        datetime | None,
+        Field(description="Filter by created date before this timestamp."),
+    ] = None
+    created_after: Annotated[
+        datetime | None,
+        Field(description="Filter by created date after this timestamp."),
+    ] = None
+
+    @property
+    def aa_technical_filters(self) -> list[StatementFilter]:
+        filters = super().aa_technical_filters
+
+        if self.created_after or self.created_before:
+            filters.append(
+                aa_filters.OnBeforeAfter(
+                    field_name="created_at",
+                    on_or_before=self.created_before,
+                    on_or_after=self.created_after,
+                )
+            )
+        if self.is_active is not None:
+            filters.append(aa_filters.CollectionFilter(field_name="is_active", values=[self.is_active]))
+
+        return filters

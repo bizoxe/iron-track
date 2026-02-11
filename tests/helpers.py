@@ -11,8 +11,6 @@ from app.lib.jwt_utils import encode_jwt
 if TYPE_CHECKING:
     from uuid import UUID
 
-    from redis.asyncio import Redis
-
 
 def add_role_to_raw_users(
     raw_users: list[dict[str, Any]],
@@ -35,7 +33,6 @@ def add_role_to_raw_users(
 
 
 async def wait_for_blacklist_entry(
-    redis_client: "Redis",
     key: str,
     timeout: float = 1.0,  # noqa: ASYNC109
     interval: float = 0.01,
@@ -45,7 +42,6 @@ async def wait_for_blacklist_entry(
     Used in tests to asynchronously verify the execution of FastAPI background tasks.
 
     Args:
-        redis_client: The Redis client instance.
         key: The Redis key to check for.
         timeout: The maximum time in seconds to wait for the key to appear.
         interval: The time in seconds to wait between checks.
@@ -53,10 +49,12 @@ async def wait_for_blacklist_entry(
     Returns:
         bool: True if the key is found before the timeout expires, False otherwise.
     """
+    from cashews import cache
+
     end_time = anyio.current_time() + timeout
 
     while anyio.current_time() < end_time:
-        if await redis_client.get(key) is not None:
+        if await cache.get(key) is not None:
             return True
         await anyio.sleep(interval)
 

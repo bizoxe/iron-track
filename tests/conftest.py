@@ -9,7 +9,6 @@ from unittest import mock
 
 import pytest
 import structlog
-from redis.asyncio import Redis
 
 from app.config import base
 
@@ -60,24 +59,17 @@ def _configure_structlog_for_tests() -> None:
     )
 
 
-@pytest.fixture(scope="session", name="redis")
-async def fx_redis(redis_service: RedisService) -> AsyncGenerator[Redis, None]:
-    """Redis instance for testing.
+@pytest.fixture(scope="session", autouse=True)
+def _setup_cashews(redis_service: RedisService) -> None:
+    from cashews import cache as cashews_cache
 
-    Returns:
-        Redis client instance, session scoped.
-    """
-    redis_client = Redis(host=redis_service.host, port=redis_service.port, db=redis_service.db)
-
-    yield redis_client
-    await redis_client.aclose()
+    test_redis_url = f"redis://{redis_service.host}:{redis_service.port}/{redis_service.db}"
+    cashews_cache.setup(settings_url=test_redis_url, client_side=True)
 
 
 @pytest.fixture(autouse=True)
-async def _flush_redis_db(redis: Redis) -> None:
-    await redis.flushdb()
+async def _clear_cache() -> AsyncGenerator[None, None]:
+    from cashews import cache as cashews_cache
 
-
-@pytest.fixture(name="redis_client")
-def fx_redis_client(redis: Redis) -> Redis:
-    return redis
+    await cashews_cache.clear()
+    yield

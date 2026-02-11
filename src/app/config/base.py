@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 from dataclasses import (
     dataclass,
@@ -12,6 +13,7 @@ from functools import (
 from pathlib import Path
 from typing import Final
 
+from joserfc.jwk import OKPKey
 from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import (
     AsyncEngine,
@@ -19,7 +21,7 @@ from sqlalchemy.ext.asyncio import (
 )
 from sqlalchemy.pool import NullPool
 
-from app.lib.exceptions import JWTKeyNotFoundError
+from app.lib.exceptions import JWTKeyConfigError
 
 BASE_DIR: Final[Path] = Path(__file__).resolve().parent.parent
 DEFAULT_DOTENV_FILE_PATH: Final[Path] = BASE_DIR / "config" / ".env"
@@ -75,7 +77,7 @@ class LogSettings:
 
     @property
     def final_formatter(self) -> str:
-        """Determine the logging formatter name based on the current environment.
+        """The name of the logging formatter based on the current environment.
 
         Returns:
             str: 'plain_console' for development, 'json_console' otherwise.
@@ -147,7 +149,7 @@ class DatabaseSettings:
 
     @property
     def engine(self) -> AsyncEngine:
-        """Retrieve the SQLAlchemy engine instance."""
+        """The SQLAlchemy async engine instance for database operations."""
         return self.get_engine()
 
     def get_engine(self) -> AsyncEngine:
@@ -202,37 +204,48 @@ class DatabaseSettings:
 class JWTSettings:
     """JWT configuration."""
 
-    ALGORITHM: str = field(default_factory=lambda: os.getenv("ALGORITHM", "RS256"))
-    """JWT signing algorithm (e.g., 'RS256' or 'HS256')."""
+    ALGORITHM: str = field(default="Ed25519")
+    """The cryptographic algorithm used for JWS (JSON Web Signature)."""
+    JWT_PRIVATE_KEY: str | None = field(default_factory=lambda: os.getenv("JWT_PRIVATE_KEY"))
+    """The `Ed25519` private key in JWK (JSON Web Key) format.
+
+    This key is used for both signing and verifying tokens using the Ed25519 algorithm as specified
+    in RFC 9864. The string must be a valid JSON containing 'kty', 'crv', 'x', and 'd' parameters.
+
+    Example:
+        '{"kty":"OKP","crv":"Ed25519","x":"...","d":"..."}'
+    """
     ACCESS_TOKEN_EXPIRE_MINUTES: int = field(
         default_factory=lambda: int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
     )
     """Lifetime of the access token in minutes."""
     REFRESH_TOKEN_EXPIRE_DAYS: int = field(default_factory=lambda: int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", "30")))
     """Lifetime of the refresh token in days."""
-    AUTH_JWT_PRIVATE_KEY_PATH: Path = field(default_factory=lambda: BASE_DIR / "certs" / "jwt-private.pem")
-    """Path to the private key file used for signing tokens."""
-    AUTH_JWT_PUBLIC_KEY_PATH: Path = field(default_factory=lambda: BASE_DIR / "certs" / "jwt-public.pem")
-    """Path to the public key file used for verifying tokens."""
-
-    def _get_jwt_key(self, env_var: str, path: Path) -> str:
-        if key_from_env := os.getenv(env_var):
-            return key_from_env
-        if path.is_file():
-            return path.read_text()
-
-        msg = f"JWT key not found. Define environment variable '{env_var}' or place file at '{path}'"
-        raise JWTKeyNotFoundError(message=msg)
 
     @cached_property
-    def auth_jwt_private_key(self) -> str:
-        """Read the content of the private key from file or environment."""
-        return self._get_jwt_key("AUTH_JWT_PRIVATE_KEY", self.AUTH_JWT_PRIVATE_KEY_PATH)
+    def key_object(self) -> OKPKey:
+        """The initialized Ed25519 key object for signing and verification.
 
-    @cached_property
-    def auth_jwt_public_key(self) -> str:
-        """Read the content of the public key from file or environment."""
-        return self._get_jwt_key("AUTH_JWT_PUBLIC_KEY", self.AUTH_JWT_PUBLIC_KEY_PATH)
+        Parses the JWT_PRIVATE_KEY from environment variables and returns
+        a ready-to-use OKPKey instance.
+
+        Returns:
+            OKPKey: The cryptographic key object for Ed25519 operations.
+
+        Raises:
+            JWTKeyConfigError: If the key is missing, not a valid JSON,
+                or lacks required JWK parameters (kty, crv, x, d).
+        """
+        if self.JWT_PRIVATE_KEY is None:
+            msg = "JWT_PRIVATE_KEY is not set. Security cannot start without a secret key."
+            raise JWTKeyConfigError(message=msg)
+
+        try:
+            key_data = json.loads(self.JWT_PRIVATE_KEY)
+            return OKPKey.import_key(key_data)
+        except (json.JSONDecodeError, TypeError, ValueError) as exc:
+            msg = f"Failed to initialize Ed25519 key from JWT_PRIVATE_KEY: {exc}"
+            raise JWTKeyConfigError(message=msg) from exc
 
 
 @dataclass
@@ -248,10 +261,14 @@ class RedisSettings:
     SOCKET_KEEPALIVE: bool = field(default_factory=lambda: os.getenv("REDIS_SOCKET_KEEPALIVE", "True") in TRUE_VALUES)
     """Length of time to wait (in seconds) between keepalive commands."""
 
+    _client: Redis | None = field(default=None, init=False, repr=False)
+
     @property
     def client(self) -> Redis:
-        """Retrieve the configured asynchronous Redis client."""
-        return self.get_client()
+        """The configured asynchronous Redis client instance."""
+        if self._client is None:
+            self._client = self.get_client()
+        return self._client
 
     def get_client(self) -> Redis:
         """Initialize and configure the asynchronous Redis client."""

@@ -22,7 +22,6 @@ from app.domain.users.schemas import (
     UserRoleRevoke,
 )
 from app.domain.users.utils import check_user_before_modify_role
-from app.lib.deps import RedisClientDep
 from app.lib.exceptions import ConflictException
 from app.lib.invalidate_cache import invalidate_user_cache
 from app.lib.json_response import MsgSpecJSONResponse
@@ -36,11 +35,10 @@ role_router = APIRouter(
     path=urls.ACCOUNT_ASSIGN_ROLE,
     name="roles:assign",
 )
-async def assign_new_role(  # noqa: PLR0913
+async def assign_new_role(
     super_user: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
     users_service: UserServiceDep,
     roles_service: RoleServiceDep,
-    redis_client: RedisClientDep,
     user_add_role: UserRoleAdd,
     email: str,
 ) -> MsgSpecJSONResponse:
@@ -72,7 +70,6 @@ async def assign_new_role(  # noqa: PLR0913
     await users_service.update(data={"role_id": new_role.id}, item_id=user_obj.id)
     await invalidate_user_cache(
         user_id=user_obj.id,
-        redis_client=redis_client,
     )
     return MsgSpecJSONResponse(
         content={"message": f"Successfully assigned the '{new_role.slug}' role to {user_obj.email}"},
@@ -83,11 +80,10 @@ async def assign_new_role(  # noqa: PLR0913
     path=urls.ACCOUNT_REVOKE_ROLE,
     name="roles:revoke",
 )
-async def revoke_and_set_default_role(  # noqa: PLR0913
+async def revoke_and_set_default_role(
     super_user: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
     users_service: UserServiceDep,
     roles_service: RoleServiceDep,
-    redis_client: RedisClientDep,
     user_revoke_role: UserRoleRevoke,
     email: str,
 ) -> MsgSpecJSONResponse:
@@ -119,7 +115,6 @@ async def revoke_and_set_default_role(  # noqa: PLR0913
         await users_service.update(data={"role_id": default_role.id}, item_id=user_obj.id)
         await invalidate_user_cache(
             user_id=user_obj.id,
-            redis_client=redis_client,
         )
         return MsgSpecJSONResponse(
             content={
