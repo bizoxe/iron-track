@@ -10,7 +10,7 @@ All notable changes to this project will be documented in this file.
 🛠️ Refactor
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* (`13e2365 <https://github.com/bizoxe/iron-track/commit/13e236591c23e48ba6d31f636806906cfcfb4778>`_) - Optimize system performance and security baseline (alexander)
+* (`41291b0 <https://github.com/bizoxe/iron-track/commit/41291b0d0fc350d28ecdd2a1fa31ee1dcaa4fb2d>`_) - Optimize system performance and security baseline (alexander)
 
 
 `Release [v0.1.0] - 2026-01-10 <https://github.com/bizoxe/iron-track/releases/tag/v0.1.0>`_
