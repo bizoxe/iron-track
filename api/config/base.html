@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=14737038" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=44020203" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -92,15 +92,16 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lib/index.html">Core Utilities (lib)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../lib/auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/cache_key_builders.html">Cache Key Builders</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/coders.html">Cache Serialization Coders</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/deps.html">Module Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/crypt.html">Security Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lib/exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/filters.html">Query Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lib/handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lib/invalidate_cache.html">Cache Invalidation Helpers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lib/json_response.html">Custom JSON Response</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lib/jwt_utils.html">JWT Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lib/pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/schema.html">Base Models &amp; Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/serializers.html">Serialization Registry</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../utils/index.html">Utilities and Helpers</a><ul>
@@ -121,7 +122,7 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/user_role.html">User Role Management Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/services.html">User and Role Services</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication &amp; Authorization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/utils.html">User Utilities and Helpers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/deps.html">User Domain Dependencies</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
@@ -219,10 +220,10 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#jwt-settings-jwtsettings">JWT Settings (<cite>JWTSettings</cite>)</a><ul>
 <li><a class="reference internal" href="#app.config.base.JWTSettings"><code class="docutils literal notranslate"><span class="pre">JWTSettings</span></code></a><ul>
 <li><a class="reference internal" href="#app.config.base.JWTSettings.ALGORITHM"><code class="docutils literal notranslate">ALGORITHM</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.JWTSettings.JWT_PRIVATE_KEY"><code class="docutils literal notranslate">JWT_PRIVATE_KEY</span></code></a></li>
 <li><a class="reference internal" href="#app.config.base.JWTSettings.ACCESS_TOKEN_EXPIRE_MINUTES"><code class="docutils literal notranslate">ACCESS_TOKEN_EXPIRE_MINUTES</span></code></a></li>
 <li><a class="reference internal" href="#app.config.base.JWTSettings.REFRESH_TOKEN_EXPIRE_DAYS"><code class="docutils literal notranslate">REFRESH_TOKEN_EXPIRE_DAYS</span></code></a></li>
-<li><a class="reference internal" href="#app.config.base.JWTSettings.AUTH_JWT_PRIVATE_KEY_PATH"><code class="docutils literal notranslate">AUTH_JWT_PRIVATE_KEY_PATH</span></code></a></li>
-<li><a class="reference internal" href="#app.config.base.JWTSettings.AUTH_JWT_PUBLIC_KEY_PATH"><code class="docutils literal notranslate">AUTH_JWT_PUBLIC_KEY_PATH</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.JWTSettings.key_object"><code class="docutils literal notranslate">key_object</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -274,8 +275,8 @@ data-aria-dark="Switch to auto color mode">
     </div>
   </div>
 </div><div class="flex flex-col break-words justify-between">
-      <div class="min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
-        <article class="yue" role="main">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
           <section id="module-app.config.base">
 <span id="base-settings-models"></span><h1>Base Settings Models<a class="headerlink" href="#module-app.config.base" title="Link to this heading">¶</a></h1>
 <p>Defines all application settings models (dataclasses) and the central function for loading configuration.</p>
@@ -284,7 +285,7 @@ data-aria-dark="Switch to auto color mode">
 <h2>Configuration Loader<a class="headerlink" href="#configuration-loader" title="Link to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">app.config.base.</span></span><span class="sig-name descname"><span class="pre">get_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#get_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_settings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#app.config.base.Settings" title="app.config.base.Settings"><span class="pre">Settings</span></a></span></span><a class="reference internal" href="../../_modules/app/config/base.html#get_settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Load and cache application configuration.</p>
 </dd></dl>
 
@@ -294,7 +295,7 @@ data-aria-dark="Switch to auto color mode">
 <h2>Settings Container (<cite>Settings</cite>)<a class="headerlink" href="#settings-container-settings" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.config.base.Settings">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.config.base.</span></span><span class="sig-name descname"><span class="pre">Settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jwt=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redis=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#Settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.Settings" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Settings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app:</span> <span class="pre">app.config.base.AppSettings</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log:</span> <span class="pre">app.config.base.LogSettings</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">app.config.base.DatabaseSettings</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jwt:</span> <span class="pre">app.config.base.JWTSettings</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">redis:</span> <span class="pre">app.config.base.RedisSettings</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#Settings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.Settings" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Container class holding all application configuration settings.</p>
 <dl class="py attribute">
@@ -303,7 +304,7 @@ data-aria-dark="Switch to auto color mode">
 <dd><p>Application-level settings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#app.config.base.AppSettings" title="app.config.base.AppSettings">AppSettings</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="#app.config.base.AppSettings" title="app.config.base.AppSettings"><em>AppSettings</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -314,7 +315,7 @@ data-aria-dark="Switch to auto color mode">
 <dd><p>Logging configuration.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#app.config.base.LogSettings" title="app.config.base.LogSettings">LogSettings</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="#app.config.base.LogSettings" title="app.config.base.LogSettings"><em>LogSettings</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -325,7 +326,7 @@ data-aria-dark="Switch to auto color mode">
 <dd><p>Database connection and pool settings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#app.config.base.DatabaseSettings" title="app.config.base.DatabaseSettings">DatabaseSettings</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="#app.config.base.DatabaseSettings" title="app.config.base.DatabaseSettings"><em>DatabaseSettings</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -336,7 +337,7 @@ data-aria-dark="Switch to auto color mode">
 <dd><p>JWT token configuration.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#app.config.base.JWTSettings" title="app.config.base.JWTSettings">JWTSettings</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="#app.config.base.JWTSettings" title="app.config.base.JWTSettings"><em>JWTSettings</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -347,7 +348,7 @@ data-aria-dark="Switch to auto color mode">
 <dd><p>Redis client and connection settings.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#app.config.base.RedisSettings" title="app.config.base.RedisSettings">RedisSettings</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="#app.config.base.RedisSettings" title="app.config.base.RedisSettings"><em>RedisSettings</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -360,36 +361,36 @@ data-aria-dark="Switch to auto color mode">
 <h2>Application Settings (<cite>AppSettings</cite>)<a class="headerlink" href="#application-settings-appsettings" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.config.base.AppSettings">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.config.base.</span></span><span class="sig-name descname"><span class="pre">AppSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DEBUG=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NAME='IronTrack'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ENVIRONMENT=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">API_V1_URL_PREFIX='/api/v1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CDN_IMAGES_DEFAULT_URL=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#AppSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.AppSettings" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AppSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DEBUG:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NAME:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'IronTrack'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ENVIRONMENT:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">API_V1_URL_PREFIX:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'/api/v1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CDN_IMAGES_DEFAULT_URL:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#AppSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.AppSettings" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Application configuration.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.AppSettings.DEBUG">
-<span class="sig-name descname"><span class="pre">DEBUG</span></span><a class="headerlink" href="#app.config.base.AppSettings.DEBUG" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">DEBUG</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#app.config.base.AppSettings.DEBUG" title="Link to this definition">¶</a></dt>
 <dd><p>Whether to run the FastAPI application in debug mode.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.AppSettings.NAME">
-<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'IronTrack'</span></em><a class="headerlink" href="#app.config.base.AppSettings.NAME" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">NAME</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'IronTrack'</span></em><a class="headerlink" href="#app.config.base.AppSettings.NAME" title="Link to this definition">¶</a></dt>
 <dd><p>Application name.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.AppSettings.ENVIRONMENT">
-<span class="sig-name descname"><span class="pre">ENVIRONMENT</span></span><a class="headerlink" href="#app.config.base.AppSettings.ENVIRONMENT" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ENVIRONMENT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.config.base.AppSettings.ENVIRONMENT" title="Link to this definition">¶</a></dt>
 <dd><p>The application execution environment (e.g., ‘dev’, ‘prod’).</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.AppSettings.API_V1_URL_PREFIX">
-<span class="sig-name descname"><span class="pre">API_V1_URL_PREFIX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/api/v1'</span></em><a class="headerlink" href="#app.config.base.AppSettings.API_V1_URL_PREFIX" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">API_V1_URL_PREFIX</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/api/v1'</span></em><a class="headerlink" href="#app.config.base.AppSettings.API_V1_URL_PREFIX" title="Link to this definition">¶</a></dt>
 <dd><p>The default URL prefix for API Version routes.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.AppSettings.CDN_IMAGES_DEFAULT_URL">
-<span class="sig-name descname"><span class="pre">CDN_IMAGES_DEFAULT_URL</span></span><a class="headerlink" href="#app.config.base.AppSettings.CDN_IMAGES_DEFAULT_URL" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">CDN_IMAGES_DEFAULT_URL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.config.base.AppSettings.CDN_IMAGES_DEFAULT_URL" title="Link to this definition">¶</a></dt>
 <dd><p>The default base URL for CDN-hosted exercise images.</p>
 </dd></dl>
 
@@ -401,18 +402,18 @@ data-aria-dark="Switch to auto color mode">
 <h2>Logger Settings (<cite>LogSettings</cite>)<a class="headerlink" href="#logger-settings-logsettings" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.config.base.LogSettings">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.config.base.</span></span><span class="sig-name descname"><span class="pre">LogSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">LEVEL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">STRUCTLOG_LEVEL=20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ASGI_ACCESS_LEVEL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ASGI_ERROR_LEVEL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MIDDLEWARE_LOG_LEVEL=20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SQLALCHEMY_LEVEL=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#LogSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.LogSettings" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LogSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">LEVEL:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">STRUCTLOG_LEVEL:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ASGI_ACCESS_LEVEL:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ASGI_ERROR_LEVEL:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MIDDLEWARE_LOG_LEVEL:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SQLALCHEMY_LEVEL:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#LogSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.LogSettings" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Logger configuration.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.LogSettings.LEVEL">
-<span class="sig-name descname"><span class="pre">LEVEL</span></span><a class="headerlink" href="#app.config.base.LogSettings.LEVEL" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">LEVEL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.config.base.LogSettings.LEVEL" title="Link to this definition">¶</a></dt>
 <dd><p>Standard library log level for the root logger.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.LogSettings.STRUCTLOG_LEVEL">
-<span class="sig-name descname"><span class="pre">STRUCTLOG_LEVEL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#app.config.base.LogSettings.STRUCTLOG_LEVEL" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">STRUCTLOG_LEVEL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#app.config.base.LogSettings.STRUCTLOG_LEVEL" title="Link to this definition">¶</a></dt>
 <dd><p>Fixed structlog filtering level.</p>
 <p>Must be <strong>20 (INFO)</strong> to ensure middleware logs are not dropped before reaching
 the standard logging library.</p>
@@ -420,19 +421,19 @@ the standard logging library.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.LogSettings.ASGI_ACCESS_LEVEL">
-<span class="sig-name descname"><span class="pre">ASGI_ACCESS_LEVEL</span></span><a class="headerlink" href="#app.config.base.LogSettings.ASGI_ACCESS_LEVEL" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ASGI_ACCESS_LEVEL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.config.base.LogSettings.ASGI_ACCESS_LEVEL" title="Link to this definition">¶</a></dt>
 <dd><p>Logging level for the server’s internal access logs.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.LogSettings.ASGI_ERROR_LEVEL">
-<span class="sig-name descname"><span class="pre">ASGI_ERROR_LEVEL</span></span><a class="headerlink" href="#app.config.base.LogSettings.ASGI_ERROR_LEVEL" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ASGI_ERROR_LEVEL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.config.base.LogSettings.ASGI_ERROR_LEVEL" title="Link to this definition">¶</a></dt>
 <dd><p>Logging level for the server’s runtime events and errors.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.LogSettings.MIDDLEWARE_LOG_LEVEL">
-<span class="sig-name descname"><span class="pre">MIDDLEWARE_LOG_LEVEL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#app.config.base.LogSettings.MIDDLEWARE_LOG_LEVEL" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">MIDDLEWARE_LOG_LEVEL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><a class="headerlink" href="#app.config.base.LogSettings.MIDDLEWARE_LOG_LEVEL" title="Link to this definition">¶</a></dt>
 <dd><p>Fixed logging level for the ASGI access middleware.</p>
 <p>Must be <strong>20 (INFO)</strong>. Higher levels disable tracking of important requests needed for traffic
 monitoring and analysis.</p>
@@ -440,20 +441,20 @@ monitoring and analysis.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.LogSettings.SQLALCHEMY_LEVEL">
-<span class="sig-name descname"><span class="pre">SQLALCHEMY_LEVEL</span></span><a class="headerlink" href="#app.config.base.LogSettings.SQLALCHEMY_LEVEL" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">SQLALCHEMY_LEVEL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.config.base.LogSettings.SQLALCHEMY_LEVEL" title="Link to this definition">¶</a></dt>
 <dd><p>SQLAlchemy logs level.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="app.config.base.LogSettings.final_formatter">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">final_formatter</span></span><a class="headerlink" href="#app.config.base.LogSettings.final_formatter" title="Link to this definition">¶</a></dt>
-<dd><p>Determine the logging formatter name based on the current environment.</p>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">final_formatter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.config.base.LogSettings.final_formatter" title="Link to this definition">¶</a></dt>
+<dd><p>The name of the logging formatter based on the current environment.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>‘plain_console’ for development, ‘json_console’ otherwise.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -466,131 +467,131 @@ monitoring and analysis.</p>
 <h2>Database Settings (<cite>DatabaseSettings</cite>)<a class="headerlink" href="#database-settings-databasesettings" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.config.base.</span></span><span class="sig-name descname"><span class="pre">DatabaseSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">POSTGRES_HOST=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POSTGRES_PORT=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POSTGRES_USER=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POSTGRES_PASSWORD=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POSTGRES_DB=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">URL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ECHO=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ECHO_POOL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POOL_MAX_OVERFLOW=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POOL_SIZE=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POOL_TIMEOUT=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POOL_RECYCLE=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POOL_PRE_PING=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POOL_DISABLED=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MIGRATION_CONFIG=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MIGRATION_PATH=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MIGRATION_DDL_VERSION_TABLE='ddl_version'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FIXTURE_PATH=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PGBOUNCER_ENABLED=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#DatabaseSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.DatabaseSettings" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DatabaseSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">POSTGRES_HOST:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POSTGRES_PORT:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POSTGRES_USER:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POSTGRES_PASSWORD:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POSTGRES_DB:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">URL:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ECHO:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ECHO_POOL:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POOL_MAX_OVERFLOW:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POOL_SIZE:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POOL_TIMEOUT:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POOL_RECYCLE:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POOL_PRE_PING:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">POOL_DISABLED:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MIGRATION_CONFIG:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MIGRATION_PATH:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MIGRATION_DDL_VERSION_TABLE:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'ddl_version'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">FIXTURE_PATH:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">PGBOUNCER_ENABLED:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#DatabaseSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.DatabaseSettings" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Database configuration.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POSTGRES_HOST">
-<span class="sig-name descname"><span class="pre">POSTGRES_HOST</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POSTGRES_HOST" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">POSTGRES_HOST</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.config.base.DatabaseSettings.POSTGRES_HOST" title="Link to this definition">¶</a></dt>
 <dd><p>The PostgreSQL server hostname.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POSTGRES_PORT">
-<span class="sig-name descname"><span class="pre">POSTGRES_PORT</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POSTGRES_PORT" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">POSTGRES_PORT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.config.base.DatabaseSettings.POSTGRES_PORT" title="Link to this definition">¶</a></dt>
 <dd><p>The PostgreSQL server port number.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POSTGRES_USER">
-<span class="sig-name descname"><span class="pre">POSTGRES_USER</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POSTGRES_USER" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">POSTGRES_USER</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.config.base.DatabaseSettings.POSTGRES_USER" title="Link to this definition">¶</a></dt>
 <dd><p>The PostgreSQL database username.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POSTGRES_PASSWORD">
-<span class="sig-name descname"><span class="pre">POSTGRES_PASSWORD</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POSTGRES_PASSWORD" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">POSTGRES_PASSWORD</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.config.base.DatabaseSettings.POSTGRES_PASSWORD" title="Link to this definition">¶</a></dt>
 <dd><p>The PostgreSQL database password.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POSTGRES_DB">
-<span class="sig-name descname"><span class="pre">POSTGRES_DB</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POSTGRES_DB" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">POSTGRES_DB</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.config.base.DatabaseSettings.POSTGRES_DB" title="Link to this definition">¶</a></dt>
 <dd><p>The PostgreSQL database name.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings.URL">
-<span class="sig-name descname"><span class="pre">URL</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.URL" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">URL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#app.config.base.DatabaseSettings.URL" title="Link to this definition">¶</a></dt>
 <dd><p>The full, pre-configured database connection URL.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Optional</p>
+<dd class="field-odd"><p><em>Optional</em></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings.ECHO">
-<span class="sig-name descname"><span class="pre">ECHO</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.ECHO" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ECHO</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#app.config.base.DatabaseSettings.ECHO" title="Link to this definition">¶</a></dt>
 <dd><p>Enable SQLAlchemy engine logs.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings.ECHO_POOL">
-<span class="sig-name descname"><span class="pre">ECHO_POOL</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.ECHO_POOL" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ECHO_POOL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#app.config.base.DatabaseSettings.ECHO_POOL" title="Link to this definition">¶</a></dt>
 <dd><p>Enable SQLAlchemy connection pool logs.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POOL_MAX_OVERFLOW">
-<span class="sig-name descname"><span class="pre">POOL_MAX_OVERFLOW</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POOL_MAX_OVERFLOW" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">POOL_MAX_OVERFLOW</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.config.base.DatabaseSettings.POOL_MAX_OVERFLOW" title="Link to this definition">¶</a></dt>
 <dd><p>Max overflow for SQLAlchemy connection pool</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POOL_SIZE">
-<span class="sig-name descname"><span class="pre">POOL_SIZE</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POOL_SIZE" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">POOL_SIZE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.config.base.DatabaseSettings.POOL_SIZE" title="Link to this definition">¶</a></dt>
 <dd><p>Pool size for SQLAlchemy connection pool</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POOL_TIMEOUT">
-<span class="sig-name descname"><span class="pre">POOL_TIMEOUT</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POOL_TIMEOUT" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">POOL_TIMEOUT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.config.base.DatabaseSettings.POOL_TIMEOUT" title="Link to this definition">¶</a></dt>
 <dd><p>Time in seconds for timing connections out of the connection pool.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POOL_RECYCLE">
-<span class="sig-name descname"><span class="pre">POOL_RECYCLE</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POOL_RECYCLE" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">POOL_RECYCLE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.config.base.DatabaseSettings.POOL_RECYCLE" title="Link to this definition">¶</a></dt>
 <dd><p>Amount of time to wait before recycling connections.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POOL_PRE_PING">
-<span class="sig-name descname"><span class="pre">POOL_PRE_PING</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POOL_PRE_PING" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">POOL_PRE_PING</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#app.config.base.DatabaseSettings.POOL_PRE_PING" title="Link to this definition">¶</a></dt>
 <dd><p>Optionally ping database before fetching a session from the connection pool.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings.POOL_DISABLED">
-<span class="sig-name descname"><span class="pre">POOL_DISABLED</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.POOL_DISABLED" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">POOL_DISABLED</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#app.config.base.DatabaseSettings.POOL_DISABLED" title="Link to this definition">¶</a></dt>
 <dd><p>Disable SQLAlchemy pool configuration.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings.MIGRATION_CONFIG">
-<span class="sig-name descname"><span class="pre">MIGRATION_CONFIG</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.MIGRATION_CONFIG" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">MIGRATION_CONFIG</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.config.base.DatabaseSettings.MIGRATION_CONFIG" title="Link to this definition">¶</a></dt>
 <dd><p>The path to the <cite>alembic.ini</cite> configuration file.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings.MIGRATION_PATH">
-<span class="sig-name descname"><span class="pre">MIGRATION_PATH</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.MIGRATION_PATH" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">MIGRATION_PATH</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.config.base.DatabaseSettings.MIGRATION_PATH" title="Link to this definition">¶</a></dt>
 <dd><p>The path to the <cite>alembic</cite> database migrations.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings.MIGRATION_DDL_VERSION_TABLE">
-<span class="sig-name descname"><span class="pre">MIGRATION_DDL_VERSION_TABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ddl_version'</span></em><a class="headerlink" href="#app.config.base.DatabaseSettings.MIGRATION_DDL_VERSION_TABLE" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">MIGRATION_DDL_VERSION_TABLE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ddl_version'</span></em><a class="headerlink" href="#app.config.base.DatabaseSettings.MIGRATION_DDL_VERSION_TABLE" title="Link to this definition">¶</a></dt>
 <dd><p>The name to use for the <cite>alembic</cite> versions table name.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings.FIXTURE_PATH">
-<span class="sig-name descname"><span class="pre">FIXTURE_PATH</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.FIXTURE_PATH" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">FIXTURE_PATH</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.config.base.DatabaseSettings.FIXTURE_PATH" title="Link to this definition">¶</a></dt>
 <dd><p>The path to JSON fixture files to load into tables.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings.PGBOUNCER_ENABLED">
-<span class="sig-name descname"><span class="pre">PGBOUNCER_ENABLED</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.PGBOUNCER_ENABLED" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">PGBOUNCER_ENABLED</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#app.config.base.DatabaseSettings.PGBOUNCER_ENABLED" title="Link to this definition">¶</a></dt>
 <dd><p>Enable PgBouncer connection pooling for SQLAlchemy.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings.get_connection_url">
-<span class="sig-name descname"><span class="pre">get_connection_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#DatabaseSettings.get_connection_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.DatabaseSettings.get_connection_url" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_connection_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../../_modules/app/config/base.html#DatabaseSettings.get_connection_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.DatabaseSettings.get_connection_url" title="Link to this definition">¶</a></dt>
 <dd><p>Construct the full PostgreSQL connection URL.</p>
 <p>The method prioritizes the explicit URL attribute if it is set.</p>
 <dl class="field-list simple">
@@ -598,15 +599,15 @@ monitoring and analysis.</p>
 <dd class="field-odd"><p>The full connection URL string.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="app.config.base.DatabaseSettings.engine">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">engine</span></span><a class="headerlink" href="#app.config.base.DatabaseSettings.engine" title="Link to this definition">¶</a></dt>
-<dd><p>Retrieve the SQLAlchemy engine instance.</p>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">engine</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">AsyncEngine</span></em><a class="headerlink" href="#app.config.base.DatabaseSettings.engine" title="Link to this definition">¶</a></dt>
+<dd><p>The SQLAlchemy async engine instance for database operations.</p>
 </dd></dl>
 
 </dd></dl>
@@ -617,37 +618,57 @@ monitoring and analysis.</p>
 <h2>JWT Settings (<cite>JWTSettings</cite>)<a class="headerlink" href="#jwt-settings-jwtsettings" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.config.base.JWTSettings">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.config.base.</span></span><span class="sig-name descname"><span class="pre">JWTSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ALGORITHM=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ACCESS_TOKEN_EXPIRE_MINUTES=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">REFRESH_TOKEN_EXPIRE_DAYS=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AUTH_JWT_PRIVATE_KEY_PATH=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AUTH_JWT_PUBLIC_KEY_PATH=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#JWTSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.JWTSettings" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">JWTSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ALGORITHM:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'Ed25519'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">JWT_PRIVATE_KEY:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ACCESS_TOKEN_EXPIRE_MINUTES:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">REFRESH_TOKEN_EXPIRE_DAYS:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#JWTSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.JWTSettings" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>JWT configuration.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.JWTSettings.ALGORITHM">
-<span class="sig-name descname"><span class="pre">ALGORITHM</span></span><a class="headerlink" href="#app.config.base.JWTSettings.ALGORITHM" title="Link to this definition">¶</a></dt>
-<dd><p>JWT signing algorithm (e.g., ‘RS256’ or ‘HS256’).</p>
+<span class="sig-name descname"><span class="pre">ALGORITHM</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Ed25519'</span></em><a class="headerlink" href="#app.config.base.JWTSettings.ALGORITHM" title="Link to this definition">¶</a></dt>
+<dd><p>The cryptographic algorithm used for JWS (JSON Web Signature).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.JWTSettings.JWT_PRIVATE_KEY">
+<span class="sig-name descname"><span class="pre">JWT_PRIVATE_KEY</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#app.config.base.JWTSettings.JWT_PRIVATE_KEY" title="Link to this definition">¶</a></dt>
+<dd><p>The <cite>Ed25519</cite> private key in JWK (JSON Web Key) format.</p>
+<p>This key is used for both signing and verifying tokens using the Ed25519 algorithm as specified
+in RFC 9864. The string must be a valid JSON containing ‘kty’, ‘crv’, ‘x’, and ‘d’ parameters.</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<p>‘{“kty”:”OKP”,”crv”:”Ed25519”,”x”:”…”,”d”:”…”}’</p>
+</div>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.JWTSettings.ACCESS_TOKEN_EXPIRE_MINUTES">
-<span class="sig-name descname"><span class="pre">ACCESS_TOKEN_EXPIRE_MINUTES</span></span><a class="headerlink" href="#app.config.base.JWTSettings.ACCESS_TOKEN_EXPIRE_MINUTES" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ACCESS_TOKEN_EXPIRE_MINUTES</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.config.base.JWTSettings.ACCESS_TOKEN_EXPIRE_MINUTES" title="Link to this definition">¶</a></dt>
 <dd><p>Lifetime of the access token in minutes.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.JWTSettings.REFRESH_TOKEN_EXPIRE_DAYS">
-<span class="sig-name descname"><span class="pre">REFRESH_TOKEN_EXPIRE_DAYS</span></span><a class="headerlink" href="#app.config.base.JWTSettings.REFRESH_TOKEN_EXPIRE_DAYS" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">REFRESH_TOKEN_EXPIRE_DAYS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.config.base.JWTSettings.REFRESH_TOKEN_EXPIRE_DAYS" title="Link to this definition">¶</a></dt>
 <dd><p>Lifetime of the refresh token in days.</p>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="app.config.base.JWTSettings.AUTH_JWT_PRIVATE_KEY_PATH">
-<span class="sig-name descname"><span class="pre">AUTH_JWT_PRIVATE_KEY_PATH</span></span><a class="headerlink" href="#app.config.base.JWTSettings.AUTH_JWT_PRIVATE_KEY_PATH" title="Link to this definition">¶</a></dt>
-<dd><p>Path to the private key file used for signing tokens.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="app.config.base.JWTSettings.AUTH_JWT_PUBLIC_KEY_PATH">
-<span class="sig-name descname"><span class="pre">AUTH_JWT_PUBLIC_KEY_PATH</span></span><a class="headerlink" href="#app.config.base.JWTSettings.AUTH_JWT_PUBLIC_KEY_PATH" title="Link to this definition">¶</a></dt>
-<dd><p>Path to the public key file used for verifying tokens.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="app.config.base.JWTSettings.key_object">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">key_object</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">OKPKey</span></em><a class="headerlink" href="#app.config.base.JWTSettings.key_object" title="Link to this definition">¶</a></dt>
+<dd><p>The initialized Ed25519 key object for signing and verification.</p>
+<p>Parses the JWT_PRIVATE_KEY from environment variables and returns
+a ready-to-use OKPKey instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The cryptographic key object for Ed25519 operations.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>OKPKey</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../lib/exceptions.html#app.lib.exceptions.JWTKeyConfigError" title="app.lib.exceptions.JWTKeyConfigError"><strong>JWTKeyConfigError</strong></a> – If the key is missing, not a valid JSON,
+    or lacks required JWK parameters (kty, crv, x, d).</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -658,37 +679,37 @@ monitoring and analysis.</p>
 <h2>Redis Settings (<cite>RedisSettings</cite>)<a class="headerlink" href="#redis-settings-redissettings" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.config.base.RedisSettings">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.config.base.</span></span><span class="sig-name descname"><span class="pre">RedisSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">URL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SOCKET_CONNECT_TIMEOUT=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HEALTH_CHECK_INTERVAL=&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SOCKET_KEEPALIVE=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#RedisSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.RedisSettings" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RedisSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">URL:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SOCKET_CONNECT_TIMEOUT:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">HEALTH_CHECK_INTERVAL:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SOCKET_KEEPALIVE:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#RedisSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.RedisSettings" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Redis configuration.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.RedisSettings.URL">
-<span class="sig-name descname"><span class="pre">URL</span></span><a class="headerlink" href="#app.config.base.RedisSettings.URL" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">URL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.config.base.RedisSettings.URL" title="Link to this definition">¶</a></dt>
 <dd><p>Redis connection URL.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.RedisSettings.SOCKET_CONNECT_TIMEOUT">
-<span class="sig-name descname"><span class="pre">SOCKET_CONNECT_TIMEOUT</span></span><a class="headerlink" href="#app.config.base.RedisSettings.SOCKET_CONNECT_TIMEOUT" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">SOCKET_CONNECT_TIMEOUT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.config.base.RedisSettings.SOCKET_CONNECT_TIMEOUT" title="Link to this definition">¶</a></dt>
 <dd><p>Length of time to wait (in seconds) for a connection to become active.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.RedisSettings.HEALTH_CHECK_INTERVAL">
-<span class="sig-name descname"><span class="pre">HEALTH_CHECK_INTERVAL</span></span><a class="headerlink" href="#app.config.base.RedisSettings.HEALTH_CHECK_INTERVAL" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">HEALTH_CHECK_INTERVAL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.config.base.RedisSettings.HEALTH_CHECK_INTERVAL" title="Link to this definition">¶</a></dt>
 <dd><p>Length of time to wait (in seconds) before testing connection health.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.RedisSettings.SOCKET_KEEPALIVE">
-<span class="sig-name descname"><span class="pre">SOCKET_KEEPALIVE</span></span><a class="headerlink" href="#app.config.base.RedisSettings.SOCKET_KEEPALIVE" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">SOCKET_KEEPALIVE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#app.config.base.RedisSettings.SOCKET_KEEPALIVE" title="Link to this definition">¶</a></dt>
 <dd><p>Length of time to wait (in seconds) between keepalive commands.</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="app.config.base.RedisSettings.client">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">client</span></span><a class="headerlink" href="#app.config.base.RedisSettings.client" title="Link to this definition">¶</a></dt>
-<dd><p>Retrieve the configured asynchronous Redis client.</p>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">client</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Redis</span></em><a class="headerlink" href="#app.config.base.RedisSettings.client" title="Link to this definition">¶</a></dt>
+<dd><p>The configured asynchronous Redis client instance.</p>
 </dd></dl>
 
 </dd></dl>
@@ -722,7 +743,7 @@ monitoring and analysis.</p>
 <footer class="sy-foot">
   <div class="sy-foot-inner sy-container mx-auto">
     <div class="sy-foot-reserved md:flex justify-between items-center">
-      <div class="sy-foot-copyright"><p>2025, Alexander Matveev</p>
+      <div class="sy-foot-copyright"><p>2026, Alexander Matveev</p>
   
   <p>
     Made with
@@ -745,5 +766,5 @@ monitoring and analysis.</p>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
       <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-      <script src="../../_static/shibuya.js?v=c1cf1a6b"></script></body>
+      <script src="../../_static/shibuya.js?v=cac61aee"></script></body>
 </html>

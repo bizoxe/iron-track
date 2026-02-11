@@ -83,7 +83,7 @@ Accessing the Application
 
 Once the server is running, you can access:
 
-* **Interactive API Documentation (Swagger):** ``http://localhost:8000/docs``
+* **Interactive API Documentation (Swagger):** ``http://127.0.0.1:8000/docs``
 
 Next Steps
 ----------

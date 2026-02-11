@@ -2,11 +2,11 @@
 <html lang="en" data-accent-color="violet" data-content_root="../../../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Authentication Utilities - IronTrack Docs</title><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="User Utilities and Helpers" href="utils.html" /><link rel="prev" title="User Domain Schemas" href="schemas.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Authentication &amp; Authorization - IronTrack Docs</title><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="User Utilities and Helpers" href="utils.html" /><link rel="prev" title="User Domain Schemas" href="schemas.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/shibuya.css?v=14737038" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/shibuya.css?v=44020203" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -20,7 +20,7 @@
   --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
 }
 </style>
-    <meta property="og:type" content="website"/><meta property="og:title" content="Authentication Utilities"/>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Authentication &amp; Authorization"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -92,15 +92,16 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../lib/index.html">Core Utilities (lib)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../lib/auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/cache_key_builders.html">Cache Key Builders</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/coders.html">Cache Serialization Coders</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/deps.html">Module Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/crypt.html">Security Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../lib/exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/filters.html">Query Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../lib/handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../lib/invalidate_cache.html">Cache Invalidation Helpers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../lib/json_response.html">Custom JSON Response</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../lib/jwt_utils.html">JWT Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../lib/pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/schema.html">Base Models &amp; Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/serializers.html">Serialization Registry</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../utils/index.html">Utilities and Helpers</a><ul>
@@ -121,7 +122,7 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l4"><a class="reference internal" href="controllers/user_role.html">User Role Management Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="services.html">User and Role Services</a></li>
 <li class="toctree-l4"><a class="reference internal" href="schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Authentication Utilities</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Authentication &amp; Authorization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="utils.html">User Utilities and Helpers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="deps.html">User Domain Dependencies</a></li>
 <li class="toctree-l4"><a class="reference internal" href="jwt_helpers.html">JWT Token Utilities</a></li>
@@ -153,12 +154,12 @@ data-aria-dark="Switch to auto color mode">
       <i class="i-lucide close"></i>
     </button>
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
-<li><a class="reference internal" href="#token-utilities">Token Utilities</a></li>
-<li><a class="reference internal" href="#public-dependencies">Public Dependencies</a></li>
-<li><a class="reference internal" href="#internal-mechanisms-read-only">Internal Mechanisms (Read-Only)</a><ul>
-<li><a class="reference internal" href="#cache-strategy">Cache Strategy</a></li>
+<li><a class="reference internal" href="#token-validation-configuration">Token Validation &amp; Configuration</a><ul>
+<li><a class="reference internal" href="#app.domain.users.auth.claims_registry"><code class="docutils literal notranslate">domain.users.auth.claims_registry</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#authentication-dependencies">Authentication Dependencies</a></li>
+<li><a class="reference internal" href="#internal-data-loading">Internal Data Loading</a></li>
 </ul>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
   </aside>
@@ -188,7 +189,7 @@ data-aria-dark="Switch to auto color mode">
         <span>/</span>
         <meta itemprop="position" content="4" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <strong itemprop="name">Authentication Utilities</strong>
+        <strong itemprop="name">Authentication &amp; Authorization</strong>
         <meta itemprop="position" content="5" />
       </li></ol>
     <div class="xl:hidden ml-1">
@@ -199,26 +200,30 @@ data-aria-dark="Switch to auto color mode">
     </div>
   </div>
 </div><div class="flex flex-col break-words justify-between">
-      <div class="min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
-        <article class="yue" role="main">
-          <section id="authentication-utilities">
-<h1>Authentication Utilities<a class="headerlink" href="#authentication-utilities" title="Link to this heading">¶</a></h1>
-<p>Authentication and authorization utilities.</p>
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="authentication-authorization">
+<h1>Authentication &amp; Authorization<a class="headerlink" href="#authentication-authorization" title="Link to this heading">¶</a></h1>
+<p>Core dependencies and utilities for handling user identity and access control.</p>
 <p>—</p>
-<section id="token-utilities">
-<h2>Token Utilities<a class="headerlink" href="#token-utilities" title="Link to this heading">¶</a></h2>
+<section id="token-validation-configuration">
+<h2>Token Validation &amp; Configuration<a class="headerlink" href="#token-validation-configuration" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="app.domain.users.auth.claims_registry">
+<span class="sig-prename descclassname"><span class="pre">app.domain.users.auth.</span></span><span class="sig-name descname"><span class="pre">claims_registry</span></span><em class="property"><span class="w"> </span><span class="pre">=</span> <span class="pre">JWTClaimsRegistry(exp=True,</span> <span class="pre">iat=True)</span></em><a class="headerlink" href="#app.domain.users.auth.claims_registry" title="Link to this definition">¶</a></dt>
+<dd><p>This registry defines the mandatory claims required for every JWT processed by the system.
+Any token lacking these claims will be rejected with an <a class="reference internal" href="../../lib/exceptions.html#app.lib.exceptions.UnauthorizedException" title="app.lib.exceptions.UnauthorizedException"><code class="xref py py-class docutils literal notranslate"><span class="pre">UnauthorizedException</span></code></a>.</p>
+</dd></dl>
+
 <p>—</p>
 </section>
-<section id="public-dependencies">
-<h2>Public Dependencies<a class="headerlink" href="#public-dependencies" title="Link to this heading">¶</a></h2>
+<section id="authentication-dependencies">
+<h2>Authentication Dependencies<a class="headerlink" href="#authentication-dependencies" title="Link to this heading">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Authenticate</span></code> class provides factory methods that act as FastAPI dependencies.</p>
 <p>—</p>
 </section>
-<section id="internal-mechanisms-read-only">
-<h2>Internal Mechanisms (Read-Only)<a class="headerlink" href="#internal-mechanisms-read-only" title="Link to this heading">¶</a></h2>
-<p>These functions are internal to the authentication process and should not be called directly.</p>
-<section id="cache-strategy">
-<h3>Cache Strategy<a class="headerlink" href="#cache-strategy" title="Link to this heading">¶</a></h3>
-</section>
+<section id="internal-data-loading">
+<h2>Internal Data Loading<a class="headerlink" href="#internal-data-loading" title="Link to this heading">¶</a></h2>
 </section>
 </section>
 
@@ -248,7 +253,7 @@ data-aria-dark="Switch to auto color mode">
 <footer class="sy-foot">
   <div class="sy-foot-inner sy-container mx-auto">
     <div class="sy-foot-reserved md:flex justify-between items-center">
-      <div class="sy-foot-copyright"><p>2025, Alexander Matveev</p>
+      <div class="sy-foot-copyright"><p>2026, Alexander Matveev</p>
   
   <p>
     Made with
@@ -271,5 +276,5 @@ data-aria-dark="Switch to auto color mode">
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=f281be69"></script>
       <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
-      <script src="../../../_static/shibuya.js?v=c1cf1a6b"></script></body>
+      <script src="../../../_static/shibuya.js?v=cac61aee"></script></body>
 </html>

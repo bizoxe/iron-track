@@ -58,7 +58,6 @@ JWT Settings (`JWTSettings`)
 
 .. autoclass:: app.config.base.JWTSettings
     :members:
-    :exclude-members: auth_jwt_private_key, auth_jwt_public_key
 
 ---
 

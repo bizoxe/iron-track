@@ -2,11 +2,11 @@
 <html lang="en" data-accent-color="violet" data-content_root="../../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>API Exceptions - IronTrack Docs</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Exception Handlers" href="handlers.html" /><link rel="prev" title="Module Dependencies" href="deps.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>API Exceptions - IronTrack Docs</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Query Filters" href="filters.html" /><link rel="prev" title="Security Utilities" href="crypt.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=14737038" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=44020203" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -92,15 +92,16 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Core Utilities (lib)</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cache_key_builders.html">Cache Key Builders</a></li>
-<li class="toctree-l3"><a class="reference internal" href="coders.html">Cache Serialization Coders</a></li>
-<li class="toctree-l3"><a class="reference internal" href="deps.html">Module Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="crypt.html">Security Utilities</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="filters.html">Query Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="invalidate_cache.html">Cache Invalidation Helpers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="json_response.html">Custom JSON Response</a></li>
 <li class="toctree-l3"><a class="reference internal" href="jwt_utils.html">JWT Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="schema.html">Base Models &amp; Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="serializers.html">Serialization Registry</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../utils/index.html">Utilities and Helpers</a><ul>
@@ -121,7 +122,7 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/user_role.html">User Role Management Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/services.html">User and Role Services</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication &amp; Authorization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/utils.html">User Utilities and Helpers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/deps.html">User Domain Dependencies</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
@@ -168,6 +169,10 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#app.lib.exceptions.NotFoundException"><code class="docutils literal notranslate"><span class="pre">NotFoundException</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#system-startup-exceptions">System &amp; Startup Exceptions</a><ul>
+<li><a class="reference internal" href="#app.lib.exceptions.JWTKeyConfigError"><code class="docutils literal notranslate"><span class="pre">JWTKeyConfigError</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
   </aside>
@@ -204,13 +209,13 @@ data-aria-dark="Switch to auto color mode">
     </div>
   </div>
 </div><div class="flex flex-col break-words justify-between">
-      <div class="min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
-        <article class="yue" role="main">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
           <section id="api-exceptions">
 <h1>API Exceptions<a class="headerlink" href="#api-exceptions" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.lib.exceptions.BaseAPIException">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.lib.exceptions.</span></span><span class="sig-name descname"><span class="pre">BaseAPIException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/lib/exceptions.html#BaseAPIException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.exceptions.BaseAPIException" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BaseAPIException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/lib/exceptions.html#BaseAPIException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.exceptions.BaseAPIException" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
 <p>Base exception for all API-related errors.</p>
 <dl class="py attribute">
@@ -235,44 +240,55 @@ data-aria-dark="Switch to auto color mode">
 <h2>Standard HTTP Exceptions<a class="headerlink" href="#standard-http-exceptions" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.lib.exceptions.UnauthorizedException">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.lib.exceptions.</span></span><span class="sig-name descname"><span class="pre">UnauthorizedException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Not</span> <span class="pre">authenticated'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/lib/exceptions.html#UnauthorizedException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.exceptions.UnauthorizedException" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">UnauthorizedException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Not</span> <span class="pre">authenticated'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/lib/exceptions.html#UnauthorizedException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.exceptions.UnauthorizedException" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#app.lib.exceptions.BaseAPIException" title="app.lib.exceptions.BaseAPIException"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseAPIException</span></code></a></p>
 <p>401 Unauthorized exception.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="app.lib.exceptions.UserNotFound">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.lib.exceptions.</span></span><span class="sig-name descname"><span class="pre">UserNotFound</span></span><a class="reference internal" href="../../_modules/app/lib/exceptions.html#UserNotFound"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.exceptions.UserNotFound" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">UserNotFound</span></span><a class="reference internal" href="../../_modules/app/lib/exceptions.html#UserNotFound"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.exceptions.UserNotFound" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#app.lib.exceptions.BaseAPIException" title="app.lib.exceptions.BaseAPIException"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseAPIException</span></code></a></p>
 <p>404 User not found exception.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="app.lib.exceptions.BadRequestException">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.lib.exceptions.</span></span><span class="sig-name descname"><span class="pre">BadRequestException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/lib/exceptions.html#BadRequestException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.exceptions.BadRequestException" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BadRequestException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/lib/exceptions.html#BadRequestException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.exceptions.BadRequestException" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#app.lib.exceptions.BaseAPIException" title="app.lib.exceptions.BaseAPIException"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseAPIException</span></code></a></p>
 <p>400 Bad Request exception.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="app.lib.exceptions.ConflictException">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.lib.exceptions.</span></span><span class="sig-name descname"><span class="pre">ConflictException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/lib/exceptions.html#ConflictException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.exceptions.ConflictException" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ConflictException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/lib/exceptions.html#ConflictException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.exceptions.ConflictException" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#app.lib.exceptions.BaseAPIException" title="app.lib.exceptions.BaseAPIException"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseAPIException</span></code></a></p>
 <p>409 Conflict exception.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="app.lib.exceptions.PermissionDeniedException">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.lib.exceptions.</span></span><span class="sig-name descname"><span class="pre">PermissionDeniedException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/lib/exceptions.html#PermissionDeniedException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.exceptions.PermissionDeniedException" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PermissionDeniedException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/lib/exceptions.html#PermissionDeniedException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.exceptions.PermissionDeniedException" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#app.lib.exceptions.BaseAPIException" title="app.lib.exceptions.BaseAPIException"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseAPIException</span></code></a></p>
 <p>403 Permission Denied exception.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="app.lib.exceptions.NotFoundException">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.lib.exceptions.</span></span><span class="sig-name descname"><span class="pre">NotFoundException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/lib/exceptions.html#NotFoundException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.exceptions.NotFoundException" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NotFoundException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/lib/exceptions.html#NotFoundException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.exceptions.NotFoundException" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#app.lib.exceptions.BaseAPIException" title="app.lib.exceptions.BaseAPIException"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseAPIException</span></code></a></p>
 <p>404 Not Found exception.</p>
+</dd></dl>
+
+<p>—</p>
+</section>
+<section id="system-startup-exceptions">
+<h2>System &amp; Startup Exceptions<a class="headerlink" href="#system-startup-exceptions" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.lib.exceptions.JWTKeyConfigError">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">JWTKeyConfigError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/lib/exceptions.html#JWTKeyConfigError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.exceptions.JWTKeyConfigError" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></a></p>
+<p>Raised when the JWT private key is missing, corrupted, or invalid.</p>
 </dd></dl>
 
 </section>
@@ -284,16 +300,16 @@ data-aria-dark="Switch to auto color mode">
   </svg>
   <span>Back to top</span>
 </button><div class="navigation flex print:hidden"><div class="navigation-prev">
-    <a href="deps.html">
+    <a href="crypt.html">
       <i class="i-lucide chevron-left"></i>
       <div class="page-info">
-        <span>Previous</span><div class="title">Module Dependencies</div></div>
+        <span>Previous</span><div class="title">Security Utilities</div></div>
     </a>
   </div><div class="navigation-next">
-    <a href="handlers.html">
+    <a href="filters.html">
       <div class="page-info">
         <span>Next</span>
-        <div class="title">Exception Handlers</div>
+        <div class="title">Query Filters</div>
       </div>
       <i class="i-lucide chevron-right"></i>
     </a>
@@ -304,7 +320,7 @@ data-aria-dark="Switch to auto color mode">
 <footer class="sy-foot">
   <div class="sy-foot-inner sy-container mx-auto">
     <div class="sy-foot-reserved md:flex justify-between items-center">
-      <div class="sy-foot-copyright"><p>2025, Alexander Matveev</p>
+      <div class="sy-foot-copyright"><p>2026, Alexander Matveev</p>
   
   <p>
     Made with
@@ -327,5 +343,5 @@ data-aria-dark="Switch to auto color mode">
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
       <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-      <script src="../../_static/shibuya.js?v=c1cf1a6b"></script></body>
+      <script src="../../_static/shibuya.js?v=cac61aee"></script></body>
 </html>

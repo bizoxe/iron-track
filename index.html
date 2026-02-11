@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=14737038" />
+    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=44020203" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
@@ -92,15 +92,16 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/lib/index.html">Core Utilities (lib)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api/lib/auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/cache_key_builders.html">Cache Key Builders</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/coders.html">Cache Serialization Coders</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/deps.html">Module Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/crypt.html">Security Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/lib/exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/filters.html">Query Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/lib/handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/lib/invalidate_cache.html">Cache Invalidation Helpers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/lib/json_response.html">Custom JSON Response</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/lib/jwt_utils.html">JWT Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/lib/pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/schema.html">Base Models &amp; Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/serializers.html">Serialization Registry</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/utils/index.html">Utilities and Helpers</a><ul>
@@ -121,7 +122,7 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l4"><a class="reference internal" href="api/domain/users/controllers/user_role.html">User Role Management Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/domain/users/services.html">User and Role Services</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/domain/users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/auth.html">Authentication Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/users/auth.html">Authentication &amp; Authorization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/domain/users/utils.html">User Utilities and Helpers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/domain/users/deps.html">User Domain Dependencies</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
@@ -192,8 +193,8 @@ data-aria-dark="Switch to auto color mode">
     </div>
   </div>
 </div><div class="flex flex-col break-words justify-between">
-      <div class="min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
-        <article class="yue" role="main">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
           <section id="irontrack">
 <h1>IronTrack<a class="headerlink" href="#irontrack" title="Link to this heading">¶</a></h1>
 <a class="reference external image-reference" href="https://www.python.org/downloads/"><img alt="https://img.shields.io/badge/python-3.12-3776ab.svg?logo=python&amp;logoColor=white" src="https://img.shields.io/badge/python-3.12-3776ab.svg?logo=python&amp;logoColor=white" />
@@ -204,7 +205,7 @@ data-aria-dark="Switch to auto color mode">
 </a>
 <a class="reference external image-reference" href="https://angie.software"><img alt="https://img.shields.io/badge/Angie-B33033?logo=nginx&amp;logoColor=white" src="https://img.shields.io/badge/Angie-B33033?logo=nginx&amp;logoColor=white" />
 </a>
-<a class="reference external image-reference" href="https://docs.advanced-alchemy.litestar.dev/"><img alt="https://img.shields.io/badge/ORM-Advanced--Alchemy-edb641?logo=python&amp;logoColor=white" src="https://img.shields.io/badge/ORM-Advanced--Alchemy-edb641?logo=python&amp;logoColor=white" />
+<a class="reference external image-reference" href="https://advanced-alchemy.litestar.dev/latest/"><img alt="https://img.shields.io/badge/Litestar%20Org-%E2%AD%90%20Advanced%20Alchemy-edb641.svg?logo=python&amp;logoColor=white" src="https://img.shields.io/badge/Litestar%20Org-%E2%AD%90%20Advanced%20Alchemy-edb641.svg?logo=python&amp;logoColor=white" />
 </a>
 <a class="reference external image-reference" href="https://opensource.org/licenses/MIT"><img alt="https://img.shields.io/badge/license-MIT-4bc51d.svg?logo=opensourceinitiative&amp;logoColor=white" src="https://img.shields.io/badge/license-MIT-4bc51d.svg?logo=opensourceinitiative&amp;logoColor=white" />
 </a>
@@ -233,7 +234,7 @@ data-aria-dark="Switch to auto color mode">
 <section id="iii-security-administration">
 <h3>III. Security &amp; Administration<a class="headerlink" href="#iii-security-administration" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p><strong>Comprehensive Access Management:</strong> A security system based on Access/Refresh <strong>JWT</strong> tokens delivered via secure HTTP-only cookies. Includes user data caching (<strong>fastapi-cache2</strong>) and Refresh token blacklisting.</p></li>
+<li><p><strong>Comprehensive Access Management:</strong> A security system based on Access/Refresh <strong>JWT</strong> tokens delivered via secure HTTP-only cookies. Includes user data caching (<strong>cashews</strong>) and Refresh token blacklisting.</p></li>
 <li><p><strong>User Administration (CRUD/RBAC):</strong> Full set of CRUD operations for user accounts, Role-Based Access Control (<strong>RBAC</strong>) supporting <cite>superuser</cite> and <cite>trainer</cite> roles. Supports user cache retention and invalidation.</p></li>
 <li><p><strong>Comprehensive Command Line Interface (CLI):</strong> A centralized entry point built on <strong>Typer</strong>, unifying server start-up, DB migration management (<strong>Advanced-Alchemy</strong> commands), and custom administration tools.</p></li>
 </ul>
@@ -314,7 +315,7 @@ data-aria-dark="Switch to auto color mode">
 <footer class="sy-foot">
   <div class="sy-foot-inner sy-container mx-auto">
     <div class="sy-foot-reserved md:flex justify-between items-center">
-      <div class="sy-foot-copyright"><p>2025, Alexander Matveev</p>
+      <div class="sy-foot-copyright"><p>2026, Alexander Matveev</p>
   
   <p>
     Made with
@@ -337,5 +338,5 @@ data-aria-dark="Switch to auto color mode">
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=f281be69"></script>
       <script src="_static/design-tabs.js?v=f930bc37"></script>
-      <script src="_static/shibuya.js?v=c1cf1a6b"></script></body>
+      <script src="_static/shibuya.js?v=cac61aee"></script></body>
 </html>

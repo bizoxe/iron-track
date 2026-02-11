@@ -2,11 +2,11 @@
 <html lang="en" data-accent-color="violet" data-content_root="../../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Module Dependencies - IronTrack Docs</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="API Exceptions" href="exceptions.html" /><link rel="prev" title="Cache Serialization Coders" href="coders.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Security Utilities - IronTrack Docs</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="API Exceptions" href="exceptions.html" /><link rel="prev" title="JWT Cookie Security Scheme" href="auth.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=14737038" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=44020203" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -20,7 +20,7 @@
   --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
 }
 </style>
-    <meta property="og:type" content="website"/><meta property="og:title" content="Module Dependencies"/>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Security Utilities"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -92,15 +92,16 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Core Utilities (lib)</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cache_key_builders.html">Cache Key Builders</a></li>
-<li class="toctree-l3"><a class="reference internal" href="coders.html">Cache Serialization Coders</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Module Dependencies</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Security Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="filters.html">Query Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="invalidate_cache.html">Cache Invalidation Helpers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="json_response.html">Custom JSON Response</a></li>
 <li class="toctree-l3"><a class="reference internal" href="jwt_utils.html">JWT Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="schema.html">Base Models &amp; Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="serializers.html">Serialization Registry</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../utils/index.html">Utilities and Helpers</a><ul>
@@ -121,7 +122,7 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/user_role.html">User Role Management Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/services.html">User and Role Services</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication &amp; Authorization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/utils.html">User Utilities and Helpers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/deps.html">User Domain Dependencies</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
@@ -153,8 +154,11 @@ data-aria-dark="Switch to auto color mode">
       <i class="i-lucide close"></i>
     </button>
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
-<li><a class="reference internal" href="#app.lib.deps.get_redis_client"><code class="docutils literal notranslate"><span class="pre">get_redis_client()</span></code></a></li>
-<li><a class="reference internal" href="#app.lib.deps.RedisClientDep"><code class="docutils literal notranslate">lib.deps.RedisClientDep</span></code></a></li>
+<li><a class="reference internal" href="#app.lib.crypt.cpu_cores"><code class="docutils literal notranslate"><span class="pre">cpu_cores</span></code></a></li>
+<li><a class="reference internal" href="#app.lib.crypt.crypto_executor"><code class="docutils literal notranslate"><span class="pre">crypto_executor</span></code></a></li>
+<li><a class="reference internal" href="#app.lib.crypt.hasher"><code class="docutils literal notranslate"><span class="pre">hasher</span></code></a></li>
+<li><a class="reference internal" href="#app.lib.crypt.get_password_hash"><code class="docutils literal notranslate"><span class="pre">get_password_hash()</span></code></a></li>
+<li><a class="reference internal" href="#app.lib.crypt.verify_password"><code class="docutils literal notranslate"><span class="pre">verify_password()</span></code></a></li>
 </ul>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
   </aside>
@@ -180,7 +184,7 @@ data-aria-dark="Switch to auto color mode">
         <span>/</span>
         <meta itemprop="position" content="3" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <strong itemprop="name">Module Dependencies</strong>
+        <strong itemprop="name">Security Utilities</strong>
         <meta itemprop="position" content="4" />
       </li></ol>
     <div class="xl:hidden ml-1">
@@ -191,20 +195,70 @@ data-aria-dark="Switch to auto color mode">
     </div>
   </div>
 </div><div class="flex flex-col break-words justify-between">
-      <div class="min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
-        <article class="yue" role="main">
-          <section id="module-dependencies">
-<h1>Module Dependencies<a class="headerlink" href="#module-dependencies" title="Link to this heading">¶</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="app.lib.deps.get_redis_client">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.lib.deps.</span></span><span class="sig-name descname"><span class="pre">get_redis_client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/lib/deps.html#get_redis_client"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.deps.get_redis_client" title="Link to this definition">¶</a></dt>
-<dd><p>Dependency for retrieving the Redis client instance.</p>
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="security-utilities">
+<h1>Security Utilities<a class="headerlink" href="#security-utilities" title="Link to this heading">¶</a></h1>
+<p>This module handles secure password management using the <strong>Argon2id</strong> algorithm.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Password hashing is a CPU-bound operation. To prevent blocking the FastAPI
+asynchronous event loop, all hashing and verification operations are executed
+within a dedicated thread pool.</p>
+</div>
+<dl class="py data" id="module-app.lib.crypt">
+<dt class="sig sig-object py" id="app.lib.crypt.cpu_cores">
+<span class="sig-name descname"><span class="pre">cpu_cores</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#app.lib.crypt.cpu_cores" title="Link to this definition">¶</a></dt>
+<dd><p>The number of logical CPU cores detected in the system.</p>
 </dd></dl>
 
 <dl class="py data">
-<dt class="sig sig-object py" id="app.lib.deps.RedisClientDep">
-<span class="sig-prename descclassname"><span class="pre">app.lib.deps.</span></span><span class="sig-name descname"><span class="pre">RedisClientDep</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">Redis</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Depends</span><span class="p"><span class="pre">(</span></span><span class="pre">get_redis_client</span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#app.lib.deps.RedisClientDep" title="Link to this definition">¶</a></dt>
-<dd><p>FastAPI dependency for injecting the Redis client instance.</p>
+<dt class="sig sig-object py" id="app.lib.crypt.crypto_executor">
+<span class="sig-name descname"><span class="pre">crypto_executor</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;concurrent.futures.thread.ThreadPoolExecutor</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#app.lib.crypt.crypto_executor" title="Link to this definition">¶</a></dt>
+<dd><p>Thread pool dedicated to cryptographic tasks.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="app.lib.crypt.hasher">
+<span class="sig-name descname"><span class="pre">hasher</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;pwdlib._hash.PasswordHash</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#app.lib.crypt.hasher" title="Link to this definition">¶</a></dt>
+<dd><p>The main password hashing interface, configured with Argon2id parameters.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.lib.crypt.get_password_hash">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_password_hash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><span class="pre">bytes</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../../_modules/app/lib/crypt.html#get_password_hash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.crypt.get_password_hash" title="Link to this definition">¶</a></dt>
+<dd><p>Get password hash.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>password</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><em>bytes</em></a>) – Plain password.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Hashed password.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.lib.crypt.verify_password">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">verify_password</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plain_password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><span class="pre">bytes</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">hashed_password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../../_modules/app/lib/crypt.html#verify_password"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.crypt.verify_password" title="Link to this definition">¶</a></dt>
+<dd><p>Verify Password.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>plain_password</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><em>bytes</em></a>) – The string or byte password.</p></li>
+<li><p><strong>hashed_password</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The hash of the password.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if password matches hash.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -215,10 +269,10 @@ data-aria-dark="Switch to auto color mode">
   </svg>
   <span>Back to top</span>
 </button><div class="navigation flex print:hidden"><div class="navigation-prev">
-    <a href="coders.html">
+    <a href="auth.html">
       <i class="i-lucide chevron-left"></i>
       <div class="page-info">
-        <span>Previous</span><div class="title">Cache Serialization Coders</div></div>
+        <span>Previous</span><div class="title">JWT Cookie Security Scheme</div></div>
     </a>
   </div><div class="navigation-next">
     <a href="exceptions.html">
@@ -235,7 +289,7 @@ data-aria-dark="Switch to auto color mode">
 <footer class="sy-foot">
   <div class="sy-foot-inner sy-container mx-auto">
     <div class="sy-foot-reserved md:flex justify-between items-center">
-      <div class="sy-foot-copyright"><p>2025, Alexander Matveev</p>
+      <div class="sy-foot-copyright"><p>2026, Alexander Matveev</p>
   
   <p>
     Made with
@@ -258,5 +312,5 @@ data-aria-dark="Switch to auto color mode">
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
       <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-      <script src="../../_static/shibuya.js?v=c1cf1a6b"></script></body>
+      <script src="../../_static/shibuya.js?v=cac61aee"></script></body>
 </html>

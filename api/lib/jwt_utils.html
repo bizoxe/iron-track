@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=14737038" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=44020203" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -92,15 +92,16 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Core Utilities (lib)</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cache_key_builders.html">Cache Key Builders</a></li>
-<li class="toctree-l3"><a class="reference internal" href="coders.html">Cache Serialization Coders</a></li>
-<li class="toctree-l3"><a class="reference internal" href="deps.html">Module Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="crypt.html">Security Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="filters.html">Query Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="invalidate_cache.html">Cache Invalidation Helpers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="json_response.html">Custom JSON Response</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">JWT Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="schema.html">Base Models &amp; Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="serializers.html">Serialization Registry</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../utils/index.html">Utilities and Helpers</a><ul>
@@ -121,7 +122,7 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/user_role.html">User Role Management Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/services.html">User and Role Services</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication &amp; Authorization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/utils.html">User Utilities and Helpers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/deps.html">User Domain Dependencies</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
@@ -152,11 +153,7 @@ data-aria-dark="Switch to auto color mode">
     <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
       <i class="i-lucide close"></i>
     </button>
-    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
-<li><a class="reference internal" href="#app.lib.jwt_utils.encode_jwt"><code class="docutils literal notranslate"><span class="pre">encode_jwt()</span></code></a></li>
-<li><a class="reference internal" href="#app.lib.jwt_utils.decode_jwt"><code class="docutils literal notranslate"><span class="pre">decode_jwt()</span></code></a></li>
-</ul>
-</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
   </aside>
   <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
   <main class="sy-main w-full max-sm:max-w-full print:pt-6">
@@ -191,53 +188,10 @@ data-aria-dark="Switch to auto color mode">
     </div>
   </div>
 </div><div class="flex flex-col break-words justify-between">
-      <div class="min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
-        <article class="yue" role="main">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
           <section id="jwt-utilities">
 <h1>JWT Utilities<a class="headerlink" href="#jwt-utilities" title="Link to this heading">¶</a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="app.lib.jwt_utils.encode_jwt">
-<span class="sig-prename descclassname"><span class="pre">app.lib.jwt_utils.</span></span><span class="sig-name descname"><span class="pre">encode_jwt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">private_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_minutes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_timedelta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.lib.jwt_utils.encode_jwt" title="Link to this definition">¶</a></dt>
-<dd><p>Encode a JWT based on the provided payload and expiration settings.</p>
-<p>This function adds standard claims: ‘iat’ (issued at), ‘exp’ (expiration), and ‘jti’ (JWT ID) to the token payload before encoding.</p>
-<p><strong>Parameters:</strong></p>
-<ul class="simple">
-<li><p><strong>payload</strong> (<em>dict</em>) – The base data to include in the token (e.g., user ID, email).</p></li>
-<li><p><strong>private_key</strong> (<em>str</em>) – The private key used for signing the token. Defaults to the application’s configured private key.</p></li>
-<li><p><strong>algorithm</strong> (<em>str</em>) – The cryptographic algorithm used for signing (e.g., ‘RS256’). Defaults to the configured algorithm.</p></li>
-<li><p><strong>expire_minutes</strong> (<em>int</em>) – The token’s lifespan in minutes, used only if <code class="docutils literal notranslate"><span class="pre">expire_timedelta</span></code> is not provided.</p></li>
-<li><p><strong>expire_timedelta</strong> (<em>timedelta | None</em>) – Explicit timedelta defining the token’s total lifespan. Overrides <code class="docutils literal notranslate"><span class="pre">expire_minutes</span></code>. Used primarily for Refresh Tokens.</p></li>
-</ul>
-<p><strong>Returns:</strong></p>
-<ul class="simple">
-<li><p><em>str</em> – The encoded JWT string.</p></li>
-</ul>
-</dd></dl>
-
-<p>—</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="app.lib.jwt_utils.decode_jwt">
-<span class="sig-prename descclassname"><span class="pre">app.lib.jwt_utils.</span></span><span class="sig-name descname"><span class="pre">decode_jwt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">public_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.lib.jwt_utils.decode_jwt" title="Link to this definition">¶</a></dt>
-<dd><p>Decode and validate a JWT using the application’s public key.</p>
-<p>This function automatically verifies the token’s signature and standard claims (such as expiration time).</p>
-<p><strong>Parameters:</strong></p>
-<ul class="simple">
-<li><p><strong>token</strong> (<em>str | bytes</em>) – The encoded JWT string or bytes to be decoded.</p></li>
-<li><p><strong>public_key</strong> (<em>str</em>) – The public key used for verifying the token’s signature. Defaults to the application’s configured public key.</p></li>
-<li><p><strong>algorithm</strong> (<em>str</em>) – The cryptographic algorithm used for verification (e.g., [‘RS256’]). Defaults to the configured algorithm.</p></li>
-</ul>
-<p><strong>Returns:</strong></p>
-<ul class="simple">
-<li><p><em>dict</em> – The decoded payload as a dictionary.</p></li>
-</ul>
-<p><strong>Raises:</strong></p>
-<ul class="simple">
-<li><p><strong>jwt.InvalidSignatureError</strong> – If the token signature is invalid.</p></li>
-<li><p><strong>jwt.ExpiredSignatureError</strong> – If the token’s expiration time has passed.</p></li>
-<li><p><strong>jwt.DecodeError</strong> – If the token cannot be decoded for other reasons.</p></li>
-</ul>
-</dd></dl>
-
 </section>
 
         </article><button class="back-to-top" type="button">
@@ -266,7 +220,7 @@ data-aria-dark="Switch to auto color mode">
 <footer class="sy-foot">
   <div class="sy-foot-inner sy-container mx-auto">
     <div class="sy-foot-reserved md:flex justify-between items-center">
-      <div class="sy-foot-copyright"><p>2025, Alexander Matveev</p>
+      <div class="sy-foot-copyright"><p>2026, Alexander Matveev</p>
   
   <p>
     Made with
@@ -289,5 +243,5 @@ data-aria-dark="Switch to auto color mode">
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
       <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-      <script src="../../_static/shibuya.js?v=c1cf1a6b"></script></body>
+      <script src="../../_static/shibuya.js?v=cac61aee"></script></body>
 </html>

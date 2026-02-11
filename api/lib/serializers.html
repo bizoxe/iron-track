@@ -2,11 +2,11 @@
 <html lang="en" data-accent-color="violet" data-content_root="../../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Cache Serialization Coders - IronTrack Docs</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Module Dependencies" href="deps.html" /><link rel="prev" title="Cache Key Builders" href="cache_key_builders.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Serialization Registry - IronTrack Docs</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Utilities and Helpers" href="../utils/index.html" /><link rel="prev" title="Base Models &amp; Structures" href="schema.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=14737038" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=44020203" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -20,7 +20,7 @@
   --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
 }
 </style>
-    <meta property="og:type" content="website"/><meta property="og:title" content="Cache Serialization Coders"/>
+    <meta property="og:type" content="website"/><meta property="og:title" content="Serialization Registry"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -92,15 +92,16 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Core Utilities (lib)</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cache_key_builders.html">Cache Key Builders</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Cache Serialization Coders</a></li>
-<li class="toctree-l3"><a class="reference internal" href="deps.html">Module Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="crypt.html">Security Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="filters.html">Query Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="invalidate_cache.html">Cache Invalidation Helpers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="json_response.html">Custom JSON Response</a></li>
 <li class="toctree-l3"><a class="reference internal" href="jwt_utils.html">JWT Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="schema.html">Base Models &amp; Structures</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Serialization Registry</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../utils/index.html">Utilities and Helpers</a><ul>
@@ -121,7 +122,7 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/user_role.html">User Role Management Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/services.html">User and Role Services</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication &amp; Authorization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/utils.html">User Utilities and Helpers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/deps.html">User Domain Dependencies</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
@@ -153,9 +154,18 @@ data-aria-dark="Switch to auto color mode">
       <i class="i-lucide close"></i>
     </button>
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
-<li><a class="reference internal" href="#app.lib.coders.MsgPackCoderBase"><code class="docutils literal notranslate"><span class="pre">MsgPackCoderBase</span></code></a></li>
-<li><a class="reference internal" href="#app.lib.coders.MsgPackCoder"><code class="docutils literal notranslate"><span class="pre">MsgPackCoder</span></code></a></li>
-<li><a class="reference internal" href="#app.lib.coders.MsgPackCoderUserAuth"><code class="docutils literal notranslate"><span class="pre">MsgPackCoderUserAuth</span></code></a></li>
+<li><a class="reference internal" href="#msgspec-integration">MsgSpec Integration</a><ul>
+<li><a class="reference internal" href="#app.lib.serializers.MsgSpecRegistry"><code class="docutils literal notranslate"><span class="pre">MsgSpecRegistry</span></code></a><ul>
+<li><a class="reference internal" href="#app.lib.serializers.MsgSpecRegistry._ENCODER"><code class="docutils literal notranslate">_ENCODER</span></code></a></li>
+<li><a class="reference internal" href="#app.lib.serializers.MsgSpecRegistry.get_cashews_pair"><code class="docutils literal notranslate">get_cashews_pair()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#registration-logic">Registration Logic</a><ul>
+<li><a class="reference internal" href="#app.lib.serializers.cashews_registry"><code class="docutils literal notranslate"><span class="pre">cashews_registry()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
   </aside>
@@ -181,7 +191,7 @@ data-aria-dark="Switch to auto color mode">
         <span>/</span>
         <meta itemprop="position" content="3" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <strong itemprop="name">Cache Serialization Coders</strong>
+        <strong itemprop="name">Serialization Registry</strong>
         <meta itemprop="position" content="4" />
       </li></ol>
     <div class="xl:hidden ml-1">
@@ -192,30 +202,45 @@ data-aria-dark="Switch to auto color mode">
     </div>
   </div>
 </div><div class="flex flex-col break-words justify-between">
-      <div class="min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
-        <article class="yue" role="main">
-          <section id="cache-serialization-coders">
-<h1>Cache Serialization Coders<a class="headerlink" href="#cache-serialization-coders" title="Link to this heading">¶</a></h1>
-<p>Defines custom cache coders based on <a class="reference external" href="https://jcristharif.com/msgspec/index.html" title="(in msgspec)"><span>msgspec</span></a> (MsgPack).</p>
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="serialization-registry">
+<h1>Serialization Registry<a class="headerlink" href="#serialization-registry" title="Link to this heading">¶</a></h1>
+<p>This module provides a centralized registry for high-performance serialization logic.
+It defines how domain models are encoded and decoded when interacting with external
+systems like distributed caches, message brokers, or database drivers.</p>
+<section id="msgspec-integration">
+<h2>MsgSpec Integration<a class="headerlink" href="#msgspec-integration" title="Link to this heading">¶</a></h2>
+<p>Core components utilizing <strong>msgpack</strong> for compact binary representation.</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="app.lib.coders.MsgPackCoderBase">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.lib.coders.</span></span><span class="sig-name descname"><span class="pre">MsgPackCoderBase</span></span><a class="reference internal" href="../../_modules/app/lib/coders.html#MsgPackCoderBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.coders.MsgPackCoderBase" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Coder</span></code></p>
-<p>Base coder to encode and decode Redis cache results.</p>
+<dt class="sig sig-object py" id="app.lib.serializers.MsgSpecRegistry">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MsgSpecRegistry</span></span><a class="reference internal" href="../../_modules/app/lib/serializers.html#MsgSpecRegistry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.serializers.MsgSpecRegistry" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Registry for msgspec-based serialization.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.lib.serializers.MsgSpecRegistry._ENCODER">
+<span class="sig-name descname"><span class="pre">_ENCODER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;msgspec.msgpack.Encoder</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#app.lib.serializers.MsgSpecRegistry._ENCODER" title="Link to this definition">¶</a></dt>
+<dd><p>Internal msgpack encoder instance.</p>
 </dd></dl>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="app.lib.coders.MsgPackCoder">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.lib.coders.</span></span><span class="sig-name descname"><span class="pre">MsgPackCoder</span></span><a class="reference internal" href="../../_modules/app/lib/coders.html#MsgPackCoder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.coders.MsgPackCoder" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#app.lib.coders.MsgPackCoderBase" title="app.lib.coders.MsgPackCoderBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">MsgPackCoderBase</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="app.lib.serializers.MsgSpecRegistry.get_cashews_pair">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_cashews_pair</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Awaitable</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><span class="pre">bytes</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Awaitable</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/app/lib/serializers.html#MsgSpecRegistry.get_cashews_pair"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.serializers.MsgSpecRegistry.get_cashews_pair" title="Link to this definition">¶</a></dt>
+<dd><p>Create an asynchronous encoder/decoder pair for a specific type.</p>
 </dd></dl>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="app.lib.coders.MsgPackCoderUserAuth">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.lib.coders.</span></span><span class="sig-name descname"><span class="pre">MsgPackCoderUserAuth</span></span><a class="reference internal" href="../../_modules/app/lib/coders.html#MsgPackCoderUserAuth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.coders.MsgPackCoderUserAuth" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#app.lib.coders.MsgPackCoderBase" title="app.lib.coders.MsgPackCoderBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">MsgPackCoderBase</span></code></a></p>
 </dd></dl>
 
+</section>
+<section id="registration-logic">
+<h2>Registration Logic<a class="headerlink" href="#registration-logic" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.lib.serializers.cashews_registry">
+<span class="sig-name descname"><span class="pre">cashews_registry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../_modules/app/lib/serializers.html#cashews_registry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.serializers.cashews_registry" title="Link to this definition">¶</a></dt>
+<dd><p>Register domain data models with the cashews serialization system.</p>
+</dd></dl>
+
+</section>
 </section>
 
         </article><button class="back-to-top" type="button">
@@ -224,16 +249,16 @@ data-aria-dark="Switch to auto color mode">
   </svg>
   <span>Back to top</span>
 </button><div class="navigation flex print:hidden"><div class="navigation-prev">
-    <a href="cache_key_builders.html">
+    <a href="schema.html">
       <i class="i-lucide chevron-left"></i>
       <div class="page-info">
-        <span>Previous</span><div class="title">Cache Key Builders</div></div>
+        <span>Previous</span><div class="title">Base Models &amp; Structures</div></div>
     </a>
   </div><div class="navigation-next">
-    <a href="deps.html">
+    <a href="../utils/index.html">
       <div class="page-info">
         <span>Next</span>
-        <div class="title">Module Dependencies</div>
+        <div class="title">Utilities and Helpers</div>
       </div>
       <i class="i-lucide chevron-right"></i>
     </a>
@@ -244,7 +269,7 @@ data-aria-dark="Switch to auto color mode">
 <footer class="sy-foot">
   <div class="sy-foot-inner sy-container mx-auto">
     <div class="sy-foot-reserved md:flex justify-between items-center">
-      <div class="sy-foot-copyright"><p>2025, Alexander Matveev</p>
+      <div class="sy-foot-copyright"><p>2026, Alexander Matveev</p>
   
   <p>
     Made with
@@ -267,5 +292,5 @@ data-aria-dark="Switch to auto color mode">
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
       <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-      <script src="../../_static/shibuya.js?v=c1cf1a6b"></script></body>
+      <script src="../../_static/shibuya.js?v=cac61aee"></script></body>
 </html>

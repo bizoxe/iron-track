@@ -29,3 +29,10 @@ Standard HTTP Exceptions
 .. autoclass:: app.lib.exceptions.PermissionDeniedException
 
 .. autoclass:: app.lib.exceptions.NotFoundException
+
+---
+
+System & Startup Exceptions
+---------------------------
+
+.. autoclass:: app.lib.exceptions.JWTKeyConfigError

@@ -9,8 +9,8 @@ IronTrack
     :target: https://github.com/emmett-framework/granian
 .. image:: https://img.shields.io/badge/Angie-B33033?logo=nginx&logoColor=white
     :target: https://angie.software
-.. image:: https://img.shields.io/badge/ORM-Advanced--Alchemy-edb641?logo=python&logoColor=white
-    :target: https://docs.advanced-alchemy.litestar.dev/
+.. image:: https://img.shields.io/badge/Litestar%20Org-%E2%AD%90%20Advanced%20Alchemy-edb641.svg?logo=python&logoColor=white
+    :target: https://advanced-alchemy.litestar.dev/latest/
 .. image:: https://img.shields.io/badge/license-MIT-4bc51d.svg?logo=opensourceinitiative&logoColor=white
     :target: https://opensource.org/licenses/MIT
 
@@ -41,7 +41,7 @@ II. Performance & Optimization
 III. Security & Administration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* **Comprehensive Access Management:** A security system based on Access/Refresh **JWT** tokens delivered via secure HTTP-only cookies. Includes user data caching (**fastapi-cache2**) and Refresh token blacklisting.
+* **Comprehensive Access Management:** A security system based on Access/Refresh **JWT** tokens delivered via secure HTTP-only cookies. Includes user data caching (**cashews**) and Refresh token blacklisting.
 * **User Administration (CRUD/RBAC):** Full set of CRUD operations for user accounts, Role-Based Access Control (**RBAC**) supporting `superuser` and `trainer` roles. Supports user cache retention and invalidation.
 * **Comprehensive Command Line Interface (CLI):** A centralized entry point built on **Typer**, unifying server start-up, DB migration management (**Advanced-Alchemy** commands), and custom administration tools.
 

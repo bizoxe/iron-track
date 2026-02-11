@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=14737038" />
+    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=44020203" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
@@ -73,11 +73,12 @@ data-aria-dark="Switch to auto color mode">
  | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#J"><strong>J</strong></a>
+ | <a href="#K"><strong>K</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
+ | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
- | <a href="#Q"><strong>Q</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#U"><strong>U</strong></a>
@@ -127,11 +128,17 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="_">_</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/lib/auth.html#app.lib.auth.JWTCookieSecurity.__call__">__call__() (app.lib.auth.JWTCookieSecurity method)</a>
+      <li><a href="api/lib/auth.html#app.lib.auth.JWTCookieSecurity.__call__">__call__() (JWTCookieSecurity method)</a>
+</li>
+      <li><a href="api/lib/pretty_regex_error_msgs.html#app.lib.pretty_regex_error_msgs.RegexValidator.__get_pydantic_core_schema__">__get_pydantic_core_schema__() (RegexValidator class method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse.__init__">__init__() (app.lib.json_response.MsgSpecJSONResponse method)</a>
+      <li><a href="api/lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse.__init__">__init__() (MsgSpecJSONResponse method)</a>
+</li>
+      <li><a href="api/lib/pretty_regex_error_msgs.html#app.lib.pretty_regex_error_msgs.RegexValidator.__init_subclass__">__init_subclass__() (RegexValidator class method)</a>
+</li>
+      <li><a href="api/lib/serializers.html#app.lib.serializers.MsgSpecRegistry._ENCODER">_ENCODER (MsgSpecRegistry attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -139,17 +146,19 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/config/base.html#app.config.base.JWTSettings.ACCESS_TOKEN_EXPIRE_MINUTES">ACCESS_TOKEN_EXPIRE_MINUTES (app.config.base.JWTSettings attribute)</a>
+      <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.aa_technical_filters">aa_technical_filters (CommonFilters property)</a>
+</li>
+      <li><a href="api/config/base.html#app.config.base.JWTSettings.ACCESS_TOKEN_EXPIRE_MINUTES">ACCESS_TOKEN_EXPIRE_MINUTES (JWTSettings attribute)</a>
 </li>
       <li><a href="api/config/constants.html#app.config.constants.ACCESS_TOKEN_MAX_AGE">ACCESS_TOKEN_MAX_AGE (in module app.config.constants)</a>
 </li>
       <li><a href="api/utils/log_utils/setup.html#app.utils.log_utils.setup.add_correlation">add_correlation() (in module app.utils.log_utils.setup)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.JWTSettings.ALGORITHM">ALGORITHM (app.config.base.JWTSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.JWTSettings.ALGORITHM">ALGORITHM (JWTSettings attribute)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.AppSettings.API_V1_URL_PREFIX">API_V1_URL_PREFIX (app.config.base.AppSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.AppSettings.API_V1_URL_PREFIX">API_V1_URL_PREFIX (AppSettings attribute)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.Settings.app">app (app.config.base.Settings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.Settings.app">app (Settings attribute)</a>
 </li>
       <li>
     app-users-create-system-admin command line option
@@ -192,8 +201,6 @@ data-aria-dark="Switch to auto color mode">
         <li><a href="api/config/constants.html#module-app.config.constants">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     app.domain.system.controllers
 
@@ -201,6 +208,8 @@ data-aria-dark="Switch to auto color mode">
         <li><a href="api/domain/system/controllers.html#module-app.domain.system.controllers">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     app.domain.system.schemas
 
@@ -208,6 +217,8 @@ data-aria-dark="Switch to auto color mode">
         <li><a href="api/domain/system/schemas.html#module-app.domain.system.schemas">module</a>
 </li>
       </ul></li>
+      <li><a href="api/domain/users/auth.html#app.domain.users.auth.claims_registry">app.domain.users.auth.claims_registry (built-in variable)</a>
+</li>
       <li>
     app.domain.users.deps
 
@@ -215,14 +226,24 @@ data-aria-dark="Switch to auto color mode">
         <li><a href="api/domain/users/deps.html#module-app.domain.users.deps">module</a>
 </li>
       </ul></li>
-      <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.valid_pwd">app.domain.users.schemas.valid_pwd (built-in variable)</a>
-</li>
       <li><a href="api/lib/auth.html#app.lib.auth.access_token">app.lib.auth.access_token (built-in variable)</a>
 </li>
       <li><a href="api/lib/auth.html#app.lib.auth.refresh_token">app.lib.auth.refresh_token (built-in variable)</a>
 </li>
-      <li><a href="api/lib/deps.html#app.lib.deps.RedisClientDep">app.lib.deps.RedisClientDep (built-in variable)</a>
+      <li>
+    app.lib.crypt
+
+      <ul>
+        <li><a href="api/lib/crypt.html#module-app.lib.crypt">module</a>
 </li>
+      </ul></li>
+      <li>
+    app.scripts.seeder
+
+      <ul>
+        <li><a href="api/scripts/seeder.html#module-app.scripts.seeder">module</a>
+</li>
+      </ul></li>
       <li>
     app.utils.server_cli
 
@@ -232,15 +253,17 @@ data-aria-dark="Switch to auto color mode">
       </ul></li>
       <li><a href="api/config/base.html#app.config.base.AppSettings">AppSettings (class in app.config.base)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.LogSettings.ASGI_ACCESS_LEVEL">ASGI_ACCESS_LEVEL (app.config.base.LogSettings attribute)</a>
+      <li><a href="api/config/constants.html#app.config.constants.ARGON2_MEMORY_COST">ARGON2_MEMORY_COST (in module app.config.constants)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.LogSettings.ASGI_ERROR_LEVEL">ASGI_ERROR_LEVEL (app.config.base.LogSettings attribute)</a>
+      <li><a href="api/config/constants.html#app.config.constants.ARGON2_PARALLELISM">ARGON2_PARALLELISM (in module app.config.constants)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.JWTSettings.AUTH_JWT_PRIVATE_KEY_PATH">AUTH_JWT_PRIVATE_KEY_PATH (app.config.base.JWTSettings attribute)</a>
+      <li><a href="api/config/constants.html#app.config.constants.ARGON2_TIME_COST">ARGON2_TIME_COST (in module app.config.constants)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.JWTSettings.AUTH_JWT_PUBLIC_KEY_PATH">AUTH_JWT_PUBLIC_KEY_PATH (app.config.base.JWTSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.LogSettings.ASGI_ACCESS_LEVEL">ASGI_ACCESS_LEVEL (LogSettings attribute)</a>
 </li>
-      <li><a href="api/domain/users/services.html#app.domain.users.services.UserService.authenticate">authenticate() (app.domain.users.services.UserService method)</a>
+      <li><a href="api/config/base.html#app.config.base.LogSettings.ASGI_ERROR_LEVEL">ASGI_ERROR_LEVEL (LogSettings attribute)</a>
+</li>
+      <li><a href="api/domain/users/services.html#app.domain.users.services.UserService.authenticate">authenticate() (UserService method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -254,41 +277,55 @@ data-aria-dark="Switch to auto color mode">
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/lib/exceptions.html#app.lib.exceptions.BaseAPIException">BaseAPIException (class in app.lib.exceptions)</a>
 </li>
+      <li><a href="api/lib/schema.html#app.lib.schema.BaseStruct">BaseStruct (class in app.lib.schema)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/config/base.html#app.config.base.AppSettings.CDN_IMAGES_DEFAULT_URL">CDN_IMAGES_DEFAULT_URL (app.config.base.AppSettings attribute)</a>
+      <li><a href="api/lib/schema.html#app.lib.schema.CamelizedBaseStruct">CamelizedBaseStruct (class in app.lib.schema)</a>
 </li>
-      <li><a href="api/domain/users/services.html#app.domain.users.services.UserService.check_critical_action_forbidden">check_critical_action_forbidden() (app.domain.users.services.UserService method)</a>
+      <li><a href="api/lib/serializers.html#app.lib.serializers.cashews_registry">cashews_registry() (in module app.lib.serializers)</a>
 </li>
-      <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.AccountRegister.check_passwords_match">check_passwords_match() (app.domain.users.schemas.AccountRegister method)</a>
+      <li><a href="api/config/constants.html#app.config.constants.CATALOG_ALL_CACHE_TTL">CATALOG_ALL_CACHE_TTL (in module app.config.constants)</a>
+</li>
+      <li><a href="api/config/constants.html#app.config.constants.CATALOG_LIST_CACHE_TTL">CATALOG_LIST_CACHE_TTL (in module app.config.constants)</a>
+</li>
+      <li><a href="api/config/base.html#app.config.base.AppSettings.CDN_IMAGES_DEFAULT_URL">CDN_IMAGES_DEFAULT_URL (AppSettings attribute)</a>
+</li>
+      <li><a href="api/domain/users/services.html#app.domain.users.services.UserService.check_critical_action_forbidden">check_critical_action_forbidden() (UserService method)</a>
+</li>
+      <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.AccountRegister.check_passwords_match">check_passwords_match() (AccountRegister method)</a>
 </li>
       <li><a href="api/domain/system/controllers.html#app.domain.system.controllers.check_system_health">check_system_health() (in module app.domain.system.controllers)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.RedisSettings.client">client (app.config.base.RedisSettings property)</a>
+      <li><a href="api/config/base.html#app.config.base.RedisSettings.client">client (RedisSettings property)</a>
 </li>
       <li><a href="api/utils/log_utils/setup.html#app.utils.log_utils.setup.configure_logging">configure_logging() (in module app.utils.log_utils.setup)</a>
 </li>
-      <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.AccountRegister.confirm_password">confirm_password (app.domain.users.schemas.AccountRegister attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.AccountRegister.confirm_password">confirm_password (AccountRegister attribute)</a>
+</li>
       <li><a href="api/lib/exceptions.html#app.lib.exceptions.ConflictException">ConflictException (class in app.lib.exceptions)</a>
 </li>
       <li><a href="api/config/constants.html#app.config.constants.COOKIE_SECURE_VALUE">COOKIE_SECURE_VALUE (in module app.config.constants)</a>
 </li>
-      <li><a href="api/db/role.html#app.db.models.role.Role.created_at">created_at (app.db.models.role.Role attribute)</a>
+      <li><a href="api/lib/crypt.html#app.lib.crypt.cpu_cores">cpu_cores (in module app.lib.crypt)</a>
+</li>
+      <li><a href="api/db/role.html#app.db.models.role.Role.created_at">created_at (Role attribute)</a>
 
       <ul>
-        <li><a href="api/db/user.html#app.db.models.user.User.created_at">(app.db.models.user.User attribute)</a>
-</li>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.User.created_at">(app.domain.users.schemas.User attribute)</a>
+        <li><a href="api/db/user.html#app.db.models.user.User.created_at">(User attribute)</a>, <a href="api/domain/users/schemas.html#app.domain.users.schemas.User.created_at">[1]</a>
 </li>
       </ul></li>
-      <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.PasswordUpdate.current_password">current_password (app.domain.users.schemas.PasswordUpdate attribute)</a>
+      <li><a href="api/lib/crypt.html#app.lib.crypt.crypto_executor">crypto_executor (in module app.lib.crypt)</a>
+</li>
+      <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.current_page">current_page (CommonFilters attribute)</a>
+</li>
+      <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.PasswordUpdate.current_password">current_password (PasswordUpdate attribute)</a>
 </li>
       <li><a href="api/utils/log_utils/handlers.html#app.utils.log_utils.handlers.CustomQueueHandler">CustomQueueHandler (class in app.utils.log_utils.handlers)</a>
 </li>
@@ -300,19 +337,19 @@ data-aria-dark="Switch to auto color mode">
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings">DatabaseSettings (class in app.config.base)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.Settings.db">db (app.config.base.Settings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.Settings.db">db (Settings attribute)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.AppSettings.DEBUG">DEBUG (app.config.base.AppSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.AppSettings.DEBUG">DEBUG (AppSettings attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/lib/jwt_utils.html#app.lib.jwt_utils.decode_jwt">decode_jwt() (in module app.lib.jwt_utils)</a>
-</li>
       <li><a href="api/config/constants.html#app.config.constants.DEFAULT_ADMIN_EMAIL">DEFAULT_ADMIN_EMAIL (in module app.config.constants)</a>
+</li>
+      <li><a href="api/domain/users/services.html#app.domain.users.services.UserService.default_role">default_role (UserService attribute)</a>
 </li>
       <li><a href="api/config/constants.html#app.config.constants.DEFAULT_USER_ROLE_SLUG">DEFAULT_USER_ROLE_SLUG (in module app.config.constants)</a>
 </li>
-      <li><a href="api/db/role.html#app.db.models.role.Role.description">description (app.db.models.role.Role attribute)</a>
+      <li><a href="api/db/role.html#app.db.models.role.Role.description">description (Role attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -320,29 +357,29 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="E">E</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.ECHO">ECHO (app.config.base.DatabaseSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.ECHO">ECHO (DatabaseSettings attribute)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.ECHO_POOL">ECHO_POOL (app.config.base.DatabaseSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.ECHO_POOL">ECHO_POOL (DatabaseSettings attribute)</a>
 </li>
-      <li><a href="api/db/user.html#app.db.models.user.User.email">email (app.db.models.user.User attribute)</a>
+      <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.AccountRegister.email">email (AccountRegister attribute)</a>
 
       <ul>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.AccountRegister.email">(app.domain.users.schemas.AccountRegister attribute)</a>
+        <li><a href="api/db/user.html#app.db.models.user.User.email">(User attribute)</a>, <a href="api/domain/users/schemas.html#app.domain.users.schemas.User.email">[1]</a>
 </li>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.User.email">(app.domain.users.schemas.User attribute)</a>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserAuth.email">(UserAuth attribute)</a>
 </li>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserCreate.email">(app.domain.users.schemas.UserCreate attribute)</a>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserCreate.email">(UserCreate attribute)</a>
 </li>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserUpdate.email">(app.domain.users.schemas.UserUpdate attribute)</a>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserUpdate.email">(UserUpdate attribute)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/lib/jwt_utils.html#app.lib.jwt_utils.encode_jwt">encode_jwt() (in module app.lib.jwt_utils)</a>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.engine">engine (DatabaseSettings property)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.engine">engine (app.config.base.DatabaseSettings property)</a>
+      <li><a href="api/config/base.html#app.config.base.AppSettings.ENVIRONMENT">ENVIRONMENT (AppSettings attribute)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.AppSettings.ENVIRONMENT">ENVIRONMENT (app.config.base.AppSettings attribute)</a>
+      <li><a href="api/lib/pretty_regex_error_msgs.html#app.lib.pretty_regex_error_msgs.RegexValidator.error_message">error_message (RegexValidator attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -350,17 +387,15 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/config/constants.html#app.config.constants.FASTAPI_CACHE_PREFIX">FASTAPI_CACHE_PREFIX (in module app.config.constants)</a>
+      <li><a href="api/config/base.html#app.config.base.LogSettings.final_formatter">final_formatter (LogSettings property)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.LogSettings.final_formatter">final_formatter (app.config.base.LogSettings property)</a>
+      <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.RoleSlug.FITNESS_TRAINER">FITNESS_TRAINER (RoleSlug attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.RoleSlug.FITNESS_TRAINER">FITNESS_TRAINER (app.domain.users.schemas.RoleSlug attribute)</a>
-</li>
       <li><a href="api/config/constants.html#app.config.constants.FITNESS_TRAINER_ROLE_SLUG">FITNESS_TRAINER_ROLE_SLUG (in module app.config.constants)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.FIXTURE_PATH">FIXTURE_PATH (app.config.base.DatabaseSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.FIXTURE_PATH">FIXTURE_PATH (DatabaseSettings attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -368,15 +403,19 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.get_connection_url">get_connection_url() (app.config.base.DatabaseSettings method)</a>
+      <li><a href="api/lib/serializers.html#app.lib.serializers.MsgSpecRegistry.get_cashews_pair">get_cashews_pair() (MsgSpecRegistry class method)</a>
 </li>
-      <li><a href="api/domain/users/services.html#app.domain.users.services.RoleService.get_default_role">get_default_role() (app.domain.users.services.RoleService method)</a>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.get_connection_url">get_connection_url() (DatabaseSettings method)</a>
+</li>
+      <li><a href="api/domain/users/services.html#app.domain.users.services.RoleService.get_default_role">get_default_role() (RoleService method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/domain/users/services.html#app.domain.users.services.RoleService.get_id_and_slug_by_slug">get_id_and_slug_by_slug() (app.domain.users.services.RoleService method)</a>
+      <li><a href="api/domain/users/services.html#app.domain.users.services.RoleService.get_id_and_slug_by_slug">get_id_and_slug_by_slug() (RoleService method)</a>
 </li>
-      <li><a href="api/lib/deps.html#app.lib.deps.get_redis_client">get_redis_client() (in module app.lib.deps)</a>
+      <li><a href="api/lib/crypt.html#app.lib.crypt.get_password_hash">get_password_hash() (in module app.lib.crypt)</a>
+</li>
+      <li><a href="api/domain/users/services.html#app.domain.users.services.UserService.get_users_paginated_dto">get_users_paginated_dto() (UserService method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -384,11 +423,13 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/lib/exceptions.html#app.lib.exceptions.BaseAPIException.headers">headers (app.lib.exceptions.BaseAPIException attribute)</a>
+      <li><a href="api/lib/crypt.html#app.lib.crypt.hasher">hasher (in module app.lib.crypt)</a>
+</li>
+      <li><a href="api/lib/exceptions.html#app.lib.exceptions.BaseAPIException.headers">headers (BaseAPIException attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/config/base.html#app.config.base.RedisSettings.HEALTH_CHECK_INTERVAL">HEALTH_CHECK_INTERVAL (app.config.base.RedisSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.RedisSettings.HEALTH_CHECK_INTERVAL">HEALTH_CHECK_INTERVAL (RedisSettings attribute)</a>
 </li>
       <li><a href="api/lib/handlers.html#app.lib.handlers.http_exception_handler">http_exception_handler() (in module app.lib.handlers)</a>
 </li>
@@ -398,38 +439,38 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/db/base.html#app.db.models.base.SmallIntPKBase.id">id (app.db.models.base.SmallIntPKBase attribute)</a>
+      <li><a href="api/db/role.html#app.db.models.role.Role.id">id (Role attribute)</a>
 
       <ul>
-        <li><a href="api/db/role.html#app.db.models.role.Role.id">(app.db.models.role.Role attribute)</a>
+        <li><a href="api/db/base.html#app.db.models.base.SmallIntPKBase.id">(SmallIntPKBase attribute)</a>
 </li>
-        <li><a href="api/db/user.html#app.db.models.user.User.id">(app.db.models.user.User attribute)</a>
+        <li><a href="api/db/user.html#app.db.models.user.User.id">(User attribute)</a>, <a href="api/domain/users/schemas.html#app.domain.users.schemas.User.id">[1]</a>
 </li>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.User.id">(app.domain.users.schemas.User attribute)</a>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserAuth.id">(UserAuth attribute)</a>
 </li>
       </ul></li>
       <li><a href="api/lib/invalidate_cache.html#app.lib.invalidate_cache.invalidate_user_cache">invalidate_user_cache() (in module app.lib.invalidate_cache)</a>
 </li>
-      <li><a href="api/db/user.html#app.db.models.user.User.is_active">is_active (app.db.models.user.User attribute)</a>
+      <li><a href="api/db/user.html#app.db.models.user.User.is_active">is_active (User attribute)</a>, <a href="api/domain/users/schemas.html#app.domain.users.schemas.User.is_active">[1]</a>
 
       <ul>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.User.is_active">(app.domain.users.schemas.User attribute)</a>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserAuth.is_active">(UserAuth attribute)</a>
 </li>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserCreate.is_active">(app.domain.users.schemas.UserCreate attribute)</a>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserCreate.is_active">(UserCreate attribute)</a>
 </li>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserUpdate.is_active">(app.domain.users.schemas.UserUpdate attribute)</a>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserUpdate.is_active">(UserUpdate attribute)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/db/user.html#app.db.models.user.User.is_superuser">is_superuser (app.db.models.user.User attribute)</a>
+      <li><a href="api/db/user.html#app.db.models.user.User.is_superuser">is_superuser (User attribute)</a>, <a href="api/domain/users/schemas.html#app.domain.users.schemas.User.is_superuser">[1]</a>
 
       <ul>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.User.is_superuser">(app.domain.users.schemas.User attribute)</a>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserAuth.is_superuser">(UserAuth attribute)</a>
 </li>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserCreate.is_superuser">(app.domain.users.schemas.UserCreate attribute)</a>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserCreate.is_superuser">(UserCreate attribute)</a>
 </li>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserUpdate.is_superuser">(app.domain.users.schemas.UserUpdate attribute)</a>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserUpdate.is_superuser">(UserUpdate attribute)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -438,19 +479,25 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="J">J</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/db/user.html#app.db.models.user.User.joined_at">joined_at (app.db.models.user.User attribute)</a>
-
-      <ul>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserAuth.joined_at">(app.domain.users.schemas.UserAuth attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.Settings.jwt">jwt (Settings attribute)</a>
 </li>
-      </ul></li>
+      <li><a href="api/config/base.html#app.config.base.JWTSettings.JWT_PRIVATE_KEY">JWT_PRIVATE_KEY (JWTSettings attribute)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/config/base.html#app.config.base.Settings.jwt">jwt (app.config.base.Settings attribute)</a>
-</li>
       <li><a href="api/lib/auth.html#app.lib.auth.JWTCookieSecurity">JWTCookieSecurity (class in app.lib.auth)</a>
 </li>
+      <li><a href="api/lib/exceptions.html#app.lib.exceptions.JWTKeyConfigError">JWTKeyConfigError (class in app.lib.exceptions)</a>
+</li>
       <li><a href="api/config/base.html#app.config.base.JWTSettings">JWTSettings (class in app.config.base)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="K">K</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/config/base.html#app.config.base.JWTSettings.key_object">key_object (JWTSettings property)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -458,11 +505,11 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/config/base.html#app.config.base.LogSettings.LEVEL">LEVEL (app.config.base.LogSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.LogSettings.LEVEL">LEVEL (LogSettings attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/config/base.html#app.config.base.Settings.log">log (app.config.base.Settings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.Settings.log">log (Settings attribute)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.LogSettings">LogSettings (class in app.config.base)</a>
 </li>
@@ -472,15 +519,15 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/lib/exceptions.html#app.lib.exceptions.BaseAPIException.message">message (app.lib.exceptions.BaseAPIException attribute)</a>
+      <li><a href="api/lib/exceptions.html#app.lib.exceptions.BaseAPIException.message">message (BaseAPIException attribute)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.LogSettings.MIDDLEWARE_LOG_LEVEL">MIDDLEWARE_LOG_LEVEL (app.config.base.LogSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.LogSettings.MIDDLEWARE_LOG_LEVEL">MIDDLEWARE_LOG_LEVEL (LogSettings attribute)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.MIGRATION_CONFIG">MIGRATION_CONFIG (app.config.base.DatabaseSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.MIGRATION_CONFIG">MIGRATION_CONFIG (DatabaseSettings attribute)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.MIGRATION_DDL_VERSION_TABLE">MIGRATION_DDL_VERSION_TABLE (app.config.base.DatabaseSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.MIGRATION_DDL_VERSION_TABLE">MIGRATION_DDL_VERSION_TABLE (DatabaseSettings attribute)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.MIGRATION_PATH">MIGRATION_PATH (app.config.base.DatabaseSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.MIGRATION_PATH">MIGRATION_PATH (DatabaseSettings attribute)</a>
 </li>
       <li>
     module
@@ -496,20 +543,20 @@ data-aria-dark="Switch to auto color mode">
 </li>
         <li><a href="api/domain/users/deps.html#module-app.domain.users.deps">app.domain.users.deps</a>
 </li>
+        <li><a href="api/lib/crypt.html#module-app.lib.crypt">app.lib.crypt</a>
+</li>
+        <li><a href="api/scripts/seeder.html#module-app.scripts.seeder">app.scripts.seeder</a>
+</li>
         <li><a href="api/utils/server_cli.html#module-app.utils.server_cli">app.utils.server_cli</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/lib/coders.html#app.lib.coders.MsgPackCoder">MsgPackCoder (class in app.lib.coders)</a>
-</li>
-      <li><a href="api/lib/coders.html#app.lib.coders.MsgPackCoderBase">MsgPackCoderBase (class in app.lib.coders)</a>
-</li>
-      <li><a href="api/lib/coders.html#app.lib.coders.MsgPackCoderUserAuth">MsgPackCoderUserAuth (class in app.lib.coders)</a>
-</li>
       <li><a href="api/utils/log_utils/setup.html#app.utils.log_utils.setup.msgspec_dumps_str">msgspec_dumps_str() (in module app.utils.log_utils.setup)</a>
 </li>
       <li><a href="api/lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse">MsgSpecJSONResponse (class in app.lib.json_response)</a>
+</li>
+      <li><a href="api/lib/serializers.html#app.lib.serializers.MsgSpecRegistry">MsgSpecRegistry (class in app.lib.serializers)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -517,27 +564,35 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/config/base.html#app.config.base.AppSettings.NAME">NAME (app.config.base.AppSettings attribute)</a>
+      <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.AccountRegister.name">name (AccountRegister attribute)</a>
 </li>
-      <li><a href="api/db/role.html#app.db.models.role.Role.name">name (app.db.models.role.Role attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.AppSettings.NAME">NAME (AppSettings attribute)</a>
+</li>
+      <li><a href="api/db/role.html#app.db.models.role.Role.name">name (Role attribute)</a>
 
       <ul>
-        <li><a href="api/db/user.html#app.db.models.user.User.name">(app.db.models.user.User attribute)</a>
+        <li><a href="api/db/user.html#app.db.models.user.User.name">(User attribute)</a>, <a href="api/domain/users/schemas.html#app.domain.users.schemas.User.name">[1]</a>
 </li>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.AccountRegister.name">(app.domain.users.schemas.AccountRegister attribute)</a>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserAuth.name">(UserAuth attribute)</a>
 </li>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.User.name">(app.domain.users.schemas.User attribute)</a>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserCreate.name">(UserCreate attribute)</a>
 </li>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserCreate.name">(app.domain.users.schemas.UserCreate attribute)</a>
-</li>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserUpdate.name">(app.domain.users.schemas.UserUpdate attribute)</a>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserUpdate.name">(UserUpdate attribute)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.PasswordUpdate.new_password">new_password (app.domain.users.schemas.PasswordUpdate attribute)</a>
+      <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.PasswordUpdate.new_password">new_password (PasswordUpdate attribute)</a>
 </li>
       <li><a href="api/lib/exceptions.html#app.lib.exceptions.NotFoundException">NotFoundException (class in app.lib.exceptions)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="O">O</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.order_by">order_by (CommonFilters attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -545,47 +600,53 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/db/user.html#app.db.models.user.User.password">password (app.db.models.user.User attribute)</a>
+      <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.page_size">page_size (CommonFilters attribute)</a>
+</li>
+      <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.AccountRegister.password">password (AccountRegister attribute)</a>
 
       <ul>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.AccountRegister.password">(app.domain.users.schemas.AccountRegister attribute)</a>
+        <li><a href="api/db/user.html#app.db.models.user.User.password">(User attribute)</a>
 </li>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserCreate.password">(app.domain.users.schemas.UserCreate attribute)</a>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserCreate.password">(UserCreate attribute)</a>
 </li>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserUpdate.password">(app.domain.users.schemas.UserUpdate attribute)</a>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserUpdate.password">(UserUpdate attribute)</a>
 </li>
       </ul></li>
+      <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.PasswordValidator">PasswordValidator (class in app.domain.users.schemas)</a>
+</li>
+      <li><a href="api/lib/pretty_regex_error_msgs.html#app.lib.pretty_regex_error_msgs.RegexValidator.pattern">pattern (RegexValidator attribute)</a>
+</li>
       <li><a href="api/lib/exceptions.html#app.lib.exceptions.PermissionDeniedException">PermissionDeniedException (class in app.lib.exceptions)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.PGBOUNCER_ENABLED">PGBOUNCER_ENABLED (app.config.base.DatabaseSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.PGBOUNCER_ENABLED">PGBOUNCER_ENABLED (DatabaseSettings attribute)</a>
 </li>
       <li><a href="api/domain/system/controllers.html#app.domain.system.controllers.ping">ping() (in module app.domain.system.controllers)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_DISABLED">POOL_DISABLED (app.config.base.DatabaseSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_DISABLED">POOL_DISABLED (DatabaseSettings attribute)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_MAX_OVERFLOW">POOL_MAX_OVERFLOW (app.config.base.DatabaseSettings attribute)</a>
-</li>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_PRE_PING">POOL_PRE_PING (app.config.base.DatabaseSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_MAX_OVERFLOW">POOL_MAX_OVERFLOW (DatabaseSettings attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_RECYCLE">POOL_RECYCLE (app.config.base.DatabaseSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_PRE_PING">POOL_PRE_PING (DatabaseSettings attribute)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_SIZE">POOL_SIZE (app.config.base.DatabaseSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_RECYCLE">POOL_RECYCLE (DatabaseSettings attribute)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_TIMEOUT">POOL_TIMEOUT (app.config.base.DatabaseSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_SIZE">POOL_SIZE (DatabaseSettings attribute)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POSTGRES_DB">POSTGRES_DB (app.config.base.DatabaseSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_TIMEOUT">POOL_TIMEOUT (DatabaseSettings attribute)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POSTGRES_HOST">POSTGRES_HOST (app.config.base.DatabaseSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POSTGRES_DB">POSTGRES_DB (DatabaseSettings attribute)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POSTGRES_PASSWORD">POSTGRES_PASSWORD (app.config.base.DatabaseSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POSTGRES_HOST">POSTGRES_HOST (DatabaseSettings attribute)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POSTGRES_PORT">POSTGRES_PORT (app.config.base.DatabaseSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POSTGRES_PASSWORD">POSTGRES_PASSWORD (DatabaseSettings attribute)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POSTGRES_USER">POSTGRES_USER (app.config.base.DatabaseSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POSTGRES_PORT">POSTGRES_PORT (DatabaseSettings attribute)</a>
 </li>
-      <li><a href="api/utils/log_utils/handlers.html#app.utils.log_utils.handlers.CustomQueueHandler.prepare">prepare() (app.utils.log_utils.handlers.CustomQueueHandler method)</a>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POSTGRES_USER">POSTGRES_USER (DatabaseSettings attribute)</a>
+</li>
+      <li><a href="api/utils/log_utils/handlers.html#app.utils.log_utils.handlers.CustomQueueHandler.prepare">prepare() (CustomQueueHandler method)</a>
 </li>
       <li><a href="api/domain/users/deps.html#app.domain.users.deps.provide_role_service">provide_role_service() (in module app.domain.users.deps)</a>
 </li>
@@ -594,51 +655,43 @@ data-aria-dark="Switch to auto color mode">
   </ul></td>
 </tr></table>
 
-<h2 id="Q">Q</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/lib/cache_key_builders.html#app.lib.cache_key_builders.query_params_key_builder">query_params_key_builder() (in module app.lib.cache_key_builders)</a>
-</li>
-  </ul></td>
-</tr></table>
-
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/config/base.html#app.config.base.Settings.redis">redis (app.config.base.Settings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.Settings.redis">redis (Settings attribute)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.RedisSettings">RedisSettings (class in app.config.base)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.JWTSettings.REFRESH_TOKEN_EXPIRE_DAYS">REFRESH_TOKEN_EXPIRE_DAYS (app.config.base.JWTSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.JWTSettings.REFRESH_TOKEN_EXPIRE_DAYS">REFRESH_TOKEN_EXPIRE_DAYS (JWTSettings attribute)</a>
 </li>
       <li><a href="api/config/constants.html#app.config.constants.REFRESH_TOKEN_MAX_AGE">REFRESH_TOKEN_MAX_AGE (in module app.config.constants)</a>
 </li>
-      <li><a href="api/lib/pretty_regex_error_msgs.html#app.lib.pretty_regex_error_msgs.regex_validator">regex_validator() (in module app.lib.pretty_regex_error_msgs)</a>
+      <li><a href="api/lib/pretty_regex_error_msgs.html#app.lib.pretty_regex_error_msgs.RegexValidator">RegexValidator (class in app.lib.pretty_regex_error_msgs)</a>
 </li>
-      <li><a href="api/lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse.render">render() (app.lib.json_response.MsgSpecJSONResponse method)</a>
-</li>
-      <li><a href="api/db/user.html#app.db.models.user.User.role">role (app.db.models.user.User attribute)</a>
+      <li><a href="api/lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse.render">render() (MsgSpecJSONResponse method)</a>
 </li>
       <li><a href="api/db/role.html#app.db.models.role.Role">Role (class in app.db.models.role)</a>
 </li>
+      <li><a href="api/db/user.html#app.db.models.user.User.role">role (User attribute)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/db/user.html#app.db.models.user.User.role_id">role_id (app.db.models.user.User attribute)</a>
+      <li><a href="api/db/user.html#app.db.models.user.User.role_id">role_id (User attribute)</a>
 </li>
-      <li><a href="api/db/user.html#app.db.models.user.User.role_name">role_name (app.db.models.user.User attribute)</a>
+      <li><a href="api/db/user.html#app.db.models.user.User.role_name">role_name (User attribute)</a>, <a href="api/domain/users/schemas.html#app.domain.users.schemas.User.role_name">[1]</a>
+</li>
+      <li><a href="api/db/user.html#app.db.models.user.User.role_slug">role_slug (User attribute)</a>, <a href="api/domain/users/schemas.html#app.domain.users.schemas.User.role_slug">[1]</a>
 
       <ul>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.User.role_name">(app.domain.users.schemas.User attribute)</a>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserAuth.role_slug">(UserAuth attribute)</a>
+</li>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserRoleAdd.role_slug">(UserRoleAdd attribute)</a>
+</li>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserRoleRevoke.role_slug">(UserRoleRevoke attribute)</a>
 </li>
       </ul></li>
-      <li><a href="api/db/user.html#app.db.models.user.User.role_slug">role_slug (app.db.models.user.User attribute)</a>
-
-      <ul>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.User.role_slug">(app.domain.users.schemas.User attribute)</a>
+      <li><a href="api/domain/users/services.html#app.domain.users.services.RoleService">RoleService (class in app.domain.users.services)</a>
 </li>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserRoleAdd.role_slug">(app.domain.users.schemas.UserRoleAdd attribute)</a>
-</li>
-      </ul></li>
       <li><a href="api/domain/users/deps.html#app.domain.users.deps.RoleServiceDep">RoleServiceDep (in module app.domain.users.deps)</a>
 </li>
       <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.RoleSlug">RoleSlug (class in app.domain.users.schemas)</a>
@@ -649,29 +702,39 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.search_fields">search_fields (CommonFilters attribute)</a>
+</li>
+      <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.search_string">search_string (CommonFilters attribute)</a>
+</li>
+      <li><a href="api/scripts/seeder.html#app.scripts.seeder.seed_db">seed_db() (in module app.scripts.seeder)</a>
+</li>
       <li><a href="api/config/base.html#app.config.base.Settings">Settings (class in app.config.base)</a>
 </li>
-      <li><a href="api/db/role.html#app.db.models.role.Role.slug">slug (app.db.models.role.Role attribute)</a>
+      <li><a href="api/db/role.html#app.db.models.role.Role.slug">slug (Role attribute)</a>
 </li>
       <li><a href="api/db/base.html#app.db.models.base.SmallIntPKBase">SmallIntPKBase (class in app.db.models.base)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.RedisSettings.SOCKET_CONNECT_TIMEOUT">SOCKET_CONNECT_TIMEOUT (app.config.base.RedisSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.RedisSettings.SOCKET_CONNECT_TIMEOUT">SOCKET_CONNECT_TIMEOUT (RedisSettings attribute)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.RedisSettings.SOCKET_KEEPALIVE">SOCKET_KEEPALIVE (app.config.base.RedisSettings attribute)</a>
-</li>
-      <li><a href="api/config/base.html#app.config.base.LogSettings.SQLALCHEMY_LEVEL">SQLALCHEMY_LEVEL (app.config.base.LogSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.RedisSettings.SOCKET_KEEPALIVE">SOCKET_KEEPALIVE (RedisSettings attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/lib/exceptions.html#app.lib.exceptions.BaseAPIException.status_code">status_code (app.lib.exceptions.BaseAPIException attribute)</a>
+      <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.sort_order">sort_order (CommonFilters attribute)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.LogSettings.STRUCTLOG_LEVEL">STRUCTLOG_LEVEL (app.config.base.LogSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.LogSettings.SQLALCHEMY_LEVEL">SQLALCHEMY_LEVEL (LogSettings attribute)</a>
+</li>
+      <li><a href="api/lib/exceptions.html#app.lib.exceptions.BaseAPIException.status_code">status_code (BaseAPIException attribute)</a>
+</li>
+      <li><a href="api/config/base.html#app.config.base.LogSettings.STRUCTLOG_LEVEL">STRUCTLOG_LEVEL (LogSettings attribute)</a>
 </li>
       <li><a href="api/utils/log_utils/middleware.html#app.utils.log_utils.middleware.StructLogMiddleware">StructLogMiddleware (class in app.utils.log_utils.middleware)</a>
 </li>
-      <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.RoleSlug.SUPERUSER">SUPERUSER (app.domain.users.schemas.RoleSlug attribute)</a>
+      <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.RoleSlug.SUPERUSER">SUPERUSER (RoleSlug attribute)</a>
 </li>
       <li><a href="api/config/constants.html#app.config.constants.SUPERUSER_ROLE_SLUG">SUPERUSER_ROLE_SLUG (in module app.config.constants)</a>
+</li>
+      <li><a href="api/domain/users/services.html#app.domain.users.services.UserService.system_admin_email">system_admin_email (UserService attribute)</a>
 </li>
       <li><a href="api/domain/system/schemas.html#app.domain.system.schemas.SystemHealth">SystemHealth (class in app.domain.system.schemas)</a>
 </li>
@@ -683,35 +746,37 @@ data-aria-dark="Switch to auto color mode">
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/lib/exceptions.html#app.lib.exceptions.UnauthorizedException">UnauthorizedException (class in app.lib.exceptions)</a>
 </li>
-      <li><a href="api/domain/users/services.html#app.domain.users.services.UserService.update_password">update_password() (app.domain.users.services.UserService method)</a>
+      <li><a href="api/domain/users/services.html#app.domain.users.services.UserService.update_password">update_password() (UserService method)</a>
 </li>
-      <li><a href="api/db/role.html#app.db.models.role.Role.updated_at">updated_at (app.db.models.role.Role attribute)</a>
+      <li><a href="api/db/role.html#app.db.models.role.Role.updated_at">updated_at (Role attribute)</a>
 
       <ul>
-        <li><a href="api/db/user.html#app.db.models.user.User.updated_at">(app.db.models.user.User attribute)</a>
-</li>
-        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.User.updated_at">(app.domain.users.schemas.User attribute)</a>
+        <li><a href="api/db/user.html#app.db.models.user.User.updated_at">(User attribute)</a>, <a href="api/domain/users/schemas.html#app.domain.users.schemas.User.updated_at">[1]</a>
 </li>
       </ul></li>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.URL">URL (app.config.base.DatabaseSettings attribute)</a>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.URL">URL (DatabaseSettings attribute)</a>
 
       <ul>
-        <li><a href="api/config/base.html#app.config.base.RedisSettings.URL">(app.config.base.RedisSettings attribute)</a>
+        <li><a href="api/config/base.html#app.config.base.RedisSettings.URL">(RedisSettings attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="api/db/user.html#app.db.models.user.User">User (class in app.db.models.user)</a>
+
+      <ul>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.User">(class in app.domain.users.schemas)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/db/user.html#app.db.models.user.User">User (class in app.db.models.user)</a>
+      <li><a href="api/config/constants.html#app.config.constants.USER_AUTH_CACHE_TTL">USER_AUTH_CACHE_TTL (in module app.config.constants)</a>
 </li>
-      <li><a href="api/config/constants.html#app.config.constants.USER_AUTH_CACHE_EXPIRE_SECONDS">USER_AUTH_CACHE_EXPIRE_SECONDS (in module app.config.constants)</a>
-</li>
-      <li><a href="api/config/constants.html#app.config.constants.USER_AUTH_CACHE_PREFIX">USER_AUTH_CACHE_PREFIX (in module app.config.constants)</a>
-</li>
-      <li><a href="api/lib/cache_key_builders.html#app.lib.cache_key_builders.user_auth_key_builder">user_auth_key_builder() (in module app.lib.cache_key_builders)</a>
+      <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserAuth">UserAuth (class in app.domain.users.schemas)</a>
 </li>
       <li><a href="api/lib/exceptions.html#app.lib.exceptions.UserNotFound">UserNotFound (class in app.lib.exceptions)</a>
 </li>
-      <li><a href="api/db/role.html#app.db.models.role.Role.users">users (app.db.models.role.Role attribute)</a>
+      <li><a href="api/db/role.html#app.db.models.role.Role.users">users (Role attribute)</a>
+</li>
+      <li><a href="api/domain/users/services.html#app.domain.users.services.UserService">UserService (class in app.domain.users.services)</a>
 </li>
       <li><a href="api/domain/users/deps.html#app.domain.users.deps.UserServiceDep">UserServiceDep (in module app.domain.users.deps)</a>
 </li>
@@ -724,6 +789,10 @@ data-aria-dark="Switch to auto color mode">
       <li><a href="api/lib/handlers.html#app.lib.handlers.validation_exception_handler">validation_exception_handler() (in module app.lib.handlers)</a>
 </li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lib/crypt.html#app.lib.crypt.verify_password">verify_password() (in module app.lib.crypt)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 
@@ -734,7 +803,7 @@ data-aria-dark="Switch to auto color mode">
   </div><footer class="sy-foot">
   <div class="sy-foot-inner sy-container mx-auto">
     <div class="sy-foot-reserved md:flex justify-between items-center">
-      <div class="sy-foot-copyright"><p>2025, Alexander Matveev</p>
+      <div class="sy-foot-copyright"><p>2026, Alexander Matveev</p>
   
   <p>
     Made with
@@ -757,15 +826,17 @@ data-aria-dark="Switch to auto color mode">
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=f281be69"></script>
       <script src="_static/design-tabs.js?v=f930bc37"></script>
-      <script src="_static/shibuya.js?v=c1cf1a6b"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs"></script>
-      <script type="module" src="https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.2.0/dist/mermaid-layout-elk.esm.min.mjs"></script>
-      <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.2.0/dist/mermaid-layout-elk.esm.min.mjs";mermaid.registerLayoutLoaders(elkLayouts);mermaid.initialize({startOnLoad:false});</script>
+      <script src="_static/shibuya.js?v=cac61aee"></script>
       <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
       <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
 
-const defaultStyle = document.createElement('style');
-defaultStyle.textContent = `pre.mermaid {
+
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = `pre.mermaid {
     /* Same as .mermaid-container > pre */
     display: block;
     width: 100%;
@@ -776,12 +847,11 @@ pre.mermaid > svg {
     height: 500px;
     width: 100%;
     max-width: 100% !important;
-}
-`;
-document.head.appendChild(defaultStyle);
+}`;
+    document.head.appendChild(defaultStyle);
 
-const fullscreenStyle = document.createElement('style');
-fullscreenStyle.textContent = `.mermaid-container {
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = `.mermaid-container {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -933,10 +1003,32 @@ fullscreenStyle.textContent = `.mermaid-container {
 .mermaid-fullscreen-modal .mermaid-fullscreen-btn {
     display: none !important;
 }`;
-document.head.appendChild(fullscreenStyle);
+    document.head.appendChild(fullscreenStyle);
+}
 
 // Detect if page has dark background
 const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
     const bgColor = window.getComputedStyle(document.body).backgroundColor;
     const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
     if (match) {
@@ -944,15 +1036,45 @@ const isDarkTheme = () => {
         const g = parseInt(match[2]);
         const b = parseInt(match[3]);
         const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
         return brightness < 128;
     }
+    // console.log("No dark or light theme detected, defaulting to light theme");
     return false;
 };
 
-const load = async () => {
-    await mermaid.run();
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
 
-    const all_mermaids = document.querySelectorAll(".mermaid");
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        all_mermaids.forEach((el) => {
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+        await mermaid.run();
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
     const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
 
     if ("False" === "True") {
@@ -960,10 +1082,10 @@ const load = async () => {
         if(mermaids_to_add_zoom > 0) {
             var svgs = d3.selectAll("");
             if(all_mermaids.length !== mermaids_processed.length) {
-                setTimeout(load, 200);
+                setTimeout(() => runMermaid(false), 200);
                 return;
             } else if(svgs.size() !== mermaids_to_add_zoom) {
-                setTimeout(load, 200);
+                setTimeout(() => runMermaid(false), 200);
                 return;
             } else {
                 svgs.each(function() {
@@ -979,16 +1101,21 @@ const load = async () => {
         }
     } else if(all_mermaids.length !== mermaids_processed.length) {
         // Wait for mermaid to process all diagrams
-        setTimeout(load, 200);
+        setTimeout(() => runMermaid(false), 200);
         return;
     }
-
-    const darkTheme = isDarkTheme();
 
     // Stop here if not adding fullscreen capability
     if ("True" !== "True") return;
 
-    const modal = document.createElement('div');
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
     modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
     modal.setAttribute('role', 'dialog');
     modal.setAttribute('aria-modal', 'true');
@@ -999,10 +1126,8 @@ const load = async () => {
     `;
     document.body.appendChild(modal);
 
-    const modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
     const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
-
-    let previousScrollOffset = [window.scrollX, window.scrollY];
 
     const closeModal = () => {
         modal.classList.remove('active');
@@ -1021,11 +1146,14 @@ const load = async () => {
         }
     });
 
-    const allButtons = [];
-
     document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
         if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
             mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
             return;
         }
 
@@ -1083,44 +1211,55 @@ const load = async () => {
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
-
         container.appendChild(fullscreenBtn);
-        allButtons.push(fullscreenBtn);
-    });
-
-    // Update theme classes when theme changes
-    const updateTheme = () => {
-        const dark = isDarkTheme();
-        allButtons.forEach(btn => {
-            if (dark) {
-                btn.classList.add('dark-theme');
-            } else {
-                btn.classList.remove('dark-theme');
-            }
-        });
-        if (dark) {
-            modal.classList.add('dark-theme');
-            modalContent.classList.add('dark-theme');
-            closeBtn.classList.add('dark-theme');
-        } else {
-            modal.classList.remove('dark-theme');
-            modalContent.classList.remove('dark-theme');
-            closeBtn.classList.remove('dark-theme');
-        }
-    };
-
-    // Watch for theme changes
-    const observer = new MutationObserver(updateTheme);
-    observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['class', 'style', 'data-theme']
-    });
-    observer.observe(document.body, {
-        attributes: true,
-        attributeFilter: ['class', 'style']
     });
 };
 
-window.addEventListener("load", load);
-</script></body>
+const load = async () => {
+    initStyles();
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...JSON.parse(
+                    `{"startOnLoad": false}`
+                ),
+                ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...JSON.parse(
+        `{"startOnLoad": false}`
+    ),
+    ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+    }
+);
+
+window.addEventListener("load", load);</script></body>
 </html>

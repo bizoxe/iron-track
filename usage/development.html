@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=14737038" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=44020203" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -92,15 +92,16 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/lib/index.html">Core Utilities (lib)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/lib/auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/lib/cache_key_builders.html">Cache Key Builders</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/lib/coders.html">Cache Serialization Coders</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/lib/deps.html">Module Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/lib/crypt.html">Security Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/lib/exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/lib/filters.html">Query Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/lib/handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/lib/invalidate_cache.html">Cache Invalidation Helpers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/lib/json_response.html">Custom JSON Response</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/lib/jwt_utils.html">JWT Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/lib/pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/lib/schema.html">Base Models &amp; Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/lib/serializers.html">Serialization Registry</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/utils/index.html">Utilities and Helpers</a><ul>
@@ -121,7 +122,7 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l4"><a class="reference internal" href="../api/domain/users/controllers/user_role.html">User Role Management Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/domain/users/services.html">User and Role Services</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/domain/users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/domain/users/auth.html">Authentication Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/domain/users/auth.html">Authentication &amp; Authorization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/domain/users/utils.html">User Utilities and Helpers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/domain/users/deps.html">User Domain Dependencies</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
@@ -164,7 +165,11 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#host-system-configuration">Host System Configuration</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#ssl-certificates">SSL &amp; Certificates</a></li>
+<li><a class="reference internal" href="#ssl-certificates">SSL &amp; Certificates</a><ul>
+<li><a class="reference internal" href="#development-local-https">Development (Local HTTPS)</a></li>
+<li><a class="reference internal" href="#production">Production</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#makefile-reference">Makefile Reference</a></li>
 </ul>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
@@ -198,8 +203,8 @@ data-aria-dark="Switch to auto color mode">
     </div>
   </div>
 </div><div class="flex flex-col break-words justify-between">
-      <div class="min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
-        <article class="yue" role="main">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
           <section id="development">
 <h1>Development<a class="headerlink" href="#development" title="Link to this heading">¶</a></h1>
 <p>This section covers project-specific workflows and the <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> interface.</p>
@@ -280,13 +285,28 @@ Create a separate file for Angie:</p>
 </section>
 <section id="ssl-certificates">
 <h2>SSL &amp; Certificates<a class="headerlink" href="#ssl-certificates" title="Link to this heading">¶</a></h2>
-<ul class="simple">
-<li><p><strong>Development</strong>: Self-signed certificates (via <code class="docutils literal notranslate"><span class="pre">mkcert</span></code>) should be placed in <code class="docutils literal notranslate"><span class="pre">deploy/certs</span></code>.</p></li>
-<li><p><strong>Production</strong>: Use <strong>Certbot</strong> on the host. Since Angie mounts <code class="docutils literal notranslate"><span class="pre">deploy/certs</span></code> as read-only (<code class="docutils literal notranslate"><span class="pre">:ro</span></code>), reload the service after certificate renewal:</p></li>
-</ul>
+<section id="development-local-https">
+<h3>Development (Local HTTPS)<a class="headerlink" href="#development-local-https" title="Link to this heading">¶</a></h3>
+<p>Use <code class="docutils literal notranslate"><span class="pre">mkcert</span></code> to create a locally-trusted development certificate.</p>
+<p><strong>1. Install local CA (once per machine)</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">mkcert<span class="w"> </span>-install
+</span></pre></div>
+</div>
+<p><strong>2. Generate certificates</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">mkdir<span class="w"> </span>-p<span class="w"> </span>deploy/certs
+</span><span data-line="2">mkcert<span class="w"> </span>-cert-file<span class="w"> </span>deploy/certs/local-cert.pem<span class="w"> </span><span class="se">\</span>
+</span><span data-line="3"><span class="w">       </span>-key-file<span class="w"> </span>deploy/certs/local-key.pem<span class="w"> </span><span class="se">\</span>
+</span><span data-line="4"><span class="w">       </span>app.localhost<span class="w"> </span>localhost<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>::1
+</span></pre></div>
+</div>
+</section>
+<section id="production">
+<h3>Production<a class="headerlink" href="#production" title="Link to this heading">¶</a></h3>
+<p>Use <strong>Certbot</strong> on the host. Since Angie mounts <code class="docutils literal notranslate"><span class="pre">deploy/certs</span></code> as read-only (<code class="docutils literal notranslate"><span class="pre">:ro</span></code>), reload the service after certificate renewal:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>angie_iron_track<span class="w"> </span>angie<span class="w"> </span>-s<span class="w"> </span>reload
 </span></pre></div>
 </div>
+</section>
 </section>
 <section id="makefile-reference">
 <h2>Makefile Reference<a class="headerlink" href="#makefile-reference" title="Link to this heading">¶</a></h2>
@@ -560,6 +580,12 @@ Create a separate file for Angie:</p>
 </span><span data-line="238"><span class="w">		</span>&gt;&gt;<span class="w"> </span><span class="k">$(</span>PGBOUNCER_USERLIST<span class="k">)</span>
 </span><span data-line="239"><span class="w">	</span>@chmod<span class="w"> </span><span class="m">644</span><span class="w"> </span><span class="k">$(</span>PGBOUNCER_USERLIST<span class="k">)</span>
 </span><span data-line="240"><span class="w">	</span>@echo<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OK</span><span class="si">}</span><span class="s2"> Sync complete! ✨&quot;</span>
+</span><span data-line="241">
+</span><span data-line="242"><span class="nf">.PHONY</span><span class="o">:</span><span class="w"> </span><span class="n">gen</span>-<span class="n">key</span>
+</span><span data-line="243"><span class="nf">gen-key</span><span class="o">:</span><span class="w"> </span><span class="c">## Generate a new Ed25519 JWK for JWT_PRIVATE_KEY</span>
+</span><span data-line="244"><span class="w">	</span>@echo<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">INFO</span><span class="si">}</span><span class="s2"> Generating new Ed25519 key pair... 🔑&quot;</span>
+</span><span data-line="245"><span class="w">	</span>@uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import json; from joserfc.jwk import OKPKey; print(json.dumps(OKPKey.generate_key(&#39;Ed25519&#39;).as_dict(private=True)))&quot;</span>
+</span><span data-line="246"><span class="w">	</span>@echo<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OK</span><span class="si">}</span><span class="s2"> Generation complete!&quot;</span>
 </span></pre></div>
 </div>
 </div>
@@ -592,7 +618,7 @@ Create a separate file for Angie:</p>
 <footer class="sy-foot">
   <div class="sy-foot-inner sy-container mx-auto">
     <div class="sy-foot-reserved md:flex justify-between items-center">
-      <div class="sy-foot-copyright"><p>2025, Alexander Matveev</p>
+      <div class="sy-foot-copyright"><p>2026, Alexander Matveev</p>
   
   <p>
     Made with
@@ -615,5 +641,5 @@ Create a separate file for Angie:</p>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=f281be69"></script>
       <script src="../_static/design-tabs.js?v=f930bc37"></script>
-      <script src="../_static/shibuya.js?v=c1cf1a6b"></script></body>
+      <script src="../_static/shibuya.js?v=cac61aee"></script></body>
 </html>

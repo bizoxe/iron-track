@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=14737038" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=44020203" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -92,15 +92,16 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lib/index.html">Core Utilities (lib)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../lib/auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/cache_key_builders.html">Cache Key Builders</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/coders.html">Cache Serialization Coders</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/deps.html">Module Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/crypt.html">Security Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lib/exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/filters.html">Query Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lib/handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lib/invalidate_cache.html">Cache Invalidation Helpers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lib/json_response.html">Custom JSON Response</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lib/jwt_utils.html">JWT Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lib/pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/schema.html">Base Models &amp; Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/serializers.html">Serialization Registry</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../utils/index.html">Utilities and Helpers</a><ul>
@@ -121,7 +122,7 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/user_role.html">User Role Management Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/services.html">User and Role Services</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication &amp; Authorization</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/utils.html">User Utilities and Helpers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/deps.html">User Domain Dependencies</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
@@ -156,13 +157,16 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#app.config.constants.DEFAULT_USER_ROLE_SLUG"><code class="docutils literal notranslate"><span class="pre">DEFAULT_USER_ROLE_SLUG</span></code></a></li>
 <li><a class="reference internal" href="#app.config.constants.SUPERUSER_ROLE_SLUG"><code class="docutils literal notranslate"><span class="pre">SUPERUSER_ROLE_SLUG</span></code></a></li>
 <li><a class="reference internal" href="#app.config.constants.FITNESS_TRAINER_ROLE_SLUG"><code class="docutils literal notranslate"><span class="pre">FITNESS_TRAINER_ROLE_SLUG</span></code></a></li>
-<li><a class="reference internal" href="#app.config.constants.USER_AUTH_CACHE_EXPIRE_SECONDS"><code class="docutils literal notranslate"><span class="pre">USER_AUTH_CACHE_EXPIRE_SECONDS</span></code></a></li>
+<li><a class="reference internal" href="#app.config.constants.USER_AUTH_CACHE_TTL"><code class="docutils literal notranslate"><span class="pre">USER_AUTH_CACHE_TTL</span></code></a></li>
 <li><a class="reference internal" href="#app.config.constants.DEFAULT_ADMIN_EMAIL"><code class="docutils literal notranslate"><span class="pre">DEFAULT_ADMIN_EMAIL</span></code></a></li>
 <li><a class="reference internal" href="#app.config.constants.ACCESS_TOKEN_MAX_AGE"><code class="docutils literal notranslate"><span class="pre">ACCESS_TOKEN_MAX_AGE</span></code></a></li>
 <li><a class="reference internal" href="#app.config.constants.REFRESH_TOKEN_MAX_AGE"><code class="docutils literal notranslate"><span class="pre">REFRESH_TOKEN_MAX_AGE</span></code></a></li>
 <li><a class="reference internal" href="#app.config.constants.COOKIE_SECURE_VALUE"><code class="docutils literal notranslate"><span class="pre">COOKIE_SECURE_VALUE</span></code></a></li>
-<li><a class="reference internal" href="#app.config.constants.FASTAPI_CACHE_PREFIX"><code class="docutils literal notranslate"><span class="pre">FASTAPI_CACHE_PREFIX</span></code></a></li>
-<li><a class="reference internal" href="#app.config.constants.USER_AUTH_CACHE_PREFIX"><code class="docutils literal notranslate"><span class="pre">USER_AUTH_CACHE_PREFIX</span></code></a></li>
+<li><a class="reference internal" href="#app.config.constants.CATALOG_LIST_CACHE_TTL"><code class="docutils literal notranslate"><span class="pre">CATALOG_LIST_CACHE_TTL</span></code></a></li>
+<li><a class="reference internal" href="#app.config.constants.CATALOG_ALL_CACHE_TTL"><code class="docutils literal notranslate"><span class="pre">CATALOG_ALL_CACHE_TTL</span></code></a></li>
+<li><a class="reference internal" href="#app.config.constants.ARGON2_TIME_COST"><code class="docutils literal notranslate"><span class="pre">ARGON2_TIME_COST</span></code></a></li>
+<li><a class="reference internal" href="#app.config.constants.ARGON2_MEMORY_COST"><code class="docutils literal notranslate"><span class="pre">ARGON2_MEMORY_COST</span></code></a></li>
+<li><a class="reference internal" href="#app.config.constants.ARGON2_PARALLELISM"><code class="docutils literal notranslate"><span class="pre">ARGON2_PARALLELISM</span></code></a></li>
 </ul>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
   </aside>
@@ -199,70 +203,88 @@ data-aria-dark="Switch to auto color mode">
     </div>
   </div>
 </div><div class="flex flex-col break-words justify-between">
-      <div class="min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
-        <article class="yue" role="main">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
           <section id="application-constants">
 <h1>Application Constants<a class="headerlink" href="#application-constants" title="Link to this heading">¶</a></h1>
 <p>Defines global, immutable application constants (e.g., role slugs, cache keys).</p>
 <dl class="py data" id="module-app.config.constants">
 <dt class="sig sig-object py" id="app.config.constants.DEFAULT_USER_ROLE_SLUG">
-<span class="sig-prename descclassname"><span class="pre">app.config.constants.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_USER_ROLE_SLUG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'application-access'</span></em><a class="headerlink" href="#app.config.constants.DEFAULT_USER_ROLE_SLUG" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">DEFAULT_USER_ROLE_SLUG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'application-access'</span></em><a class="headerlink" href="#app.config.constants.DEFAULT_USER_ROLE_SLUG" title="Link to this definition">¶</a></dt>
 <dd><p>The slug of the default role assigned to all users.</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="app.config.constants.SUPERUSER_ROLE_SLUG">
-<span class="sig-prename descclassname"><span class="pre">app.config.constants.</span></span><span class="sig-name descname"><span class="pre">SUPERUSER_ROLE_SLUG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'superuser'</span></em><a class="headerlink" href="#app.config.constants.SUPERUSER_ROLE_SLUG" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">SUPERUSER_ROLE_SLUG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'superuser'</span></em><a class="headerlink" href="#app.config.constants.SUPERUSER_ROLE_SLUG" title="Link to this definition">¶</a></dt>
 <dd><p>The slug of the superuser role.</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="app.config.constants.FITNESS_TRAINER_ROLE_SLUG">
-<span class="sig-prename descclassname"><span class="pre">app.config.constants.</span></span><span class="sig-name descname"><span class="pre">FITNESS_TRAINER_ROLE_SLUG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'fitness-trainer'</span></em><a class="headerlink" href="#app.config.constants.FITNESS_TRAINER_ROLE_SLUG" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">FITNESS_TRAINER_ROLE_SLUG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'fitness-trainer'</span></em><a class="headerlink" href="#app.config.constants.FITNESS_TRAINER_ROLE_SLUG" title="Link to this definition">¶</a></dt>
 <dd><p>The slug of the fitness trainer role.</p>
 </dd></dl>
 
 <dl class="py data">
-<dt class="sig sig-object py" id="app.config.constants.USER_AUTH_CACHE_EXPIRE_SECONDS">
-<span class="sig-prename descclassname"><span class="pre">app.config.constants.</span></span><span class="sig-name descname"><span class="pre">USER_AUTH_CACHE_EXPIRE_SECONDS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1800</span></em><a class="headerlink" href="#app.config.constants.USER_AUTH_CACHE_EXPIRE_SECONDS" title="Link to this definition">¶</a></dt>
-<dd><p>The duration (in seconds) for which user authentication/authorization details are cached.</p>
+<dt class="sig sig-object py" id="app.config.constants.USER_AUTH_CACHE_TTL">
+<span class="sig-name descname"><span class="pre">USER_AUTH_CACHE_TTL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'30m'</span></em><a class="headerlink" href="#app.config.constants.USER_AUTH_CACHE_TTL" title="Link to this definition">¶</a></dt>
+<dd><p>TTL for cached user authentication and authorization data.</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="app.config.constants.DEFAULT_ADMIN_EMAIL">
-<span class="sig-prename descclassname"><span class="pre">app.config.constants.</span></span><span class="sig-name descname"><span class="pre">DEFAULT_ADMIN_EMAIL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'system.admin&#64;example.com'</span></em><a class="headerlink" href="#app.config.constants.DEFAULT_ADMIN_EMAIL" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">DEFAULT_ADMIN_EMAIL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'system.admin&#64;example.com'</span></em><a class="headerlink" href="#app.config.constants.DEFAULT_ADMIN_EMAIL" title="Link to this definition">¶</a></dt>
 <dd><p>Primary system admin email.</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="app.config.constants.ACCESS_TOKEN_MAX_AGE">
-<span class="sig-prename descclassname"><span class="pre">app.config.constants.</span></span><span class="sig-name descname"><span class="pre">ACCESS_TOKEN_MAX_AGE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1800</span></em><a class="headerlink" href="#app.config.constants.ACCESS_TOKEN_MAX_AGE" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ACCESS_TOKEN_MAX_AGE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1800</span></em><a class="headerlink" href="#app.config.constants.ACCESS_TOKEN_MAX_AGE" title="Link to this definition">¶</a></dt>
 <dd><p>“The maximum duration (in seconds) that an access token is stored in a cookie..</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="app.config.constants.REFRESH_TOKEN_MAX_AGE">
-<span class="sig-prename descclassname"><span class="pre">app.config.constants.</span></span><span class="sig-name descname"><span class="pre">REFRESH_TOKEN_MAX_AGE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2592000</span></em><a class="headerlink" href="#app.config.constants.REFRESH_TOKEN_MAX_AGE" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">REFRESH_TOKEN_MAX_AGE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2592000</span></em><a class="headerlink" href="#app.config.constants.REFRESH_TOKEN_MAX_AGE" title="Link to this definition">¶</a></dt>
 <dd><p>The maximum duration (in seconds) the refresh token is stored in the cookie and used for
 the Redis blacklist expiry time.</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="app.config.constants.COOKIE_SECURE_VALUE">
-<span class="sig-prename descclassname"><span class="pre">app.config.constants.</span></span><span class="sig-name descname"><span class="pre">COOKIE_SECURE_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#app.config.constants.COOKIE_SECURE_VALUE" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">COOKIE_SECURE_VALUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#app.config.constants.COOKIE_SECURE_VALUE" title="Link to this definition">¶</a></dt>
 <dd><p>Boolean value for the ‘secure’ flag on authentication cookies (requires HTTPS).</p>
 </dd></dl>
 
 <dl class="py data">
-<dt class="sig sig-object py" id="app.config.constants.FASTAPI_CACHE_PREFIX">
-<span class="sig-prename descclassname"><span class="pre">app.config.constants.</span></span><span class="sig-name descname"><span class="pre">FASTAPI_CACHE_PREFIX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'fastapi-cache'</span></em><a class="headerlink" href="#app.config.constants.FASTAPI_CACHE_PREFIX" title="Link to this definition">¶</a></dt>
-<dd><p>Cache prefix for the fastapi-cache2 library.</p>
+<dt class="sig sig-object py" id="app.config.constants.CATALOG_LIST_CACHE_TTL">
+<span class="sig-name descname"><span class="pre">CATALOG_LIST_CACHE_TTL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'3m'</span></em><a class="headerlink" href="#app.config.constants.CATALOG_LIST_CACHE_TTL" title="Link to this definition">¶</a></dt>
+<dd><p>TTL for cached catalog lists with filters and sorting.</p>
 </dd></dl>
 
 <dl class="py data">
-<dt class="sig sig-object py" id="app.config.constants.USER_AUTH_CACHE_PREFIX">
-<span class="sig-prename descclassname"><span class="pre">app.config.constants.</span></span><span class="sig-name descname"><span class="pre">USER_AUTH_CACHE_PREFIX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'user_auth'</span></em><a class="headerlink" href="#app.config.constants.USER_AUTH_CACHE_PREFIX" title="Link to this definition">¶</a></dt>
-<dd><p>Cache prefix for authenticated/authorized user.</p>
+<dt class="sig sig-object py" id="app.config.constants.CATALOG_ALL_CACHE_TTL">
+<span class="sig-name descname"><span class="pre">CATALOG_ALL_CACHE_TTL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'3h'</span></em><a class="headerlink" href="#app.config.constants.CATALOG_ALL_CACHE_TTL" title="Link to this definition">¶</a></dt>
+<dd><p>TTL for full catalog tables cached as a single entity.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="app.config.constants.ARGON2_TIME_COST">
+<span class="sig-name descname"><span class="pre">ARGON2_TIME_COST</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#app.config.constants.ARGON2_TIME_COST" title="Link to this definition">¶</a></dt>
+<dd><p>The number of iterations for the Argon2id hashing algorithm.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="app.config.constants.ARGON2_MEMORY_COST">
+<span class="sig-name descname"><span class="pre">ARGON2_MEMORY_COST</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">65536</span></em><a class="headerlink" href="#app.config.constants.ARGON2_MEMORY_COST" title="Link to this definition">¶</a></dt>
+<dd><p>The amount of memory (in KiB) to be used by the Argon2id algorithm.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="app.config.constants.ARGON2_PARALLELISM">
+<span class="sig-name descname"><span class="pre">ARGON2_PARALLELISM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#app.config.constants.ARGON2_PARALLELISM" title="Link to this definition">¶</a></dt>
+<dd><p>The number of parallel threads used during hashing.</p>
 </dd></dl>
 
 </section>
@@ -293,7 +315,7 @@ the Redis blacklist expiry time.</p>
 <footer class="sy-foot">
   <div class="sy-foot-inner sy-container mx-auto">
     <div class="sy-foot-reserved md:flex justify-between items-center">
-      <div class="sy-foot-copyright"><p>2025, Alexander Matveev</p>
+      <div class="sy-foot-copyright"><p>2026, Alexander Matveev</p>
   
   <p>
     Made with
@@ -316,5 +338,5 @@ the Redis blacklist expiry time.</p>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
       <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-      <script src="../../_static/shibuya.js?v=c1cf1a6b"></script></body>
+      <script src="../../_static/shibuya.js?v=cac61aee"></script></body>
 </html>
