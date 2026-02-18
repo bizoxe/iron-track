@@ -8,13 +8,16 @@ on:
       - main
     paths:
       - 'docs/**'
-      - 'src/**'
       - 'pyproject.toml'
   pull_request:
     paths:
       - 'docs/**'
       - 'src/**'
   workflow_dispatch:
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 env:
   UV_LOCKED: "1"

@@ -36,7 +36,7 @@ dependencies = [
     "structlog>=25.5.0",
     "typer>=0.21.1",
 ]
-description = "IronTrack: A high-performance, asynchronous API for workout tracking."
+description = "Experimental async sandbox for performance testing and constraint-driven architectural experiments."
 keywords = [
     "fastapi",
     "advanced-alchemy",

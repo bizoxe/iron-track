@@ -95,7 +95,8 @@ def create_app() -> FastAPI:
         title=settings.app.NAME,
         version=current_version,
         description=(
-            "IronTrack is a high-performance, asynchronous backend service built on FastAPI and Advanced-Alchemy."
+            "Experimental async backend sandbox focused on architectural patterns, "
+            "concurrency, and performance trade-offs within a workout tracking domain."
         ),
         lifespan=lambda app: lifespan(app, settings=settings),
         docs_url="/docs" if settings.app.ENVIRONMENT == "dev" else None,

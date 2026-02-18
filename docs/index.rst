@@ -5,61 +5,60 @@ IronTrack
     :target: https://www.python.org/downloads/
 .. image:: https://img.shields.io/badge/FastAPI-009688.svg?logo=fastapi&logoColor=white
     :target: https://fastapi.tiangolo.com/
-.. image:: https://img.shields.io/badge/Granian-E97033?logo=rust&logoColor=white
-    :target: https://github.com/emmett-framework/granian
-.. image:: https://img.shields.io/badge/Angie-B33033?logo=nginx&logoColor=white
-    :target: https://angie.software
-.. image:: https://img.shields.io/badge/Litestar%20Org-%E2%AD%90%20Advanced%20Alchemy-edb641.svg?logo=python&logoColor=white
-    :target: https://advanced-alchemy.litestar.dev/latest/
 .. image:: https://img.shields.io/badge/license-MIT-4bc51d.svg?logo=opensourceinitiative&logoColor=white
     :target: https://opensource.org/licenses/MIT
 
-**IronTrack** is a high-performance, asynchronous backend service built on **FastAPI** and **Advanced-Alchemy**.
+**IronTrack** is an experimental async backend sandbox for performance testing and constraint-driven architectural experiments.
 
-It is designed for comprehensive management of workout data, user accounts, and authentication.
+It is designed to explore architectural patterns, concurrency isolation, and performance trade-offs within a workout tracking domain.
+The project focuses on experimentation and benchmarking rather than providing a production-ready solution.
+
+.. note::
+   **Infrastructure Context:** This project is intentionally developed and benchmarked on constrained bare-metal hardware (**AMD FX-8320 / HDD**).
+
+   This "high-latency" environment is a deliberate architectural choice. It amplifies performance bottlenecks—such as I/O wait times and serialization overhead—that are often masked by modern cloud infrastructure. This setup forces the evaluation of concurrency patterns and optimization techniques under realistic hardware limitations.
 
 ---
 
-Key Features
-------------
+Implemented Components
+----------------------
 
 I. Architecture and Design Patterns
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* **Layered Architecture:** Architected with strict separation of concerns: **`domain`** (business logic, controllers, services), **`db`** (models and migrations), **`config`**, and **`lib`** (shared utilities). This ensures high modularity and ease of maintenance.
-* **Service and Repository Patterns:** Uses **Advanced-Alchemy** to implement the Service and Repository architectural patterns, ensuring clean, asynchronous **SQLAlchemy** data operations and strict isolation of business logic.
-* **Managed DB Migrations (Alembic):** Employs **Alembic** for creating, applying, and reverting versioned database schema migrations.
+* **Layered Structure:** Separation into ``domain`` (logic), ``db`` (models), ``config``, and ``lib`` layers to ensure code maintainability.
+* **Repository Pattern:** Decouples business logic from **SQLAlchemy** operations using **Advanced-Alchemy**.
+* **Schema Evolution:** Database versioning and migrations via **Alembic**.
 
 II. Performance & Optimization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* **Rust-Powered ASGI Server (Granian):** Hosted on **Granian**, a high-performance ASGI server built in Rust, ensuring extremely low latency and high throughput for asynchronous tasks.
-* **Optimized JSON Response:** Implements **MsgSpecJSONResponse** to replace the standard **FastAPI** serializer, utilizing the **Msgspec** library for faster JSON encoding of responses.
-* **Connection Pool Manager (PgBouncer):** Uses **PgBouncer** for efficient management of the **PostgreSQL** connection pool, enhancing performance in an asynchronous environment.
-* **Custom ASGI Middleware:** A custom handler implemented for accurate request timing, centralized exception interception, and logging of HTTP request metrics.
+* **Runtime & Proxy:** Uses **Granian** (Rust-based ASGI) and **Angie** (reverse proxy).
+* **Infrastructure Efficiency:** **Bypass TCP stack overhead** via Unix Domain Sockets (UDS) for inter-container communication.
+* **Containerization:** Multi-stage **Docker** builds (**Builder/Runner**) with dependency optimization via **uv**.
+* **Local Deployment:** Orchestrated via **docker-compose** with automated migrations and service health checks.
+* **Serialization:** Fast JSON processing with **msgspec** to minimize response latency.
+* **Connection Pooling:** **PgBouncer** integration for efficient database transaction management.
 
 III. Security & Administration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* **Comprehensive Access Management:** A security system based on Access/Refresh **JWT** tokens delivered via secure HTTP-only cookies. Includes user data caching (**cashews**) and Refresh token blacklisting.
-* **User Administration (CRUD/RBAC):** Full set of CRUD operations for user accounts, Role-Based Access Control (**RBAC**) supporting `superuser` and `trainer` roles. Supports user cache retention and invalidation.
-* **Comprehensive Command Line Interface (CLI):** A centralized entry point built on **Typer**, unifying server start-up, DB migration management (**Advanced-Alchemy** commands), and custom administration tools.
+* **Auth System:** Secure JWT (Ed25519) via HTTP-only cookies with token blacklisting and user caching.
+* **Access Control (RBAC):** Permission system supporting different user roles (e.g., `superuser`, `trainer`).
+* **Unified CLI:** Centralized command-line interface built with **Typer** for server management, migrations, and administrative tools.
 
-IV. Engineering Practices & CI/CD
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+IV. Engineering Standards (DX)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* **Edge Proxy (Angie):** Deployed with **Angie** as a high-performance gateway, handling secure TLS termination and request buffering to protect and offload the application server.
-* **CI/CD and Containerization:** Implements multi-stage **Docker** builds (Builder/Runner) and dependency optimization using **uv** (**Astral**). Deployment is fully containerized (`docker-compose`). Automated migration application (**Alembic**) during deployment with service health checks (`healthcheck`).
-* **Project Packaging (Hatchling):** Utilizes the modern **Hatchling** tool for project building and packaging.
-* **Testing and Code Standards:**
-    * **Automated Tests:** Uses **Pytest** and `pytest-databases` to create an isolated, integration testing environment with **transactional rollback** after each test.
-    * **Code Standards:** Applies **Ruff** (linter/formatter), **Mypy** (static type checking), and **pre-commit** hooks to ensure code quality and uniformity.
-    * **Logging:** Utilizes **Structlog** for structured (**JSON**) logging.
+* **Type Safety:** Strict static analysis with **Mypy** and runtime validation via **Pydantic v2**.
+* **Testing:** Integration suite using **transactional rollbacks** for clean and isolated tests.
+* **Code Quality:** Automated linting and formatting via **Ruff** and **pre-commit**.
+* **Observability:** Structured logging with **structlog** and request correlation IDs.
 
 V. Data & Content
 ~~~~~~~~~~~~~~~~~
 
-* **Rich Default Content:** Includes an automated script (`seeder.py`) to populate the database with **1000 ready-to-use exercises**, along with comprehensive muscle group and equipment directories.
+* **Automated Seeding:** Built-in infrastructure to populate the database with a catalog of 1000+ exercises and reference directories.
 
 ---
 
@@ -95,4 +94,5 @@ Navigation
 
     contribution-guide
     changelog
+
 
