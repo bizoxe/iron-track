@@ -154,7 +154,7 @@ data-aria-dark="Switch to auto color mode">
       <i class="i-lucide close"></i>
     </button>
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
-<li><a class="reference internal" href="#key-features">Key Features</a><ul>
+<li><a class="reference internal" href="#implemented-components">Implemented Components</a><ul>
 <li><a class="reference internal" href="#i-architecture-and-design-patterns">I. Architecture and Design Patterns</a></li>
 <li><a class="reference internal" href="#ii-performance-optimization">II. Performance &amp; Optimization</a></li>
 <li><a class="reference internal" href="#iii-security-administration">III. Security &amp; Administration</a></li>
@@ -209,47 +209,49 @@ data-aria-dark="Switch to auto color mode">
 </a>
 <a class="reference external image-reference" href="https://opensource.org/licenses/MIT"><img alt="https://img.shields.io/badge/license-MIT-4bc51d.svg?logo=opensourceinitiative&amp;logoColor=white" src="https://img.shields.io/badge/license-MIT-4bc51d.svg?logo=opensourceinitiative&amp;logoColor=white" />
 </a>
-<p><strong>IronTrack</strong> is a high-performance, asynchronous backend service built on <strong>FastAPI</strong> and <strong>Advanced-Alchemy</strong>.</p>
-<p>It is designed for comprehensive management of workout data, user accounts, and authentication.</p>
+<p><strong>IronTrack</strong> is an async backend research environment built with <strong>FastAPI</strong> and <strong>Advanced-Alchemy</strong>.</p>
+<p>It is designed to explore architectural patterns, concurrency isolation, and performance trade-offs within a workout tracking domain.
+The project focuses on experimentation and benchmarking rather than providing a production-ready solution.</p>
 <p>—</p>
-<section id="key-features">
-<h2>Key Features<a class="headerlink" href="#key-features" title="Link to this heading">¶</a></h2>
+<section id="implemented-components">
+<h2>Implemented Components<a class="headerlink" href="#implemented-components" title="Link to this heading">¶</a></h2>
 <section id="i-architecture-and-design-patterns">
 <h3>I. Architecture and Design Patterns<a class="headerlink" href="#i-architecture-and-design-patterns" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p><strong>Layered Architecture:</strong> Architected with strict separation of concerns: <strong>`domain`</strong> (business logic, controllers, services), <strong>`db`</strong> (models and migrations), <strong>`config`</strong>, and <strong>`lib`</strong> (shared utilities). This ensures high modularity and ease of maintenance.</p></li>
-<li><p><strong>Service and Repository Patterns:</strong> Uses <strong>Advanced-Alchemy</strong> to implement the Service and Repository architectural patterns, ensuring clean, asynchronous <strong>SQLAlchemy</strong> data operations and strict isolation of business logic.</p></li>
-<li><p><strong>Managed DB Migrations (Alembic):</strong> Employs <strong>Alembic</strong> for creating, applying, and reverting versioned database schema migrations.</p></li>
+<li><p><strong>Layered Architecture:</strong> Strict separation of concerns: <strong>`domain`</strong> (logic, controllers, services), <strong>`db`</strong> (models and migrations), <strong>`config`</strong>, and <strong>`lib`</strong> (shared utilities).</p></li>
+<li><p><strong>Service and Repository Patterns:</strong> Implemented via <strong>Advanced-Alchemy</strong> for asynchronous <strong>SQLAlchemy</strong> operations and isolation of business logic.</p></li>
+<li><p><strong>Schema Evolution:</strong> Uses <strong>Alembic</strong> for versioned database schema migrations.</p></li>
 </ul>
 </section>
 <section id="ii-performance-optimization">
 <h3>II. Performance &amp; Optimization<a class="headerlink" href="#ii-performance-optimization" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p><strong>Rust-Powered ASGI Server (Granian):</strong> Hosted on <strong>Granian</strong>, a high-performance ASGI server built in Rust, ensuring extremely low latency and high throughput for asynchronous tasks.</p></li>
-<li><p><strong>Optimized JSON Response:</strong> Implements <strong>MsgSpecJSONResponse</strong> to replace the standard <strong>FastAPI</strong> serializer, utilizing the <strong>Msgspec</strong> library for faster JSON encoding of responses.</p></li>
-<li><p><strong>Connection Pool Manager (PgBouncer):</strong> Uses <strong>PgBouncer</strong> for efficient management of the <strong>PostgreSQL</strong> connection pool, enhancing performance in an asynchronous environment.</p></li>
-<li><p><strong>Custom ASGI Middleware:</strong> A custom handler implemented for accurate request timing, centralized exception interception, and logging of HTTP request metrics.</p></li>
+<li><p><strong>ASGI Runtime:</strong> ASGI runtime powered by <strong>Granian</strong>.</p></li>
+<li><p><strong>Serialization:</strong> Implements <strong>MsgSpecJSONResponse</strong> using <strong>msgspec</strong> to reduce serialization overhead.</p></li>
+<li><p><strong>Connection Management:</strong> <strong>PgBouncer</strong> integration for transaction pooling.</p></li>
+<li><p><strong>Observability:</strong> Custom ASGI middleware for request timing and metric logging.</p></li>
 </ul>
 </section>
 <section id="iii-security-administration">
 <h3>III. Security &amp; Administration<a class="headerlink" href="#iii-security-administration" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p><strong>Comprehensive Access Management:</strong> A security system based on Access/Refresh <strong>JWT</strong> tokens delivered via secure HTTP-only cookies. Includes user data caching (<strong>cashews</strong>) and Refresh token blacklisting.</p></li>
-<li><p><strong>User Administration (CRUD/RBAC):</strong> Full set of CRUD operations for user accounts, Role-Based Access Control (<strong>RBAC</strong>) supporting <cite>superuser</cite> and <cite>trainer</cite> roles. Supports user cache retention and invalidation.</p></li>
-<li><p><strong>Comprehensive Command Line Interface (CLI):</strong> A centralized entry point built on <strong>Typer</strong>, unifying server start-up, DB migration management (<strong>Advanced-Alchemy</strong> commands), and custom administration tools.</p></li>
+<li><p><strong>Session Management:</strong> JWT Access/Refresh tokens via secure HTTP-only cookies, featuring user data caching (<strong>cashews</strong>) and token blacklisting.</p></li>
+<li><p><strong>Access Control (RBAC):</strong> CRUD operations for accounts with Role-Based Access Control supporting <cite>superuser</cite> and <cite>trainer</cite> roles.</p></li>
+<li><p><strong>Command Line Interface:</strong> Centralized entry point built on <strong>Typer</strong> for server management, migrations, and administrative tools.</p></li>
 </ul>
 </section>
 <section id="iv-engineering-practices-ci-cd">
 <h3>IV. Engineering Practices &amp; CI/CD<a class="headerlink" href="#iv-engineering-practices-ci-cd" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p><strong>Edge Proxy (Angie):</strong> Deployed with <strong>Angie</strong> as a high-performance gateway, handling secure TLS termination and request buffering to protect and offload the application server.</p></li>
-<li><p><strong>CI/CD and Containerization:</strong> Implements multi-stage <strong>Docker</strong> builds (Builder/Runner) and dependency optimization using <strong>uv</strong> (<strong>Astral</strong>). Deployment is fully containerized (<cite>docker-compose</cite>). Automated migration application (<strong>Alembic</strong>) during deployment with service health checks (<cite>healthcheck</cite>).</p></li>
-<li><p><strong>Project Packaging (Hatchling):</strong> Utilizes the modern <strong>Hatchling</strong> tool for project building and packaging.</p></li>
+<li><p><strong>Edge Proxy:</strong> Configured with <strong>Angie</strong> as a reverse proxy for TLS termination.</p></li>
+<li><p><strong>Containerization:</strong> Multi-stage <strong>Docker</strong> builds (Builder/Runner) with dependency optimization via <strong>uv</strong>.</p></li>
+<li><p><strong>Local deployment workflow:</strong> Orchestrated via <cite>docker-compose</cite> with automated migrations and service health checks.</p></li>
+<li><p><strong>Packaging:</strong> Built and packaged using <strong>Hatchling</strong>.</p></li>
 <li><dl class="simple">
-<dt><strong>Testing and Code Standards:</strong></dt><dd><ul>
-<li><p><strong>Automated Tests:</strong> Uses <strong>Pytest</strong> and <cite>pytest-databases</cite> to create an isolated, integration testing environment with <strong>transactional rollback</strong> after each test.</p></li>
-<li><p><strong>Code Standards:</strong> Applies <strong>Ruff</strong> (linter/formatter), <strong>Mypy</strong> (static type checking), and <strong>pre-commit</strong> hooks to ensure code quality and uniformity.</p></li>
-<li><p><strong>Logging:</strong> Utilizes <strong>Structlog</strong> for structured (<strong>JSON</strong>) logging.</p></li>
+<dt><strong>Testing &amp; Standards:</strong></dt><dd><ul>
+<li><p><strong>Automated Tests:</strong> <strong>Pytest</strong> environment with transactional rollbacks for isolated integration testing.</p></li>
+<li><p><strong>Static Analysis:</strong> <strong>Ruff</strong> (linting/formatting) and <strong>Mypy</strong> (type checking) with <strong>pre-commit</strong> integration.</p></li>
+<li><p><strong>Logging:</strong> Structured JSON logging via <strong>structlog</strong>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -259,7 +261,7 @@ data-aria-dark="Switch to auto color mode">
 <section id="v-data-content">
 <h3>V. Data &amp; Content<a class="headerlink" href="#v-data-content" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p><strong>Rich Default Content:</strong> Includes an automated script (<cite>seeder.py</cite>) to populate the database with <strong>1000 ready-to-use exercises</strong>, along with comprehensive muscle group and equipment directories.</p></li>
+<li><p><strong>Data Seeding:</strong> Includes an automated script (<cite>seeder.py</cite>) to populate the database with <strong>1000 ready-to-use exercises</strong>, along with muscle group and equipment directories.</p></li>
 </ul>
 <p>—</p>
 </section>

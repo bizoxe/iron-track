@@ -7,6 +7,12 @@ All notable changes to this project will be documented in this file.
 ------------
 
 
+⚙️ Miscellaneous Tasks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* (`68159d7 <https://github.com/bizoxe/iron-track/commit/68159d7f750c366e098814d3390ffeb283ff9754>`_) - Formalize repository infrastructure and optimize docs CI (alexander)
+
+
 🛠️ Refactor
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
