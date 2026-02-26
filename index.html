@@ -158,7 +158,7 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#i-architecture-and-design-patterns">I. Architecture and Design Patterns</a></li>
 <li><a class="reference internal" href="#ii-performance-optimization">II. Performance &amp; Optimization</a></li>
 <li><a class="reference internal" href="#iii-security-administration">III. Security &amp; Administration</a></li>
-<li><a class="reference internal" href="#iv-engineering-practices-ci-cd">IV. Engineering Practices &amp; CI/CD</a></li>
+<li><a class="reference internal" href="#iv-engineering-standards-dx">IV. Engineering Standards (DX)</a></li>
 <li><a class="reference internal" href="#v-data-content">V. Data &amp; Content</a></li>
 </ul>
 </li>
@@ -201,67 +201,59 @@ data-aria-dark="Switch to auto color mode">
 </a>
 <a class="reference external image-reference" href="https://fastapi.tiangolo.com/"><img alt="https://img.shields.io/badge/FastAPI-009688.svg?logo=fastapi&amp;logoColor=white" src="https://img.shields.io/badge/FastAPI-009688.svg?logo=fastapi&amp;logoColor=white" />
 </a>
-<a class="reference external image-reference" href="https://github.com/emmett-framework/granian"><img alt="https://img.shields.io/badge/Granian-E97033?logo=rust&amp;logoColor=white" src="https://img.shields.io/badge/Granian-E97033?logo=rust&amp;logoColor=white" />
-</a>
-<a class="reference external image-reference" href="https://angie.software"><img alt="https://img.shields.io/badge/Angie-B33033?logo=nginx&amp;logoColor=white" src="https://img.shields.io/badge/Angie-B33033?logo=nginx&amp;logoColor=white" />
-</a>
-<a class="reference external image-reference" href="https://advanced-alchemy.litestar.dev/latest/"><img alt="https://img.shields.io/badge/Litestar%20Org-%E2%AD%90%20Advanced%20Alchemy-edb641.svg?logo=python&amp;logoColor=white" src="https://img.shields.io/badge/Litestar%20Org-%E2%AD%90%20Advanced%20Alchemy-edb641.svg?logo=python&amp;logoColor=white" />
-</a>
 <a class="reference external image-reference" href="https://opensource.org/licenses/MIT"><img alt="https://img.shields.io/badge/license-MIT-4bc51d.svg?logo=opensourceinitiative&amp;logoColor=white" src="https://img.shields.io/badge/license-MIT-4bc51d.svg?logo=opensourceinitiative&amp;logoColor=white" />
 </a>
-<p><strong>IronTrack</strong> is an async backend research environment built with <strong>FastAPI</strong> and <strong>Advanced-Alchemy</strong>.</p>
+<p><strong>IronTrack</strong> is an experimental async backend sandbox for performance testing and constraint-driven architectural experiments.</p>
 <p>It is designed to explore architectural patterns, concurrency isolation, and performance trade-offs within a workout tracking domain.
 The project focuses on experimentation and benchmarking rather than providing a production-ready solution.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Infrastructure Context:</strong> This project is intentionally developed and benchmarked on constrained bare-metal hardware (<strong>AMD FX-8320 / HDD</strong>).</p>
+<p>This “high-latency” environment is a deliberate architectural choice. It amplifies performance bottlenecks—such as I/O wait times and serialization overhead—that are often masked by modern cloud infrastructure. This setup forces the evaluation of concurrency patterns and optimization techniques under realistic hardware limitations.</p>
+</div>
 <p>—</p>
 <section id="implemented-components">
 <h2>Implemented Components<a class="headerlink" href="#implemented-components" title="Link to this heading">¶</a></h2>
 <section id="i-architecture-and-design-patterns">
 <h3>I. Architecture and Design Patterns<a class="headerlink" href="#i-architecture-and-design-patterns" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p><strong>Layered Architecture:</strong> Strict separation of concerns: <strong>`domain`</strong> (logic, controllers, services), <strong>`db`</strong> (models and migrations), <strong>`config`</strong>, and <strong>`lib`</strong> (shared utilities).</p></li>
-<li><p><strong>Service and Repository Patterns:</strong> Implemented via <strong>Advanced-Alchemy</strong> for asynchronous <strong>SQLAlchemy</strong> operations and isolation of business logic.</p></li>
-<li><p><strong>Schema Evolution:</strong> Uses <strong>Alembic</strong> for versioned database schema migrations.</p></li>
+<li><p><strong>Layered Structure:</strong> Separation into <code class="docutils literal notranslate"><span class="pre">domain</span></code> (logic), <code class="docutils literal notranslate"><span class="pre">db</span></code> (models), <code class="docutils literal notranslate"><span class="pre">config</span></code>, and <code class="docutils literal notranslate"><span class="pre">lib</span></code> layers to ensure code maintainability.</p></li>
+<li><p><strong>Repository Pattern:</strong> Decouples business logic from <strong>SQLAlchemy</strong> operations using <strong>Advanced-Alchemy</strong>.</p></li>
+<li><p><strong>Schema Evolution:</strong> Database versioning and migrations via <strong>Alembic</strong>.</p></li>
 </ul>
 </section>
 <section id="ii-performance-optimization">
 <h3>II. Performance &amp; Optimization<a class="headerlink" href="#ii-performance-optimization" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p><strong>ASGI Runtime:</strong> ASGI runtime powered by <strong>Granian</strong>.</p></li>
-<li><p><strong>Serialization:</strong> Implements <strong>MsgSpecJSONResponse</strong> using <strong>msgspec</strong> to reduce serialization overhead.</p></li>
-<li><p><strong>Connection Management:</strong> <strong>PgBouncer</strong> integration for transaction pooling.</p></li>
-<li><p><strong>Observability:</strong> Custom ASGI middleware for request timing and metric logging.</p></li>
+<li><p><strong>Runtime &amp; Proxy:</strong> Uses <strong>Granian</strong> (Rust-based ASGI) and <strong>Angie</strong> (reverse proxy).</p></li>
+<li><p><strong>Infrastructure Efficiency:</strong> <strong>Bypass TCP stack overhead</strong> via Unix Domain Sockets (UDS) for inter-container communication.</p></li>
+<li><p><strong>Containerization:</strong> Multi-stage <strong>Docker</strong> builds (<strong>Builder/Runner</strong>) with dependency optimization via <strong>uv</strong>.</p></li>
+<li><p><strong>Local Deployment:</strong> Orchestrated via <strong>docker-compose</strong> with automated migrations and service health checks.</p></li>
+<li><p><strong>Serialization:</strong> Fast JSON processing with <strong>msgspec</strong> to minimize response latency.</p></li>
+<li><p><strong>Connection Pooling:</strong> <strong>PgBouncer</strong> integration for efficient database transaction management.</p></li>
 </ul>
 </section>
 <section id="iii-security-administration">
 <h3>III. Security &amp; Administration<a class="headerlink" href="#iii-security-administration" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p><strong>Session Management:</strong> JWT Access/Refresh tokens via secure HTTP-only cookies, featuring user data caching (<strong>cashews</strong>) and token blacklisting.</p></li>
-<li><p><strong>Access Control (RBAC):</strong> CRUD operations for accounts with Role-Based Access Control supporting <cite>superuser</cite> and <cite>trainer</cite> roles.</p></li>
-<li><p><strong>Command Line Interface:</strong> Centralized entry point built on <strong>Typer</strong> for server management, migrations, and administrative tools.</p></li>
+<li><p><strong>Auth System:</strong> Secure JWT (Ed25519) via HTTP-only cookies with token blacklisting and user caching.</p></li>
+<li><p><strong>Access Control (RBAC):</strong> Permission system supporting different user roles (e.g., <cite>superuser</cite>, <cite>trainer</cite>).</p></li>
+<li><p><strong>Unified CLI:</strong> Centralized command-line interface built with <strong>Typer</strong> for server management, migrations, and administrative tools.</p></li>
 </ul>
 </section>
-<section id="iv-engineering-practices-ci-cd">
-<h3>IV. Engineering Practices &amp; CI/CD<a class="headerlink" href="#iv-engineering-practices-ci-cd" title="Link to this heading">¶</a></h3>
+<section id="iv-engineering-standards-dx">
+<h3>IV. Engineering Standards (DX)<a class="headerlink" href="#iv-engineering-standards-dx" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p><strong>Edge Proxy:</strong> Configured with <strong>Angie</strong> as a reverse proxy for TLS termination.</p></li>
-<li><p><strong>Containerization:</strong> Multi-stage <strong>Docker</strong> builds (Builder/Runner) with dependency optimization via <strong>uv</strong>.</p></li>
-<li><p><strong>Local deployment workflow:</strong> Orchestrated via <cite>docker-compose</cite> with automated migrations and service health checks.</p></li>
-<li><p><strong>Packaging:</strong> Built and packaged using <strong>Hatchling</strong>.</p></li>
-<li><dl class="simple">
-<dt><strong>Testing &amp; Standards:</strong></dt><dd><ul>
-<li><p><strong>Automated Tests:</strong> <strong>Pytest</strong> environment with transactional rollbacks for isolated integration testing.</p></li>
-<li><p><strong>Static Analysis:</strong> <strong>Ruff</strong> (linting/formatting) and <strong>Mypy</strong> (type checking) with <strong>pre-commit</strong> integration.</p></li>
-<li><p><strong>Logging:</strong> Structured JSON logging via <strong>structlog</strong>.</p></li>
-</ul>
-</dd>
-</dl>
-</li>
+<li><p><strong>Type Safety:</strong> Strict static analysis with <strong>Mypy</strong> and runtime validation via <strong>Pydantic v2</strong>.</p></li>
+<li><p><strong>Testing:</strong> Integration suite using <strong>transactional rollbacks</strong> for clean and isolated tests.</p></li>
+<li><p><strong>Code Quality:</strong> Automated linting and formatting via <strong>Ruff</strong> and <strong>pre-commit</strong>.</p></li>
+<li><p><strong>Observability:</strong> Structured logging with <strong>structlog</strong> and request correlation IDs.</p></li>
 </ul>
 </section>
 <section id="v-data-content">
 <h3>V. Data &amp; Content<a class="headerlink" href="#v-data-content" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p><strong>Data Seeding:</strong> Includes an automated script (<cite>seeder.py</cite>) to populate the database with <strong>1000 ready-to-use exercises</strong>, along with muscle group and equipment directories.</p></li>
+<li><p><strong>Automated Seeding:</strong> Built-in infrastructure to populate the database with a catalog of 1000+ exercises and reference directories.</p></li>
 </ul>
 <p>—</p>
 </section>

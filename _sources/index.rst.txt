@@ -5,19 +5,18 @@ IronTrack
     :target: https://www.python.org/downloads/
 .. image:: https://img.shields.io/badge/FastAPI-009688.svg?logo=fastapi&logoColor=white
     :target: https://fastapi.tiangolo.com/
-.. image:: https://img.shields.io/badge/Granian-E97033?logo=rust&logoColor=white
-    :target: https://github.com/emmett-framework/granian
-.. image:: https://img.shields.io/badge/Angie-B33033?logo=nginx&logoColor=white
-    :target: https://angie.software
-.. image:: https://img.shields.io/badge/Litestar%20Org-%E2%AD%90%20Advanced%20Alchemy-edb641.svg?logo=python&logoColor=white
-    :target: https://advanced-alchemy.litestar.dev/latest/
 .. image:: https://img.shields.io/badge/license-MIT-4bc51d.svg?logo=opensourceinitiative&logoColor=white
     :target: https://opensource.org/licenses/MIT
 
-**IronTrack** is an async backend research environment built with **FastAPI** and **Advanced-Alchemy**.
+**IronTrack** is an experimental async backend sandbox for performance testing and constraint-driven architectural experiments.
 
 It is designed to explore architectural patterns, concurrency isolation, and performance trade-offs within a workout tracking domain.
 The project focuses on experimentation and benchmarking rather than providing a production-ready solution.
+
+.. note::
+   **Infrastructure Context:** This project is intentionally developed and benchmarked on constrained bare-metal hardware (**AMD FX-8320 / HDD**).
+
+   This "high-latency" environment is a deliberate architectural choice. It amplifies performance bottlenecks—such as I/O wait times and serialization overhead—that are often masked by modern cloud infrastructure. This setup forces the evaluation of concurrency patterns and optimization techniques under realistic hardware limitations.
 
 ---
 
@@ -27,41 +26,39 @@ Implemented Components
 I. Architecture and Design Patterns
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* **Layered Architecture:** Strict separation of concerns: **`domain`** (logic, controllers, services), **`db`** (models and migrations), **`config`**, and **`lib`** (shared utilities).
-* **Service and Repository Patterns:** Implemented via **Advanced-Alchemy** for asynchronous **SQLAlchemy** operations and isolation of business logic.
-* **Schema Evolution:** Uses **Alembic** for versioned database schema migrations.
+* **Layered Structure:** Separation into ``domain`` (logic), ``db`` (models), ``config``, and ``lib`` layers to ensure code maintainability.
+* **Repository Pattern:** Decouples business logic from **SQLAlchemy** operations using **Advanced-Alchemy**.
+* **Schema Evolution:** Database versioning and migrations via **Alembic**.
 
 II. Performance & Optimization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* **ASGI Runtime:** ASGI runtime powered by **Granian**.
-* **Serialization:** Implements **MsgSpecJSONResponse** using **msgspec** to reduce serialization overhead.
-* **Connection Management:** **PgBouncer** integration for transaction pooling.
-* **Observability:** Custom ASGI middleware for request timing and metric logging.
+* **Runtime & Proxy:** Uses **Granian** (Rust-based ASGI) and **Angie** (reverse proxy).
+* **Infrastructure Efficiency:** **Bypass TCP stack overhead** via Unix Domain Sockets (UDS) for inter-container communication.
+* **Containerization:** Multi-stage **Docker** builds (**Builder/Runner**) with dependency optimization via **uv**.
+* **Local Deployment:** Orchestrated via **docker-compose** with automated migrations and service health checks.
+* **Serialization:** Fast JSON processing with **msgspec** to minimize response latency.
+* **Connection Pooling:** **PgBouncer** integration for efficient database transaction management.
 
 III. Security & Administration
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* **Session Management:** JWT Access/Refresh tokens via secure HTTP-only cookies, featuring user data caching (**cashews**) and token blacklisting.
-* **Access Control (RBAC):** CRUD operations for accounts with Role-Based Access Control supporting `superuser` and `trainer` roles.
-* **Command Line Interface:** Centralized entry point built on **Typer** for server management, migrations, and administrative tools.
+* **Auth System:** Secure JWT (Ed25519) via HTTP-only cookies with token blacklisting and user caching.
+* **Access Control (RBAC):** Permission system supporting different user roles (e.g., `superuser`, `trainer`).
+* **Unified CLI:** Centralized command-line interface built with **Typer** for server management, migrations, and administrative tools.
 
-IV. Engineering Practices & CI/CD
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+IV. Engineering Standards (DX)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* **Edge Proxy:** Configured with **Angie** as a reverse proxy for TLS termination.
-* **Containerization:** Multi-stage **Docker** builds (Builder/Runner) with dependency optimization via **uv**.
-* **Local deployment workflow:** Orchestrated via `docker-compose` with automated migrations and service health checks.
-* **Packaging:** Built and packaged using **Hatchling**.
-* **Testing & Standards:**
-    * **Automated Tests:** **Pytest** environment with transactional rollbacks for isolated integration testing.
-    * **Static Analysis:** **Ruff** (linting/formatting) and **Mypy** (type checking) with **pre-commit** integration.
-    * **Logging:** Structured JSON logging via **structlog**.
+* **Type Safety:** Strict static analysis with **Mypy** and runtime validation via **Pydantic v2**.
+* **Testing:** Integration suite using **transactional rollbacks** for clean and isolated tests.
+* **Code Quality:** Automated linting and formatting via **Ruff** and **pre-commit**.
+* **Observability:** Structured logging with **structlog** and request correlation IDs.
 
 V. Data & Content
 ~~~~~~~~~~~~~~~~~
 
-* **Data Seeding:** Includes an automated script (`seeder.py`) to populate the database with **1000 ready-to-use exercises**, along with muscle group and equipment directories.
+* **Automated Seeding:** Built-in infrastructure to populate the database with a catalog of 1000+ exercises and reference directories.
 
 ---
 
