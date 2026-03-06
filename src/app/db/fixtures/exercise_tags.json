@@ -1,0 +1,102 @@
+[
+    {
+        "id": 1,
+        "name": "home friendly"
+    },
+    {
+        "id": 2,
+        "name": "outdoor"
+    },
+    {
+        "id": 3,
+        "name": "travel friendly"
+    },
+    {
+        "id": 4,
+        "name": "unilateral"
+    },
+    {
+        "id": 5,
+        "name": "bilateral"
+    },
+    {
+        "id": 6,
+      "name": "explosive"
+    },
+    {
+        "id": 7,
+        "name": "high impact"
+    },
+    {
+        "id": 8,
+        "name": "isometric"
+    },
+    {
+        "id": 9,
+        "name": "warm-up"
+    },
+    {
+        "id": 10,
+        "name": "cool-down"
+    },
+    {
+        "id": 11,
+        "name": "rehab"
+    },
+    {
+        "id": 12,
+        "name": "posture correction"
+    },
+    {
+        "id": 13,
+        "name": "core stability"
+    },
+    {
+        "id": 14,
+        "name": "mobility"
+    },
+    {
+        "id": 15,
+        "name": "stability"
+    },
+    {
+        "id": 16,
+        "name": "activation"
+    },
+    {
+        "id": 17,
+        "name": "hiit"
+    },
+    {
+        "id": 18,
+        "name": "standing"
+    },
+    {
+        "id": 19,
+        "name": "seated"
+    },
+    {
+        "id": 20,
+        "name": "lying"
+    },
+    {
+        "id": 21,
+        "name": "hanging"
+    },
+    {
+        "id": 22,
+        "name": "squat pattern"
+    },
+    {
+        "id": 23,
+        "name": "hinge pattern"
+    },
+    {
+        "id": 24,
+        "name": "rotation"
+    },
+    {
+        "id": 25,
+        "name": "balance"
+    }
+]
