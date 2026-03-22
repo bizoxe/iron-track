@@ -85,10 +85,10 @@ class Exercise(UUIDv7AuditBase):
     """The primary fitness discipline or training goal."""
     instructions: Mapped[str | None] = mapped_column(Text, nullable=True)
     """Step-by-step guide on how to perform the movement."""
-    image_url_start: Mapped[str | None] = mapped_column(String(length=512), nullable=True)
-    """URL to the starting position image. Only for system-provided exercises."""
-    image_url_end: Mapped[str | None] = mapped_column(String(length=512), nullable=True)
-    """URL to the ending position image. Only for system-provided exercises."""
+    image_path_start: Mapped[str | None] = mapped_column(String(length=512), nullable=True)
+    """Relative path to the starting position image. Only for system-provided exercises."""
+    image_path_end: Mapped[str | None] = mapped_column(String(length=512), nullable=True)
+    """Relative path to the ending position image. Only for system-provided exercises."""
     is_system_default: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     """Indicates if this is a system-provided exercise."""
     created_by: Mapped[GUID] = mapped_column(
