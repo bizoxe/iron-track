@@ -26,7 +26,9 @@ async def seed_db(logger: Any) -> None:
 
         from advanced_alchemy.service import SQLAlchemyAsyncRepositoryService
 
-    type CatalogMapT = list[tuple[Sequence[dict[str, Any]], SQLAlchemyAsyncRepositoryService[Any, Any], list[str]]]
+    type ServicesRegistryT = list[
+        tuple[Sequence[dict[str, Any]], SQLAlchemyAsyncRepositoryService[Any, Any], list[str]]
+    ]
 
     async def _seed_db() -> None:
         settings = get_settings()
@@ -59,14 +61,14 @@ async def seed_db(logger: Any) -> None:
             tags_service = await anext(provide_exercise_tag_service(session))
             exercise_service = await anext(provide_exercise_service(session))
 
-            catalog_map: CatalogMapT = [
+            services_registry: ServicesRegistryT = [
                 (muscle_groups_data, muscles_service, ["name"]),
                 (equipment_data, equipment_service, ["name"]),
                 (tags_data, tags_service, ["name"]),
                 (exercises_data, exercise_service, ["name"]),
             ]
 
-            for data, svc, match in catalog_map:
+            for data, svc, match in services_registry:
                 try:
                     await logger.ainfo(
                         "Preparing to seed data...",
@@ -96,5 +98,6 @@ if __name__ == "__main__":
     try:
         anyio.run(seed_db, st_logger)
         st_logger.info("Database seeding complete...")
-    except (Exception, OSError):  # noqa: BLE001
+    except Exception:
+        st_logger.exception("Seeding failed")
         sys.exit(1)

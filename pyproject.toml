@@ -266,7 +266,7 @@ module = [
 ]
 
 [tool.codespell]
-ignore-words-list = "selectin,selectinload,Flyes,Delt,Te"
+ignore-words-list = "selectin,selectinload,Flyes,Delt,Te,tread"
 
 [tool.bumpversion]
 current_version = "0.1.0"
