@@ -23,6 +23,7 @@ from sqlalchemy.ext.asyncio import (
 
 from app.config.app_settings import sqlalchemy_config
 from app.config.base import get_settings
+from app.domain.exercises.services import ExerciseService
 from app.domain.users.jwt_helpers import (
     create_access_token,
     create_refresh_token,
@@ -32,7 +33,12 @@ from app.domain.users.services import (
     UserService,
 )
 from tests import constants
-from tests.helpers import add_role_to_raw_users
+from tests.db_utils import ENUM_MAP
+from tests.helpers import (
+    add_role_to_raw_users,
+    prepare_enums,
+    seed_catalogs,
+)
 
 if TYPE_CHECKING:
     from collections.abc import AsyncGenerator
@@ -70,7 +76,28 @@ async def fx_setup_database_schema(engine: AsyncEngine) -> None:
     metadata = UUIDv7AuditBase.registry.metadata
     async with engine.begin() as conn:
         await conn.run_sync(metadata.drop_all)
+        await conn.run_sync(prepare_enums, ENUM_MAP)
         await conn.run_sync(metadata.create_all)
+
+
+@pytest.fixture(scope="session", autouse=True)
+async def fx_seed_catalogs_and_exercises(
+    setup_db_schema: None,
+    sessionmaker: async_sessionmaker[AsyncSession],
+    db_fixtures_path: Path,
+) -> None:
+    fixtures_path = db_fixtures_path
+    system_exercises = await open_fixture_async(fixtures_path, "exercises")
+
+    async with sessionmaker() as session:
+        await seed_catalogs(
+            fixtures_path=fixtures_path,
+            session=session,
+        )
+
+        exercise_service = ExerciseService(session)
+        await exercise_service.upsert_many(data=system_exercises, match_fields=["name"], auto_commit=False)
+        await session.commit()
 
 
 @pytest.fixture(scope="session", name="seed_roles")

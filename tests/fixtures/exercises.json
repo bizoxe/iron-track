@@ -1,0 +1,290 @@
+[
+  {
+    "name": "3/4 Sit-Up",
+    "slug": "3-4-sit-up",
+    "force": "pull",
+    "difficulty_level": "beginner",
+    "mechanic": "compound",
+    "equipment": [
+      1
+    ],
+    "primary_muscles": [
+      1
+    ],
+    "secondary_muscles": [],
+    "instructions": "Lie down on the floor and secure your feet. Your legs should be bent at the knees.\n\nPlace your hands behind or to the side of your head. You will begin with your back on the ground. This will be your starting position.\n\nFlex your hips and spine to raise your torso toward your knees.\n\nAt the top of the contraction your torso should be perpendicular to the ground. Reverse the motion, going only ¾ of the way down.\n\nRepeat for the recommended amount of repetitions.",
+    "category": "strength",
+    "is_system_default": true,
+    "image_path_start": "/3-4-sit-up/images/0.jpg",
+    "image_path_end": "/3-4-sit-up/images/1.jpg",
+    "tags": [
+      1,
+      2,
+      3,
+      5,
+      13,
+      16,
+      20,
+      25
+    ]
+  },
+  {
+    "name": "90/90 Hamstring",
+    "slug": "90-90-hamstring",
+    "force": "push",
+    "difficulty_level": "beginner",
+    "mechanic": null,
+    "equipment": [
+      1
+    ],
+    "primary_muscles": [
+      2
+    ],
+    "secondary_muscles": [
+      9
+    ],
+    "instructions": "Lie on your back, with one leg extended straight out.\n\nWith the other leg, bend the hip and knee to 90 degrees. You may brace your leg with your hands if necessary. This will be your starting position.\n\nExtend your leg straight into the air, pausing briefly at the top. Return the leg to the starting position.\n\nRepeat for 10-20 repetitions, and then switch to the other leg.",
+    "category": "stretching",
+    "is_system_default": true,
+    "image_path_start": "/90-90-hamstring/images/0.jpg",
+    "image_path_end": "/90-90-hamstring/images/1.jpg",
+    "tags": [
+      1,
+      2,
+      3,
+      4,
+      9,
+      10,
+      14,
+      20
+    ]
+  },
+  {
+    "name": "Ab Crunch Machine",
+    "slug": "ab-crunch-machine",
+    "force": "pull",
+    "difficulty_level": "intermediate",
+    "mechanic": "isolation",
+    "equipment": [
+      2
+    ],
+    "primary_muscles": [
+      1
+    ],
+    "secondary_muscles": [],
+    "instructions": "Select a light resistance and sit down on the ab machine placing your feet under the pads provided and grabbing the top handles. Your arms should be bent at a 90 degree angle as you rest the triceps on the pads provided. This will be your starting position.\n\nAt the same time, begin to lift the legs up as you crunch your upper torso. Breathe out as you perform this movement. Tip: Be sure to use a slow and controlled motion. Concentrate on using your abs to move the weight while relaxing your legs and feet.\n\nAfter a second pause, slowly return to the starting position as you breathe in.\n\nRepeat the movement for the prescribed amount of repetitions.",
+    "category": "strength",
+    "is_system_default": true,
+    "image_path_start": "/ab-crunch-machine/images/0.jpg",
+    "image_path_end": "/ab-crunch-machine/images/1.jpg",
+    "tags": [
+      5,
+      13,
+      16,
+      25
+    ]
+  },
+  {
+    "name": "Ab Roller",
+    "slug": "ab-roller",
+    "force": "pull",
+    "difficulty_level": "intermediate",
+    "mechanic": "compound",
+    "equipment": [
+      3
+    ],
+    "primary_muscles": [
+      1
+    ],
+    "secondary_muscles": [
+      6
+    ],
+    "instructions": "Hold the Ab Roller with both hands and kneel on the floor.\n\nNow place the ab roller on the floor in front of you so that you are on all your hands and knees (as in a kneeling push up position). This will be your starting position.\n\nSlowly roll the ab roller straight forward, stretching your body into a straight position. Tip: Go down as far as you can without touching the floor with your body. Breathe in during this portion of the movement.\n\nAfter a pause at the stretched position, start pulling yourself back to the starting position as you breathe out. Tip: Go slowly and keep your abs tight at all times.",
+    "category": "strength",
+    "is_system_default": true,
+    "image_path_start": "/ab-roller/images/0.jpg",
+    "image_path_end": "/ab-roller/images/1.jpg",
+    "tags": [
+      2,
+      5,
+      13,
+      16,
+      20,
+      25
+    ]
+  },
+  {
+    "name": "Adductor",
+    "slug": "adductor",
+    "force": "static",
+    "difficulty_level": "intermediate",
+    "mechanic": "isolation",
+    "equipment": [
+      4
+    ],
+    "primary_muscles": [
+      3
+    ],
+    "secondary_muscles": [],
+    "instructions": "Lie face down with one leg on a foam roll.\n\nRotate the leg so that the foam roll contacts against your inner thigh. Shift as much weight onto the foam roll as can be tolerated.\n\nWhile trying to relax the muscles if the inner thigh, roll over the foam between your hip and knee, holding points of tension for 10-30 seconds. Repeat with the other leg.",
+    "category": "stretching",
+    "is_system_default": true,
+    "image_path_start": "/adductor/images/0.jpg",
+    "image_path_end": "/adductor/images/1.jpg",
+    "tags": [
+      2,
+      4,
+      8,
+      9,
+      10,
+      14
+    ]
+  },
+  {
+    "name": "Adductor/Groin",
+    "slug": "adductor-groin",
+    "force": "static",
+    "difficulty_level": "intermediate",
+    "mechanic": null,
+    "equipment": [],
+    "primary_muscles": [
+      3
+    ],
+    "secondary_muscles": [],
+    "instructions": "Lie on your back with your feet raised towards the ceiling.\n\nHave your partner hold your feet or ankles. Abduct your legs as far as you can. This will be your starting position.\n\nAttempt to squeeze your legs together for 10 or more seconds, while your partner prevents you from doing so.\n\nNow, relax the muscles in your legs as your partner pushes your feet apart, stretching as far as is comfortable for you. Be sure to let your partner know when the stretch is adequate to prevent overstretching or injury.",
+    "category": "stretching",
+    "is_system_default": true,
+    "image_path_start": "/adductor-groin/images/0.jpg",
+    "image_path_end": "/adductor-groin/images/1.jpg",
+    "tags": [
+      2,
+      5,
+      8,
+      9,
+      10,
+      14,
+      20
+    ]
+  },
+  {
+    "name": "Advanced Kettlebell Windmill",
+    "slug": "advanced-kettlebell-windmill",
+    "force": "push",
+    "difficulty_level": "intermediate",
+    "mechanic": "isolation",
+    "equipment": [
+      5
+    ],
+    "primary_muscles": [
+      1
+    ],
+    "secondary_muscles": [
+      10,
+      2,
+      6
+    ],
+    "instructions": "Clean and press a kettlebell overhead with one arm.\n\nKeeping the kettlebell locked out at all times, push your butt out in the direction of the locked out kettlebell. Keep the non-working arm behind your back and turn your feet out at a forty-five degree angle from the arm with the kettlebell.\n\nLower yourself as far as possible.\n\nPause for a second and reverse the motion back to the starting position.",
+    "category": "strength",
+    "is_system_default": true,
+    "image_path_start": "/advanced-kettlebell-windmill/images/0.jpg",
+    "image_path_end": "/advanced-kettlebell-windmill/images/1.jpg",
+    "tags": [
+      1,
+      2,
+      3,
+      4,
+      13,
+      16,
+      25
+    ]
+  },
+  {
+    "name": "Air Bike",
+    "slug": "air-bike",
+    "force": "pull",
+    "difficulty_level": "beginner",
+    "mechanic": "compound",
+    "equipment": [
+      1
+    ],
+    "primary_muscles": [
+      1
+    ],
+    "secondary_muscles": [],
+    "instructions": "Lie flat on the floor with your lower back pressed to the ground. For this exercise, you will need to put your hands beside your head. Be careful however to not strain with the neck as you perform it. Now lift your shoulders into the crunch position.\n\nBring knees up to where they are perpendicular to the floor, with your lower legs parallel to the floor. This will be your starting position.\n\nNow simultaneously, slowly go through a cycle pedal motion kicking forward with the right leg and bringing in the knee of the left leg. Bring your right elbow close to your left knee by crunching to the side, as you breathe out.\n\nGo back to the initial position as you breathe in.\n\nCrunch to the opposite side as you cycle your legs and bring closer your left elbow to your right knee and exhale.\n\nContinue alternating in this manner until all of the recommended repetitions for each side have been completed.",
+    "category": "strength",
+    "is_system_default": true,
+    "image_path_start": "/air-bike/images/0.jpg",
+    "image_path_end": "/air-bike/images/1.jpg",
+    "tags": [
+      1,
+      2,
+      3,
+      4,
+      13,
+      16,
+      20,
+      25
+    ]
+  },
+  {
+    "name": "All Fours Quad Stretch",
+    "slug": "all-fours-quad-stretch",
+    "force": "static",
+    "difficulty_level": "intermediate",
+    "mechanic": null,
+    "equipment": [
+      1
+    ],
+    "primary_muscles": [
+      4
+    ],
+    "secondary_muscles": [
+      4
+    ],
+    "instructions": "Start off on your hands and knees, then lift your leg off the floor and hold the foot with your hand.\n\nUse your hand to hold the foot or ankle, keeping the knee fully flexed, stretching the quadriceps and hip flexors.\n\nFocus on extending your hips, thrusting them towards the floor. Hold for 10-20 seconds and then switch sides.",
+    "category": "stretching",
+    "is_system_default": true,
+    "image_path_start": "/all-fours-quad-stretch/images/0.jpg",
+    "image_path_end": "/all-fours-quad-stretch/images/1.jpg",
+    "tags": [
+      1,
+      2,
+      3,
+      5,
+      8,
+      9,
+      10,
+      14,
+      20
+    ]
+  },
+  {
+    "name": "Alternate Hammer Curl",
+    "slug": "alternate-hammer-curl",
+    "force": "pull",
+    "difficulty_level": "beginner",
+    "mechanic": "isolation",
+    "equipment": [
+      6
+    ],
+    "primary_muscles": [
+      5
+    ],
+    "secondary_muscles": [
+      15
+    ],
+    "instructions": "Stand up with your torso upright and a dumbbell in each hand being held at arms length. The elbows should be close to the torso.\n\nThe palms of the hands should be facing your torso. This will be your starting position.\n\nWhile holding the upper arm stationary, curl the right weight forward while contracting the biceps as you breathe out. Continue the movement until your biceps is fully contracted and the dumbbells are at shoulder level. Hold the contracted position for a second as you squeeze the biceps. Tip: Only the forearms should move.\n\nSlowly begin to bring the dumbbells back to starting position as your breathe in.\n\nRepeat the movement with the left hand. This equals one repetition.\n\nContinue alternating in this manner for the recommended amount of repetitions.",
+    "category": "strength",
+    "is_system_default": true,
+    "image_path_start": "/alternate-hammer-curl/images/0.jpg",
+    "image_path_end": "/alternate-hammer-curl/images/1.jpg",
+    "tags": [
+      1,
+      2,
+      3,
+      4,
+      18
+    ]
+  }
+]

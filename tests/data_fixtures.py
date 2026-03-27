@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from pathlib import Path
 from typing import (
     TYPE_CHECKING,
     Any,
@@ -83,3 +84,9 @@ def fx_raw_users() -> list[dict[str, Any]]:
             "is_active": True,
         },
     ]
+
+
+@pytest.fixture(scope="session", name="db_fixtures_path")
+def fx_db_fixtures_path() -> Path:
+    """Return the absolute path to the directory containing test-specific data."""
+    return Path(__file__).resolve().parent / "fixtures"
