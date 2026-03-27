@@ -1,4 +1,7 @@
-from typing import TYPE_CHECKING
+from typing import (
+    TYPE_CHECKING,
+    Any,
+)
 from uuid import UUID
 
 import pytest
@@ -122,7 +125,7 @@ async def test_get_list_users(
     assert response.status_code == status.HTTP_200_OK
     response_data = response.json()
     assert isinstance(response_data["items"], list)
-    assert int(response_data["total"]) > 1
+    assert int(response_data["total"]) == 6  # noqa: PLR2004
 
 
 @pytest.mark.parametrize(
@@ -179,6 +182,35 @@ async def test_get_list_users_pagination(
     second_user_id = data_second["items"][0]["id"]
     assert first_user_id != second_user_id
     assert int(data_first["total"]) >= 2  # noqa: PLR2004
+
+
+@pytest.mark.parametrize(
+    ("params", "total", "status_code"),
+    [
+        pytest.param({"isActive": False}, 1, status.HTTP_200_OK, id="filter_inactive"),
+        pytest.param({"createdAfter": "2030-01-01T00:00:00Z"}, 0, status.HTTP_200_OK, id="date_after_future"),
+        pytest.param({"orderBy": "createdAt", "sortOrder": "desc"}, 6, status.HTTP_200_OK, id="sorting_mapping"),
+        pytest.param(
+            {"createdBefore": "2027-01-01T00:00:00"}, None, status.HTTP_422_UNPROCESSABLE_CONTENT, id="error_no_tz"
+        ),
+    ],
+)
+async def test_user_filters_special_cases(
+    superuser_client: "AsyncClient",
+    app: "FastAPI",
+    params: dict[str, Any],
+    total: int | None,
+    status_code: int,
+) -> None:
+    response = await superuser_client.get(
+        app.url_path_for("users:list"),
+        params=params,
+    )
+    assert response.status_code == status_code
+
+    if status_code == status.HTTP_200_OK:
+        response_data = response.json()
+        assert int(response_data["total"]) == total
 
 
 @pytest.mark.parametrize(
