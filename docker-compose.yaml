@@ -53,6 +53,8 @@ services:
       PGBOUNCER_MONITOR_PASSWORD: ${PGBOUNCER_MONITOR_PASSWORD:-monitorpwd}
     volumes:
       - db-data:/var/lib/postgresql
+      - ./deploy/postgres/conf/postgresql.conf:/etc/postgresql/postgresql.conf
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U ${DB_USER:-alfacat} -d ${DB_NAME:-iron_track}" ]
       interval: 10s

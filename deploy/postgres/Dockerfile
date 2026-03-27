@@ -1,4 +1,4 @@
-FROM postgres:18-bookworm
+FROM postgres:18.3-bookworm
 
 COPY deploy/postgres/conf/postgresql.conf /tmp/conf/postgresql.conf
 COPY deploy/postgres/conf/pg_hba.conf /tmp/conf/pg_hba.conf
