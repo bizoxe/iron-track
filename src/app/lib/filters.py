@@ -11,6 +11,7 @@ from typing import (
 
 from advanced_alchemy.extensions.fastapi import filters as aa_filters
 from pydantic import (
+    AfterValidator,
     Field,
     PrivateAttr,
 )
@@ -33,6 +34,7 @@ class CommonFilters(CamelizedBaseSchema):
 
     search_string: Annotated[
         str | None,
+        AfterValidator(lambda v: v.strip() if v else v),
         Field(description="Search term."),
     ] = None
     search_fields: ClassVar[str | set[str]] = "name"
@@ -73,7 +75,7 @@ class CommonFilters(CamelizedBaseSchema):
             )
         return filters
 
-    def model_post_init(self, context: Any) -> None:
+    def model_post_init(self, context: Any) -> None:  # noqa: ARG002
         """Initialize the unique cache key based on the provided filter values."""
         s = self.search_string.strip().replace(":", "|") if self.search_string else "se_all"
         parts = [

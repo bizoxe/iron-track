@@ -73,12 +73,12 @@ async def signup(
         default_role_slug=users_service.default_role,
     )
     try:
-        user = await users_service.create(
+        db_obj = await users_service.create(
             data=account_register.model_dump(exclude_unset=True) | {"role_id": role_obj.id},
             auto_refresh=False,
         )
-        user_dto = users_service.to_schema(user, schema_type=User)
-        return MsgSpecJSONResponse(content=user_dto, status_code=status.HTTP_201_CREATED)
+        user = users_service.to_schema(db_obj, schema_type=User)
+        return MsgSpecJSONResponse(content=user, status_code=status.HTTP_201_CREATED)
     except DuplicateKeyError as exc:
         msg = "A user with this email already exists"
         raise ConflictException(message=msg) from exc

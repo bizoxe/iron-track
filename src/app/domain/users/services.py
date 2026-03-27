@@ -17,7 +17,11 @@ from advanced_alchemy.service import (
     schema_dump,
 )
 from cashews import cache
-from sqlalchemy.orm import load_only, noload, selectinload
+from sqlalchemy.orm import (
+    load_only,
+    noload,
+    selectinload,
+)
 
 from app.config.constants import (
     DEFAULT_ADMIN_EMAIL,
@@ -35,9 +39,8 @@ from app.lib.exceptions import (
 if TYPE_CHECKING:
     from uuid import UUID
 
-    from advanced_alchemy.filters import StatementFilter
-
     from app.domain.users.schemas import PasswordUpdate
+    from app.domain.users.utils import UserFilters
 
 
 class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
@@ -140,9 +143,10 @@ class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
             msg = "Self-action forbidden: Cannot perform destructive action on your own account"
             raise PermissionDeniedException(message=msg)
 
-    @cache(ttl="1m", key="users_list:{filters}")
-    async def get_users_paginated_dto(self, filters: list[StatementFilter]) -> OffsetPagination[UserDto]:
-        """Retrieve a paginated list of users as DTOs."""
+    @cache(ttl="1m", key="users_list:{params}")
+    async def get_users_paginated_dto(self, params: UserFilters) -> OffsetPagination[UserDto]:
+        """Provide a filtered and paginated list of users with caching."""
+        filters = params.aa_technical_filters
         results, total = await self.list_and_count(
             *filters,
             load=[

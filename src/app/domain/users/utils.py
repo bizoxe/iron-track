@@ -1,16 +1,19 @@
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime  # noqa: TC003
 from typing import (
     TYPE_CHECKING,
     Annotated,
+    Any,
     ClassVar,
     Literal,
 )
 
 from advanced_alchemy.extensions.fastapi import filters as aa_filters
-from pydantic import Field
+from pydantic import (
+    AwareDatetime,
+    Field,
+)
 
 from app.domain.users.jwt_helpers import add_token_to_blacklist
 from app.lib.exceptions import (
@@ -90,16 +93,17 @@ class UserFilters(CommonFilters):
         Field(description="Filter by active or inactive status."),
     ] = None
     created_before: Annotated[
-        datetime | None,
-        Field(description="Filter by created date before this timestamp."),
+        AwareDatetime | None,
+        Field(description="Filter by created date before this timestamp (ISO 8601 UTC). Example: 2026-03-10T14:00:00Z"),
     ] = None
     created_after: Annotated[
-        datetime | None,
-        Field(description="Filter by created date after this timestamp."),
+        AwareDatetime | None,
+        Field(description="Filter by created date after this timestamp (ISO 8601 UTC). Example: 2026-03-10T14:00:00Z"),
     ] = None
 
     @property
     def aa_technical_filters(self) -> list[StatementFilter]:
+        """Extend base filters with user-specific criteria."""
         filters = super().aa_technical_filters
 
         if self.created_after or self.created_before:
@@ -114,3 +118,15 @@ class UserFilters(CommonFilters):
             filters.append(aa_filters.CollectionFilter(field_name="is_active", values=[self.is_active]))
 
         return filters
+
+    def model_post_init(self, context: Any) -> None:
+        """Extend the base cache key with user-specific filter parameters."""
+        super().model_post_init(context)
+        parts = []
+        if self.is_active is not None:
+            parts.append(f":{self.is_active}")
+        if self.created_before:
+            parts.append(f":{self.created_before}")
+        if self.created_after:
+            parts.append(f":{self.created_after}")
+        self._cache_key += "".join(parts)

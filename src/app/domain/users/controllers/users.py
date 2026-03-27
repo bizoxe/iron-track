@@ -71,8 +71,8 @@ async def create_user(
     )
     try:
         db_obj = await users_service.create(data=data.model_dump(exclude_unset=True) | {"role_id": role_obj.id})
-        user_dto = users_service.to_schema(db_obj, schema_type=User)
-        return MsgSpecJSONResponse(content=user_dto, status_code=status.HTTP_201_CREATED)
+        user = users_service.to_schema(db_obj, schema_type=User)
+        return MsgSpecJSONResponse(content=user, status_code=status.HTTP_201_CREATED)
     except DuplicateKeyError as exc:
         msg = f"A user with the email '{data.email}' is already registered in the system"
         raise ConflictException(message=msg) from exc
@@ -99,8 +99,8 @@ async def get_user(
     """
     try:
         db_obj = await users_service.get(user_id)
-        user_dto = users_service.to_schema(db_obj, schema_type=User)
-        return MsgSpecJSONResponse(content=user_dto)
+        user = users_service.to_schema(db_obj, schema_type=User)
+        return MsgSpecJSONResponse(content=user)
     except NotFoundError as exc:
         raise UserNotFound from exc
 
@@ -121,9 +121,8 @@ async def get_list_users(
     Returns:
         OffsetPagination[~app.domain.users.schemas.User]: Paginated list of users data.
     """
-    filters = params.aa_technical_filters
-    user_dto = await users_service.get_users_paginated_dto(filters)
-    return MsgSpecJSONResponse(content=user_dto)
+    users = await users_service.get_users_paginated_dto(params)
+    return MsgSpecJSONResponse(content=users)
 
 
 @users_router.patch(
@@ -162,8 +161,8 @@ async def update_user(
         await invalidate_user_cache(
             user_id=db_obj.id,
         )
-        user_dto = users_service.to_schema(db_obj, schema_type=User)
-        return MsgSpecJSONResponse(content=user_dto)
+        user = users_service.to_schema(db_obj, schema_type=User)
+        return MsgSpecJSONResponse(content=user)
     except (NotFoundError, DuplicateKeyError) as exc:
         if isinstance(exc, NotFoundError):
             raise UserNotFound from exc
