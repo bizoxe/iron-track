@@ -153,7 +153,11 @@ data-aria-dark="Switch to auto color mode">
     <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
       <i class="i-lucide close"></i>
     </button>
-    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#app.lib.jwt_utils.encode_jwt"><code class="docutils literal notranslate"><span class="pre">encode_jwt()</span></code></a></li>
+<li><a class="reference internal" href="#app.lib.jwt_utils.decode_jwt"><code class="docutils literal notranslate"><span class="pre">decode_jwt()</span></code></a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
   </aside>
   <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
   <main class="sy-main w-full max-sm:max-w-full print:pt-6">
@@ -190,8 +194,68 @@ data-aria-dark="Switch to auto color mode">
 </div><div class="flex flex-col break-words justify-between">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
-          <section id="jwt-utilities">
-<h1>JWT Utilities<a class="headerlink" href="#jwt-utilities" title="Link to this heading">¶</a></h1>
+          <section id="module-app.lib.jwt_utils">
+<span id="jwt-utilities"></span><h1>JWT Utilities<a class="headerlink" href="#module-app.lib.jwt_utils" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.lib.jwt_utils.encode_jwt">
+<span class="sig-name descname"><span class="pre">encode_jwt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">payload:</span> <span class="pre">dict[str,</span> <span class="pre">Any],</span> <span class="pre">key_obj:</span> <span class="pre">OKPKey</span> <span class="pre">=</span> <span class="pre">&lt;joserfc._rfc8037.okp_key.OKPKey</span> <span class="pre">object&gt;,</span> <span class="pre">algorithm:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'Ed25519',</span> <span class="pre">expire_minutes:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">30,</span> <span class="pre">expire_timedelta:</span> <span class="pre">timedelta</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../../_modules/app/lib/jwt_utils.html#encode_jwt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.jwt_utils.encode_jwt" title="Link to this definition">¶</a></dt>
+<dd><p>Encode a JWT based on the provided payload and expiration settings.</p>
+<p>This function adds standard claims: <cite>iat</cite> (issued at), <cite>exp</cite> (expiration),
+and <cite>jti</cite> (JWT ID) to the token payload before encoding.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – The base data to include in the token (e.g., user ID, email).</p></li>
+<li><p><strong>key_obj</strong> (<em>OKPKey</em>) – The private key used for signing the token.
+Defaults to the application’s configured private key.</p></li>
+<li><p><strong>algorithm</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The cryptographic algorithm used for signing (e.g., ‘Ed25519’).
+Defaults to the configured algorithm.</p></li>
+<li><p><strong>expire_minutes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The token’s lifespan in minutes, used only if
+<cite>expire_timedelta</cite> is not provided.</p></li>
+<li><p><strong>expire_timedelta</strong> (<em>timedelta</em><em> | </em><em>None</em>) – Explicit timedelta defining the token’s total lifespan.
+Overrides <cite>expire_minutes</cite>. Used primarily for Refresh Tokens.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The encoded JWT string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.lib.jwt_utils.decode_jwt">
+<span class="sig-name descname"><span class="pre">decode_jwt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_obj:</span> <span class="pre">OKPKey</span> <span class="pre">=</span> <span class="pre">&lt;joserfc._rfc8037.okp_key.OKPKey</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'Ed25519'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Token</span></span></span><a class="reference internal" href="../../_modules/app/lib/jwt_utils.html#decode_jwt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.jwt_utils.decode_jwt" title="Link to this definition">¶</a></dt>
+<dd><p>Decode and validate a JWT using the application’s key.</p>
+<p>This function automatically verifies the token’s signature and standard claims
+(such as expiration time).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><em>bytes</em></a>) – The encoded JWT string or bytes to be decoded.</p></li>
+<li><p><strong>key_obj</strong> (<em>OKPKey</em>) – The key used for verifying the token’s signature.
+Defaults to the application’s configured key.</p></li>
+<li><p><strong>algorithm</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The cryptographic algorithm used for verification (e.g., ‘Ed25519’).
+Defaults to the configured algorithm.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The extracted token object, which contains header and claims.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Token</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>joserfc.errors.BadSignatureError</strong> – If the token signature verification fails.</p></li>
+<li><p><strong>joserfc.errors.InvalidPayloadError</strong> – If the token’s payload is not a valid JSON object.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
         </article><button class="back-to-top" type="button">

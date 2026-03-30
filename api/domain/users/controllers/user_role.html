@@ -153,7 +153,11 @@ data-aria-dark="Switch to auto color mode">
     <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
       <i class="i-lucide close"></i>
     </button>
-    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#app.domain.users.controllers.user_role.assign_new_role"><code class="docutils literal notranslate"><span class="pre">assign_new_role()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.users.controllers.user_role.revoke_and_set_default_role"><code class="docutils literal notranslate"><span class="pre">revoke_and_set_default_role()</span></code></a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
   </aside>
   <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
   <main class="sy-main w-full max-sm:max-w-full print:pt-6">
@@ -194,8 +198,54 @@ data-aria-dark="Switch to auto color mode">
 </div><div class="flex flex-col break-words justify-between">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
-          <section id="user-role-management-controllers">
-<h1>User Role Management Controllers<a class="headerlink" href="#user-role-management-controllers" title="Link to this heading">¶</a></h1>
+          <section id="module-app.domain.users.controllers.user_role">
+<span id="user-role-management-controllers"></span><h1>User Role Management Controllers<a class="headerlink" href="#module-app.domain.users.controllers.user_role" title="Link to this heading">¶</a></h1>
+<p>User Role Management API Endpoints.</p>
+<p>Defines the operations for assigning and revoking user roles. Requires superuser privileges.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.domain.users.controllers.user_role.assign_new_role">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">assign_new_role</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">super_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.schemas.UserAuth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_add_role</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../schemas.html#app.domain.users.schemas.UserRoleAdd" title="app.domain.users.schemas.UserRoleAdd"><span class="pre">UserRoleAdd</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/users/controllers/user_role.html#assign_new_role"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.users.controllers.user_role.assign_new_role" title="Link to this definition">¶</a></dt>
+<dd><p>Assign a new role to the specified user by email.</p>
+<p>This operation requires superuser privileges. <strong>Self-assignment is forbidden</strong>
+(superuser modifying their own account) for security.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Success message indicating the assigned role.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><em>MsgSpecJSONResponse</em></a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="../../../lib/exceptions.html#app.lib.exceptions.PermissionDeniedException" title="app.lib.exceptions.PermissionDeniedException"><strong>PermissionDeniedException</strong></a> – If the superuser attempts to modify their own account or the system admin.</p></li>
+<li><p><a class="reference internal" href="../../../lib/exceptions.html#app.lib.exceptions.ConflictException" title="app.lib.exceptions.ConflictException"><strong>ConflictException</strong></a> – If the user already has the requested role.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.domain.users.controllers.user_role.revoke_and_set_default_role">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">revoke_and_set_default_role</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">super_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.schemas.UserAuth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_revoke_role</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../schemas.html#app.domain.users.schemas.UserRoleRevoke" title="app.domain.users.schemas.UserRoleRevoke"><span class="pre">UserRoleRevoke</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/users/controllers/user_role.html#revoke_and_set_default_role"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.users.controllers.user_role.revoke_and_set_default_role" title="Link to this definition">¶</a></dt>
+<dd><p>Revoke the specified role from the user by email and set the default role.</p>
+<p>This operation requires superuser privileges. <strong>Self-modification is forbidden</strong>
+(superuser modifying their own account) for security.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Success message indicating the revoked and default roles.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><em>MsgSpecJSONResponse</em></a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="../../../lib/exceptions.html#app.lib.exceptions.PermissionDeniedException" title="app.lib.exceptions.PermissionDeniedException"><strong>PermissionDeniedException</strong></a> – If the superuser attempts to modify their own account or the system admin.</p></li>
+<li><p><a class="reference internal" href="../../../lib/exceptions.html#app.lib.exceptions.ConflictException" title="app.lib.exceptions.ConflictException"><strong>ConflictException</strong></a> – If the user does not currently have the role that is requested for revocation.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
         </article><button class="back-to-top" type="button">

@@ -153,7 +153,20 @@ data-aria-dark="Switch to auto color mode">
     <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
       <i class="i-lucide close"></i>
     </button>
-    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#app.domain.users.utils.check_user_before_modify_role"><code class="docutils literal notranslate"><span class="pre">check_user_before_modify_role()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.users.utils.perform_logout_cleanup"><code class="docutils literal notranslate"><span class="pre">perform_logout_cleanup()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.users.utils.UserFilters"><code class="docutils literal notranslate"><span class="pre">UserFilters</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.users.utils.UserFilters.search_fields"><code class="docutils literal notranslate">search_fields</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.users.utils.UserFilters.order_by"><code class="docutils literal notranslate">order_by</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.users.utils.UserFilters.is_active"><code class="docutils literal notranslate">is_active</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.users.utils.UserFilters.created_before"><code class="docutils literal notranslate">created_before</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.users.utils.UserFilters.created_after"><code class="docutils literal notranslate">created_after</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.users.utils.UserFilters.aa_technical_filters"><code class="docutils literal notranslate">aa_technical_filters</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
   </aside>
   <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
   <main class="sy-main w-full max-sm:max-w-full print:pt-6">
@@ -194,8 +207,103 @@ data-aria-dark="Switch to auto color mode">
 </div><div class="flex flex-col break-words justify-between">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
-          <section id="user-utilities-and-helpers">
-<h1>User Utilities and Helpers<a class="headerlink" href="#user-utilities-and-helpers" title="Link to this heading">¶</a></h1>
+          <section id="module-app.domain.users.utils">
+<span id="user-utilities-and-helpers"></span><h1>User Utilities and Helpers<a class="headerlink" href="#module-app.domain.users.utils" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.domain.users.utils.check_user_before_modify_role">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_user_before_modify_role</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">users_service</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UserServiceDep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">email</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">UserModel</span></span></span><a class="reference internal" href="../../../_modules/app/domain/users/utils.html#check_user_before_modify_role"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.users.utils.check_user_before_modify_role" title="Link to this definition">¶</a></dt>
+<dd><p>Check user existence and activity status before role modification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>users_service</strong> (<a class="reference internal" href="services.html#app.domain.users.services.UserService" title="app.domain.users.services.UserService"><em>UserService</em></a>) – Dependency for user service operations.</p></li>
+<li><p><strong>email</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The email of the user whose role is being modified.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The User model object from the database.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../../db/user.html#app.db.models.user.User" title="app.db.models.user.User"><em>User</em></a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="../../lib/exceptions.html#app.lib.exceptions.UserNotFound" title="app.lib.exceptions.UserNotFound"><strong>UserNotFound</strong></a> – If no user is found with the given email.</p></li>
+<li><p><a class="reference internal" href="../../lib/exceptions.html#app.lib.exceptions.PermissionDeniedException" title="app.lib.exceptions.PermissionDeniedException"><strong>PermissionDeniedException</strong></a> – If the user is found but their account is inactive.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.domain.users.utils.perform_logout_cleanup">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">perform_logout_cleanup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">refresh_jti</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../_modules/app/domain/users/utils.html#perform_logout_cleanup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.users.utils.perform_logout_cleanup" title="Link to this definition">¶</a></dt>
+<dd><p>Perform asynchronous cleanup tasks upon user logout.</p>
+<p>This function is intended to be executed as a FastAPI background task
+to non-blocking revoke the refresh token and immediately invalidate
+cached user data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>refresh_jti</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The JWT ID (JTI) of the refresh token to be blacklisted.</p></li>
+<li><p><strong>user_id</strong> (<em>UUID</em>) – The ID of the user whose cache needs to be invalidated.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="app.domain.users.utils.UserFilters">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">UserFilters</span></span><a class="reference internal" href="../../../_modules/app/domain/users/utils.html#UserFilters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.users.utils.UserFilters" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../lib/filters.html#app.lib.filters.CommonFilters" title="app.lib.filters.CommonFilters"><code class="xref py py-class docutils literal notranslate"><span class="pre">CommonFilters</span></code></a></p>
+<p>Specific filters for User domain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Fields<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="#app.domain.users.utils.UserFilters.created_after" title="app.domain.users.utils.UserFilters.created_after"><code class="xref py py-obj docutils literal notranslate"><span class="pre">created_after</span> <span class="pre">(pydantic.types.AwareDatetime</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#app.domain.users.utils.UserFilters.created_before" title="app.domain.users.utils.UserFilters.created_before"><code class="xref py py-obj docutils literal notranslate"><span class="pre">created_before</span> <span class="pre">(pydantic.types.AwareDatetime</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#app.domain.users.utils.UserFilters.is_active" title="app.domain.users.utils.UserFilters.is_active"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_active</span> <span class="pre">(bool</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
+<li><p><a class="reference internal" href="#app.domain.users.utils.UserFilters.order_by" title="app.domain.users.utils.UserFilters.order_by"><code class="xref py py-obj docutils literal notranslate"><span class="pre">order_by</span> <span class="pre">(Literal['name',</span> <span class="pre">'email',</span> <span class="pre">'createdAt'])</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.users.utils.UserFilters.search_fields">
+<span class="sig-name descname"><span class="pre">search_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.14)"><span class="pre">set</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'email',</span> <span class="pre">'name'}</span></em><a class="headerlink" href="#app.domain.users.utils.UserFilters.search_fields" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.users.utils.UserFilters.order_by">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">order_by</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'name'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'email'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'createdAt'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Field</span> <span class="pre">to</span> <span class="pre">order</span> <span class="pre">by.'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'name'</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'orderBy')</span></em><a class="headerlink" href="#app.domain.users.utils.UserFilters.order_by" title="Link to this definition">¶</a></dt>
+<dd><p>Field to order by.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.users.utils.UserFilters.is_active">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_active</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Filter</span> <span class="pre">by</span> <span class="pre">active</span> <span class="pre">or</span> <span class="pre">inactive</span> <span class="pre">status.'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'isActive')</span></em><a class="headerlink" href="#app.domain.users.utils.UserFilters.is_active" title="Link to this definition">¶</a></dt>
+<dd><p>Filter by active or inactive status.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.users.utils.UserFilters.created_before">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">created_before</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">AwareDatetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Filter</span> <span class="pre">by</span> <span class="pre">created</span> <span class="pre">date</span> <span class="pre">before</span> <span class="pre">this</span> <span class="pre">timestamp</span> <span class="pre">(ISO</span> <span class="pre">8601</span> <span class="pre">UTC).</span> <span class="pre">Example:</span> <span class="pre">2026-03-10T14:00:00Z'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'createdBefore')</span></em><a class="headerlink" href="#app.domain.users.utils.UserFilters.created_before" title="Link to this definition">¶</a></dt>
+<dd><p>Filter by created date before this timestamp (ISO 8601 UTC). Example: 2026-03-10T14:00:00Z</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.users.utils.UserFilters.created_after">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">created_after</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">AwareDatetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Filter</span> <span class="pre">by</span> <span class="pre">created</span> <span class="pre">date</span> <span class="pre">after</span> <span class="pre">this</span> <span class="pre">timestamp</span> <span class="pre">(ISO</span> <span class="pre">8601</span> <span class="pre">UTC).</span> <span class="pre">Example:</span> <span class="pre">2026-03-10T14:00:00Z'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'createdAfter')</span></em><a class="headerlink" href="#app.domain.users.utils.UserFilters.created_after" title="Link to this definition">¶</a></dt>
+<dd><p>Filter by created date after this timestamp (ISO 8601 UTC). Example: 2026-03-10T14:00:00Z</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="app.domain.users.utils.UserFilters.aa_technical_filters">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">aa_technical_filters</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">StatementFilter</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#app.domain.users.utils.UserFilters.aa_technical_filters" title="Link to this definition">¶</a></dt>
+<dd><p>Extend base filters with user-specific criteria.</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
         </article><button class="back-to-top" type="button">

@@ -153,7 +153,14 @@ data-aria-dark="Switch to auto color mode">
     <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
       <i class="i-lucide close"></i>
     </button>
-    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#app.domain.users.controllers.users.create_user"><code class="docutils literal notranslate"><span class="pre">create_user()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.users.controllers.users.get_user"><code class="docutils literal notranslate"><span class="pre">get_user()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.users.controllers.users.get_list_users"><code class="docutils literal notranslate"><span class="pre">get_list_users()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.users.controllers.users.update_user"><code class="docutils literal notranslate"><span class="pre">update_user()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.users.controllers.users.delete_user"><code class="docutils literal notranslate"><span class="pre">delete_user()</span></code></a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
   </aside>
   <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
   <main class="sy-main w-full max-sm:max-w-full print:pt-6">
@@ -194,8 +201,97 @@ data-aria-dark="Switch to auto color mode">
 </div><div class="flex flex-col break-words justify-between">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
-          <section id="user-crud-controllers">
-<h1>User CRUD Controllers<a class="headerlink" href="#user-crud-controllers" title="Link to this heading">¶</a></h1>
+          <section id="module-app.domain.users.controllers.users">
+<span id="user-crud-controllers"></span><h1>User CRUD Controllers<a class="headerlink" href="#module-app.domain.users.controllers.users" title="Link to this heading">¶</a></h1>
+<p>User Account CRUD Endpoints.</p>
+<p>Defines all user account CRUD operations, requiring superuser privileges.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.domain.users.controllers.users.create_user">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.schemas.UserAuth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../schemas.html#app.domain.users.schemas.UserCreate" title="app.domain.users.schemas.UserCreate"><span class="pre">UserCreate</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/users/controllers/users.html#create_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.users.controllers.users.create_user" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new user in the system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The newly created user data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../schemas.html#app.domain.users.schemas.User" title="app.domain.users.schemas.User"><em>User</em></a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../../../lib/exceptions.html#app.lib.exceptions.ConflictException" title="app.lib.exceptions.ConflictException"><strong>ConflictException</strong></a> – If a user with the provided email already exists.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.domain.users.controllers.users.get_user">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.schemas.UserAuth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/uuid.html#uuid.UUID" title="(in Python v3.14)"><span class="pre">UUID</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/users/controllers/users.html#get_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.users.controllers.users.get_user" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve a user by ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The detailed user data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../schemas.html#app.domain.users.schemas.User" title="app.domain.users.schemas.User"><em>User</em></a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../../../lib/exceptions.html#app.lib.exceptions.UserNotFound" title="app.lib.exceptions.UserNotFound"><strong>UserNotFound</strong></a> – If the user with the given ID is not found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.domain.users.controllers.users.get_list_users">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_list_users</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.schemas.UserAuth</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/users/controllers/users.html#get_list_users"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.users.controllers.users.get_list_users" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve a list of users.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Paginated list of users data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>OffsetPagination[<a class="reference internal" href="../schemas.html#app.domain.users.schemas.User" title="app.domain.users.schemas.User"><em>User</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.domain.users.controllers.users.update_user">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">super_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.schemas.UserAuth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../schemas.html#app.domain.users.schemas.UserUpdate" title="app.domain.users.schemas.UserUpdate"><span class="pre">UserUpdate</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/uuid.html#uuid.UUID" title="(in Python v3.14)"><span class="pre">UUID</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/users/controllers/users.html#update_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.users.controllers.users.update_user" title="Link to this definition">¶</a></dt>
+<dd><p>Update user details by ID.</p>
+<p>This action also invalidates the user’s authentication cache in Redis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The updated user data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../schemas.html#app.domain.users.schemas.User" title="app.domain.users.schemas.User"><em>User</em></a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="../../../lib/exceptions.html#app.lib.exceptions.UserNotFound" title="app.lib.exceptions.UserNotFound"><strong>UserNotFound</strong></a> – If the user is not found.</p></li>
+<li><p><a class="reference internal" href="../../../lib/exceptions.html#app.lib.exceptions.ConflictException" title="app.lib.exceptions.ConflictException"><strong>ConflictException</strong></a> – If the new email provided is already in use by another user.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.domain.users.controllers.users.delete_user">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">super_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.schemas.UserAuth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/uuid.html#uuid.UUID" title="(in Python v3.14)"><span class="pre">UUID</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://fastapi.tiangolo.com/reference/response/#fastapi.Response" title="(in FastAPI v0.0.0)"><span class="pre">Response</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/users/controllers/users.html#delete_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.users.controllers.users.delete_user" title="Link to this definition">¶</a></dt>
+<dd><p>Delete a user from the system.</p>
+<p>This action also invalidates the user’s authentication cache in Redis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HTTP 204 No Content on successful deletion.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../../../lib/exceptions.html#app.lib.exceptions.UserNotFound" title="app.lib.exceptions.UserNotFound"><strong>UserNotFound</strong></a> – If the user is not found.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
         </article><button class="back-to-top" type="button">

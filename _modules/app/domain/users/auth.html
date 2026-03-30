@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>app.domain.users.auth - IronTrack Docs</title><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../../../_static/print.css?v=20ff2c19" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/><meta property="og:title" content="app.domain.users.auth"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../../../index.html">
+      <img class="light-logo" src="../../../../_static/logo.svg" alt="irontrack" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../../../_static/logo.svg" alt="irontrack" height="28" loading="lazy" />
+      <strong>irontrack</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../../../usage/installation.html">Installation</a></li><li class="link"><a href="../../../../api/index.html">API Reference</a></li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/bizoxe/iron-track" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../usage/index.html">Usage Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../usage/installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../usage/development.html">Development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../usage/cli-guide.html">CLI Guide</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/scripts/index.html">Application Scripts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/scripts/commands.html">User Management CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/scripts/seeder.html">Database Seeding Script</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/server/index.html">Core Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/server/core.html">Server Core</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/config/index.html">Application Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/config/base.html">Base Settings Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/config/app_settings.html">SQLAlchemy and Dependency Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/config/constants.html">Application Constants</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/db/index.html">ORM Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/db/base.html">Base Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/db/user.html">User Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/db/role.html">Role Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/lib/index.html">Core Utilities (lib)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/auth.html">JWT Cookie Security Scheme</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/crypt.html">Security Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/filters.html">Query Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/handlers.html">Exception Handlers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/invalidate_cache.html">Cache Invalidation Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/json_response.html">Custom JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/jwt_utils.html">JWT Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/schema.html">Base Models &amp; Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/serializers.html">Serialization Registry</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/utils/index.html">Utilities and Helpers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils/log_utils/index.html">Structured Logging Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/utils/log_utils/handlers.html">Logging Handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/utils/log_utils/setup.html">Logging Setup and Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/utils/log_utils/middleware.html">ASGI Logging Middleware</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils/server_cli.html">Server CLI Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/main.html">Entry Point (main.py)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/domain/index.html">Domains Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/domain/users/index.html">Users Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/controllers/access.html">Access Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/controllers/users.html">User CRUD Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/controllers/user_role.html">User Role Management Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/services.html">User and Role Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/schemas.html">User Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/auth.html">Authentication &amp; Authorization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/utils.html">User Utilities and Helpers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/deps.html">User Domain Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/domain/system/index.html">System Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/system/controllers.html">System Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/system/schemas.html">System Domain Schemas</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contribution-guide.html">Contribution Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../../../index.html"><span itemprop="name">irontrack</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../../index.html"><span itemprop="name">Module code</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">app.domain.users.auth</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <h1>Source code for app.domain.users.auth</h1><div class="highlight"><pre>
+<span></span><span data-line="1"><span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span data-line="2">    <span class="n">Awaitable</span><span class="p">,</span>
+</span><span data-line="3">    <span class="n">Callable</span><span class="p">,</span>
+</span><span data-line="4"><span class="p">)</span>
+</span><span data-line="5"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span data-line="6">    <span class="n">Annotated</span><span class="p">,</span>
+</span><span data-line="7">    <span class="n">Any</span><span class="p">,</span>
+</span><span data-line="8"><span class="p">)</span>
+</span><span data-line="9">
+</span><span data-line="10"><span class="kn">from</span><span class="w"> </span><span class="nn">advanced_alchemy.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">NotFoundError</span>
+</span><span data-line="11"><span class="kn">from</span><span class="w"> </span><span class="nn">cashews</span><span class="w"> </span><span class="kn">import</span> <span class="n">cache</span>
+</span><span data-line="12"><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Depends</span>
+</span><span data-line="13"><span class="kn">from</span><span class="w"> </span><span class="nn">joserfc.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">JoseError</span>
+</span><span data-line="14"><span class="kn">from</span><span class="w"> </span><span class="nn">joserfc.jwt</span><span class="w"> </span><span class="kn">import</span> <span class="n">JWTClaimsRegistry</span>
+</span><span data-line="15"><span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.orm</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span data-line="16">    <span class="n">load_only</span><span class="p">,</span>
+</span><span data-line="17">    <span class="n">selectinload</span><span class="p">,</span>
+</span><span data-line="18"><span class="p">)</span>
+</span><span data-line="19"><span class="kn">from</span><span class="w"> </span><span class="nn">structlog</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_logger</span>
+</span><span data-line="20">
+</span><span data-line="21"><span class="kn">from</span><span class="w"> </span><span class="nn">app.config.constants</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span data-line="22">    <span class="n">FITNESS_TRAINER_ROLE_SLUG</span><span class="p">,</span>
+</span><span data-line="23">    <span class="n">USER_AUTH_CACHE_TTL</span><span class="p">,</span>
+</span><span data-line="24"><span class="p">)</span>
+</span><span data-line="25"><span class="kn">from</span><span class="w"> </span><span class="nn">app.db.models.role</span><span class="w"> </span><span class="kn">import</span> <span class="n">Role</span>
+</span><span data-line="26"><span class="kn">from</span><span class="w"> </span><span class="nn">app.db.models.user</span><span class="w"> </span><span class="kn">import</span> <span class="n">User</span>
+</span><span data-line="27"><span class="kn">from</span><span class="w"> </span><span class="nn">app.domain.users.deps</span><span class="w"> </span><span class="kn">import</span> <span class="n">UserServiceDep</span>
+</span><span data-line="28"><span class="kn">from</span><span class="w"> </span><span class="nn">app.domain.users.jwt_helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_token_in_blacklist</span>
+</span><span data-line="29"><span class="kn">from</span><span class="w"> </span><span class="nn">app.domain.users.schemas</span><span class="w"> </span><span class="kn">import</span> <span class="n">UserAuth</span>
+</span><span data-line="30"><span class="kn">from</span><span class="w"> </span><span class="nn">app.lib.auth</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span data-line="31">    <span class="n">access_token</span><span class="p">,</span>
+</span><span data-line="32">    <span class="n">refresh_token</span><span class="p">,</span>
+</span><span data-line="33"><span class="p">)</span>
+</span><span data-line="34"><span class="kn">from</span><span class="w"> </span><span class="nn">app.lib.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span data-line="35">    <span class="n">PermissionDeniedException</span><span class="p">,</span>
+</span><span data-line="36">    <span class="n">UnauthorizedException</span><span class="p">,</span>
+</span><span data-line="37"><span class="p">)</span>
+</span><span data-line="38"><span class="kn">from</span><span class="w"> </span><span class="nn">app.lib.jwt_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">decode_jwt</span>
+</span><span data-line="39">
+</span><span data-line="40"><span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Authenticate&quot;</span><span class="p">,)</span>
+</span><span data-line="41">
+</span><span data-line="42"><span class="n">log</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">()</span>
+</span><span data-line="43">
+</span><span data-line="44"><span class="n">claims_registry</span> <span class="o">=</span> <span class="n">JWTClaimsRegistry</span><span class="p">(</span>
+</span><span data-line="45">    <span class="n">exp</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;essential&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+</span><span data-line="46">    <span class="n">iat</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;essential&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+</span><span data-line="47"><span class="p">)</span>
+</span><span data-line="48">
+</span><span data-line="49">
+<div class="viewcode-block" id="get_payload_from_token">
+<a class="viewcode-back" href="../../../../api/domain/users/auth.html#app.domain.users.auth.get_payload_from_token">[docs]</a>
+</span><span data-line="50"><span class="k">def</span><span class="w"> </span><span class="nf">get_payload_from_token</span><span class="p">(</span><span class="n">authentication_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span data-line="51"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Decode a JWT token and return its payload.</span>
+</span><span data-line="52">
+</span><span data-line="53"><span class="sd">    Args:</span>
+</span><span data-line="54"><span class="sd">        authentication_token (str): The raw JWT string.</span>
+</span><span data-line="55">
+</span><span data-line="56"><span class="sd">    Returns:</span>
+</span><span data-line="57"><span class="sd">        dict: The decoded JWT payload as a dictionary.</span>
+</span><span data-line="58">
+</span><span data-line="59"><span class="sd">    Raises:</span>
+</span><span data-line="60"><span class="sd">        UnauthorizedException: If the token is invalid, malformed, or expired (HTTP 401).</span>
+</span><span data-line="61"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span data-line="62">    <span class="k">try</span><span class="p">:</span>
+</span><span data-line="63">        <span class="n">claims</span> <span class="o">=</span> <span class="n">decode_jwt</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">authentication_token</span><span class="p">)</span><span class="o">.</span><span class="n">claims</span>
+</span><span data-line="64">        <span class="n">claims_registry</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">claims</span><span class="o">=</span><span class="n">claims</span><span class="p">)</span>
+</span><span data-line="65">    <span class="k">except</span> <span class="n">JoseError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+</span><span data-line="66">        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+</span><span data-line="67">            <span class="s2">&quot;JWT decode failed&quot;</span><span class="p">,</span>
+</span><span data-line="68">            <span class="n">error_type</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+</span><span data-line="69">            <span class="n">error_detail</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">),</span>
+</span><span data-line="70">        <span class="p">)</span>
+</span><span data-line="71">        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid or expired token&quot;</span>
+</span><span data-line="72">        <span class="k">raise</span> <span class="n">UnauthorizedException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
+</span><span data-line="73">    <span class="k">else</span><span class="p">:</span>
+</span><span data-line="74">        <span class="k">return</span> <span class="n">claims</span></div>
+
+</span><span data-line="75">
+</span><span data-line="76">
+<div class="viewcode-block" id="Authenticate">
+<a class="viewcode-back" href="../../../../api/domain/users/auth.html#app.domain.users.auth.Authenticate">[docs]</a>
+</span><span data-line="77"><span class="k">class</span><span class="w"> </span><span class="nc">Authenticate</span><span class="p">:</span>
+</span><span data-line="78"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Provides FastAPI dependency factories for authentication and authorization.&quot;&quot;&quot;</span>
+</span><span data-line="79">
+<div class="viewcode-block" id="Authenticate._get_user_from_payload">
+<a class="viewcode-back" href="../../../../api/domain/users/auth.html#app.domain.users.auth.Authenticate._get_user_from_payload">[docs]</a>
+</span><span data-line="80">    <span class="nd">@classmethod</span>
+</span><span data-line="81">    <span class="nd">@cache</span><span class="p">(</span>
+</span><span data-line="82">        <span class="n">ttl</span><span class="o">=</span><span class="n">USER_AUTH_CACHE_TTL</span><span class="p">,</span>
+</span><span data-line="83">        <span class="n">key</span><span class="o">=</span><span class="s2">&quot;user_auth:</span><span class="si">{token_payload[sub]}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span data-line="84">    <span class="p">)</span>
+</span><span data-line="85">    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_get_user_from_payload</span><span class="p">(</span>
+</span><span data-line="86">        <span class="bp">cls</span><span class="p">,</span>
+</span><span data-line="87">        <span class="n">token_payload</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+</span><span data-line="88">        <span class="n">users_service</span><span class="p">:</span> <span class="n">UserServiceDep</span><span class="p">,</span>
+</span><span data-line="89">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UserAuth</span><span class="p">:</span>
+</span><span data-line="90"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Load UserAuth schema from the database using the JWT &#39;sub&#39; claim.</span>
+</span><span data-line="91">
+</span><span data-line="92"><span class="sd">        The result of this function is aggressively cached to reduce database load.</span>
+</span><span data-line="93">
+</span><span data-line="94"><span class="sd">        Args:</span>
+</span><span data-line="95"><span class="sd">            token_payload (dict): The decoded JWT payload.</span>
+</span><span data-line="96"><span class="sd">            users_service (UserService): Dependency for user service operations.</span>
+</span><span data-line="97">
+</span><span data-line="98"><span class="sd">        Returns:</span>
+</span><span data-line="99"><span class="sd">            UserAuth: The authenticated user.</span>
+</span><span data-line="100">
+</span><span data-line="101"><span class="sd">        Raises:</span>
+</span><span data-line="102"><span class="sd">            UnauthorizedException: If the user is not found (HTTP 401).</span>
+</span><span data-line="103"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="104">        <span class="n">user_id</span> <span class="o">=</span> <span class="n">token_payload</span><span class="p">[</span><span class="s2">&quot;sub&quot;</span><span class="p">]</span>
+</span><span data-line="105">        <span class="k">try</span><span class="p">:</span>
+</span><span data-line="106">            <span class="n">db_obj</span> <span class="o">=</span> <span class="k">await</span> <span class="n">users_service</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+</span><span data-line="107">                <span class="n">item_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span>
+</span><span data-line="108">                <span class="n">load</span><span class="o">=</span><span class="p">[</span>
+</span><span data-line="109">                    <span class="n">load_only</span><span class="p">(</span>
+</span><span data-line="110">                        <span class="n">User</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+</span><span data-line="111">                        <span class="n">User</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+</span><span data-line="112">                        <span class="n">User</span><span class="o">.</span><span class="n">email</span><span class="p">,</span>
+</span><span data-line="113">                        <span class="n">User</span><span class="o">.</span><span class="n">is_active</span><span class="p">,</span>
+</span><span data-line="114">                        <span class="n">User</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">,</span>
+</span><span data-line="115">                    <span class="p">),</span>
+</span><span data-line="116">                    <span class="n">selectinload</span><span class="p">(</span><span class="n">User</span><span class="o">.</span><span class="n">role</span><span class="p">)</span><span class="o">.</span><span class="n">load_only</span><span class="p">(</span><span class="n">Role</span><span class="o">.</span><span class="n">slug</span><span class="p">),</span>
+</span><span data-line="117">                <span class="p">],</span>
+</span><span data-line="118">            <span class="p">)</span>
+</span><span data-line="119">            <span class="k">return</span> <span class="n">users_service</span><span class="o">.</span><span class="n">to_schema</span><span class="p">(</span><span class="n">db_obj</span><span class="p">,</span> <span class="n">schema_type</span><span class="o">=</span><span class="n">UserAuth</span><span class="p">)</span>
+</span><span data-line="120">        <span class="k">except</span> <span class="n">NotFoundError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+</span><span data-line="121">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid authentication credentials&quot;</span>
+</span><span data-line="122">            <span class="k">raise</span> <span class="n">UnauthorizedException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span></div>
+
+</span><span data-line="123">
+<div class="viewcode-block" id="Authenticate.get_current_user_for_refresh">
+<a class="viewcode-back" href="../../../../api/domain/users/auth.html#app.domain.users.auth.Authenticate.get_current_user_for_refresh">[docs]</a>
+</span><span data-line="124">    <span class="nd">@classmethod</span>
+</span><span data-line="125">    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_current_user_for_refresh</span><span class="p">(</span>
+</span><span data-line="126">        <span class="bp">cls</span><span class="p">,</span>
+</span><span data-line="127">        <span class="n">token</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">refresh_token</span><span class="p">)],</span>
+</span><span data-line="128">        <span class="n">users_service</span><span class="p">:</span> <span class="n">UserServiceDep</span><span class="p">,</span>
+</span><span data-line="129">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UserAuth</span><span class="p">:</span>
+</span><span data-line="130"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Authenticate the user using the refresh token.</span>
+</span><span data-line="131">
+</span><span data-line="132"><span class="sd">        Performs critical security checks including token blacklisting. This dependency</span>
+</span><span data-line="133"><span class="sd">        is used exclusively by the token refresh endpoint.</span>
+</span><span data-line="134">
+</span><span data-line="135"><span class="sd">        Args:</span>
+</span><span data-line="136"><span class="sd">            token (str): The refresh token extracted from the cookie.</span>
+</span><span data-line="137"><span class="sd">            users_service (UserService): Dependency for user service operations.</span>
+</span><span data-line="138">
+</span><span data-line="139"><span class="sd">        Returns:</span>
+</span><span data-line="140"><span class="sd">            UserAuth: The authenticated user with JTI attached.</span>
+</span><span data-line="141">
+</span><span data-line="142"><span class="sd">        Raises:</span>
+</span><span data-line="143"><span class="sd">            UnauthorizedException: If the token is invalid, blacklisted, or the user is inactive (HTTP 401).</span>
+</span><span data-line="144"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="145">        <span class="n">token_payload</span> <span class="o">=</span> <span class="n">get_payload_from_token</span><span class="p">(</span><span class="n">authentication_token</span><span class="o">=</span><span class="n">token</span><span class="p">)</span>
+</span><span data-line="146">        <span class="n">refresh_jti</span> <span class="o">=</span> <span class="n">token_payload</span><span class="p">[</span><span class="s2">&quot;jti&quot;</span><span class="p">]</span>
+</span><span data-line="147">        <span class="n">token_exists</span> <span class="o">=</span> <span class="k">await</span> <span class="n">is_token_in_blacklist</span><span class="p">(</span>
+</span><span data-line="148">            <span class="n">refresh_token_identifier</span><span class="o">=</span><span class="n">refresh_jti</span><span class="p">,</span>
+</span><span data-line="149">        <span class="p">)</span>
+</span><span data-line="150">        <span class="k">if</span> <span class="n">token_exists</span><span class="p">:</span>
+</span><span data-line="151">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid credentials&quot;</span>
+</span><span data-line="152">            <span class="k">raise</span> <span class="n">UnauthorizedException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="153">        <span class="n">user_auth</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_get_user_from_payload</span><span class="p">(</span>
+</span><span data-line="154">            <span class="n">token_payload</span><span class="o">=</span><span class="n">token_payload</span><span class="p">,</span>
+</span><span data-line="155">            <span class="n">users_service</span><span class="o">=</span><span class="n">users_service</span><span class="p">,</span>
+</span><span data-line="156">        <span class="p">)</span>
+</span><span data-line="157">        <span class="k">if</span> <span class="ow">not</span> <span class="n">user_auth</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
+</span><span data-line="158">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid credentials or account is unavailable&quot;</span>
+</span><span data-line="159">            <span class="k">raise</span> <span class="n">UnauthorizedException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="160">
+</span><span data-line="161">        <span class="n">user_auth</span><span class="o">.</span><span class="n">_refresh_jti</span> <span class="o">=</span> <span class="n">refresh_jti</span>  <span class="c1"># noqa: SLF001</span>
+</span><span data-line="162">        <span class="k">return</span> <span class="n">user_auth</span></div>
+
+</span><span data-line="163">
+<div class="viewcode-block" id="Authenticate.get_current_user">
+<a class="viewcode-back" href="../../../../api/domain/users/auth.html#app.domain.users.auth.Authenticate.get_current_user">[docs]</a>
+</span><span data-line="164">    <span class="nd">@classmethod</span>
+</span><span data-line="165">    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_current_user</span><span class="p">(</span>
+</span><span data-line="166">        <span class="bp">cls</span><span class="p">,</span>
+</span><span data-line="167">        <span class="n">token</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">access_token</span><span class="p">)],</span>
+</span><span data-line="168">        <span class="n">users_service</span><span class="p">:</span> <span class="n">UserServiceDep</span><span class="p">,</span>
+</span><span data-line="169">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UserAuth</span><span class="p">:</span>
+</span><span data-line="170"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Authenticate the user using the access token.</span>
+</span><span data-line="171">
+</span><span data-line="172"><span class="sd">        Args:</span>
+</span><span data-line="173"><span class="sd">            token (str): The access token extracted from the cookie.</span>
+</span><span data-line="174"><span class="sd">            users_service (UserService): Dependency for user service operations.</span>
+</span><span data-line="175">
+</span><span data-line="176"><span class="sd">        Returns:</span>
+</span><span data-line="177"><span class="sd">            UserAuth: The authenticated user.</span>
+</span><span data-line="178"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="179">        <span class="n">token_payload</span> <span class="o">=</span> <span class="n">get_payload_from_token</span><span class="p">(</span><span class="n">authentication_token</span><span class="o">=</span><span class="n">token</span><span class="p">)</span>
+</span><span data-line="180">        <span class="k">return</span> <span class="k">await</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_get_user_from_payload</span><span class="p">(</span>
+</span><span data-line="181">            <span class="n">token_payload</span><span class="o">=</span><span class="n">token_payload</span><span class="p">,</span>
+</span><span data-line="182">            <span class="n">users_service</span><span class="o">=</span><span class="n">users_service</span><span class="p">,</span>
+</span><span data-line="183">        <span class="p">)</span></div>
+
+</span><span data-line="184">
+<div class="viewcode-block" id="Authenticate.get_current_active_user">
+<a class="viewcode-back" href="../../../../api/domain/users/auth.html#app.domain.users.auth.Authenticate.get_current_active_user">[docs]</a>
+</span><span data-line="185">    <span class="nd">@classmethod</span>
+</span><span data-line="186">    <span class="k">def</span><span class="w"> </span><span class="nf">get_current_active_user</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">UserAuth</span><span class="p">],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">UserAuth</span><span class="p">]]:</span>
+</span><span data-line="187"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Dependency factory to ensure the user is active.</span>
+</span><span data-line="188">
+</span><span data-line="189"><span class="sd">        It chains with `get_current_user` to perform both authentication and</span>
+</span><span data-line="190"><span class="sd">        basic authorization (account status check).</span>
+</span><span data-line="191">
+</span><span data-line="192"><span class="sd">        Returns:</span>
+</span><span data-line="193"><span class="sd">            Callable: A FastAPI dependency function.</span>
+</span><span data-line="194">
+</span><span data-line="195"><span class="sd">        Raises:</span>
+</span><span data-line="196"><span class="sd">            UnauthorizedException: If the user is found but not active (HTTP 401).</span>
+</span><span data-line="197"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="198">
+</span><span data-line="199">        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">current_user</span><span class="p">(</span>
+</span><span data-line="200">            <span class="n">user_auth</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">UserAuth</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">get_current_user</span><span class="p">)],</span>
+</span><span data-line="201">        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UserAuth</span><span class="p">:</span>
+</span><span data-line="202">            <span class="k">if</span> <span class="ow">not</span> <span class="n">user_auth</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
+</span><span data-line="203">                <span class="k">raise</span> <span class="n">UnauthorizedException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Invalid credentials or account is unavailable&quot;</span><span class="p">)</span>
+</span><span data-line="204">            <span class="k">return</span> <span class="n">user_auth</span>
+</span><span data-line="205">
+</span><span data-line="206">        <span class="k">return</span> <span class="n">current_user</span></div>
+
+</span><span data-line="207">
+<div class="viewcode-block" id="Authenticate.superuser_required">
+<a class="viewcode-back" href="../../../../api/domain/users/auth.html#app.domain.users.auth.Authenticate.superuser_required">[docs]</a>
+</span><span data-line="208">    <span class="nd">@classmethod</span>
+</span><span data-line="209">    <span class="k">def</span><span class="w"> </span><span class="nf">superuser_required</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">UserAuth</span><span class="p">],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">UserAuth</span><span class="p">]]:</span>
+</span><span data-line="210"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Dependency factory requiring superuser privileges.</span>
+</span><span data-line="211">
+</span><span data-line="212"><span class="sd">        It chains with `get_current_active_user` and performs the final authorization check.</span>
+</span><span data-line="213">
+</span><span data-line="214"><span class="sd">        Returns:</span>
+</span><span data-line="215"><span class="sd">            Callable: A FastAPI dependency function.</span>
+</span><span data-line="216">
+</span><span data-line="217"><span class="sd">        Raises:</span>
+</span><span data-line="218"><span class="sd">            PermissionDeniedException: If the user is not a superuser (HTTP 403).</span>
+</span><span data-line="219"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="220">
+</span><span data-line="221">        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">current_user</span><span class="p">(</span>
+</span><span data-line="222">            <span class="n">user_auth</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">UserAuth</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">get_current_active_user</span><span class="p">())],</span>
+</span><span data-line="223">        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UserAuth</span><span class="p">:</span>
+</span><span data-line="224">            <span class="k">if</span> <span class="ow">not</span> <span class="n">user_auth</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">:</span>
+</span><span data-line="225">                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Access denied: Superuser privileges required&quot;</span>
+</span><span data-line="226">                <span class="k">raise</span> <span class="n">PermissionDeniedException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="227">            <span class="k">return</span> <span class="n">user_auth</span>
+</span><span data-line="228">
+</span><span data-line="229">        <span class="k">return</span> <span class="n">current_user</span></div>
+
+</span><span data-line="230">
+<div class="viewcode-block" id="Authenticate.trainer_required">
+<a class="viewcode-back" href="../../../../api/domain/users/auth.html#app.domain.users.auth.Authenticate.trainer_required">[docs]</a>
+</span><span data-line="231">    <span class="nd">@classmethod</span>
+</span><span data-line="232">    <span class="k">def</span><span class="w"> </span><span class="nf">trainer_required</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">UserAuth</span><span class="p">],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">UserAuth</span><span class="p">]]:</span>
+</span><span data-line="233"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Dependency factory requiring the Fitness Trainer role.</span>
+</span><span data-line="234">
+</span><span data-line="235"><span class="sd">        It chains with `get_current_active_user` and performs the final role check.</span>
+</span><span data-line="236">
+</span><span data-line="237"><span class="sd">        Returns:</span>
+</span><span data-line="238"><span class="sd">            Callable: A FastAPI dependency function.</span>
+</span><span data-line="239">
+</span><span data-line="240"><span class="sd">        Raises:</span>
+</span><span data-line="241"><span class="sd">            PermissionDeniedException: If the user does not have the required role (HTTP 403).</span>
+</span><span data-line="242"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="243">
+</span><span data-line="244">        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">current_user</span><span class="p">(</span>
+</span><span data-line="245">            <span class="n">user_auth</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">UserAuth</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">get_current_active_user</span><span class="p">())],</span>
+</span><span data-line="246">        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UserAuth</span><span class="p">:</span>
+</span><span data-line="247">            <span class="k">if</span> <span class="n">user_auth</span><span class="o">.</span><span class="n">role_slug</span> <span class="o">==</span> <span class="n">FITNESS_TRAINER_ROLE_SLUG</span><span class="p">:</span>
+</span><span data-line="248">                <span class="k">return</span> <span class="n">user_auth</span>
+</span><span data-line="249">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Access restricted to fitness trainers&quot;</span>
+</span><span data-line="250">            <span class="k">raise</span> <span class="n">PermissionDeniedException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="251">
+</span><span data-line="252">        <span class="k">return</span> <span class="n">current_user</span></div>
+
+</span><span data-line="253">
+<div class="viewcode-block" id="Authenticate.get_refresh_jti">
+<a class="viewcode-back" href="../../../../api/domain/users/auth.html#app.domain.users.auth.Authenticate.get_refresh_jti">[docs]</a>
+</span><span data-line="254">    <span class="nd">@classmethod</span>
+</span><span data-line="255">    <span class="k">def</span><span class="w"> </span><span class="nf">get_refresh_jti</span><span class="p">(</span>
+</span><span data-line="256">        <span class="bp">cls</span><span class="p">,</span>
+</span><span data-line="257">        <span class="n">token</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">refresh_token</span><span class="p">)],</span>
+</span><span data-line="258">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="259"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract the JWT ID (jti) claim from a refresh token.</span>
+</span><span data-line="260">
+</span><span data-line="261"><span class="sd">        This method is primarily used to retrieve the JTI for blacklisting</span>
+</span><span data-line="262"><span class="sd">        during the token refresh process.</span>
+</span><span data-line="263">
+</span><span data-line="264"><span class="sd">        Args:</span>
+</span><span data-line="265"><span class="sd">            token (str): The refresh token string from the cookie.</span>
+</span><span data-line="266">
+</span><span data-line="267"><span class="sd">        Returns:</span>
+</span><span data-line="268"><span class="sd">            str: The JTI claim.</span>
+</span><span data-line="269"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="270">        <span class="n">token_payload</span> <span class="o">=</span> <span class="n">get_payload_from_token</span><span class="p">(</span><span class="n">authentication_token</span><span class="o">=</span><span class="n">token</span><span class="p">)</span>
+</span><span data-line="271">        <span class="n">token_identifier</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">token_payload</span><span class="p">[</span><span class="s2">&quot;jti&quot;</span><span class="p">]</span>
+</span><span data-line="272">
+</span><span data-line="273">        <span class="k">return</span> <span class="n">token_identifier</span></div>
+</div>
+
+</span></pre></div>
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2026, Alexander Matveev</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+<a href="https://github.com/bizoxe/iron-track" aria-label="GitHub">
+  <iconify-icon icon="simple-icons:github"></iconify-icon>
+</a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../../../_static/shibuya.js?v=cac61aee"></script>
+      <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+      <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
+
+
+
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = `pre.mermaid {
+    /* Same as .mermaid-container > pre */
+    display: block;
+    width: 100%;
+}
+
+pre.mermaid > svg {
+    /* Same as .mermaid-container > pre > svg */
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}`;
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = `.mermaid-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.mermaid-container > pre {
+    display: block;
+    width: 100%;
+}
+
+.mermaid-container > pre > svg {
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}
+
+.mermaid-fullscreen-btn {
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+    color: #333;
+}
+
+.mermaid-fullscreen-btn:hover {
+    opacity: 100% !important;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-btn.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-btn.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal {
+    display: none;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 95vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    z-index: 9999;
+    padding: 20px;
+    overflow: auto;
+}
+
+.mermaid-fullscreen-modal.dark-theme {
+    background: rgba(0, 0, 0, 0.98);
+}
+
+.mermaid-fullscreen-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen {
+    position: relative;
+    width: 95vw;
+    height: 90vh;
+    max-width: 95vw;
+    max-height: 90vh;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen.dark-theme {
+    background: #1a1a1a;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+}
+
+.mermaid-container-fullscreen pre.mermaid {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen .mermaid svg {
+    height: 100% !important;
+    width: 100% !important;
+    cursor: grab;
+}
+
+.mermaid-fullscreen-close {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+    font-size: 24px;
+    line-height: 1;
+    color: #333;
+}
+
+.mermaid-fullscreen-close:hover {
+    background: white;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-close.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-close.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal .mermaid-fullscreen-btn {
+    display: none !important;
+}`;
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        all_mermaids.forEach((el) => {
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+        await mermaid.run();
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
+
+    if ("False" === "True") {
+        const mermaids_to_add_zoom = -1 === -1 ? all_mermaids.length : -1;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll("");
+            if(all_mermaids.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else if(svgs.size() !== mermaids_to_add_zoom) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else {
+                svgs.each(function() {
+                    var svg = d3.select(this);
+                    svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+                    var inner = svg.select("g");
+                    var zoom = d3.zoom().on("zoom", function(event) {
+                        inner.attr("transform", event.transform);
+                    });
+                    svg.call(zoom);
+                });
+            }
+        }
+    } else if(all_mermaids.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if ("True" !== "True") return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = '⛶';
+        fullscreenBtn.style.opacity = '50%';
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scroll, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.sdisplay = 'block';
+
+                if ("False" === "True") {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+const load = async () => {
+    initStyles();
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...JSON.parse(
+                    `{"startOnLoad": false}`
+                ),
+                ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...JSON.parse(
+        `{"startOnLoad": false}`
+    ),
+    ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+    }
+);
+
+window.addEventListener("load", load);</script></body>
+</html>

@@ -153,7 +153,10 @@ data-aria-dark="Switch to auto color mode">
     <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
       <i class="i-lucide close"></i>
     </button>
-    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#app.main.run_cli"><code class="docutils literal notranslate"><span class="pre">run_cli()</span></code></a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
   </aside>
   <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
   <main class="sy-main w-full max-sm:max-w-full print:pt-6">
@@ -186,8 +189,54 @@ data-aria-dark="Switch to auto color mode">
 </div><div class="flex flex-col break-words justify-between">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
-          <section id="entry-point-main-py">
-<h1>Entry Point (main.py)<a class="headerlink" href="#entry-point-main-py" title="Link to this heading">¶</a></h1>
+          <section id="module-app.main">
+<span id="entry-point-main-py"></span><h1>Entry Point (main.py)<a class="headerlink" href="#module-app.main" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.main.run_cli">
+<span class="sig-name descname"><span class="pre">run_cli</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/app/main.html#run_cli"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.main.run_cli" title="Link to this definition">¶</a></dt>
+<dd><p>Entry point for the command-line interface (CLI).</p>
+<p>Initializes the main Typer application and integrates multiple command groups
+to provide comprehensive tooling for the application.</p>
+<p>The following command groups are included:</p>
+<ul class="simple">
+<li><p><strong>Server Management:</strong> Commands for running the application in development (<cite>dev</cite>)
+and production (<cite>run</cite>) mode.</p></li>
+<li><p><strong>Database Migrations:</strong> Commands for managing database schemas and migrations
+(provided by <cite>advanced_alchemy</cite>).</p></li>
+<li><p><strong>Custom Tools:</strong> Application-specific commands, such as those for user management.</p></li>
+</ul>
+<div class="admonition-examples admonition">
+<p class="admonition-title">Examples</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>Start Development Server:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">server</span> <span class="pre">dev</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>View Database Help:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">database</span> <span class="pre">--help</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Apply Migrations:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">database</span> <span class="pre">upgrade</span> <span class="pre">head</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>View User Management Help:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">users</span> <span class="pre">--help</span></code></p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Create New User:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">users</span> <span class="pre">create-user</span> <span class="pre">--name</span> <span class="pre">&quot;User</span> <span class="pre">Example&quot;</span> <span class="pre">--email</span> <span class="pre">user&#64;example.com</span> <span class="pre">--password</span> <span class="pre">secretpwd</span></code></p>
+</dd>
+</dl>
+</li>
+</ol>
+</div>
+</dd></dl>
+
 </section>
 
         </article><button class="back-to-top" type="button">

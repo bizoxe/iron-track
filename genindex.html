@@ -81,6 +81,7 @@ data-aria-dark="Switch to auto color mode">
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
  
@@ -132,13 +133,15 @@ data-aria-dark="Switch to auto color mode">
 </li>
       <li><a href="api/lib/pretty_regex_error_msgs.html#app.lib.pretty_regex_error_msgs.RegexValidator.__get_pydantic_core_schema__">__get_pydantic_core_schema__() (RegexValidator class method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse.__init__">__init__() (MsgSpecJSONResponse method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/lib/pretty_regex_error_msgs.html#app.lib.pretty_regex_error_msgs.RegexValidator.__init_subclass__">__init_subclass__() (RegexValidator class method)</a>
 </li>
       <li><a href="api/lib/serializers.html#app.lib.serializers.MsgSpecRegistry._ENCODER">_ENCODER (MsgSpecRegistry attribute)</a>
+</li>
+      <li><a href="api/domain/users/auth.html#app.domain.users.auth.Authenticate._get_user_from_payload">_get_user_from_payload() (Authenticate class method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -147,12 +150,18 @@ data-aria-dark="Switch to auto color mode">
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.aa_technical_filters">aa_technical_filters (CommonFilters property)</a>
+
+      <ul>
+        <li><a href="api/domain/users/utils.html#app.domain.users.utils.UserFilters.aa_technical_filters">(UserFilters property)</a>
 </li>
+      </ul></li>
       <li><a href="api/config/base.html#app.config.base.JWTSettings.ACCESS_TOKEN_EXPIRE_MINUTES">ACCESS_TOKEN_EXPIRE_MINUTES (JWTSettings attribute)</a>
 </li>
       <li><a href="api/config/constants.html#app.config.constants.ACCESS_TOKEN_MAX_AGE">ACCESS_TOKEN_MAX_AGE (in module app.config.constants)</a>
 </li>
       <li><a href="api/utils/log_utils/setup.html#app.utils.log_utils.setup.add_correlation">add_correlation() (in module app.utils.log_utils.setup)</a>
+</li>
+      <li><a href="api/domain/users/jwt_helpers.html#app.domain.users.jwt_helpers.add_token_to_blacklist">add_token_to_blacklist() (in module app.domain.users.jwt_helpers)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.JWTSettings.ALGORITHM">ALGORITHM (JWTSettings attribute)</a>
 </li>
@@ -208,8 +217,6 @@ data-aria-dark="Switch to auto color mode">
         <li><a href="api/domain/system/controllers.html#module-app.domain.system.controllers">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     app.domain.system.schemas
 
@@ -220,10 +227,47 @@ data-aria-dark="Switch to auto color mode">
       <li><a href="api/domain/users/auth.html#app.domain.users.auth.claims_registry">app.domain.users.auth.claims_registry (built-in variable)</a>
 </li>
       <li>
+    app.domain.users.controllers.access
+
+      <ul>
+        <li><a href="api/domain/users/controllers/access.html#module-app.domain.users.controllers.access">module</a>
+</li>
+      </ul></li>
+      <li>
+    app.domain.users.controllers.user_role
+
+      <ul>
+        <li><a href="api/domain/users/controllers/user_role.html#module-app.domain.users.controllers.user_role">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    app.domain.users.controllers.users
+
+      <ul>
+        <li><a href="api/domain/users/controllers/users.html#module-app.domain.users.controllers.users">module</a>
+</li>
+      </ul></li>
+      <li>
     app.domain.users.deps
 
       <ul>
         <li><a href="api/domain/users/deps.html#module-app.domain.users.deps">module</a>
+</li>
+      </ul></li>
+      <li>
+    app.domain.users.jwt_helpers
+
+      <ul>
+        <li><a href="api/domain/users/jwt_helpers.html#module-app.domain.users.jwt_helpers">module</a>
+</li>
+      </ul></li>
+      <li>
+    app.domain.users.utils
+
+      <ul>
+        <li><a href="api/domain/users/utils.html#module-app.domain.users.utils">module</a>
 </li>
       </ul></li>
       <li><a href="api/lib/auth.html#app.lib.auth.access_token">app.lib.auth.access_token (built-in variable)</a>
@@ -235,6 +279,20 @@ data-aria-dark="Switch to auto color mode">
 
       <ul>
         <li><a href="api/lib/crypt.html#module-app.lib.crypt">module</a>
+</li>
+      </ul></li>
+      <li>
+    app.lib.jwt_utils
+
+      <ul>
+        <li><a href="api/lib/jwt_utils.html#module-app.lib.jwt_utils">module</a>
+</li>
+      </ul></li>
+      <li>
+    app.main
+
+      <ul>
+        <li><a href="api/main.html#module-app.main">module</a>
 </li>
       </ul></li>
       <li>
@@ -262,6 +320,10 @@ data-aria-dark="Switch to auto color mode">
       <li><a href="api/config/base.html#app.config.base.LogSettings.ASGI_ACCESS_LEVEL">ASGI_ACCESS_LEVEL (LogSettings attribute)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.LogSettings.ASGI_ERROR_LEVEL">ASGI_ERROR_LEVEL (LogSettings attribute)</a>
+</li>
+      <li><a href="api/domain/users/controllers/user_role.html#app.domain.users.controllers.user_role.assign_new_role">assign_new_role() (in module app.domain.users.controllers.user_role)</a>
+</li>
+      <li><a href="api/domain/users/auth.html#app.domain.users.auth.Authenticate">Authenticate (class in app.domain.users.auth)</a>
 </li>
       <li><a href="api/domain/users/services.html#app.domain.users.services.UserService.authenticate">authenticate() (UserService method)</a>
 </li>
@@ -303,19 +365,31 @@ data-aria-dark="Switch to auto color mode">
 </li>
       <li><a href="api/domain/system/controllers.html#app.domain.system.controllers.check_system_health">check_system_health() (in module app.domain.system.controllers)</a>
 </li>
+      <li><a href="api/domain/users/utils.html#app.domain.users.utils.check_user_before_modify_role">check_user_before_modify_role() (in module app.domain.users.utils)</a>
+</li>
       <li><a href="api/config/base.html#app.config.base.RedisSettings.client">client (RedisSettings property)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/utils/log_utils/setup.html#app.utils.log_utils.setup.configure_logging">configure_logging() (in module app.utils.log_utils.setup)</a>
 </li>
       <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.AccountRegister.confirm_password">confirm_password (AccountRegister attribute)</a>
 </li>
       <li><a href="api/lib/exceptions.html#app.lib.exceptions.ConflictException">ConflictException (class in app.lib.exceptions)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/config/constants.html#app.config.constants.COOKIE_SECURE_VALUE">COOKIE_SECURE_VALUE (in module app.config.constants)</a>
 </li>
       <li><a href="api/lib/crypt.html#app.lib.crypt.cpu_cores">cpu_cores (in module app.lib.crypt)</a>
+</li>
+      <li><a href="api/domain/users/jwt_helpers.html#app.domain.users.jwt_helpers.create_access_token">create_access_token() (in module app.domain.users.jwt_helpers)</a>
+</li>
+      <li><a href="api/server/core.html#app.server.core.create_app">create_app() (in module app.server.core)</a>
+</li>
+      <li><a href="api/domain/users/jwt_helpers.html#app.domain.users.jwt_helpers.create_refresh_token">create_refresh_token() (in module app.domain.users.jwt_helpers)</a>
+</li>
+      <li><a href="api/domain/users/controllers/users.html#app.domain.users.controllers.users.create_user">create_user() (in module app.domain.users.controllers.users)</a>
+</li>
+      <li><a href="api/domain/users/utils.html#app.domain.users.utils.UserFilters.created_after">created_after (UserFilters attribute)</a>
 </li>
       <li><a href="api/db/role.html#app.db.models.role.Role.created_at">created_at (Role attribute)</a>
 
@@ -323,6 +397,8 @@ data-aria-dark="Switch to auto color mode">
         <li><a href="api/db/user.html#app.db.models.user.User.created_at">(User attribute)</a>, <a href="api/domain/users/schemas.html#app.domain.users.schemas.User.created_at">[1]</a>
 </li>
       </ul></li>
+      <li><a href="api/domain/users/utils.html#app.domain.users.utils.UserFilters.created_before">created_before (UserFilters attribute)</a>
+</li>
       <li><a href="api/lib/crypt.html#app.lib.crypt.crypto_executor">crypto_executor (in module app.lib.crypt)</a>
 </li>
       <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.current_page">current_page (CommonFilters attribute)</a>
@@ -343,6 +419,8 @@ data-aria-dark="Switch to auto color mode">
 </li>
       <li><a href="api/config/base.html#app.config.base.AppSettings.DEBUG">DEBUG (AppSettings attribute)</a>
 </li>
+      <li><a href="api/lib/jwt_utils.html#app.lib.jwt_utils.decode_jwt">decode_jwt() (in module app.lib.jwt_utils)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/config/constants.html#app.config.constants.DEFAULT_ADMIN_EMAIL">DEFAULT_ADMIN_EMAIL (in module app.config.constants)</a>
@@ -350,6 +428,8 @@ data-aria-dark="Switch to auto color mode">
       <li><a href="api/domain/users/services.html#app.domain.users.services.UserService.default_role">default_role (UserService attribute)</a>
 </li>
       <li><a href="api/config/constants.html#app.config.constants.DEFAULT_USER_ROLE_SLUG">DEFAULT_USER_ROLE_SLUG (in module app.config.constants)</a>
+</li>
+      <li><a href="api/domain/users/controllers/users.html#app.domain.users.controllers.users.delete_user">delete_user() (in module app.domain.users.controllers.users)</a>
 </li>
       <li><a href="api/db/role.html#app.db.models.role.Role.description">description (Role attribute)</a>
 </li>
@@ -377,6 +457,8 @@ data-aria-dark="Switch to auto color mode">
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lib/jwt_utils.html#app.lib.jwt_utils.encode_jwt">encode_jwt() (in module app.lib.jwt_utils)</a>
+</li>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.engine">engine (DatabaseSettings property)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.AppSettings.ENVIRONMENT">ENVIRONMENT (AppSettings attribute)</a>
@@ -411,13 +493,27 @@ data-aria-dark="Switch to auto color mode">
 </li>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.get_connection_url">get_connection_url() (DatabaseSettings method)</a>
 </li>
+      <li><a href="api/domain/users/auth.html#app.domain.users.auth.Authenticate.get_current_active_user">get_current_active_user() (Authenticate class method)</a>
+</li>
+      <li><a href="api/domain/users/auth.html#app.domain.users.auth.Authenticate.get_current_user">get_current_user() (Authenticate class method)</a>
+</li>
+      <li><a href="api/domain/users/auth.html#app.domain.users.auth.Authenticate.get_current_user_for_refresh">get_current_user_for_refresh() (Authenticate class method)</a>
+</li>
       <li><a href="api/domain/users/services.html#app.domain.users.services.RoleService.get_default_role">get_default_role() (RoleService method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/domain/users/services.html#app.domain.users.services.RoleService.get_id_and_slug_by_slug">get_id_and_slug_by_slug() (RoleService method)</a>
 </li>
+      <li><a href="api/domain/users/controllers/users.html#app.domain.users.controllers.users.get_list_users">get_list_users() (in module app.domain.users.controllers.users)</a>
+</li>
       <li><a href="api/lib/crypt.html#app.lib.crypt.get_password_hash">get_password_hash() (in module app.lib.crypt)</a>
+</li>
+      <li><a href="api/domain/users/auth.html#app.domain.users.auth.get_payload_from_token">get_payload_from_token() (in module app.domain.users.auth)</a>
+</li>
+      <li><a href="api/domain/users/auth.html#app.domain.users.auth.Authenticate.get_refresh_jti">get_refresh_jti() (Authenticate class method)</a>
+</li>
+      <li><a href="api/domain/users/controllers/users.html#app.domain.users.controllers.users.get_user">get_user() (in module app.domain.users.controllers.users)</a>
 </li>
       <li><a href="api/domain/users/services.html#app.domain.users.services.UserService.get_users_paginated_dto">get_users_paginated_dto() (UserService method)</a>
 </li>
@@ -462,6 +558,8 @@ data-aria-dark="Switch to auto color mode">
 </li>
         <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserCreate.is_active">(UserCreate attribute)</a>
 </li>
+        <li><a href="api/domain/users/utils.html#app.domain.users.utils.UserFilters.is_active">(UserFilters attribute)</a>
+</li>
         <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserUpdate.is_active">(UserUpdate attribute)</a>
 </li>
       </ul></li>
@@ -477,6 +575,8 @@ data-aria-dark="Switch to auto color mode">
         <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserUpdate.is_superuser">(UserUpdate attribute)</a>
 </li>
       </ul></li>
+      <li><a href="api/domain/users/jwt_helpers.html#app.domain.users.jwt_helpers.is_token_in_blacklist">is_token_in_blacklist() (in module app.domain.users.jwt_helpers)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -511,9 +611,15 @@ data-aria-dark="Switch to auto color mode">
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/config/base.html#app.config.base.LogSettings.LEVEL">LEVEL (LogSettings attribute)</a>
 </li>
+      <li><a href="api/server/core.html#app.server.core.lifespan">lifespan() (in module app.server.core)</a>
+</li>
+      <li><a href="api/config/base.html#app.config.base.Settings.log">log (Settings attribute)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/config/base.html#app.config.base.Settings.log">log (Settings attribute)</a>
+      <li><a href="api/domain/users/controllers/access.html#app.domain.users.controllers.access.login_for_access_token">login_for_access_token() (in module app.domain.users.controllers.access)</a>
+</li>
+      <li><a href="api/domain/users/controllers/access.html#app.domain.users.controllers.access.logout">logout() (in module app.domain.users.controllers.access)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.LogSettings">LogSettings (class in app.config.base)</a>
 </li>
@@ -545,9 +651,23 @@ data-aria-dark="Switch to auto color mode">
 </li>
         <li><a href="api/domain/system/schemas.html#module-app.domain.system.schemas">app.domain.system.schemas</a>
 </li>
+        <li><a href="api/domain/users/controllers/access.html#module-app.domain.users.controllers.access">app.domain.users.controllers.access</a>
+</li>
+        <li><a href="api/domain/users/controllers/user_role.html#module-app.domain.users.controllers.user_role">app.domain.users.controllers.user_role</a>
+</li>
+        <li><a href="api/domain/users/controllers/users.html#module-app.domain.users.controllers.users">app.domain.users.controllers.users</a>
+</li>
         <li><a href="api/domain/users/deps.html#module-app.domain.users.deps">app.domain.users.deps</a>
 </li>
+        <li><a href="api/domain/users/jwt_helpers.html#module-app.domain.users.jwt_helpers">app.domain.users.jwt_helpers</a>
+</li>
+        <li><a href="api/domain/users/utils.html#module-app.domain.users.utils">app.domain.users.utils</a>
+</li>
         <li><a href="api/lib/crypt.html#module-app.lib.crypt">app.lib.crypt</a>
+</li>
+        <li><a href="api/lib/jwt_utils.html#module-app.lib.jwt_utils">app.lib.jwt_utils</a>
+</li>
+        <li><a href="api/main.html#module-app.main">app.main</a>
 </li>
         <li><a href="api/scripts/seeder.html#module-app.scripts.seeder">app.scripts.seeder</a>
 </li>
@@ -597,7 +717,11 @@ data-aria-dark="Switch to auto color mode">
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.order_by">order_by (CommonFilters attribute)</a>
+
+      <ul>
+        <li><a href="api/domain/users/utils.html#app.domain.users.utils.UserFilters.order_by">(UserFilters attribute)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -620,6 +744,8 @@ data-aria-dark="Switch to auto color mode">
 </li>
       <li><a href="api/lib/pretty_regex_error_msgs.html#app.lib.pretty_regex_error_msgs.RegexValidator.pattern">pattern (RegexValidator attribute)</a>
 </li>
+      <li><a href="api/domain/users/utils.html#app.domain.users.utils.perform_logout_cleanup">perform_logout_cleanup() (in module app.domain.users.utils)</a>
+</li>
       <li><a href="api/lib/exceptions.html#app.lib.exceptions.PermissionDeniedException">PermissionDeniedException (class in app.lib.exceptions)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.PGBOUNCER_ENABLED">PGBOUNCER_ENABLED (DatabaseSettings attribute)</a>
@@ -628,10 +754,10 @@ data-aria-dark="Switch to auto color mode">
 </li>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_DISABLED">POOL_DISABLED (DatabaseSettings attribute)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_MAX_OVERFLOW">POOL_MAX_OVERFLOW (DatabaseSettings attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_MAX_OVERFLOW">POOL_MAX_OVERFLOW (DatabaseSettings attribute)</a>
+</li>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_PRE_PING">POOL_PRE_PING (DatabaseSettings attribute)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_RECYCLE">POOL_RECYCLE (DatabaseSettings attribute)</a>
@@ -674,6 +800,8 @@ data-aria-dark="Switch to auto color mode">
 </li>
       <li><a href="api/lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse.render">render() (MsgSpecJSONResponse method)</a>
 </li>
+      <li><a href="api/domain/users/controllers/user_role.html#app.domain.users.controllers.user_role.revoke_and_set_default_role">revoke_and_set_default_role() (in module app.domain.users.controllers.user_role)</a>
+</li>
       <li><a href="api/db/role.html#app.db.models.role.Role">Role (class in app.db.models.role)</a>
 </li>
       <li><a href="api/db/user.html#app.db.models.user.User.role">role (User attribute)</a>
@@ -700,6 +828,8 @@ data-aria-dark="Switch to auto color mode">
 </li>
       <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.RoleSlug">RoleSlug (class in app.domain.users.schemas)</a>
 </li>
+      <li><a href="api/main.html#app.main.run_cli">run_cli() (in module app.main)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -707,12 +837,18 @@ data-aria-dark="Switch to auto color mode">
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.search_fields">search_fields (CommonFilters attribute)</a>
+
+      <ul>
+        <li><a href="api/domain/users/utils.html#app.domain.users.utils.UserFilters.search_fields">(UserFilters attribute)</a>
 </li>
+      </ul></li>
       <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.search_string">search_string (CommonFilters attribute)</a>
 </li>
       <li><a href="api/scripts/seeder.html#app.scripts.seeder.seed_db">seed_db() (in module app.scripts.seeder)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.Settings">Settings (class in app.config.base)</a>
+</li>
+      <li><a href="api/domain/users/controllers/access.html#app.domain.users.controllers.access.signup">signup() (in module app.domain.users.controllers.access)</a>
 </li>
       <li><a href="api/db/role.html#app.db.models.role.Role.slug">slug (Role attribute)</a>
 </li>
@@ -736,6 +872,8 @@ data-aria-dark="Switch to auto color mode">
 </li>
       <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.RoleSlug.SUPERUSER">SUPERUSER (RoleSlug attribute)</a>
 </li>
+      <li><a href="api/domain/users/auth.html#app.domain.users.auth.Authenticate.superuser_required">superuser_required() (Authenticate class method)</a>
+</li>
       <li><a href="api/config/constants.html#app.config.constants.SUPERUSER_ROLE_SLUG">SUPERUSER_ROLE_SLUG (in module app.config.constants)</a>
 </li>
       <li><a href="api/domain/users/services.html#app.domain.users.services.UserService.system_admin_email">system_admin_email (UserService attribute)</a>
@@ -745,12 +883,26 @@ data-aria-dark="Switch to auto color mode">
   </ul></td>
 </tr></table>
 
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/domain/users/auth.html#app.domain.users.auth.Authenticate.trainer_required">trainer_required() (Authenticate class method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/lib/exceptions.html#app.lib.exceptions.UnauthorizedException">UnauthorizedException (class in app.lib.exceptions)</a>
 </li>
-      <li><a href="api/domain/users/services.html#app.domain.users.services.UserService.update_password">update_password() (UserService method)</a>
+      <li><a href="api/domain/users/controllers/access.html#app.domain.users.controllers.access.update_password">update_password() (in module app.domain.users.controllers.access)</a>
+
+      <ul>
+        <li><a href="api/domain/users/services.html#app.domain.users.services.UserService.update_password">(UserService method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/domain/users/controllers/users.html#app.domain.users.controllers.users.update_user">update_user() (in module app.domain.users.controllers.users)</a>
 </li>
       <li><a href="api/db/role.html#app.db.models.role.Role.updated_at">updated_at (Role attribute)</a>
 
@@ -773,6 +925,10 @@ data-aria-dark="Switch to auto color mode">
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/config/constants.html#app.config.constants.USER_AUTH_CACHE_TTL">USER_AUTH_CACHE_TTL (in module app.config.constants)</a>
+</li>
+      <li><a href="api/domain/users/controllers/access.html#app.domain.users.controllers.access.user_auth_get_self_info">user_auth_get_self_info() (in module app.domain.users.controllers.access)</a>
+</li>
+      <li><a href="api/domain/users/controllers/access.html#app.domain.users.controllers.access.user_auth_refresh_token">user_auth_refresh_token() (in module app.domain.users.controllers.access)</a>
 </li>
       <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserAuth">UserAuth (class in app.domain.users.schemas)</a>
 </li>

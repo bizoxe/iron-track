@@ -153,7 +153,15 @@ data-aria-dark="Switch to auto color mode">
     <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
       <i class="i-lucide close"></i>
     </button>
-    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#app.domain.users.controllers.access.signup"><code class="docutils literal notranslate"><span class="pre">signup()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.users.controllers.access.login_for_access_token"><code class="docutils literal notranslate"><span class="pre">login_for_access_token()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.users.controllers.access.user_auth_refresh_token"><code class="docutils literal notranslate"><span class="pre">user_auth_refresh_token()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.users.controllers.access.logout"><code class="docutils literal notranslate"><span class="pre">logout()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.users.controllers.access.update_password"><code class="docutils literal notranslate"><span class="pre">update_password()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.users.controllers.access.user_auth_get_self_info"><code class="docutils literal notranslate"><span class="pre">user_auth_get_self_info()</span></code></a></li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
   </aside>
   <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
   <main class="sy-main w-full max-sm:max-w-full print:pt-6">
@@ -194,8 +202,106 @@ data-aria-dark="Switch to auto color mode">
 </div><div class="flex flex-col break-words justify-between">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
-          <section id="access-controllers">
-<h1>Access Controllers<a class="headerlink" href="#access-controllers" title="Link to this heading">¶</a></h1>
+          <section id="module-app.domain.users.controllers.access">
+<span id="access-controllers"></span><h1>Access Controllers<a class="headerlink" href="#module-app.domain.users.controllers.access" title="Link to this heading">¶</a></h1>
+<p>User Access and Authentication Endpoints.</p>
+<p>Handles user registration, login (JWT token issuance via cookies), token refreshing, logout,
+and user-specific profile actions.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.domain.users.controllers.access.signup">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">signup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">users_service</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.services.UserService</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account_register</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../schemas.html#app.domain.users.schemas.AccountRegister" title="app.domain.users.schemas.AccountRegister"><span class="pre">AccountRegister</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/users/controllers/access.html#signup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.users.controllers.access.signup" title="Link to this definition">¶</a></dt>
+<dd><p>User Signup.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The newly registered user data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../schemas.html#app.domain.users.schemas.User" title="app.domain.users.schemas.User"><em>User</em></a></p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../../../lib/exceptions.html#app.lib.exceptions.ConflictException" title="app.lib.exceptions.ConflictException"><strong>ConflictException</strong></a> – If a user with this email already exists.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.domain.users.controllers.access.login_for_access_token">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">login_for_access_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">users_service</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.services.UserService</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://fastapi.tiangolo.com/reference/response/#fastapi.Response" title="(in FastAPI v0.0.0)"><span class="pre">Response</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/users/controllers/access.html#login_for_access_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.users.controllers.access.login_for_access_token" title="Link to this definition">¶</a></dt>
+<dd><p>Issue access and refresh tokens. Store tokens in cookies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HTTP 204 No Content response with access and refresh tokens set as cookies.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../../../lib/exceptions.html#app.lib.exceptions.UnauthorizedException" title="app.lib.exceptions.UnauthorizedException"><strong>UnauthorizedException</strong></a> – If authentication fails (handled by dependencies).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.domain.users.controllers.access.user_auth_refresh_token">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">user_auth_refresh_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_auth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.schemas.UserAuth</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://fastapi.tiangolo.com/reference/response/#fastapi.Response" title="(in FastAPI v0.0.0)"><span class="pre">Response</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/users/controllers/access.html#user_auth_refresh_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.users.controllers.access.user_auth_refresh_token" title="Link to this definition">¶</a></dt>
+<dd><p>Get the user by the refresh token and issue a new access token.</p>
+<p>The expired refresh token is added to the blacklist as a background task.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HTTP 204 No Content response with new access and refresh tokens.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.domain.users.controllers.access.logout">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">logout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_auth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.schemas.UserAuth</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://fastapi.tiangolo.com/reference/response/#fastapi.Response" title="(in FastAPI v0.0.0)"><span class="pre">Response</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/users/controllers/access.html#logout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.users.controllers.access.logout" title="Link to this definition">¶</a></dt>
+<dd><p>User Logout.</p>
+<p>Deletes access and refresh tokens from cookies and invalidates the refresh token JTI
+in Redis as a background task.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HTTP 204 No Content response.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.domain.users.controllers.access.update_password">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_password</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_auth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.schemas.UserAuth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pwd_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../schemas.html#app.domain.users.schemas.PasswordUpdate" title="app.domain.users.schemas.PasswordUpdate"><span class="pre">PasswordUpdate</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://fastapi.tiangolo.com/reference/response/#fastapi.Response" title="(in FastAPI v0.0.0)"><span class="pre">Response</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/users/controllers/access.html#update_password"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.users.controllers.access.update_password" title="Link to this definition">¶</a></dt>
+<dd><p>Update user password.</p>
+<p>This action also invalidates the user’s authentication cache in Redis and deletes
+access and refresh tokens from cookies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HTTP 204 No Content response.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.domain.users.controllers.access.user_auth_get_self_info">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">user_auth_get_self_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_auth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.schemas.UserAuth</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/users/controllers/access.html#user_auth_get_self_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.users.controllers.access.user_auth_get_self_info" title="Link to this definition">¶</a></dt>
+<dd><p>Get self account info.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The authenticated user’s details data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../schemas.html#app.domain.users.schemas.UserAuth" title="app.domain.users.schemas.UserAuth"><em>UserAuth</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
         </article><button class="back-to-top" type="button">
