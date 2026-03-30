@@ -14,6 +14,7 @@ from app.config.base import get_settings
 from app.domain.catalogs.controllers.equipment import equipment_router
 from app.domain.catalogs.controllers.exercise_tags import exercise_tags_router
 from app.domain.catalogs.controllers.muscle_groups import muscle_router
+from app.domain.exercises.controllers import exercise_router
 from app.domain.system.controllers import system_router
 from app.domain.users.controllers.access import access_router
 from app.domain.users.controllers.user_role import role_router
@@ -79,6 +80,7 @@ def _init_routers(app: FastAPI, settings: Settings) -> None:
     app.include_router(equipment_router, prefix=settings.app.API_V1_URL_PREFIX)
     app.include_router(exercise_tags_router, prefix=settings.app.API_V1_URL_PREFIX)
     app.include_router(muscle_router, prefix=settings.app.API_V1_URL_PREFIX)
+    app.include_router(exercise_router, prefix=settings.app.API_V1_URL_PREFIX)
     app.include_router(system_router)
 
 

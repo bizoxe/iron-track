@@ -40,12 +40,20 @@ class AppSettings:
     """The application execution environment (e.g., 'dev', 'prod')."""
     API_V1_URL_PREFIX: str = field(default="/api/v1")
     """The default URL prefix for API Version routes."""
-    CDN_IMAGES_DEFAULT_URL: str = field(
+    CDN_RESOURCES_DEFAULT_URL: str = field(
         default_factory=lambda: os.getenv(
-            "CDN_IMAGES_URL", "https://raw.githubusercontent.com/bizoxe/iron-track/media/resources/exercises"
+            "CDN_RESOURCES_URL", "https://raw.githubusercontent.com/bizoxe/iron-track/media/resources"
         ),
     )
-    """The default base URL for CDN-hosted exercise images."""
+    """The default base URL for CDN-hosted resources."""
+    EXERCISES_PATH_PREFIX: str = field(default="exercises")
+    """The standard directory prefix for exercise images."""
+
+    @property
+    def cdn_exercises_url_prefix(self) -> str:
+        """The full CDN URL prefix for exercise media resources."""
+        base = self.CDN_RESOURCES_DEFAULT_URL.rstrip("/")
+        return f"{base}/{self.EXERCISES_PATH_PREFIX}"
 
 
 @dataclass

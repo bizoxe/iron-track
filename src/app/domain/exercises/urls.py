@@ -1,0 +1,8 @@
+USER_EXERCISE_CREATE = "/exercises/user"
+SYSTEM_EXERCISE_CREATE = "/exercises/system"
+EXERCISE_DETAIL = "/exercises/{exercise_id}"
+EXERCISE_LIST = "/exercises"
+EXERCISE_FIND = "/exercises/criteria/"
+USER_EXERCISE_UPDATE = "/exercises/user/{exercise_id}"
+SYSTEM_EXERCISE_UPDATE = "/exercises/system/{exercise_id}"
+EXERCISE_DELETE = "/exercises/{exercise_id}"

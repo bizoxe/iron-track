@@ -8,6 +8,7 @@ from typing import (
 from cashews.serialize import register_type
 from msgspec import msgpack
 
+from app.domain.exercises.schemas import ExerciseRead
 from app.domain.users.schemas import UserAuth
 
 if TYPE_CHECKING:
@@ -44,7 +45,7 @@ class MsgSpecRegistry:
 
 def cashews_registry() -> None:
     """Register domain data models with the cashews serialization system."""
-    types_to_register = (UserAuth,)
+    types_to_register = (UserAuth, ExerciseRead)
     for model_type in types_to_register:
         encoder, decoder = MsgSpecRegistry.get_cashews_pair(model_type)
         register_type(klass=model_type, encoder=encoder, decoder=decoder)
