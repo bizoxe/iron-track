@@ -215,7 +215,9 @@ bridging frontend request parameters with <strong>Advanced Alchemy</strong> stat
 <dt class="sig sig-object py" id="app.lib.filters.CommonFilters">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CommonFilters</span></span><a class="reference internal" href="../../_modules/app/lib/filters.html#CommonFilters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.filters.CommonFilters" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="schema.html#app.lib.schema.CamelizedBaseSchema" title="app.lib.schema.CamelizedBaseSchema"><code class="xref py py-class docutils literal notranslate"><span class="pre">CamelizedBaseSchema</span></code></a></p>
-<p>Base requirements for pagination, ordering, and keyword search.</p>
+<p>Base schema for standard API query parameters.</p>
+<p>Provides foundational support for pagination, ordering, and
+keyword-based searching across different domains.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Fields<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -229,8 +231,15 @@ bridging frontend request parameters with <strong>Advanced Alchemy</strong> stat
 </dl>
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="app.lib.filters.CommonFilters.search_string">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search_string</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Search</span> <span class="pre">term.'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'searchString')</span></em><a class="headerlink" href="#app.lib.filters.CommonFilters.search_string" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search_string</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated[str</span> <span class="pre">|</span> <span class="pre">None,</span> <span class="pre">AfterValidator(lambda</span> <span class="pre">v:</span> <span class="pre">v.strip()</span> <span class="pre">if</span> <span class="pre">v</span> <span class="pre">else</span> <span class="pre">v),</span> <span class="pre">Field(description='Search</span> <span class="pre">term.')]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'searchString')</span></em><a class="headerlink" href="#app.lib.filters.CommonFilters.search_string" title="Link to this definition">¶</a></dt>
 <dd><p>Search term.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Constraints<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> = &lt;function &lt;lambda&gt; at 0x7f2a7db24cc0&gt;</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -253,12 +262,13 @@ bridging frontend request parameters with <strong>Advanced Alchemy</strong> stat
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="app.lib.filters.CommonFilters.page_size">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">page_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">ge</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Number</span> <span class="pre">of</span> <span class="pre">items</span> <span class="pre">per</span> <span class="pre">page.'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'pageSize')</span></em><a class="headerlink" href="#app.lib.filters.CommonFilters.page_size" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">page_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">ge</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">le</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Number</span> <span class="pre">of</span> <span class="pre">items</span> <span class="pre">per</span> <span class="pre">page.'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'pageSize')</span></em><a class="headerlink" href="#app.lib.filters.CommonFilters.page_size" title="Link to this definition">¶</a></dt>
 <dd><p>Number of items per page.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Constraints<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>ge</strong> = 1</p></li>
+<li><p><strong>le</strong> = 100</p></li>
 </ul>
 </dd>
 </dl>
@@ -279,7 +289,7 @@ bridging frontend request parameters with <strong>Advanced Alchemy</strong> stat
 <dl class="py property">
 <dt class="sig sig-object py" id="app.lib.filters.CommonFilters.aa_technical_filters">
 <em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">aa_technical_filters</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">StatementFilter</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#app.lib.filters.CommonFilters.aa_technical_filters" title="Link to this definition">¶</a></dt>
-<dd><p>Technical filters including pagination, ordering, and search.</p>
+<dd><p>Generate core SQLAlchemy filters for pagination, ordering, and search.</p>
 </dd></dl>
 
 </dd></dl>

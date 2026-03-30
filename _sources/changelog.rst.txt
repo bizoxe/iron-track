@@ -10,13 +10,47 @@ All notable changes to this project will be documented in this file.
 ⚙️ Miscellaneous Tasks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+* (`c9a1c37 <https://github.com/bizoxe/iron-track/commit/c9a1c37891bbba62a4c78e2e27d40944148d82fb>`_) - Pin postgres 18.3 and use custom config (alexander)
+
+* (`28d2208 <https://github.com/bizoxe/iron-track/commit/28d2208f307391906ef6a2604270545042d4087a>`_) - Generate alembic migration for exercise system (alexander)
+
 * (`c69a2ba <https://github.com/bizoxe/iron-track/commit/c69a2baeccdf6e5a8fa7550c63d67cf41af844bb>`_) - Formalize repository infrastructure and optimize docs CI (alexander)
+
+
+🐛 Bug Fixes
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* (`7074953 <https://github.com/bizoxe/iron-track/commit/7074953901d06f02adb9c359822753cb5ddcb081>`_) - Enforce timezone-aware datetimes in filters (alexander)
+
+
+🚀 Features
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* (`c6902a5 <https://github.com/bizoxe/iron-track/commit/c6902a5e1a4576bdb626e1d9119992056bcd977c>`_) - Implement CRUD operations for exercises (alexander)
+
+* (`7665324 <https://github.com/bizoxe/iron-track/commit/76653242261ec3b8a194919630b4996e2bd3a35f>`_) - Implement CRUD operations for catalogs (alexander)
+
+* (`65ca780 <https://github.com/bizoxe/iron-track/commit/65ca78040351bdea4f77b78f55cb40d2d884a957>`_) - Add exercise and reference models with m2m relations (alexander)
+
+* (`ef098da <https://github.com/bizoxe/iron-track/commit/ef098da3250492ce61afbd0775adc983a8869bac>`_) - Implement cache key normalization in CommonFilters (alexander)
 
 
 🛠️ Refactor
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+* (`96a7e27 <https://github.com/bizoxe/iron-track/commit/96a7e27f060796099ed9817477aae87dc644692d>`_) - Normalize exercise slugs and relative image paths (alexander)
+
 * (`41291b0 <https://github.com/bizoxe/iron-track/commit/41291b0d0fc350d28ecdd2a1fa31ee1dcaa4fb2d>`_) - Optimize system performance and security baseline (alexander)
+
+
+🧪 Testing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* (`89b755a <https://github.com/bizoxe/iron-track/commit/89b755a38196594243329b160b79f66c1a29d0c0>`_) - Add integration tests (alexander)
+
+* (`edf9418 <https://github.com/bizoxe/iron-track/commit/edf9418ede6a5c05a1034fb3e68954e240fa7c11>`_) - Add special cases for activity, dates and sorting (alexander)
+
+* (`9b37a2b <https://github.com/bizoxe/iron-track/commit/9b37a2b30011ab4015ee2914bc8b036ef2295df1>`_) - Add integration tests (alexander)
 
 
 `Release [v0.1.0] - 2026-01-10 <https://github.com/bizoxe/iron-track/releases/tag/v0.1.0>`_

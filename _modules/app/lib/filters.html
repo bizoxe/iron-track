@@ -193,66 +193,94 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="4"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
 </span><span data-line="5">    <span class="n">TYPE_CHECKING</span><span class="p">,</span>
 </span><span data-line="6">    <span class="n">Annotated</span><span class="p">,</span>
-</span><span data-line="7">    <span class="n">ClassVar</span><span class="p">,</span>
-</span><span data-line="8">    <span class="n">Literal</span><span class="p">,</span>
-</span><span data-line="9"><span class="p">)</span>
-</span><span data-line="10">
-</span><span data-line="11"><span class="kn">from</span><span class="w"> </span><span class="nn">advanced_alchemy.extensions.fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">filters</span> <span class="k">as</span> <span class="n">aa_filters</span>
-</span><span data-line="12"><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">Field</span>
-</span><span data-line="13">
-</span><span data-line="14"><span class="kn">from</span><span class="w"> </span><span class="nn">app.lib.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">CamelizedBaseSchema</span>
-</span><span data-line="15">
-</span><span data-line="16"><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
-</span><span data-line="17">    <span class="kn">from</span><span class="w"> </span><span class="nn">advanced_alchemy.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">StatementFilter</span>
+</span><span data-line="7">    <span class="n">Any</span><span class="p">,</span>
+</span><span data-line="8">    <span class="n">ClassVar</span><span class="p">,</span>
+</span><span data-line="9">    <span class="n">Literal</span><span class="p">,</span>
+</span><span data-line="10"><span class="p">)</span>
+</span><span data-line="11">
+</span><span data-line="12"><span class="kn">from</span><span class="w"> </span><span class="nn">advanced_alchemy.extensions.fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">filters</span> <span class="k">as</span> <span class="n">aa_filters</span>
+</span><span data-line="13"><span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span data-line="14">    <span class="n">AfterValidator</span><span class="p">,</span>
+</span><span data-line="15">    <span class="n">Field</span><span class="p">,</span>
+</span><span data-line="16">    <span class="n">PrivateAttr</span><span class="p">,</span>
+</span><span data-line="17"><span class="p">)</span>
 </span><span data-line="18">
-</span><span data-line="19">
-</span><span data-line="20"><span class="n">_CAMEL_TO_SNAKE_RE</span> <span class="o">=</span> <span class="n">re_compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(?&lt;!^)(?=[A-Z])&quot;</span><span class="p">)</span>
-</span><span data-line="21">
-</span><span data-line="22">
+</span><span data-line="19"><span class="kn">from</span><span class="w"> </span><span class="nn">app.lib.schema</span><span class="w"> </span><span class="kn">import</span> <span class="n">CamelizedBaseSchema</span>
+</span><span data-line="20">
+</span><span data-line="21"><span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+</span><span data-line="22">    <span class="kn">from</span><span class="w"> </span><span class="nn">advanced_alchemy.filters</span><span class="w"> </span><span class="kn">import</span> <span class="n">StatementFilter</span>
+</span><span data-line="23">
+</span><span data-line="24">
+</span><span data-line="25"><span class="n">_CAMEL_TO_SNAKE_RE</span> <span class="o">=</span> <span class="n">re_compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(?&lt;!^)(?=[A-Z])&quot;</span><span class="p">)</span>
+</span><span data-line="26">
+</span><span data-line="27">
 <div class="viewcode-block" id="CommonFilters">
 <a class="viewcode-back" href="../../../api/lib/filters.html#app.lib.filters.CommonFilters">[docs]</a>
-</span><span data-line="23"><span class="k">class</span><span class="w"> </span><span class="nc">CommonFilters</span><span class="p">(</span><span class="n">CamelizedBaseSchema</span><span class="p">):</span>
-</span><span data-line="24"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base requirements for pagination, ordering, and keyword search.&quot;&quot;&quot;</span>
-</span><span data-line="25">
-</span><span data-line="26">    <span class="n">search_string</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span data-line="27">        <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="28">        <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Search term.&quot;</span><span class="p">),</span>
-</span><span data-line="29">    <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span data-line="30">    <span class="n">search_fields</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="s2">&quot;name&quot;</span>
-</span><span data-line="31">    <span class="n">current_page</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span data-line="32">        <span class="nb">int</span><span class="p">,</span>
-</span><span data-line="33">        <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Page number for pagination.&quot;</span><span class="p">),</span>
-</span><span data-line="34">    <span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-</span><span data-line="35">    <span class="n">page_size</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span data-line="36">        <span class="nb">int</span><span class="p">,</span>
-</span><span data-line="37">        <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Number of items per page.&quot;</span><span class="p">),</span>
-</span><span data-line="38">    <span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>
-</span><span data-line="39">    <span class="n">order_by</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span data-line="40">        <span class="nb">str</span><span class="p">,</span>
-</span><span data-line="41">        <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Field to order by.&quot;</span><span class="p">),</span>
-</span><span data-line="42">    <span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;name&quot;</span>
-</span><span data-line="43">    <span class="n">sort_order</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
-</span><span data-line="44">        <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;asc&quot;</span><span class="p">,</span> <span class="s2">&quot;desc&quot;</span><span class="p">],</span>
-</span><span data-line="45">        <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Sort order (&#39;asc&#39; or &#39;desc&#39;).&quot;</span><span class="p">),</span>
-</span><span data-line="46">    <span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;asc&quot;</span>
-</span><span data-line="47">
-</span><span data-line="48">    <span class="nd">@property</span>
-</span><span data-line="49">    <span class="k">def</span><span class="w"> </span><span class="nf">aa_technical_filters</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">StatementFilter</span><span class="p">]:</span>
-</span><span data-line="50"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Technical filters including pagination, ordering, and search.&quot;&quot;&quot;</span>
-</span><span data-line="51">        <span class="n">db_order_field</span> <span class="o">=</span> <span class="n">_CAMEL_TO_SNAKE_RE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">order_by</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-</span><span data-line="52">        <span class="n">filters</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">StatementFilter</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
-</span><span data-line="53">            <span class="n">aa_filters</span><span class="o">.</span><span class="n">LimitOffset</span><span class="p">(</span>
-</span><span data-line="54">                <span class="n">limit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">page_size</span><span class="p">,</span>
-</span><span data-line="55">                <span class="n">offset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">page_size</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_page</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span>
-</span><span data-line="56">            <span class="p">),</span>
-</span><span data-line="57">            <span class="n">aa_filters</span><span class="o">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">field_name</span><span class="o">=</span><span class="n">db_order_field</span><span class="p">,</span> <span class="n">sort_order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sort_order</span><span class="p">),</span>
-</span><span data-line="58">        <span class="p">]</span>
+</span><span data-line="28"><span class="k">class</span><span class="w"> </span><span class="nc">CommonFilters</span><span class="p">(</span><span class="n">CamelizedBaseSchema</span><span class="p">):</span>
+</span><span data-line="29"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base schema for standard API query parameters.</span>
+</span><span data-line="30">
+</span><span data-line="31"><span class="sd">    Provides foundational support for pagination, ordering, and</span>
+</span><span data-line="32"><span class="sd">    keyword-based searching across different domains.</span>
+</span><span data-line="33"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span data-line="34">
+</span><span data-line="35">    <span class="n">search_string</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span data-line="36">        <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="37">        <span class="n">AfterValidator</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="n">v</span><span class="p">),</span>
+</span><span data-line="38">        <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Search term.&quot;</span><span class="p">),</span>
+</span><span data-line="39">    <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="40">    <span class="n">search_fields</span><span class="p">:</span> <span class="n">ClassVar</span><span class="p">[</span><span class="nb">str</span> <span class="o">|</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="s2">&quot;name&quot;</span>
+</span><span data-line="41">    <span class="n">current_page</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span data-line="42">        <span class="nb">int</span><span class="p">,</span>
+</span><span data-line="43">        <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Page number for pagination.&quot;</span><span class="p">),</span>
+</span><span data-line="44">    <span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span data-line="45">    <span class="n">page_size</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span data-line="46">        <span class="nb">int</span><span class="p">,</span>
+</span><span data-line="47">        <span class="n">Field</span><span class="p">(</span><span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Number of items per page.&quot;</span><span class="p">),</span>
+</span><span data-line="48">    <span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>
+</span><span data-line="49">    <span class="n">order_by</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span data-line="50">        <span class="nb">str</span><span class="p">,</span>
+</span><span data-line="51">        <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Field to order by.&quot;</span><span class="p">),</span>
+</span><span data-line="52">    <span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;name&quot;</span>
+</span><span data-line="53">    <span class="n">sort_order</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span>
+</span><span data-line="54">        <span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;asc&quot;</span><span class="p">,</span> <span class="s2">&quot;desc&quot;</span><span class="p">],</span>
+</span><span data-line="55">        <span class="n">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Sort order (&#39;asc&#39; or &#39;desc&#39;).&quot;</span><span class="p">),</span>
+</span><span data-line="56">    <span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;asc&quot;</span>
+</span><span data-line="57">
+</span><span data-line="58">    <span class="n">_cache_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">PrivateAttr</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 </span><span data-line="59">
-</span><span data-line="60">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_string</span><span class="p">:</span>
-</span><span data-line="61">            <span class="n">filters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-</span><span data-line="62">                <span class="n">aa_filters</span><span class="o">.</span><span class="n">SearchFilter</span><span class="p">(</span><span class="n">field_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">search_fields</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">search_string</span><span class="p">,</span> <span class="n">ignore_case</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span data-line="63">            <span class="p">)</span>
-</span><span data-line="64">        <span class="k">return</span> <span class="n">filters</span></div>
+</span><span data-line="60">    <span class="nd">@property</span>
+</span><span data-line="61">    <span class="k">def</span><span class="w"> </span><span class="nf">aa_technical_filters</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">StatementFilter</span><span class="p">]:</span>
+</span><span data-line="62"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate core SQLAlchemy filters for pagination, ordering, and search.&quot;&quot;&quot;</span>
+</span><span data-line="63">        <span class="n">db_order_field</span> <span class="o">=</span> <span class="n">_CAMEL_TO_SNAKE_RE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">order_by</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span data-line="64">        <span class="n">filters</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">StatementFilter</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+</span><span data-line="65">            <span class="n">aa_filters</span><span class="o">.</span><span class="n">LimitOffset</span><span class="p">(</span>
+</span><span data-line="66">                <span class="n">limit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">page_size</span><span class="p">,</span>
+</span><span data-line="67">                <span class="n">offset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">page_size</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_page</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span>
+</span><span data-line="68">            <span class="p">),</span>
+</span><span data-line="69">            <span class="n">aa_filters</span><span class="o">.</span><span class="n">OrderBy</span><span class="p">(</span><span class="n">field_name</span><span class="o">=</span><span class="n">db_order_field</span><span class="p">,</span> <span class="n">sort_order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sort_order</span><span class="p">),</span>
+</span><span data-line="70">        <span class="p">]</span>
+</span><span data-line="71">
+</span><span data-line="72">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_string</span><span class="p">:</span>
+</span><span data-line="73">            <span class="n">filters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+</span><span data-line="74">                <span class="n">aa_filters</span><span class="o">.</span><span class="n">SearchFilter</span><span class="p">(</span><span class="n">field_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">search_fields</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">search_string</span><span class="p">,</span> <span class="n">ignore_case</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span data-line="75">            <span class="p">)</span>
+</span><span data-line="76">        <span class="k">return</span> <span class="n">filters</span>
+</span><span data-line="77">
+</span><span data-line="78">    <span class="k">def</span><span class="w"> </span><span class="nf">model_post_init</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># noqa: ARG002</span>
+</span><span data-line="79"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the unique cache key based on the provided filter values.&quot;&quot;&quot;</span>
+</span><span data-line="80">        <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_string</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="s2">&quot;|&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_string</span> <span class="k">else</span> <span class="s2">&quot;se_all&quot;</span>
+</span><span data-line="81">        <span class="n">parts</span> <span class="o">=</span> <span class="p">[</span>
+</span><span data-line="82">            <span class="s2">&quot;CF&quot;</span><span class="p">,</span>
+</span><span data-line="83">            <span class="sa">f</span><span class="s2">&quot;:</span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span data-line="84">            <span class="sa">f</span><span class="s2">&quot;:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">current_page</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span data-line="85">            <span class="sa">f</span><span class="s2">&quot;:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">page_size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span data-line="86">            <span class="sa">f</span><span class="s2">&quot;:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">order_by</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span data-line="87">            <span class="sa">f</span><span class="s2">&quot;:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">sort_order</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span data-line="88">        <span class="p">]</span>
+</span><span data-line="89">        <span class="bp">self</span><span class="o">.</span><span class="n">_cache_key</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span>
+</span><span data-line="90">
+</span><span data-line="91">    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span data-line="92">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_key</span></div>
 
 </span></pre></div>
         </article><button class="back-to-top" type="button">
