@@ -144,6 +144,7 @@ async def fx_seed_test_data(
     seed_roles: dict[str, UUID],
     session: AsyncSession,
     raw_users: list[dict[str, Any]],
+    custom_exercises: list[dict[str, Any]],
 ) -> None:
     users_to_create = deepcopy(raw_users)
     users_service = UserService(session)
@@ -152,6 +153,9 @@ async def fx_seed_test_data(
         role_map=seed_roles,
     )
     await users_service.create_many(raw_users_with_roles, auto_commit=False)
+    exercises_to_create = deepcopy(custom_exercises)
+    exercise_service = ExerciseService(session)
+    await exercise_service.create_many(data=exercises_to_create, auto_commit=False)
     await session.flush()
 
 
@@ -217,6 +221,19 @@ def fx_user_client_set_cookie(client: AsyncClient) -> AsyncClient:
         email=constants.USER_EXAMPLE_EMAIL,
     )
     refresh_token = create_refresh_token(user_id=constants.USER_EXAMPLE_ID)
+    client.cookies.set(name="access_token", value=access_token)
+    client.cookies.set(name="refresh_token", value=refresh_token)
+
+    return client
+
+
+@pytest.fixture(name="fitness_trainer_client")
+def fx_fitness_trainer_client_set_cookie(client: AsyncClient) -> AsyncClient:
+    access_token = create_access_token(
+        user_id=constants.FITNESS_TRAINER_ID,
+        email=constants.FITNESS_TRAINER_EMAIL,
+    )
+    refresh_token = create_refresh_token(user_id=constants.FITNESS_TRAINER_ID)
     client.cookies.set(name="access_token", value=access_token)
     client.cookies.set(name="refresh_token", value=refresh_token)
 
