@@ -3,14 +3,14 @@
     <img src="docs/_static/logo.svg" width="350" alt="IronTrack Logo">
   </a>
 
-  <h3>Experimental async backend sandbox built for performance and architectural testing</h3>
+  <h3>Experimental async backend sandbox built for architectural exploration and performance analysis</h3>
   <p>Focused on concurrency patterns, database optimization, and constraint-driven experiments within a workout tracking domain.</p>
 </div>
 
 ---
 
 [![CI Status](https://github.com/bizoxe/iron-track/actions/workflows/ci.yaml/badge.svg)](https://github.com/bizoxe/iron-track/actions/workflows/ci.yaml)
-[![Coverage Status](https://img.shields.io/codecov/c/github/bizoxe/iron-track?logo=codecov&logoColor=white)](https://codecov.io/gh/bizoxe/iron-track)
+[![Coverage Status](https://img.shields.io/codecov/c/github/bizoxe/iron-track?token=NRYTRRO512&logo=codecov&logoColor=white)](https://codecov.io/gh/bizoxe/iron-track)
 [![Release Status](https://github.com/bizoxe/iron-track/actions/workflows/release.yaml/badge.svg)](https://github.com/bizoxe/iron-track/actions/workflows/release.yaml)
 [![Docs](https://img.shields.io/badge/docs-view%20now-blue.svg?style=flat&logo=sphinx&logoColor=white)](https://bizoxe.github.io/iron-track/)
 
@@ -22,7 +22,8 @@
 
 ## 🎯 Why
 
-IronTrack is an architectural sandbox built around a realistic domain model.
+**IronTrack** is an architectural sandbox built around a realistic domain model.  
+The workout tracking domain provides sufficient complexity to model real-world interactions (authentication, RBAC, complex relational data), serving as a foundation for honing skills in designing maintainable and extensible systems.
 
 > [!NOTE]
 > The project is intentionally benchmarked on constrained hardware (**AMD FX-8320 | HDD**) to evaluate architectural behavior and stability beyond "cloud-ideal" conditions.
@@ -32,24 +33,33 @@ IronTrack is an architectural sandbox built around a realistic domain model.
 > [!IMPORTANT]
 > This is a **learning and exploration project**, not a production-driven business application.
 >
-> Advanced optimizations (such as PgBouncer tuning, custom logging, or granular connection pooling) are implemented to study system behavior under stress. While these might be considered "over-engineering" for a standard functional requirement, here they serve as the core subjects of architectural research and performance analysis.
+> Technical solutions (such as PgBouncer, Angie, structured logging) and optimizations (e.g., custom Response via msgspec.json.encode at the FastAPI level) are implemented to study the interaction between the application and the infrastructure layer, and the behavior of the system under load.
 
-The project focuses on:
+#### Project Focus:
 
-- Working under hardware constraints instead of assuming over-provisioned cloud resources.
-- Understanding where latency actually comes from (serialization, CPU-bound tasks, I/O).
-- Prioritizing empirical measurements over assumptions when making architectural choices.
-- Documenting trade-offs through ADR to keep reasoning explicit.
-
-The workout tracking domain provides enough complexity to model real interactions
-(auth, permissions, relational data) without the overhead of artificial complexity.
+* **Managed Complexity and Maintainability**  
+    Applying Service/Repository patterns to:
+    * Easily extend functionality without a complete code rewrite.
+    * Reduce cognitive load.
+    * Ensure Loose Coupling between components.
+* **Holistic System View**  
+    The project intentionally includes key infrastructure components (a reverse proxy, a connection pooler) to move beyond just application code.  
+    The goal is to analyze how different layers interact and influence the application's performance and stability, not to build a high-load system.
+* **Performance Research Under Hardware Constraints**  
+    Benchmarking on constrained hardware:
+    * Makes it easier to identify and analyze bottlenecks and design load scenarios.
+    * Forces the writing of resource-efficient code.
+* **Decision-Making Culture**    
+    Structuring knowledge through Architectural Decision Records. This allows one to:
+    * Preserve context: Why a specific solution was chosen.
+    * Discipline architectural thinking: Every decision must be critically evaluated before being recorded.
 
 ---
 
-**Inspiration & Standards**
-The project conventions, structure, and DX workflows are inspired by the **litestar-org** ecosystem.
-I have manually adapted these patterns to the FastAPI environment to practice modular architecture and keep the system predictable as its complexity grows.
-The goal is not to replicate the ecosystem, but to analyze and apply the underlying architectural reasoning within a FastAPI-based stack.
+**Inspiration & Standards**    
+> The project conventions, structure, DX workflows, Sphinx documentation generation, and several architectural solutions were borrowed from **litestar-org** public repositories and adapted for this project.  
+>
+> While the project's foundation is heavily inspired by these practices, the choice of **FastAPI** was a deliberate decision made to explore its ecosystem and constraints. The detailed rationale is documented in the [Tech Stack Rationale | Web Layer Selection](./dev/adr/stack-rationale.md).
 
 <details>
 <summary><b>What's Inside for You</b></summary>
@@ -60,60 +70,60 @@ Below is a brief list of implementations that may be useful to the community as 
 
 #### Security & Auth
 
-* **Scenario:** Event Loop blocking during password hashing.
-**Approach:** Offloading CPU-bound Argon2 hashing to a dedicated `ThreadPoolExecutor`.
-**Code:** [src/app/lib/crypt.py](src/app/lib/crypt.py)
-* **Scenario:** Standardizing JWT signatures.
-**Approach:** Implementing Ed25519 (EdDSA) signatures.
-**Code:** [src/app/lib/jwt_utils.py](src/app/lib/jwt_utils.py)
-* **Scenario:** Lack of native support for HTTP-only Cookie authorization in standard Swagger UI (OpenAPI) docs.
-**Approach:** Custom `JWTCookieSecurity` implementation inheriting from `SecurityBase` that correctly propagates cookie metadata to the OpenAPI schema.
-**Code:** [src/app/lib/auth.py](src/app/lib/auth.py)
-* **Scenario:** Lack of instant JWT-refresh token revocation.
-**Approach:** **JTI Blacklisting** mechanism integrated with Redis/Valkey.
-**Code:** [src/app/domain/users/auth.py](src/app/domain/users/auth.py) and [src/app/domain/users/jwt_helpers.py](src/app/domain/users/jwt_helpers.py)
+* **Scenario:** Event Loop blocking during password hashing.  
+**Approach:** Offloading CPU-bound Argon2 hashing to a dedicated `ThreadPoolExecutor`.  
+**Code:** [src/app/lib/crypt.py](src/app/lib/crypt.py)  
+* **Scenario:** Standardizing JWT signatures.  
+**Approach:** Implementing Ed25519 (EdDSA) signatures.  
+**Code:** [src/app/lib/jwt_utils.py](src/app/lib/jwt_utils.py)  
+* **Scenario:** Lack of native support for HTTP-only Cookie authorization in standard Swagger UI (OpenAPI) docs.  
+**Approach:** Custom `JWTCookieSecurity` implementation inheriting from `SecurityBase` that correctly propagates cookie metadata to the OpenAPI schema.  
+**Code:** [src/app/lib/auth.py](src/app/lib/auth.py)  
+* **Scenario:** Lack of instant JWT-refresh token revocation.  
+**Approach:** **JTI Blacklisting** mechanism integrated with Redis/Valkey.  
+**Code:** [src/app/domain/users/auth.py](src/app/domain/users/auth.py) and [src/app/domain/users/jwt_helpers.py](src/app/domain/users/jwt_helpers.py)  
 
 #### Performance
 
-* **Scenario:** Network stack overhead during inter-container traffic.
-**Approach:** Orchestration via Unix Domain Sockets (UDS) to bypass the TCP stack overhead in inter-container communication.
-**Code:** [docker-compose.yaml](docker-compose.yaml)
-* **Scenario:** JSON serialization bottlenecks in high-load endpoints.
-**Approach:** Response layer based on `msgspec` to reduce serialization overhead with automatic **CamelCase** conversion for frontend compatibility.
-**Code:** [src/app/lib/json_response.py](src/app/lib/json_response.py) and [src/app/lib/schema.py](src/app/lib/schema.py)
+* **Scenario:** Network stack overhead during inter-container traffic.  
+**Approach:** Orchestration via Unix Domain Sockets (UDS) to bypass the TCP stack overhead in inter-container communication.  
+**Code:** [docker-compose.yaml](docker-compose.yaml)  
+* **Scenario:** JSON serialization bottlenecks (FastAPI jsonable_encoder overhead).  
+**Approach:** Response layer based on `msgspec` to reduce serialization overhead with automatic **CamelCase** conversion for frontend compatibility.  
+**Code:** [src/app/lib/json_response.py](src/app/lib/json_response.py) and [src/app/lib/schema.py](src/app/lib/schema.py)  
 
 #### Database & Caching
 
-* **Scenario:** SQLAlchemy conflicts with PgBouncer in `Transaction Pooling` mode (prepared statements).
-**Approach:** Fine-tuned Engine configuration (`compiled_cache=None`, `statement_cache_size=0`) for full bouncer compatibility.
-**Code:** [src/app/config/base.py](src/app/config/base.py)
-* **Scenario:** Excessive DB load from redundant permission checks in every request.
-**Approach:** Granular caching of `UserAuth` entities in Valkey with automated invalidation.
-**Code:** [src/app/domain/users/auth.py](src/app/domain/users/auth.py) and [src/app/lib/invalidate_cache.py](src/app/lib/invalidate_cache.py)
-* **Scenario:** Password synchronization between PostgreSQL and PgBouncer.
-**Approach:** Makefile script for automated `userlist.txt` generation directly from PostgreSQL system tables.
-**Code:** [Makefile](Makefile)
+* **Scenario:** SQLAlchemy conflicts with PgBouncer in `Transaction Pooling` mode (prepared statements).  
+**Approach:** Fine-tuned Engine configuration (`compiled_cache=None`, `statement_cache_size=0`) for full bouncer compatibility.  
+**Code:** [src/app/config/base.py](src/app/config/base.py)  
+* **Scenario:** Excessive DB load from redundant permission checks in every request.  
+**Approach:** Granular caching of `UserAuth` entities in Valkey with automated invalidation.  
+**Code:** [src/app/domain/users/auth.py](src/app/domain/users/auth.py) and [src/app/lib/invalidate_cache.py](src/app/lib/invalidate_cache.py)  
+* **Scenario:** Password synchronization between PostgreSQL and PgBouncer.  
+**Approach:** Makefile script for automated `userlist.txt` generation directly from PostgreSQL system tables.  
+**Code:** [Makefile](Makefile)  
 
 #### Observability & Monitoring
 
-* **Scenario:** Impact of heavy I/O logging on the application's main event loop.
-**Approach:** Non-blocking logging pipeline using `QueueHandler` to offload log writing to a background thread.
-**Code:** [src/app/utils/log_utils/setup.py](src/app/utils/log_utils/setup.py) and [src/app/utils/log_utils/handlers.py](src/app/utils/log_utils/handlers.py)
-* **Scenario:** Difficulties in debugging distributed requests and linking logs across different layers.
-**Approach:** Request correlation via `Correlation ID` (Middleware -> Service -> Repository -> DB).
-**Code:** [src/app/utils/log_utils/middleware.py](src/app/utils/log_utils/middleware.py)
+* **Scenario:** Impact of heavy I/O logging on the application's main event loop.  
+**Approach:** Non-blocking logging pipeline using `QueueHandler` to offload log writing to a background thread.  
+**Code:** [src/app/utils/log_utils/setup.py](src/app/utils/log_utils/setup.py) and [src/app/utils/log_utils/handlers.py](src/app/utils/log_utils/handlers.py)  
+* **Scenario:** Difficulties in debugging distributed requests and linking logs across different layers.  
+**Approach:** Request correlation via `Correlation ID` (Middleware -> Service -> Repository -> DB).  
+**Code:** [src/app/utils/log_utils/setup.py](src/app/utils/log_utils/setup.py)
 
 #### Developer Experience (DX)
 
-* **Scenario:** Database pollution after tests and slow CI pipelines.
-**Approach:** **Transactional Pytest** pattern (automatic transaction rollback after each test).
-**Code:** [tests/integration/conftest.py](tests/integration/conftest.py)
-* **Scenario:** Management overhead of multiple commands for server, migrations, and DB ops.
-**Approach:** Unified CLI interface built with `Typer`, consolidating server commands, `advanced-alchemy` tools, and custom scripts.
-**Code:** [src/app/main.py](src/app/main.py) and [src/app/utils/server_cli.py](src/app/utils/server_cli.py)
-* **Scenario:** Documentation noise from internal ORM fields and unreadable `Annotated` type signatures.
-**Approach:** Custom Sphinx hooks for automated signature cleaning and SQLAlchemy internal attribute filtering.
-**Code:** [docs/conf.py](docs/conf.py)
+* **Scenario:** Database pollution after tests and slow CI pipelines.    
+**Approach:** **Transactional Pytest** pattern (automatic transaction rollback after each test).    
+**Code:** [tests/integration/conftest.py](tests/integration/conftest.py)  
+* **Scenario:** Management overhead of multiple commands for server, migrations, and DB ops.  
+**Approach:** Unified CLI interface built with `Typer`, consolidating server commands, `advanced-alchemy` tools, and custom scripts.  
+**Code:** [src/app/main.py](src/app/main.py) and [src/app/utils/server_cli.py](src/app/utils/server_cli.py)  
+* **Scenario:** Documentation noise from internal ORM fields and unreadable `Annotated` type signatures.  
+**Approach:** Custom Sphinx hooks for automated signature cleaning and SQLAlchemy internal attribute filtering.  
+**Code:** [docs/conf.py](docs/conf.py)  
 
 </details>
 
@@ -432,7 +442,6 @@ training_session_exercises {
     SMALLINT target_time_seconds_snapshot NULL
     NUMERIC target_distance_km_snapshot NULL
     SMALLINT rest_seconds_snapshot NULL
-
     UNIQUE (training_session_id, order_index)
 }
 
@@ -585,9 +594,6 @@ make seed
 
 > [!IMPORTANT]
 > **Creating roles is mandatory**. You must execute app users create-roles before registering any users, as it initializes the base permission system.
-
-> [!NOTE]
-> **Seeding**: The `make seed` command and the Exercise Catalog models are currently in development and not included in this release.
 
 ### 5. Run Server
 ```bash
