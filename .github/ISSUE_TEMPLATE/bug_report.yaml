@@ -29,9 +29,9 @@ body:
   - type: input
     id: version
     attributes:
-      label: Version
-      description: What version of IronTrack are you using?
-      placeholder: "e.g., 0.1.0"
+      label: Version / Commit
+      description: What version or commit hash are you using? (e.g., 0.1.0 or main)
+      placeholder: "e.g., 0.1.0 or a7b3c4d"
     validations:
       required: true
   - type: textarea

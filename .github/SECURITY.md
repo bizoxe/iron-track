@@ -10,11 +10,7 @@ We currently provide security updates for the following versions:
 | main    | :white_check_mark: |
 
 ## Reporting a Vulnerability
+If you find a security vulnerability, please do not open a public issue.     
+Send an email to <alex.matveev.dev@gmail.com> instead.
 
-If you discover a potential security vulnerability in IronTrack, please **do not open a public issue**. 
-
-Instead, please report it by sending an email to **[alex.matveev.dev@gmail.com]**.
-
-### Our Process
-- We will acknowledge your report within 48 hours.
-- A fix will be prepared for the `main` branch and backported to the latest stable release if necessary.
+We appreciate your help in keeping IronTrack secure!
