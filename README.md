@@ -97,12 +97,12 @@ Below is a brief list of implementations that may be useful to the community as 
 * **Scenario:** SQLAlchemy conflicts with PgBouncer in `Transaction Pooling` mode (prepared statements).  
 **Approach:** Fine-tuned Engine configuration (`compiled_cache=None`, `statement_cache_size=0`) for full bouncer compatibility.  
 **Code:** [src/app/config/base.py](src/app/config/base.py)  
-* **Scenario:** Excessive DB load from redundant permission checks in every request.  
-**Approach:** Granular caching of `UserAuth` entities in Valkey with automated invalidation.  
-**Code:** [src/app/domain/users/auth.py](src/app/domain/users/auth.py) and [src/app/lib/invalidate_cache.py](src/app/lib/invalidate_cache.py)  
 * **Scenario:** Password synchronization between PostgreSQL and PgBouncer.  
 **Approach:** Makefile script for automated `userlist.txt` generation directly from PostgreSQL system tables.  
 **Code:** [Makefile](Makefile)  
+* **Scenario:** Excessive DB load from redundant permission checks in every request.  
+**Approach:** Granular caching of `UserAuth` entities in Valkey with automated invalidation.  
+**Code:** [src/app/domain/users/auth.py](src/app/domain/users/auth.py) and [src/app/lib/invalidate_cache.py](src/app/lib/invalidate_cache.py)
 
 #### Observability & Monitoring
 
@@ -156,7 +156,7 @@ Below is a brief list of implementations that may be useful to the community as 
 
 <br>
 
-#### Schema Version: v0.1 | Last Updated: 2026-04 | Status: Draft | Author: Alexander  
+#### Schema Version: v0.1 | Last Updated: 2026-04 | Status: Draft
 #### STATUS: [x] implemented | [~] partial | [ ] planned  
 #### NOTATION: PK: PRIMARY KEY | UUIDv7: UUID version 7 | FK: FOREIGN KEY | UK: UNIQUE | NN: NOT NULL | RULE: Business constraint | SENSITIVE: requires special handling  
 
@@ -541,6 +541,98 @@ training_plan_access {
 
 ---
 
+## 📈 Performance & Efficiency
+Testing methodology and benchmark specification: [SPEC.md](./benchmarks/SPEC.md).
+
+**Optimization Highlights:**
+* **Authentication:** Migrated **JWT** signing from RSA-2048 to Ed25519 (reducing signature verification overhead); offloaded `Argon2id` password hashing to `ThreadPoolExecutor` to prevent Event Loop blocking.
+* **Access Control:** Implemented local **JTI** caching for Access Tokens, effectively bypassing cryptographic verification for frequently accessed resources.
+* **Serialization:** Replaced standard FastAPI/Pydantic JSON with native `msgspec.json` for high-performance output.
+
+*For detailed load testing results, hardware configuration, and flame graphs, see: [Load Testing Report: Authentication & Serialization](benchmarks/auth-serialization.md).*
+
+<details>
+<summary><b>View Benchmark Results (Baseline vs Final)</b></summary>
+
+*For each endpoint, three performance states were tracked: Baseline, Intermediate Optimization, and Final.*
+
+<details>
+<summary><b>Endpoint: `/api/v1/access/signup`</b></summary>
+
+| Metric                | **Baseline** | **Final**     | **Delta**              |
+|-----------------------|--------------|---------------|------------------------|
+| **Mean Latency**      | 662.76 ms    | **601.42 ms** | **-9.26% (-61.34 ms)** |
+| **P90 (90%)**         | 674.30 ms    | **654.34 ms** | **-2.96% (-19.96 ms)** |
+| **CPU Load (Core 0)** | 57.55%       | **55.46%**    | **-3.63% (-2.09%)**    |
+| **CPU Load (Core 1)** | 57.66%       | **56.51%**    | **-2.00% (-1.15%)**    |
+
+*Analysis: The first optimization phase involved offloading password hashing to a `ThreadPoolExecutor`. This architectural decision successfully prevented Event Loop blocking, ensuring the parallel processing of light and medium-weight incoming requests even during intensive cryptographic computations. In the final stage, a ~9% reduction in mean latency and a slight decrease in CPU load were observed. Performance gains were achieved by disabling `auto_refresh=False` at the ORM level and switching to native `msgspec.json` serialization. However, `Argon2id` cryptography remains the primary limiting factor. It is worth noting that since this endpoint handles a small data payload, the performance delta between custom implementations and FastAPI’s standard serialization is negligible in this specific context.*
+
+---
+*The full iterative report, including all intermediate steps, flame graphs, and full metric sets, is available in the linked report.*
+</details>
+
+<details>
+<summary><b>Endpoint: `/api/v1/access/signin`</b></summary>
+
+| Metric                | **Baseline** | **Final**     | **Delta**               |
+|-----------------------|--------------|---------------|-------------------------|
+| **Mean Latency**      | 857.39 ms    | **520.95 ms** | **-39.2% (-336.44 ms)** |
+| **P90 (90%)**         | 1100.00 ms   | **676.86 ms** | **-38.5% (-423.14 ms)** |
+| **CPU Load (Core 0)** | 58.76%       | **33.31%**    | **-43.3% (-25.45%)**    |
+| **CPU Load (Core 1)** | 59.04%       | **34.18%**    | **-42.1% (-24.86%)**    |
+
+*Analysis: During the first optimization phase, the computationally heavy `RSA-2048` token signing algorithm was replaced with `Ed25519`. This eliminated Event Loop blocking caused by intensive mathematical operations and reduced CPU load by approximately 38–39%. In the final optimization, the data loading strategy was modified by limiting the selection of `User` model fields and applying the `noload(m.User.role)` directive. This resulted in a ~39% reduction in mean latency. While the ORM optimization improved average latency by reducing I/O and memory overhead, `Argon2id` cryptography remains the deterministic factor, consistent with the findings for the `/signup` endpoint.*
+
+---
+*The full iterative report, including all intermediate steps, flame graphs, and full metric sets, is available in the linked report.*
+</details>
+
+<details>
+<summary><b>Endpoint: `/api/v1/access/me`</b></summary>
+
+| Metric                | **Baseline** | **Final**   | **Delta**             |
+|-----------------------|--------------|-------------|-----------------------|
+| **Mean Latency**      | 3.70 ms      | **2.35 ms** | **-36.5% (-1.35 ms)** |
+| **P90 (90%)**         | 4.36 ms      | **3.01 ms** | **-31.0% (-1.35 ms)** |
+| **CPU Load (Core 0)** | 44.56%       | **28.93%**  | **-35.1% (-15.63%)**  |
+| **CPU Load (Core 1)** | 45.12%       | **30.19%**  | **-33.1% (-14.93%)**  |
+
+*Analysis: During the first phase of optimization, profiling revealed that the cryptographic verification of access token signatures using the `Ed25519` algorithm incurred significant overhead. The final stage included optimizations at both the transport and ORM layers; however, a substantial performance gain and a ~33–35% reduction in CPU load were achieved through local access token caching. This effectively shifted the workload toward I/O-bound operations and application business logic. The `/me` endpoint serves as a baseline for assessing the cost of authentication within the system. Since this authentication mechanism is utilized across all protected endpoints, this optimization provides a **multiplicative effect**, significantly increasing the system's overall throughput and reducing the computational resource requirements per incoming request.*
+
+---
+*The full iterative report, including all intermediate steps, flame graphs, and full metric sets, is available in the linked report.*
+</details>
+</details>
+
+---
+
+## 📂 Project Structure
+
+```text
+├── src/app/       # Application core and business logic.
+├── dev/adr/       # Architecture Decision Records (design rationale and history).
+├── deploy/        # Infrastructure and deployment setup (PostgreSQL, Angie, etc.).
+├── benchmarks/    # Performance testing suite and results.
+├── docs/          # Sphinx documentation source files.
+└── tests/         # Unit and integration tests.
+```
+
+---
+
+## 📚 Documentation
+
+Quick Access:
+
+| Document                                                                           | Description                               |
+|:-----------------------------------------------------------------------------------|:------------------------------------------|
+| [Installation Guide](https://bizoxe.github.io/iron-track/usage/installation.html)  | Step-by-step first-time setup.            |
+| [Development Workflow](https://bizoxe.github.io/iron-track/usage/development.html) | Hot-reload, Docker volumes, and Makefile. |
+| [CLI Reference](https://bizoxe.github.io/iron-track/usage/cli-guide.html)          | Application management commands.          |
+| [Changelog](https://bizoxe.github.io/iron-track/changelog.html)                    | Full history of project changes.          |
+
+---
+
 ## 🚀 Quick Start
 
 Ensure you have **Docker**, **Make**, and **uv** installed.
@@ -587,7 +679,7 @@ JWT_PRIVATE_KEY='{"crv": "Ed25519", "x": "...", "d": "...", "kty": "OKP"}'
 make infra-up
 
 # Initialize Database & Permissions
-app database upgrade
+app database upgrade --no-prompt
 app users create-roles
 make seed
 ```
@@ -604,38 +696,6 @@ app server dev
 > Once started, the API will be available at http://127.0.0.1:8000.
 >
 > Explore the interactive docs at http://127.0.0.1:8000/docs.
-
----
-
-## 📈 Performance & Scalability
-
-The project includes performance experiments and concurrency analysis. Detailed metrics, hardware specifications, and reproduction commands are documented in the [Performance & Benchmarks](./benchmarks/BENCHMARKS.md) directory.
-
----
-
-## 📂 Project Structure
-
-```text
-├── src/app/       # Application core and business logic.
-├── dev/adr/       # Architecture Decision Records (design rationale and history).
-├── deploy/        # Infrastructure and deployment setup (PostgreSQL, Angie, etc.).
-├── benchmarks/    # Performance testing suite, load scripts, and results.
-├── docs/          # Sphinx documentation source files.
-└── tests/         # Unit and integration tests.
-```
-
----
-
-## 📚 Documentation
-
-Quick Access:
-
-| Document                                                                           | Description                               |
-|:-----------------------------------------------------------------------------------|:------------------------------------------|
-| [Installation Guide](https://bizoxe.github.io/iron-track/usage/installation.html)  | Step-by-step first-time setup.            |
-| [Development Workflow](https://bizoxe.github.io/iron-track/usage/development.html) | Hot-reload, Docker volumes, and Makefile. |
-| [CLI Reference](https://bizoxe.github.io/iron-track/usage/cli-guide.html)          | Application management commands.          |
-| [Changelog](https://bizoxe.github.io/iron-track/changelog.html)                    | Full history of project changes.          |
 
 ---
 
