@@ -33,7 +33,7 @@ The workout tracking domain provides sufficient complexity to model real-world i
 > [!IMPORTANT]
 > This is a **learning and exploration project**, not a production-driven business application.
 >
-> Technical solutions (such as PgBouncer, Angie, structured logging) and optimizations (e.g., custom Response via msgspec.json.encode at the FastAPI level) are implemented to study the interaction between the application and the infrastructure layer, and the behavior of the system under load.
+> Technical solutions (such as PgBouncer, Angie, structured logging) and optimizations (e.g., custom Response via msgspec.json at the FastAPI level) are implemented to study the interaction between the application and the infrastructure layer, and the behavior of the system under load.
 
 #### Project Focus:
 
