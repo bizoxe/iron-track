@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
     from starlette.background import BackgroundTask
 
-_JSON_ENCODER = mjson.Encoder()
+_json_encoder = mjson.Encoder()
 
 
 class MsgSpecJSONResponse(Response):
@@ -47,4 +47,4 @@ class MsgSpecJSONResponse(Response):
         Returns:
             bytes: Serialized JSON content as bytes.
         """
-        return _JSON_ENCODER.encode(content)
+        return _json_encoder.encode(content)
