@@ -182,13 +182,14 @@ def create_system_admin(password: str | None) -> None:
     from advanced_alchemy.exceptions import DuplicateKeyError
 
     from app.config.app_settings import sqlalchemy_config
-    from app.config.constants import DEFAULT_ADMIN_EMAIL, SUPERUSER_ROLE_SLUG
+    from app.config.base import get_settings
+    from app.config.constants import SUPERUSER_ROLE_SLUG
     from app.domain.users.deps import provide_role_service, provide_users_service
 
     async def _create_system_admin(password: str) -> None:
         obj_data = {
             "name": "System Administrator",
-            "email": DEFAULT_ADMIN_EMAIL,
+            "email": get_settings().app.DEFAULT_ADMIN_EMAIL,
             "password": password,
             "is_superuser": True,
         }
