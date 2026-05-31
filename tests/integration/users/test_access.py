@@ -1,3 +1,4 @@
+from time import time
 from typing import (
     TYPE_CHECKING,
     Any,
@@ -194,8 +195,10 @@ async def test_user_refresh_token_blacklisted(
     refresh_token = original_tokens_data["original_refresh_token"]
     refresh_token_payload = decode_jwt(token=refresh_token).claims
     refresh_jti = refresh_token_payload["jti"]
+    refresh_exp = refresh_token_payload["exp"]
     await add_token_to_blacklist(
         refresh_token_identifier=refresh_jti,
+        ttl=refresh_exp - time(),
     )
     response = await client.post(url=app.url_path_for("access:refresh"))
     assert response.status_code == status.HTTP_401_UNAUTHORIZED
