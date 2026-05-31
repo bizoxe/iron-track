@@ -105,7 +105,8 @@ class UserAuth(CamelizedBaseStruct, dict=True):
     role_slug: str
 
     def __post_init__(self) -> None:
-        self._refresh_jti = None
+        self._refresh_jti: str | None = None
+        self._refresh_exp: float | None = None
 
 
 class PasswordUpdate(CamelizedBaseSchema):

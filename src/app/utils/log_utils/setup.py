@@ -144,7 +144,7 @@ def configure_logging() -> None:
             },
         }
     )
-    console_handler = cast("logging.StreamHandler", logging.getHandlerByName("console"))
+    console_handler = cast("logging.StreamHandler[Any]", logging.getHandlerByName("console"))
     global _log_listener  # noqa: PLW0603
     _log_listener = logging.handlers.QueueListener(_log_queue, console_handler)
 

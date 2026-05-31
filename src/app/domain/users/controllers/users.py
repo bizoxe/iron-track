@@ -26,13 +26,13 @@ from app.domain.users.deps import (
     RoleServiceDep,
     UserServiceDep,
 )
+from app.domain.users.filters import UserFilters
 from app.domain.users.schemas import (
     User,
     UserAuth,
     UserCreate,
     UserUpdate,
 )
-from app.domain.users.utils import UserFilters
 from app.lib.exceptions import (
     ConflictException,
     UserNotFound,
