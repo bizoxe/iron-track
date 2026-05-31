@@ -1,21 +1,38 @@
-import asyncio
 import os
+from asyncio import get_running_loop
 from concurrent.futures import ThreadPoolExecutor
+from contextlib import suppress
 
 from pwdlib import PasswordHash
 from pwdlib.hashers.argon2 import Argon2Hasher
 
+from app.config.base import get_settings
 from app.config.constants import (
     ARGON2_MEMORY_COST,
     ARGON2_PARALLELISM,
     ARGON2_TIME_COST,
 )
 
-cpu_cores = os.cpu_count() or 1
-"""The number of logical CPU cores detected in the system."""
+settings = get_settings()
+
+CRYPTO_MAX_WORKERS = settings.app.CRYPTO_MAX_WORKERS
+
+
+def _get_default_crypto_workers() -> int:
+    """Determine a safe default number of threads based on available CPU cores."""
+    cores = os.cpu_count() or 1
+
+    if hasattr(os, "sched_getaffinity"):
+        with suppress(Exception):
+            cores = len(os.sched_getaffinity(0))
+
+    return max(min(cores, 4), 1)
+
+
+final_workers = CRYPTO_MAX_WORKERS if CRYPTO_MAX_WORKERS is not None else _get_default_crypto_workers()
 
 crypto_executor = ThreadPoolExecutor(
-    max_workers=max(min(cpu_cores, 4), 1),
+    max_workers=final_workers,
     thread_name_prefix="Argon2Pool",
 )
 """Thread pool dedicated to cryptographic tasks."""
@@ -35,7 +52,7 @@ async def get_password_hash(password: str | bytes) -> str:
     Returns:
         str: Hashed password.
     """
-    return await asyncio.get_running_loop().run_in_executor(crypto_executor, hasher.hash, password)
+    return await get_running_loop().run_in_executor(crypto_executor, hasher.hash, password)
 
 
 async def verify_password(plain_password: str | bytes, hashed_password: str) -> bool:
@@ -48,7 +65,7 @@ async def verify_password(plain_password: str | bytes, hashed_password: str) -> 
     Returns:
         bool: True if password matches hash.
     """
-    valid, _ = await asyncio.get_running_loop().run_in_executor(
+    valid, _ = await get_running_loop().run_in_executor(
         crypto_executor,
         hasher.verify_and_update,
         plain_password,
