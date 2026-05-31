@@ -26,8 +26,20 @@ from app.lib.schema import (
     CamelizedBaseStruct,
 )
 
-settings = get_settings()
+__all__ = (
+    "CategoryType",
+    "DifficultyLevelType",
+    "ExerciseCreate",
+    "ExerciseCreateSystem",
+    "ExerciseRead",
+    "ExerciseScope",
+    "ExerciseUpdate",
+    "ExerciseUpdateSystem",
+    "ForceType",
+    "MechanicType",
+)
 
+settings = get_settings()
 
 FULL_CDN_PREFIX = settings.app.cdn_exercises_url_prefix
 

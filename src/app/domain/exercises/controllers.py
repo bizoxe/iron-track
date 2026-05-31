@@ -21,6 +21,7 @@ from fastapi import (
 from app.config.constants import FITNESS_TRAINER_ROLE_SLUG
 from app.domain.exercises import urls
 from app.domain.exercises.deps import ExerciseServiceDep
+from app.domain.exercises.filters import ExerciseFilters
 from app.domain.exercises.schemas import (
     ExerciseCreate,
     ExerciseCreateSystem,
@@ -28,7 +29,6 @@ from app.domain.exercises.schemas import (
     ExerciseUpdate,
     ExerciseUpdateSystem,
 )
-from app.domain.exercises.utils import ExerciseFilters
 from app.domain.users.auth import Authenticate
 from app.domain.users.schemas import UserAuth
 from app.lib.exceptions import (

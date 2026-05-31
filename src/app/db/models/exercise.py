@@ -41,7 +41,7 @@ class Exercise(UUIDv7AuditBase):
 
     __tablename__ = "exercises"
 
-    name: Mapped[str] = mapped_column(String(100), nullable=True)
+    name: Mapped[str | None] = mapped_column(String(100), nullable=True)
     """The display name of the exercise."""
     force: Mapped[ForceType] = mapped_column(
         pg.ENUM(
@@ -97,7 +97,7 @@ class Exercise(UUIDv7AuditBase):
         nullable=True,
     )
     """Reference to the user who created a custom exercise."""
-    slug: Mapped[str] = mapped_column(String(100), nullable=True)
+    slug: Mapped[str | None] = mapped_column(String(100), nullable=True)
     """Unique URL-friendly identifier for system-default exercises."""
 
     __table_args__ = (

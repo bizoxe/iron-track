@@ -48,7 +48,7 @@ if TYPE_CHECKING:
     from uuid import UUID
 
     from app.domain.catalogs.schemas import FieldsReadBase
-    from app.domain.exercises.utils import ExerciseFilters
+    from app.domain.exercises.filters import ExerciseFilters
     from app.domain.users.schemas import UserAuth
 
 
@@ -173,18 +173,26 @@ class ExerciseService(CompositeServiceMixin, service.SQLAlchemyAsyncRepositorySe
     ) -> ExerciseRead:
         """Fetch a specific exercise by name (for custom) or slug (for system)."""
         if name and slug:
-            msg = "You must specify only one of the following: slug or name."
+            msg = "You must specify only one of the following: slug or name"
             raise BadRequestException(message=msg)
-        ex_filter: dict[str, Any] = {}
-        if name:
-            ex_filter.update({"name": name, "created_by": user_id})
-        if slug:
-            ex_filter.update({"slug": slug, "is_system_default": True})
         try:
-            db_obj = await self.get_one(**ex_filter)
+            if name:
+                db_obj = await self.get_one(
+                    m.Exercise.created_by == user_id,
+                    name=name,
+                )
+            elif slug:
+                db_obj = await self.get_one(
+                    m.Exercise.is_system_default.is_(True),
+                    slug=slug,
+                )
+            else:
+                msg = "Either name or slug must be provided"
+                raise BadRequestException(message=msg)
+
             return self.to_schema(db_obj, schema_type=ExerciseRead)
         except NotFoundError as exc:
-            msg = f"Exercise with {slug or name} not found"
+            msg = f"Exercise with '{slug or name}' not found"
             raise NotFoundException(message=msg) from exc
 
     async def update_exercise(
