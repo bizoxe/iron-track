@@ -52,13 +52,13 @@ async def check_system_health(
 
     healthy = db_ping and cache_ping
     if healthy:
-        await logger.adebug(
+        logger.debug(
             "System Health",
             database_status=db_status,
             cache_status=cache_status,
         )
     else:
-        await logger.awarn(
+        logger.warning(
             "System Health Check",
             database_status=db_status,
             cache_status=cache_status,
