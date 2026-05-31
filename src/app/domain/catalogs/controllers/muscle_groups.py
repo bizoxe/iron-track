@@ -22,12 +22,12 @@ from fastapi import (
 
 from app.domain.catalogs import urls
 from app.domain.catalogs.deps import MuscleGroupDep
+from app.domain.catalogs.filters import CatalogFilters
 from app.domain.catalogs.schemas import (
     MuscleGroupCreate,
     MuscleGroupRead,
     MuscleGroupUpdate,
 )
-from app.domain.catalogs.utils import CatalogFilters
 from app.domain.users.auth import Authenticate
 from app.domain.users.schemas import UserAuth
 from app.lib.exceptions import (

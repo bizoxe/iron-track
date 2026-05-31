@@ -43,7 +43,7 @@ if TYPE_CHECKING:
     from sqlalchemy.orm import InstrumentedAttribute
     from sqlalchemy.sql.selectable import ForUpdateParameter
 
-    from app.domain.catalogs.utils import CatalogFilters
+    from app.domain.catalogs.filters import CatalogFilters
 
 
 class BaseCatalogService[T: DefaultBase, S: Struct](service.SQLAlchemyAsyncRepositoryService[T]):
