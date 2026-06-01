@@ -5,11 +5,15 @@ from typing import Any
 
 async def seed_db(logger: Any) -> None:
     """Populate the database with system-default fixture data."""
+    from contextlib import aclosing
     from pathlib import Path
     from typing import TYPE_CHECKING
 
     from advanced_alchemy.utils.fixtures import open_fixture_async
+    from cashews import cache
+    from cashews.exceptions import CacheBackendInteractionError
     from sqlalchemy import text
+    from sqlalchemy.exc import DBAPIError, OperationalError
 
     from app.config.app_settings import sqlalchemy_config
     from app.config.base import get_settings
@@ -22,7 +26,7 @@ async def seed_db(logger: Any) -> None:
     from app.server.lifespan import setup_app_cache
 
     if TYPE_CHECKING:
-        from collections.abc import Sequence
+        from collections.abc import AsyncGenerator, Sequence
 
         from advanced_alchemy.service import SQLAlchemyAsyncRepositoryService
 
@@ -39,27 +43,38 @@ async def seed_db(logger: Any) -> None:
         exercises_data = await open_fixture_async(fixtures_path, "all_exercises")
         tags_data = await open_fixture_async(fixtures_path, "exercise_tags")
 
+        async def get_service[T](gen: AsyncGenerator[T, None]) -> T:
+            """Helper to safely consume and close a service generator."""
+            async with aclosing(gen) as g:
+                return await anext(g)
+
         async def reset_sequence(service: SQLAlchemyAsyncRepositoryService[Any, Any]) -> None:
             """Reset the Postgres primary key sequence to the current maximum ID."""
             table_name = service.model_type.__tablename__
             await service.repository.session.execute(
                 text(
-                    f"SELECT setval(pg_get_serial_sequence('{table_name}', 'id'), "  # noqa: S608
+                    f"SELECT setval(pg_get_serial_sequence('{table_name}', 'id'), "
                     f"coalesce(max(id), 1)) FROM {table_name}"
                 )
             )
 
+        try:
+            await cache.ping()
+        except (CacheBackendInteractionError, TimeoutError):
+            logger.error("Cache connection failed")
+            raise
+
         async with sqlalchemy_config.get_session() as session:
             try:
                 await session.execute(text("SELECT 1"))
-            except OSError:
-                await logger.aerror("Database connection failed")
+            except (OSError, DBAPIError, OperationalError):
+                logger.error("Database connection failed")
                 raise
 
-            muscles_service = await anext(provide_muscle_group_service(session))
-            equipment_service = await anext(provide_equipment_service(session))
-            tags_service = await anext(provide_exercise_tag_service(session))
-            exercise_service = await anext(provide_exercise_service(session))
+            muscles_service = await get_service(provide_muscle_group_service(session))
+            equipment_service = await get_service(provide_equipment_service(session))
+            tags_service = await get_service(provide_exercise_tag_service(session))
+            exercise_service = await get_service(provide_exercise_service(session))
 
             services_registry: ServicesRegistryT = [
                 (muscle_groups_data, muscles_service, ["name"]),
@@ -70,7 +85,7 @@ async def seed_db(logger: Any) -> None:
 
             for data, svc, match in services_registry:
                 try:
-                    await logger.ainfo(
+                    logger.info(
                         "Preparing to seed data...",
                         table=svc.model_type.__tablename__,
                         count=len(data),
@@ -79,7 +94,7 @@ async def seed_db(logger: Any) -> None:
                     if svc.model_type.__tablename__ != exercise_service.model_type.__tablename__:
                         await reset_sequence(svc)
                 except Exception:
-                    await logger.aexception("Seeding aborted", table=svc.model_type.__tablename__)
+                    logger.error("Seeding aborted", table=svc.model_type.__tablename__)
                     raise
             await session.commit()
 

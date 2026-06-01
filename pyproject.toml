@@ -219,7 +219,8 @@ max-complexity = 9
 known-first-party = ["tests", "app"]
 
 [tool.ruff.lint.per-file-ignores]
-"src/app/scripts/*" = ["FBT001", "PLC0415", "FBT002", "RSE102"]
+"src/app/scripts/commands.py" = ["FBT001", "PLC0415", "FBT002", "RSE102"]
+"src/app/scripts/seeder.py" = ["C901", "PLR0915", "PLC0415", "TRY400", "S608"]
 "docs/conf.py" = ["PLR0913", "FBT001", "A001", "INP001"]
 "src/app/config/base.py" = ["PLC0415"]
 "src/app/main.py" = ["PLC0415"]
