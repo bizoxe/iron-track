@@ -6,7 +6,7 @@ x-development-volumes: &development-volumes
     - ./Makefile:/workspace/app/Makefile
     - ./pyproject.toml:/workspace/app/pyproject.toml
     - ./uv.lock:/workspace/app/uv.lock
-    - ./.env.docker:/workspace/app/src/app/config/.env
+    - ./.env.docker.dev:/workspace/app/src/app/config/.env
 
 
 services:
@@ -16,9 +16,9 @@ services:
       dockerfile: deploy/app/dev/Dockerfile
     tty: true
     restart: unless-stopped
-    command: app server dev
+    command: app server dev --host 0.0.0.0 --port 8000
     env_file:
-      - .env.docker
+      - .env.docker.dev
     <<: *development-volumes
     ports:
       - "8000:8000"
@@ -27,6 +27,15 @@ services:
         condition: service_healthy
       valkey:
         condition: service_healthy
+    healthcheck:
+      test: [
+        "CMD", "python", "-c",
+        "import socket; s = socket.socket(socket.AF_INET, socket.SOCK_STREAM); s.connect(('127.0.0.1', 8000)); s.sendall(b'GET /health HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n'); response = s.recv(1024); s.close(); exit(0) if b'200 OK' in response else exit(1)"
+      ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
 
   migrator:
     build:
@@ -35,7 +44,7 @@ services:
     command: app database upgrade --no-prompt
     restart: "no"
     env_file:
-      - .env.docker
+      - .env.docker.dev
     <<: *development-volumes
     depends_on:
       pgbouncer:

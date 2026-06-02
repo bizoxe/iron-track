@@ -43,6 +43,13 @@ help: ## Display this help text
 # =============================================================================
 ##@ Development
 
+.PHONY: setup-env
+setup-env: ## Initialize environment files from templates
+	@echo "${INFO} Initializing environment files... ⚙️"
+	@if [ ! -f .env.docker ]; then cp .env.docker.template .env.docker && echo "${OK} .env.docker created"; else echo "${WARN} .env.docker already exists, skipping"; fi
+	@if [ ! -f .env.docker.dev ]; then cp .env.docker.dev.template .env.docker.dev && echo "${OK} .env.docker.dev created"; else echo "${WARN} .env.docker.dev already exists, skipping"; fi
+	@echo "${OK} Done! Update your .env files with your specific values"
+
 .PHONY: install-uv
 install-uv: ## Install latest version of uv
 	@if command -v uv >/dev/null 2>&1; then \

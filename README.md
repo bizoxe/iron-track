@@ -678,6 +678,9 @@ JWT_PRIVATE_KEY='{"crv": "Ed25519", "x": "...", "d": "...", "kty": "OKP"}'
 # Start PostgreSQL and Valkey
 make infra-up
 
+# (Optional) Verify containers are running
+docker ps
+
 # Initialize Database & Permissions
 app database upgrade --no-prompt
 app users create-roles

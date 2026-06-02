@@ -292,3 +292,4 @@ pyrightconfig.json
 /deploy/certs/local-cert.pem
 /deploy/certs/local-key.pem
 deploy/pgbouncer/conf/userlist.txt
+/.env.docker.dev
