@@ -1,8 +1,8 @@
-"""add_exercises_and_references
+"""add exercises and references tables
 
-Revision ID: d3d21c08247a
-Revises: 88eaf54337ff
-Create Date: 2026-03-22 15:47:00.935236+00:00
+Revision ID: 59d10e51f4ca
+Revises: d9ab4de7d6c4
+Create Date: 2026-06-02 14:57:18.454477+00:00
 
 """
 
@@ -27,8 +27,8 @@ sa.EncryptedText = EncryptedText
 sa.StoredObject = StoredObject
 
 # revision identifiers, used by Alembic.
-revision = 'd3d21c08247a'
-down_revision = '88eaf54337ff'
+revision = '59d10e51f4ca'
+down_revision = 'd9ab4de7d6c4'
 branch_labels = None
 depends_on = None
 

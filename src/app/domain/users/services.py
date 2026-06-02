@@ -17,13 +17,13 @@ from advanced_alchemy.service import (
     schema_dump,
 )
 from cashews import cache
+from sqlalchemy import func, select
 from sqlalchemy.orm import (
     joinedload,
     load_only,
     noload,
 )
 
-from app.config.base import get_settings
 from app.config.constants import DEFAULT_USER_ROLE_SLUG
 from app.db import models as m
 from app.domain.users.schemas import User as UserDto
@@ -32,6 +32,7 @@ from app.lib.exceptions import (
     NotFoundException,
     PermissionDeniedException,
     UnauthorizedException,
+    UserNotFound,
 )
 
 if TYPE_CHECKING:
@@ -39,9 +40,6 @@ if TYPE_CHECKING:
 
     from app.domain.users.filters import UserFilters
     from app.domain.users.schemas import PasswordUpdate
-
-
-settings = get_settings()
 
 
 class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
@@ -54,9 +52,7 @@ class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
 
     repository_type = UserRepository
     match_fields: ClassVar[list[str]] = ["email"]
-
     default_role: ClassVar[str] = DEFAULT_USER_ROLE_SLUG
-    system_admin_email: ClassVar[str] = settings.app.DEFAULT_ADMIN_EMAIL
 
     async def to_model_on_create(self, data: ModelDictT[m.User]) -> ModelDictT[m.User]:
         data = schema_dump(data)
@@ -85,8 +81,9 @@ class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
         Returns:
             ~app.db.models.user.User: The user object.
         """
+        statement = select(self.model_type).where(func.lower(self.model_type.email) == username.lower())
         db_obj = await self.get_one_or_none(
-            email=username,
+            statement=statement,
             load=[
                 load_only(m.User.id, m.User.email, m.User.is_active, m.User.password),
                 noload(m.User.role),
@@ -122,27 +119,28 @@ class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
             raise UnauthorizedException(message=msg)
         user_obj.password = await crypt.get_password_hash(password=data.new_password)
 
-    def check_critical_action_forbidden(
-        self,
-        target_user: m.User,
-        calling_superuser_id: UUID,
-    ) -> None:
-        """Disallow destructive action on self or system admin.
+    async def get_and_validate_for_role_change(self, email: str) -> m.User:
+        """Retrieve an active user by email for role modification.
 
         Args:
-            target_user (:py:class:`~app.db.models.user.User`): The user object targeted for action.
-            calling_superuser_id (UUID): UUID of the superuser calling the action.
+            email (str): The email of the user whose role is being modified.
+
+        Returns:
+            ~app.db.models.user.User: The User model object from the database.
 
         Raises:
-            PermissionDeniedException: If target is the system admin or the caller themselves.
+            UserNotFound: If no user is found with the given email.
+            PermissionDeniedException: If the user is found but their account is inactive.
         """
-        if target_user.email == self.system_admin_email:
-            msg = "Forbidden: Cannot modify the primary system administrator account"
+        statement = select(self.model_type).where(func.lower(self.model_type.email) == email.lower())
+        user_obj = await self.get_one_or_none(statement=statement)
+        if user_obj is None:
+            raise UserNotFound
+        if not user_obj.is_active:
+            msg = f"Cannot modify role for inactive user {user_obj.email}"
             raise PermissionDeniedException(message=msg)
 
-        if target_user.id == calling_superuser_id:
-            msg = "Self-action forbidden: Cannot perform destructive action on your own account"
-            raise PermissionDeniedException(message=msg)
+        return user_obj
 
     @cache(ttl="1m", key="users_list:{params}")
     async def get_users_paginated_dto(self, params: UserFilters) -> OffsetPagination[UserDto]:

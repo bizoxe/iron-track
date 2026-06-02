@@ -33,6 +33,7 @@ from app.domain.users.schemas import (
     UserCreate,
     UserUpdate,
 )
+from app.domain.users.utils import check_critical_action_forbidden
 from app.lib.exceptions import (
     ConflictException,
     UserNotFound,
@@ -153,7 +154,7 @@ async def update_user(
             user_id,
             load=[undefer(UserModel.password)],
         )
-        users_service.check_critical_action_forbidden(
+        check_critical_action_forbidden(
             target_user=user_obj,
             calling_superuser_id=super_user.id,
         )
@@ -193,7 +194,7 @@ async def delete_user(
     """
     try:
         user_obj = await users_service.get(user_id)
-        users_service.check_critical_action_forbidden(
+        check_critical_action_forbidden(
             target_user=user_obj,
             calling_superuser_id=super_user.id,
         )

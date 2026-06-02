@@ -3,46 +3,38 @@ from __future__ import annotations
 import asyncio
 from typing import TYPE_CHECKING
 
+from app.config.base import get_settings
 from app.domain.users.jwt_helpers import add_token_to_blacklist
-from app.lib.exceptions import (
-    PermissionDeniedException,
-    UserNotFound,
-)
+from app.lib.exceptions import PermissionDeniedException
 from app.lib.invalidate_cache import invalidate_user_cache
 
 if TYPE_CHECKING:
     from uuid import UUID
 
     from app.db.models.user import User as UserModel
-    from app.domain.users.deps import UserServiceDep
     from app.domain.users.schemas import UserAuth
 
 
-async def check_user_before_modify_role(
-    users_service: UserServiceDep,
-    email: str,
-) -> UserModel:
-    """Check user existence and activity status before role modification.
+def check_critical_action_forbidden(
+    target_user: UserModel,
+    calling_superuser_id: UUID,
+) -> None:
+    """Disallow destructive action on self or system admin.
 
     Args:
-        users_service (UserService): Dependency for user service operations.
-        email (str): The email of the user whose role is being modified.
-
-    Returns:
-        ~app.db.models.user.User: The User model object from the database.
+        target_user (:py:class:`~app.db.models.user.User`): The user object targeted for action.
+        calling_superuser_id (UUID): UUID of the superuser calling the action.
 
     Raises:
-        UserNotFound: If no user is found with the given email.
-        PermissionDeniedException: If the user is found but their account is inactive.
+        PermissionDeniedException: If target is the system admin or the caller themselves.
     """
-    user_obj = await users_service.get_one_or_none(email=email)
-    if user_obj is None:
-        raise UserNotFound
-    if not user_obj.is_active:
-        msg = f"Cannot modify role for inactive user {user_obj.email}"
+    if target_user.email == get_settings().app.DEFAULT_ADMIN_EMAIL:
+        msg = "Forbidden: Cannot modify the primary system administrator account"
         raise PermissionDeniedException(message=msg)
 
-    return user_obj
+    if target_user.id == calling_superuser_id:
+        msg = "Self-action forbidden: Cannot perform destructive action on your own account"
+        raise PermissionDeniedException(message=msg)
 
 
 async def perform_logout_cleanup(refresh_jti: str, ttl: int, user_id: UUID) -> None:

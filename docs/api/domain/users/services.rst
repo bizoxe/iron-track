@@ -11,7 +11,7 @@ User Service (`UserService`)
 .. autoclass:: app.domain.users.services.UserService()
    :no-inherited-members:
    :undoc-members:
-   :members: authenticate, update_password, check_critical_action_forbidden, get_users_paginated_dto
+   :members: authenticate, update_password, get_and_validate_for_role_change, get_users_paginated_dto
    :exclude-members: UserRepository, model_type, repository_type, to_model_on_create, to_model_on_update, match_fields
 
 Role Service (`RoleService`)

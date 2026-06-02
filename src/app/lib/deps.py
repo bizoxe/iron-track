@@ -13,7 +13,7 @@ from app.domain.exercises.schemas import ExerciseScope
 if TYPE_CHECKING:
     from uuid import UUID
 
-    from app.domain.exercises.utils import ExerciseFilters
+    from app.domain.exercises.filters import ExerciseFilters
 
 S = TypeVar("S", bound="_ServiceWithSession")
 

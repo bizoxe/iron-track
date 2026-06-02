@@ -52,6 +52,17 @@ async def test_user_login(
     assert response.status_code == expected_status_code
 
 
+async def test_user_login_should_succeed_when_email_is_uppercase(
+    client: "AsyncClient",
+    app: "FastAPI",
+) -> None:
+    response = await client.post(
+        url=app.url_path_for("access:login"),
+        data={"username": constants.USER_EXAMPLE_EMAIL.upper(), "password": "Test_Password2!"},
+    )
+    assert response.status_code == status.HTTP_204_NO_CONTENT
+
+
 async def test_user_login_tokens_exist(
     client: "AsyncClient",
     app: "FastAPI",
@@ -151,6 +162,25 @@ async def test_user_signup(
             assert msg in error_detail["message"]
         else:
             assert error_detail["field"] in ("password", "email")
+
+
+async def test_user_signup_should_normalize_email_to_lowercase(
+    client: "AsyncClient",
+    app: "FastAPI",
+) -> None:
+    payload = {
+        "name": "Elena Dolgorukaya",
+        "email": "ElEna@exAmple.com",
+        "password": "ElenaDolgT1@",
+        "confirmPassword": "ElenaDolgT1@",
+    }
+    response = await client.post(
+        url=app.url_path_for("access:signup"),
+        json=payload,
+    )
+    assert response.status_code == status.HTTP_201_CREATED
+    email = response.json()["email"]
+    assert email == "elena@example.com"
 
 
 async def test_user_refresh_token(

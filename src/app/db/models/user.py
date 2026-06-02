@@ -4,12 +4,12 @@ from typing import TYPE_CHECKING
 from uuid import UUID  # noqa: TC003
 
 from advanced_alchemy.base import UUIDv7AuditBase
-from advanced_alchemy.types import (
-    GUID,
-)
+from advanced_alchemy.types import GUID
 from sqlalchemy import (
     ForeignKey,
+    Index,
     String,
+    func,
 )
 from sqlalchemy.ext.associationproxy import (
     AssociationProxy,
@@ -29,12 +29,11 @@ class User(UUIDv7AuditBase):
     """ORM Model representing a user account in the application."""
 
     __tablename__ = "user_account"
-    __table_args__ = {"comment": "Users accounts for application access"}  # noqa: RUF012
     __pii_columns__ = {"name", "email"}  # noqa: RUF012
 
     name: Mapped[str | None] = mapped_column(String(length=255), nullable=True, default=None)
     """The user's full name."""
-    email: Mapped[str] = mapped_column(String(length=255), unique=True, nullable=False, index=True)
+    email: Mapped[str] = mapped_column(String(length=255), nullable=False)
     """The unique email address for the user, used for login."""
     password: Mapped[str] = mapped_column(String(length=255), nullable=False, deferred=True)
     """The hashed password for authentication."""
@@ -45,6 +44,11 @@ class User(UUIDv7AuditBase):
 
     role_id: Mapped[UUID] = mapped_column(GUID, ForeignKey("role.id", ondelete="RESTRICT"), nullable=False)
     """Foreign key linking to the user's role (Role.id)."""
+
+    __table_args__ = (
+        Index("uq_user_email_lower", func.lower(email), unique=True),
+        {"comment": "Users accounts for application access"},
+    )
 
     # ------------
     # ORM Relationships

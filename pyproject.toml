@@ -224,9 +224,8 @@ known-first-party = ["tests", "app"]
 "docs/conf.py" = ["PLR0913", "FBT001", "A001", "INP001"]
 "src/app/config/base.py" = ["PLC0415"]
 "src/app/main.py" = ["PLC0415"]
-"tests/*" = ["PLR0913", "FBT001", "PLC0415", "FURB171"]
+"tests/*" = ["PLR0913", "FBT001", "PLC0415", "FURB171", "E501"]
 "src/app/domain/catalogs/services.py" = ["PLR0913", "ARG002"]
-"tests/data_fixtures.py" = ["E501"]
 
 [tool.mypy]
 python_version = "3.12"
