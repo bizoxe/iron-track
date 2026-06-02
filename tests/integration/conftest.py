@@ -144,7 +144,7 @@ async def fx_seed_test_data(
     seed_roles: dict[str, UUID],
     session: AsyncSession,
     raw_users: list[dict[str, Any]],
-    custom_exercises: list[dict[str, Any]],
+    exercise_samples: list[dict[str, Any]],
 ) -> None:
     users_to_create = deepcopy(raw_users)
     users_service = UserService(session)
@@ -153,7 +153,7 @@ async def fx_seed_test_data(
         role_map=seed_roles,
     )
     await users_service.create_many(raw_users_with_roles, auto_commit=False)
-    exercises_to_create = deepcopy(custom_exercises)
+    exercises_to_create = deepcopy(exercise_samples)
     exercise_service = ExerciseService(session)
     await exercise_service.create_many(data=exercises_to_create, auto_commit=False)
     await session.flush()

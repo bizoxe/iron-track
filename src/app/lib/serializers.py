@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 class MsgSpecRegistry:
     """Registry for msgspec-based serialization."""
 
-    _ENCODER = msgpack.Encoder()
+    _encoder = msgpack.Encoder()
     """Internal msgpack encoder instance."""
 
     @classmethod
@@ -34,7 +34,7 @@ class MsgSpecRegistry:
 
         async def _enc(value: Any, *args: Any, **kwargs: Any) -> bytes:
             """Encode a value to msgpack bytes."""
-            return cls._ENCODER.encode(value)
+            return cls._encoder.encode(value)
 
         async def _dec(value: bytes, *args: Any, **kwargs: Any) -> Any:
             """Decode msgpack bytes back to the target type."""

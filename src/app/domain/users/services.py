@@ -18,15 +18,13 @@ from advanced_alchemy.service import (
 )
 from cashews import cache
 from sqlalchemy.orm import (
+    joinedload,
     load_only,
     noload,
-    selectinload,
 )
 
-from app.config.constants import (
-    DEFAULT_ADMIN_EMAIL,
-    DEFAULT_USER_ROLE_SLUG,
-)
+from app.config.base import get_settings
+from app.config.constants import DEFAULT_USER_ROLE_SLUG
 from app.db import models as m
 from app.domain.users.schemas import User as UserDto
 from app.lib import crypt
@@ -39,8 +37,11 @@ from app.lib.exceptions import (
 if TYPE_CHECKING:
     from uuid import UUID
 
+    from app.domain.users.filters import UserFilters
     from app.domain.users.schemas import PasswordUpdate
-    from app.domain.users.utils import UserFilters
+
+
+settings = get_settings()
 
 
 class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
@@ -55,7 +56,7 @@ class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
     match_fields: ClassVar[list[str]] = ["email"]
 
     default_role: ClassVar[str] = DEFAULT_USER_ROLE_SLUG
-    system_admin_email: ClassVar[str] = DEFAULT_ADMIN_EMAIL
+    system_admin_email: ClassVar[str] = settings.app.DEFAULT_ADMIN_EMAIL
 
     async def to_model_on_create(self, data: ModelDictT[m.User]) -> ModelDictT[m.User]:
         data = schema_dump(data)
@@ -150,7 +151,7 @@ class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
         results, total = await self.list_and_count(
             *filters,
             load=[
-                selectinload(self.model_type.role).options(load_only(m.Role.name, m.Role.slug)),
+                joinedload(self.model_type.role).load_only(m.Role.name, m.Role.slug),
             ],
         )
         return self.to_schema(data=results, total=total, filters=filters, schema_type=UserDto)
