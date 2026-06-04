@@ -8,15 +8,17 @@ IronTrack
 .. image:: https://img.shields.io/badge/license-MIT-4bc51d.svg?logo=opensourceinitiative&logoColor=white
     :target: https://opensource.org/licenses/MIT
 
-**IronTrack** is an experimental async backend sandbox for performance testing and constraint-driven architectural experiments.
+**IronTrack** is an experimental async backend sandbox designed for architectural exploration and architectural efficiency analysis.
 
-It is designed to explore architectural patterns, concurrency isolation, and performance trade-offs within a workout tracking domain.
-The project focuses on experimentation and benchmarking rather than providing a production-ready solution.
+The project serves as a laboratory for testing concurrency patterns, database optimization, and constraint-driven experiments within a workout tracking domain.
 
 .. note::
    **Infrastructure Context:** This project is intentionally developed and benchmarked on constrained bare-metal hardware (**AMD FX-8320 / HDD**).
 
    This "high-latency" environment is a deliberate architectural choice. It amplifies performance bottlenecks—such as I/O wait times and serialization overhead—that are often masked by modern cloud infrastructure. This setup forces the evaluation of concurrency patterns and optimization techniques under realistic hardware limitations.
+
+.. warning::
+   This is a learning-focused sandbox. It is not intended for production-driven business applications.
 
 ---
 

@@ -10,3 +10,6 @@ Defines the application's data structure and ORM models.
    base
    user
    role
+   reference
+   exercise
+

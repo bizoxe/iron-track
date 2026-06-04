@@ -13,4 +13,6 @@ Functional Sub-Domains
     :hidden:
 
     users/index
+    catalogs/index
+    exercises/index
     system/index

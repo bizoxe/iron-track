@@ -45,7 +45,7 @@ The workout tracking domain provides sufficient complexity to model real-world i
 * **Holistic System View**  
     The project intentionally includes key infrastructure components (a reverse proxy, a connection pooler) to move beyond just application code.  
     The goal is to analyze how different layers interact and influence the application's performance and stability, not to build a high-load system.
-* **Performance Research Under Hardware Constraints**  
+* **Performance & Efficiency Research**  
     Benchmarking on constrained hardware:
     * Makes it easier to identify and analyze bottlenecks and design load scenarios.
     * Forces the writing of resource-efficient code.

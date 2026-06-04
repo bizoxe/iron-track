@@ -9,6 +9,7 @@ A collection of reusable components providing common application functionality a
 
    auth
    crypt
+   deps
    exceptions
    filters
    handlers
