@@ -1,7 +1,7 @@
 Exercises Domain
 ================
 
-This domain encapsulates all logic related to exercise management, categorization, and execution tracking.
+This domain encapsulates all logic related to exercise management and categorization.
 
 ---
 
@@ -37,7 +37,7 @@ We use a hybrid approach:
 
 Supporting Modules (Utilities and Dependencies)
 -----------------------------------------------
-Internal helpers, query filters, and shared dependencies.
+Dependency Injection and Filtering Utilities for Exercise Resources.
 
 .. toctree::
    :maxdepth: 1
