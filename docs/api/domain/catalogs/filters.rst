@@ -5,3 +5,5 @@ Provides filter schemas for catalog resources, enabling search, sorting, and cac
 
 .. autopydantic_model:: app.domain.catalogs.filters.CatalogFilters
    :field-show-constraints: false
+   :exclude-members: aa_filters, model_post_init
+

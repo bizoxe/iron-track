@@ -29,6 +29,7 @@ User CRUD Models
 ----------------
 
 .. autopydantic_model:: app.domain.users.schemas.UserCreate
+   :field-show-constraints: false
 
 .. autopydantic_model:: app.domain.users.schemas.UserUpdate
 
@@ -41,9 +42,6 @@ User Authentication Models
    :field-show-constraints: false
    :model-show-validator-summary: false
    :field-list-validators: false
-   :model-show-validator-members: false
-
-.. automethod:: app.domain.users.schemas.AccountRegister.check_passwords_match
 
 .. autopydantic_model:: app.domain.users.schemas.PasswordUpdate
    :field-show-constraints: false

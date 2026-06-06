@@ -10,7 +10,7 @@ Functional Sub-Domains
 
 .. toctree::
     :maxdepth: 1
-    :hidden:
+    :caption: Available Sub-Domains
 
     users/index
     catalogs/index

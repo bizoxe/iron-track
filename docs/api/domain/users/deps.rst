@@ -1,6 +1,8 @@
 User Domain Dependencies
 ========================
 
+Provides dependency injection providers for user services, ensuring scoped database sessions for each request.
+
 .. automodule:: app.domain.users.deps
    :members: provide_users_service, provide_role_service
 

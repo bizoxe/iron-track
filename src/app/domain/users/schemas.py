@@ -13,7 +13,6 @@ from annotated_types import (
 )
 from pydantic import (
     EmailStr,
-    Field,
     field_validator,
     model_validator,
 )
@@ -80,10 +79,16 @@ class UserUpdate(CamelizedBaseSchema):
 
 
 class AccountRegister(CamelizedBaseSchema):
-    """Information provided by a user during public registration."""
+    """Information provided by a user during public registration.
+
+    .. note::
+       **Password Policy:**
+       - Must match the `confirm_password` field.
+       - Email is automatically normalized to lowercase.
+    """
 
     name: str | None = None
-    email: Annotated[EmailStr, Field(description="The unique email address. Automatically converted to lowercase.")]
+    email: EmailStr
     password: Annotated[str, PasswordValidator]
     confirm_password: str
 

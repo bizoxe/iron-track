@@ -11,8 +11,6 @@ FastAPI routers defining the public API for managing exercises.
 
 .. toctree::
    :maxdepth: 1
-   :titlesonly:
-   :hidden:
 
    controllers
 
@@ -27,8 +25,6 @@ We use a hybrid approach:
 
 .. toctree::
    :maxdepth: 1
-   :titlesonly:
-   :hidden:
 
    services
    schemas
@@ -41,8 +37,6 @@ Dependency Injection and Filtering Utilities for Exercise Resources.
 
 .. toctree::
    :maxdepth: 1
-   :titlesonly:
-   :hidden:
 
    filters
    deps

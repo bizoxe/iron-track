@@ -11,8 +11,6 @@ FastAPI routers defining the public API for catalog management.
 
 .. toctree::
     :maxdepth: 2
-    :titlesonly:
-    :hidden:
 
     controllers/equipment
     controllers/exercise_tags
@@ -29,8 +27,6 @@ We use a hybrid approach:
 
 .. toctree::
     :maxdepth: 1
-    :titlesonly:
-    :hidden:
 
     services
     schemas
@@ -43,8 +39,6 @@ Dependency Injection and Filtering Utilities for Catalog Resources.
 
 .. toctree::
     :maxdepth: 1
-    :titlesonly:
-    :hidden:
 
     deps
     filters
