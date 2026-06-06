@@ -14,11 +14,20 @@ from typing import (
 
 from sqlalchemy.exc import SAWarning
 
+from app.config import constants
+
 if TYPE_CHECKING:
     from sphinx.addnodes import document
     from sphinx.application import Sphinx
 
 warnings.filterwarnings("ignore", category=SAWarning)
+
+# --- Global variables for documentation (rst_prolog) ---
+rst_prolog = f"""
+.. |ARGON2_TIME_COST| replace:: {constants.ARGON2_TIME_COST}
+.. |ARGON2_MEMORY_COST| replace:: {constants.ARGON2_MEMORY_COST}
+.. |ARGON2_PARALLELISM| replace:: {constants.ARGON2_PARALLELISM}
+"""
 
 # -- Project information --------------------------------------
 curren_year = datetime.now().year  # noqa: DTZ005
@@ -52,7 +61,6 @@ intersphinx_mapping = {
     "click": ("https://click.palletsprojects.com/en/stable/", None),
     "structlog": ("https://www.structlog.org/en/stable/", None),
     "fastapi": ("https://fastapi.tiangolo.com/", None),
-    "msgspec": ("https://jcristharif.com/msgspec/", None),
     "advanced-alchemy": ("https://advanced-alchemy.litestar.dev/latest/", None),
     "pydantic": ("https://docs.pydantic.dev/latest/", None),
 }

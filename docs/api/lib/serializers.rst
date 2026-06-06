@@ -10,7 +10,6 @@ MsgSpec Integration
 Core components utilizing **msgpack** for compact binary representation.
 
 .. autoclass:: app.lib.serializers.MsgSpecRegistry
-   :private-members: _ENCODER
 
 Registration Logic
 ------------------

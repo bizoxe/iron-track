@@ -20,7 +20,21 @@ if TYPE_CHECKING:
 
 
 class RegexValidator:
-    """Base class for creating reusable Pydantic regex validators."""
+    """Base class for creating reusable Pydantic regex validators.
+
+    Example:
+
+    .. code-block:: python
+
+        import re
+
+        class PasswordValidator(
+            RegexValidator,
+            pattern=re.compile(r"^(?=.*[A-Z]).{8,}$"),
+            error_message="Password must be at least 8 chars with 1 uppercase"
+        ):
+            pass
+    """
 
     __slots__ = ()
     pattern: ClassVar[Pattern[str]]
