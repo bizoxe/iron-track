@@ -27,12 +27,12 @@ _log_queue: Queue[logging.LogRecord] = Queue(10000)
 _log_listener: logging.handlers.QueueListener | None = None
 
 
-def msgspec_dumps_str(data: Mapping[str, Any], **kwargs: Any) -> str:
+def _msgspec_dumps_str(data: Mapping[str, Any], **kwargs: Any) -> str:
     """Serialize a log record dictionary to a JSON string using msgspec."""
     return _json_encoder.encode(data).decode()
 
 
-def add_correlation(
+def _add_correlation(
     logger: logging.Logger,
     method_name: str,
     event_dict: dict[str, Any],
@@ -46,7 +46,7 @@ def add_correlation(
 def configure_logging() -> None:
     """Set up non-blocking, structured logging for the application."""
     shared_processors = [
-        add_correlation,
+        _add_correlation,
         structlog.contextvars.merge_contextvars,
         structlog.processors.TimeStamper(fmt="iso", utc=True),
         structlog.stdlib.add_logger_name,
@@ -63,7 +63,7 @@ def configure_logging() -> None:
         logger_factory=structlog.stdlib.LoggerFactory(),
     )
     minimal_pre_chain = [
-        add_correlation,
+        _add_correlation,
         structlog.processors.TimeStamper(fmt="iso", utc=True),
         structlog.stdlib.add_logger_name,
         structlog.stdlib.add_log_level,
@@ -76,7 +76,7 @@ def configure_logging() -> None:
             "formatters": {
                 "json_console": {
                     "()": structlog.stdlib.ProcessorFormatter,
-                    "processor": structlog.processors.JSONRenderer(serializer=msgspec_dumps_str),
+                    "processor": structlog.processors.JSONRenderer(serializer=_msgspec_dumps_str),
                     "foreign_pre_chain": minimal_pre_chain,
                 },
                 "plain_console": {
