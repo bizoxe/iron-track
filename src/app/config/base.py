@@ -40,6 +40,10 @@ class AppSettings:
     """The application execution environment (e.g., 'dev', 'prod')."""
     API_V1_URL_PREFIX: str = field(default="/api/v1")
     """The default URL prefix for API Version routes."""
+    COOKIE_SECURE_VALUE: bool = field(default_factory=lambda: os.getenv("COOKIE_SECURE", "False") in TRUE_VALUES)
+    """Boolean value for the 'secure' flag on authentication cookies (requires HTTPS)."""
+    DEFAULT_ADMIN_EMAIL: str = field(default_factory=lambda: os.getenv("ADMIN_EMAIL", "system.admin@example.com"))
+    """Primary system admin email."""
     CDN_RESOURCES_DEFAULT_URL: str = field(
         default_factory=lambda: os.getenv(
             "CDN_RESOURCES_URL", "https://raw.githubusercontent.com/bizoxe/iron-track/media/resources"
@@ -48,6 +52,20 @@ class AppSettings:
     """The default base URL for CDN-hosted resources."""
     EXERCISES_PATH_PREFIX: str = field(default="exercises")
     """The standard directory prefix for exercise images."""
+    CRYPTO_MAX_WORKERS: int | None = field(
+        default_factory=lambda: int(val) if (val := os.getenv("CRYPTO_MAX_WORKERS")) is not None else None
+    )
+    """The maximum number of threads allocated for password hashing operations.
+
+    If None, the worker count is automatically calculated based on CPU affinity.
+    """
+
+    _settings: Settings = field(init=False, repr=False)
+
+    @property
+    def user_auth_cache_ttl(self) -> str:
+        """TTL for cached user authentication and authorization data."""
+        return f"{self._settings.jwt.ACCESS_TOKEN_EXPIRE_MINUTES}m"
 
     @property
     def cdn_exercises_url_prefix(self) -> str:
@@ -174,7 +192,7 @@ class DatabaseSettings:
         engine = create_async_engine(
             url=self.get_connection_url(),
             echo=self.ECHO,
-            echo_pool=self.ECHO_POOL,
+            echo_pool="debug" if self.ECHO_POOL else False,
             max_overflow=self.POOL_MAX_OVERFLOW,
             pool_size=self.POOL_SIZE,
             pool_timeout=self.POOL_TIMEOUT,
@@ -194,7 +212,6 @@ class DatabaseSettings:
         engine = create_async_engine(
             url=self.get_connection_url(),
             echo=self.ECHO,
-            echo_pool=self.ECHO_POOL,
             poolclass=NullPool,
             execution_options={
                 "compiled_cache": None,
@@ -227,8 +244,18 @@ class JWTSettings:
         default_factory=lambda: int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
     )
     """Lifetime of the access token in minutes."""
-    REFRESH_TOKEN_EXPIRE_DAYS: int = field(default_factory=lambda: int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", "30")))
+    REFRESH_TOKEN_EXPIRE_DAYS: int = field(default_factory=lambda: int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", "7")))
     """Lifetime of the refresh token in days."""
+
+    @property
+    def access_token_max_age(self) -> int:
+        """Access token lifetime in cookies (calculated in seconds)."""
+        return self.ACCESS_TOKEN_EXPIRE_MINUTES * 60
+
+    @property
+    def refresh_token_max_age(self) -> int:
+        """Refresh token lifetime in cookies (calculated in seconds)."""
+        return self.REFRESH_TOKEN_EXPIRE_DAYS * 24 * 60 * 60
 
     @cached_property
     def key_object(self) -> OKPKey:
@@ -283,7 +310,7 @@ class RedisSettings:
         redis_client: Redis = Redis.from_url(
             url=self.URL,
             encoding="utf-8",
-            decode_responses=False,  # must be set to False, important for fastapi-cache
+            decode_responses=False,
             socket_connect_timeout=self.SOCKET_CONNECT_TIMEOUT,
             socket_keepalive=self.SOCKET_KEEPALIVE,
             health_check_interval=self.HEALTH_CHECK_INTERVAL,
@@ -311,6 +338,7 @@ class Settings:
 
     def __post_init__(self) -> None:
         self.log._settings = self  # noqa: SLF001
+        self.app._settings = self  # noqa: SLF001
 
     @classmethod
     def from_env(cls, dotenv_file: Path) -> Settings:

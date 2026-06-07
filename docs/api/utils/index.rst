@@ -12,7 +12,6 @@ Logging setup using :py:mod:`structlog` and ASGI middleware.
 .. toctree::
    :maxdepth: 2
    :caption: Log Utilities
-   :hidden:
 
    log_utils/index
 
@@ -23,7 +22,7 @@ Server CLI
 Command-line interface tools for running the application.
 
 .. toctree::
+   :maxdepth: 1
    :caption: Server CLI
-   :hidden:
 
    server_cli

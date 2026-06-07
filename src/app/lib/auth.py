@@ -24,8 +24,9 @@ settings = get_settings()
 class JWTCookieSecurity(SecurityBase):
     """FastAPI security scheme for identifying a JWT authentication token.
 
-    Defines how the token should be extracted from the request (via the __call__ method)
-    and provides metadata for OpenAPI documentation.
+    This scheme extracts the JWT from an HTTP-only cookie. It implements
+    the `__call__` protocol to function as a FastAPI dependency and provides
+    necessary metadata for OpenAPI documentation.
     """
 
     def __init__(

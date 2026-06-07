@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 import pytest
 from fastapi import status
 
-from app.config.constants import DEFAULT_ADMIN_EMAIL
+from app.config.base import get_settings
 from tests import constants
 
 if TYPE_CHECKING:
@@ -38,7 +38,7 @@ pytestmark = pytest.mark.anyio
             id="error_self_action_forbidden",
         ),
         pytest.param(
-            DEFAULT_ADMIN_EMAIL,
+            get_settings().app.DEFAULT_ADMIN_EMAIL,
             "fitness-trainer",
             status.HTTP_403_FORBIDDEN,
             id="error_action_on_system_admin",
@@ -132,7 +132,7 @@ async def test_assign_new_role_cache_invalidated(
             id="error_self_action_forbidden",
         ),
         pytest.param(
-            DEFAULT_ADMIN_EMAIL,
+            get_settings().app.DEFAULT_ADMIN_EMAIL,
             "superuser",
             status.HTTP_403_FORBIDDEN,
             id="error_action_on_system_admin",

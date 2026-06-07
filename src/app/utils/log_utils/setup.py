@@ -1,30 +1,38 @@
 from __future__ import annotations
 
+import logging
 import logging.config
+import logging.handlers
+from queue import Queue
 from typing import (
     TYPE_CHECKING,
     Any,
+    cast,
 )
 
-import msgspec
 import structlog
 from asgi_correlation_id import correlation_id
+from msgspec import json as mjson
 
 from app.config.base import get_settings
-from app.utils.log_utils.handlers import CustomQueueHandler
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
 
 settings = get_settings()
 
+_json_encoder = mjson.Encoder()
 
-def msgspec_dumps_str(data: Mapping[str, Any], **kwargs: Any) -> str:
+_log_queue: Queue[logging.LogRecord] = Queue(10000)
+_log_listener: logging.handlers.QueueListener | None = None
+
+
+def _msgspec_dumps_str(data: Mapping[str, Any], **kwargs: Any) -> str:
     """Serialize a log record dictionary to a JSON string using msgspec."""
-    return msgspec.json.encode(data).decode()
+    return _json_encoder.encode(data).decode()
 
 
-def add_correlation(
+def _add_correlation(
     logger: logging.Logger,
     method_name: str,
     event_dict: dict[str, Any],
@@ -38,7 +46,7 @@ def add_correlation(
 def configure_logging() -> None:
     """Set up non-blocking, structured logging for the application."""
     shared_processors = [
-        add_correlation,
+        _add_correlation,
         structlog.contextvars.merge_contextvars,
         structlog.processors.TimeStamper(fmt="iso", utc=True),
         structlog.stdlib.add_logger_name,
@@ -55,7 +63,7 @@ def configure_logging() -> None:
         logger_factory=structlog.stdlib.LoggerFactory(),
     )
     minimal_pre_chain = [
-        add_correlation,
+        _add_correlation,
         structlog.processors.TimeStamper(fmt="iso", utc=True),
         structlog.stdlib.add_logger_name,
         structlog.stdlib.add_log_level,
@@ -64,11 +72,11 @@ def configure_logging() -> None:
     logging.config.dictConfig(
         {
             "version": 1,
-            "disable_existing_loggers": False,
+            "disable_existing_loggers": True,
             "formatters": {
                 "json_console": {
                     "()": structlog.stdlib.ProcessorFormatter,
-                    "processor": structlog.processors.JSONRenderer(serializer=msgspec_dumps_str),
+                    "processor": structlog.processors.JSONRenderer(serializer=_msgspec_dumps_str),
                     "foreign_pre_chain": minimal_pre_chain,
                 },
                 "plain_console": {
@@ -86,12 +94,8 @@ def configure_logging() -> None:
                     "formatter": settings.log.final_formatter,
                 },
                 "queue_handler": {
-                    "class": CustomQueueHandler,
-                    "listener": "logging.handlers.QueueListener",
-                    "queue": {
-                        "()": "queue.Queue",
-                        "maxsize": 10000,
-                    },
+                    "class": "app.utils.log_utils.handlers.CustomQueueHandler",
+                    "queue": _log_queue,
                     "handlers": ["console"],
                     "respect_handler_level": True,
                     "formatter": None,
@@ -117,7 +121,7 @@ def configure_logging() -> None:
                     "level": settings.log.ASGI_ACCESS_LEVEL,
                     "handlers": ["queue_handler"],
                 },
-                "sqlalchemy.engine": {
+                "sqlalchemy.engine.Engine": {
                     "propagate": False,
                     "level": settings.log.SQLALCHEMY_LEVEL,
                     "handlers": ["queue_handler"],
@@ -140,3 +144,16 @@ def configure_logging() -> None:
             },
         }
     )
+    console_handler = cast("logging.StreamHandler[Any]", logging.getHandlerByName("console"))
+    global _log_listener  # noqa: PLW0603
+    _log_listener = logging.handlers.QueueListener(_log_queue, console_handler)
+
+
+def start_logging() -> None:
+    if _log_listener:
+        _log_listener.start()
+
+
+def stop_logging() -> None:
+    if _log_listener:
+        _log_listener.stop()

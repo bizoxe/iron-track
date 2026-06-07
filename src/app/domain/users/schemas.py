@@ -13,6 +13,7 @@ from annotated_types import (
 )
 from pydantic import (
     EmailStr,
+    field_validator,
     model_validator,
 )
 
@@ -78,7 +79,13 @@ class UserUpdate(CamelizedBaseSchema):
 
 
 class AccountRegister(CamelizedBaseSchema):
-    """Information provided by a user during public registration."""
+    """Information provided by a user during public registration.
+
+    .. note::
+       **Password Policy:**
+       - Must match the `confirm_password` field.
+       - Email is automatically normalized to lowercase.
+    """
 
     name: str | None = None
     email: EmailStr
@@ -87,11 +94,15 @@ class AccountRegister(CamelizedBaseSchema):
 
     @model_validator(mode="after")
     def check_passwords_match(self) -> Self:
-        """Ensure the 'password' and 'confirm_password' fields match."""
+        """Validate password equality for registration security."""
         if self.confirm_password != self.password:
             msg = "Passwords don't match"
             raise ValueError(msg)
         return self
+
+    @field_validator("email")
+    def lower_email(cls, v: str) -> str:  # noqa: N805
+        return v.lower()
 
 
 class UserAuth(CamelizedBaseStruct, dict=True):
@@ -105,7 +116,8 @@ class UserAuth(CamelizedBaseStruct, dict=True):
     role_slug: str
 
     def __post_init__(self) -> None:
-        self._refresh_jti = None
+        self._refresh_jti: str | None = None
+        self._refresh_exp: float | None = None
 
 
 class PasswordUpdate(CamelizedBaseSchema):

@@ -1,78 +1,58 @@
 from __future__ import annotations
 
 import asyncio
-from typing import (
-    TYPE_CHECKING,
-    Annotated,
-    Any,
-    ClassVar,
-    Literal,
-)
+from typing import TYPE_CHECKING
 
-from advanced_alchemy.extensions.fastapi import filters as aa_filters
-from pydantic import (
-    AwareDatetime,
-    Field,
-)
-
+from app.config.base import get_settings
 from app.domain.users.jwt_helpers import add_token_to_blacklist
-from app.lib.exceptions import (
-    PermissionDeniedException,
-    UserNotFound,
-)
-from app.lib.filters import CommonFilters
+from app.lib.exceptions import PermissionDeniedException
 from app.lib.invalidate_cache import invalidate_user_cache
 
 if TYPE_CHECKING:
     from uuid import UUID
 
-    from advanced_alchemy.filters import StatementFilter
-
     from app.db.models.user import User as UserModel
-    from app.domain.users.deps import UserServiceDep
+    from app.domain.users.schemas import UserAuth
 
 
-async def check_user_before_modify_role(
-    users_service: UserServiceDep,
-    email: str,
-) -> UserModel:
-    """Check user existence and activity status before role modification.
+def check_critical_action_forbidden(
+    target_user: UserModel,
+    calling_superuser_id: UUID,
+) -> None:
+    """Disallow destructive action on self or system admin.
 
     Args:
-        users_service (UserService): Dependency for user service operations.
-        email (str): The email of the user whose role is being modified.
-
-    Returns:
-        ~app.db.models.user.User: The User model object from the database.
+        target_user (:py:class:`~app.db.models.user.User`): The user object targeted for action.
+        calling_superuser_id (UUID): UUID of the superuser calling the action.
 
     Raises:
-        UserNotFound: If no user is found with the given email.
-        PermissionDeniedException: If the user is found but their account is inactive.
+        PermissionDeniedException: If target is the system admin or the caller themselves.
     """
-    user_obj = await users_service.get_one_or_none(email=email)
-    if user_obj is None:
-        raise UserNotFound
-    if not user_obj.is_active:
-        msg = f"Cannot modify role for inactive user {user_obj.email}"
+    if target_user.email == get_settings().app.DEFAULT_ADMIN_EMAIL:
+        msg = "Forbidden: Cannot modify the primary system administrator account"
         raise PermissionDeniedException(message=msg)
 
-    return user_obj
+    if target_user.id == calling_superuser_id:
+        msg = "Self-action forbidden: Cannot perform destructive action on your own account"
+        raise PermissionDeniedException(message=msg)
 
 
-async def perform_logout_cleanup(refresh_jti: str, user_id: UUID) -> None:
+async def perform_logout_cleanup(refresh_jti: str, ttl: int, user_id: UUID) -> None:
     """Perform asynchronous cleanup tasks upon user logout.
 
     This function is intended to be executed as a FastAPI background task
-    to non-blocking revoke the refresh token and immediately invalidate
-    cached user data.
+    to non-blocking revoke the refresh token in cache with a specified TTL
+    and immediately invalidate cached user data.
 
     Args:
         refresh_jti (str): The JWT ID (JTI) of the refresh token to be blacklisted.
+        ttl (int): The time-to-live duration in seconds for token invalidation.
         user_id (UUID): The ID of the user whose cache needs to be invalidated.
     """
     await asyncio.gather(
         add_token_to_blacklist(
             refresh_token_identifier=refresh_jti,
+            ttl=ttl,
         ),
         invalidate_user_cache(
             user_id=user_id,
@@ -80,53 +60,11 @@ async def perform_logout_cleanup(refresh_jti: str, user_id: UUID) -> None:
     )
 
 
-class UserFilters(CommonFilters):
-    """Specific filters for User domain."""
-
-    search_fields: ClassVar[set[str]] = {"name", "email"}
-    order_by: Annotated[
-        Literal["name", "email", "createdAt"],
-        Field(description="Field to order by."),
-    ] = "name"
-    is_active: Annotated[
-        bool | None,
-        Field(description="Filter by active or inactive status."),
-    ] = None
-    created_before: Annotated[
-        AwareDatetime | None,
-        Field(description="Filter by created date before this timestamp (ISO 8601 UTC). Example: 2026-03-10T14:00:00Z"),
-    ] = None
-    created_after: Annotated[
-        AwareDatetime | None,
-        Field(description="Filter by created date after this timestamp (ISO 8601 UTC). Example: 2026-03-10T14:00:00Z"),
-    ] = None
-
-    @property
-    def aa_technical_filters(self) -> list[StatementFilter]:
-        """Extend base filters with user-specific criteria."""
-        filters = super().aa_technical_filters
-
-        if self.created_after or self.created_before:
-            filters.append(
-                aa_filters.OnBeforeAfter(
-                    field_name="created_at",
-                    on_or_before=self.created_before,
-                    on_or_after=self.created_after,
-                )
-            )
-        if self.is_active is not None:
-            filters.append(aa_filters.CollectionFilter(field_name="is_active", values=[self.is_active]))
-
-        return filters
-
-    def model_post_init(self, context: Any) -> None:
-        """Extend the base cache key with user-specific filter parameters."""
-        super().model_post_init(context)
-        parts = []
-        if self.is_active is not None:
-            parts.append(f":{self.is_active}")
-        if self.created_before:
-            parts.append(f":{self.created_before}")
-        if self.created_after:
-            parts.append(f":{self.created_after}")
-        self._cache_key += "".join(parts)
+def get_refresh_context(user_auth: UserAuth) -> tuple[str, float]:
+    """Validate that the user authentication context contains refresh metadata."""
+    jti = user_auth._refresh_jti  # noqa: SLF001
+    exp = user_auth._refresh_exp  # noqa: SLF001
+    if jti is None or exp is None:
+        msg = "UserAuth context missing refresh token metadata"
+        raise ValueError(msg)
+    return jti, exp

@@ -25,12 +25,12 @@ from fastapi import (
 
 from app.domain.catalogs import urls
 from app.domain.catalogs.deps import ExerciseTagDep
+from app.domain.catalogs.filters import CatalogFilters
 from app.domain.catalogs.schemas import (
     ExerciseTagCreate,
     ExerciseTagRead,
     ExerciseTagUpdate,
 )
-from app.domain.catalogs.utils import CatalogFilters
 from app.domain.users.auth import Authenticate
 from app.domain.users.schemas import UserAuth
 from app.lib.exceptions import (

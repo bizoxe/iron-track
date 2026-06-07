@@ -13,13 +13,16 @@ from app.domain.exercises.schemas import ExerciseScope
 if TYPE_CHECKING:
     from uuid import UUID
 
-    from app.domain.exercises.utils import ExerciseFilters
+    from app.domain.exercises.filters import ExerciseFilters
 
 S = TypeVar("S", bound="_ServiceWithSession")
 
 
 class _ServiceWithSession(Protocol):
     def __init__(self, *, session: AsyncSession) -> None: ...
+
+
+# --- Service Composition & DI ---
 
 
 class CompositeServiceMixin:
@@ -29,7 +32,9 @@ class CompositeServiceMixin:
     the parent service's database session.
 
     Example:
-        ```python
+
+    .. code-block:: python
+
         class ExerciseService(CompositeServiceMixin, SQLAlchemyAsyncRepositoryService[m.Exercise]):
             @property
             def muscles(self) -> MuscleGroupService:
@@ -38,7 +43,6 @@ class CompositeServiceMixin:
             async def process_exercise(self, exercise_id: UUID) -> None:
                 # Accessing the cached service instance
                 muscle_groups = await self.muscles.get_all()
-        ```
     """
 
     _service_cache: dict[type, Any]
@@ -60,6 +64,9 @@ class CompositeServiceMixin:
             self._service_cache[service_cls] = service_cls(session=repository.session)
 
         return cast("S", self._service_cache[service_cls])
+
+
+# --- Cache Infrastructure ---
 
 
 class CacheKeyBuilder:

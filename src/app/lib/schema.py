@@ -1,10 +1,10 @@
-import msgspec
 from advanced_alchemy.utils.text import camelize
+from msgspec import Struct
 from pydantic import BaseModel as BaseSchema
 from pydantic import ConfigDict
 
 
-class BaseStruct(msgspec.Struct):
+class BaseStruct(Struct):
     """Base msgspec structure for API responses."""
 
 

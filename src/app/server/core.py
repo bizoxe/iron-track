@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import logging
 from contextlib import asynccontextmanager
 from typing import TYPE_CHECKING
 
@@ -26,7 +25,11 @@ from app.lib.handlers import (
 )
 from app.server.lifespan import setup_app_cache
 from app.utils.log_utils.middleware import StructLogMiddleware
-from app.utils.log_utils.setup import configure_logging
+from app.utils.log_utils.setup import (
+    configure_logging,
+    start_logging,
+    stop_logging,
+)
 
 if TYPE_CHECKING:
     from collections.abc import AsyncIterator
@@ -48,13 +51,11 @@ async def lifespan(app: FastAPI, settings: Settings) -> AsyncIterator[None]:
     Yields:
         AsyncIterator[None]: Context manager flow control.
     """
-    configure_logging()
-    queue_handler = logging.getHandlerByName("queue_handler")
-    queue_handler.listener.start()  # type: ignore[union-attr]
+    start_logging()
     setup_app_cache(settings=settings)
 
     yield
-    queue_handler.listener.stop()  # type: ignore[union-attr]
+    stop_logging()
 
 
 def _init_error_handlers(app: FastAPI) -> None:
@@ -91,6 +92,7 @@ def create_app() -> FastAPI:
         FastAPI: The fully configured application instance.
     """
     settings = get_settings()
+    configure_logging()
     _app = FastAPI(
         debug=settings.app.DEBUG,
         title=settings.app.NAME,

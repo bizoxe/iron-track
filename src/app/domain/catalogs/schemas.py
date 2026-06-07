@@ -45,8 +45,6 @@ class FieldsCreateBase(CamelizedBaseSchema):
 class FieldsUpdateBase(FieldsCreateBase):
     """Base schema for updating catalog items."""
 
-    name: Annotated[str, MinLen(3), MaxLen(100)]
-
 
 class MuscleGroupCreate(FieldsCreateBase):
     """Schema for creating a new muscle group.

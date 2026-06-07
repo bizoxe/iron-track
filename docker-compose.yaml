@@ -5,6 +5,10 @@ services:
     image: valkey/valkey:8.0.6-trixie
     hostname: valkey
     restart: unless-stopped
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
     deploy:
       resources:
         limits:
@@ -12,9 +16,11 @@ services:
     command: [
       "valkey-server",
       "--maxmemory", "256mb",
-      "--maxmemory-policy", "allkeys-lru",
+      "--maxmemory-policy", "volatile-ttl",
       "--appendonly", "no",
-      "--save", "",
+      "--save", "900 1",
+      "--save", "300 100",
+      "--save", "60 10000",
       "--databases", "1",
       "--tcp-backlog", "2048"
     ]
@@ -36,14 +42,25 @@ services:
         max-file: "3"
 
   postgres:
+    # Postgres tuned for HDD performance
+    # Resources optimized for 12GB+ RAM systems (configured via postgresql.conf)
+    # If using less RAM, scale memory limit and postgresql.conf settings accordingly
     container_name: postgres_V18_iron_track
     hostname: postgres
     build:
       context: .
       dockerfile: ./deploy/postgres/Dockerfile
     restart: unless-stopped
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+    deploy:
+      resources:
+        limits:
+          memory: 6G
     environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secretpwd}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-supersecretpassword}
       DB_USER: ${DB_USER:-alfacat}
       DB_USER_PASSWORD: ${DB_USER_PASSWORD:-alfacatpwd}
       DB_NAME: ${DB_NAME:-iron_track}
@@ -87,7 +104,7 @@ services:
       PGBOUNCER_MONITOR_USER: ${PGBOUNCER_MONITOR_USER:-monitor}
       PGBOUNCER_MONITOR_PASSWORD: ${PGBOUNCER_MONITOR_PASSWORD:-monitorpwd}
     volumes:
-      - ./deploy/pgbouncer/conf/userlist.txt:/etc/pgbouncer/userlist.txt:ro
+      - ./deploy/pgbouncer/conf:/etc/pgbouncer:ro
     healthcheck:
       test: [ "CMD-SHELL", "PGPASSWORD=${PGBOUNCER_MONITOR_PASSWORD:-monitorpwd} psql -h localhost -p 6432 -U ${PGBOUNCER_MONITOR_USER:-monitor} -d pgbouncer -c 'SHOW STATS'" ]
       interval: 30s
@@ -101,9 +118,18 @@ services:
       context: .
       dockerfile: deploy/app/run/Dockerfile
     restart: unless-stopped
-    command: >
-      sh -c "rm -f /run/app/granian.sock && 
-      granian --uds /run/app/granian.sock --uds-permissions 438 app.main:app"
+    stop_grace_period: 20s
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 2G
+    entrypoint: /bin/sh -c "rm -f /run/app/granian.sock && exec granian --uds /run/app/granian.sock --uds-permissions 438 app.main:app"
+    command: []
     depends_on:
       pgbouncer:
         condition: service_healthy
@@ -143,6 +169,11 @@ services:
       context: .
       dockerfile: deploy/angie/Dockerfile
     restart: unless-stopped
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
     deploy:
       resources:
         reservations:
@@ -151,11 +182,6 @@ services:
         limits:
           cpus: "1.0"
           memory: 512M
-    ulimits:
-      nproc: 65535
-      nofile:
-        soft: 65535
-        hard: 65535
     ports:
       - "80:80"
       - "443:443"

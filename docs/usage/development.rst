@@ -6,11 +6,19 @@ This section covers project-specific workflows and the ``Makefile`` interface.
 Configuration
 -------------
 
-Initialize the application environment file:
+Initialize the project environment in the **project root**:
 
 .. code-block:: bash
 
-    cp .env.docker.template .env.docker
+    make setup-env
+
+This generates the necessary configuration files from templates:
+
+* ``.env.docker``: Base infrastructure settings
+* ``.env.docker.dev``: Local development overrides
+
+.. note::
+   These files are excluded from version control for security reasons. Please update the created files with your local credentials or custom settings before running ``docker compose``.
 
 Hot-Reload & Volumes
 ++++++++++++++++++++
@@ -18,10 +26,21 @@ Hot-Reload & Volumes
 In development mode (using ``docker-compose.override.yaml``), the following local paths are mounted:
 
 * ``src/`` → ``/workspace/app/src/`` (enables hot-reload)
-* ``.env.docker`` → ``/workspace/app/src/app/config/.env`` (container-specific config)
+* ``.env.docker.dev`` → ``/workspace/app/src/app/config/.env`` (container-specific config)
+
+.. note::
+   Changes to mounted configurations (``.env.docker.dev``) require a container restart, while code changes in ``src/`` are reflected automatically.
+
+Startup & Migrations
+--------------------
+
+.. warning::
+   The following commands automatically use your local ``docker-compose.override.yaml``.
+   Ensure your configuration files are correctly initialized via ``make setup-env``
+   before starting the stack.
 
 Startup Sequence
-----------------
+++++++++++++++++
 
 The initial bootstrap requires a manual role synchronization for PgBouncer:
 
@@ -37,7 +56,7 @@ The initial bootstrap requires a manual role synchronization for PgBouncer:
     docker compose up -d
 
 Database Migrations
--------------------
++++++++++++++++++++
 
 To apply migrations manually:
 

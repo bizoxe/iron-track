@@ -1,3 +1,4 @@
+from time import time
 from typing import (
     TYPE_CHECKING,
     Any,
@@ -49,6 +50,17 @@ async def test_user_login(
         data={"username": username, "password": password},
     )
     assert response.status_code == expected_status_code
+
+
+async def test_user_login_should_succeed_when_email_is_uppercase(
+    client: "AsyncClient",
+    app: "FastAPI",
+) -> None:
+    response = await client.post(
+        url=app.url_path_for("access:login"),
+        data={"username": constants.USER_EXAMPLE_EMAIL.upper(), "password": "Test_Password2!"},
+    )
+    assert response.status_code == status.HTTP_204_NO_CONTENT
 
 
 async def test_user_login_tokens_exist(
@@ -152,6 +164,25 @@ async def test_user_signup(
             assert error_detail["field"] in ("password", "email")
 
 
+async def test_user_signup_should_normalize_email_to_lowercase(
+    client: "AsyncClient",
+    app: "FastAPI",
+) -> None:
+    payload = {
+        "name": "Elena Dolgorukaya",
+        "email": "ElEna@exAmple.com",
+        "password": "ElenaDolgT1@",
+        "confirmPassword": "ElenaDolgT1@",
+    }
+    response = await client.post(
+        url=app.url_path_for("access:signup"),
+        json=payload,
+    )
+    assert response.status_code == status.HTTP_201_CREATED
+    email = response.json()["email"]
+    assert email == "elena@example.com"
+
+
 async def test_user_refresh_token(
     app: "FastAPI",
     token_client: tuple["AsyncClient", dict[str, str]],
@@ -194,8 +225,10 @@ async def test_user_refresh_token_blacklisted(
     refresh_token = original_tokens_data["original_refresh_token"]
     refresh_token_payload = decode_jwt(token=refresh_token).claims
     refresh_jti = refresh_token_payload["jti"]
+    refresh_exp = refresh_token_payload["exp"]
     await add_token_to_blacklist(
         refresh_token_identifier=refresh_jti,
+        ttl=refresh_exp - time(),
     )
     response = await client.post(url=app.url_path_for("access:refresh"))
     assert response.status_code == status.HTTP_401_UNAUTHORIZED

@@ -2,30 +2,24 @@ from collections.abc import (
     Awaitable,
     Callable,
 )
-from typing import (
-    Annotated,
-    Any,
-)
+from typing import Annotated
 
 from advanced_alchemy.exceptions import NotFoundError
 from cashews import cache
 from fastapi import Depends
-from joserfc.errors import JoseError
-from joserfc.jwt import JWTClaimsRegistry
-from sqlalchemy.orm import (
-    load_only,
-    selectinload,
-)
-from structlog import get_logger
+from sqlalchemy.orm import joinedload, load_only
 
-from app.config.constants import (
-    FITNESS_TRAINER_ROLE_SLUG,
-    USER_AUTH_CACHE_TTL,
-)
+from app.config.base import get_settings
+from app.config.constants import FITNESS_TRAINER_ROLE_SLUG
 from app.db.models.role import Role
 from app.db.models.user import User
 from app.domain.users.deps import UserServiceDep
-from app.domain.users.jwt_helpers import is_token_in_blacklist
+from app.domain.users.jwt_helpers import (
+    TokenPayloadBase,
+    get_access_token_payload,
+    get_refresh_token_payload,
+    is_token_in_blacklist,
+)
 from app.domain.users.schemas import UserAuth
 from app.lib.auth import (
     access_token,
@@ -35,43 +29,8 @@ from app.lib.exceptions import (
     PermissionDeniedException,
     UnauthorizedException,
 )
-from app.lib.jwt_utils import decode_jwt
 
-__all__ = ("Authenticate",)
-
-log = get_logger()
-
-claims_registry = JWTClaimsRegistry(
-    exp={"essential": True},
-    iat={"essential": True},
-)
-
-
-def get_payload_from_token(authentication_token: str) -> dict[str, Any]:
-    """Decode a JWT token and return its payload.
-
-    Args:
-        authentication_token (str): The raw JWT string.
-
-    Returns:
-        dict: The decoded JWT payload as a dictionary.
-
-    Raises:
-        UnauthorizedException: If the token is invalid, malformed, or expired (HTTP 401).
-    """
-    try:
-        claims = decode_jwt(token=authentication_token).claims
-        claims_registry.validate(claims=claims)
-    except JoseError as exc:
-        log.warning(
-            "JWT decode failed",
-            error_type=type(exc).__name__,
-            error_detail=str(exc),
-        )
-        msg = "Invalid or expired token"
-        raise UnauthorizedException(message=msg) from exc
-    else:
-        return claims
+settings = get_settings()
 
 
 class Authenticate:
@@ -79,21 +38,21 @@ class Authenticate:
 
     @classmethod
     @cache(
-        ttl=USER_AUTH_CACHE_TTL,
-        key="user_auth:{token_payload[sub]}",
+        ttl=settings.app.user_auth_cache_ttl,
+        key="user_auth:{token_payload.sub}",
     )
     async def _get_user_from_payload(
         cls,
-        token_payload: dict[str, Any],
         users_service: UserServiceDep,
+        token_payload: TokenPayloadBase,
     ) -> UserAuth:
         """Load UserAuth schema from the database using the JWT 'sub' claim.
 
         The result of this function is aggressively cached to reduce database load.
 
         Args:
-            token_payload (dict): The decoded JWT payload.
             users_service (UserService): Dependency for user service operations.
+            token_payload (TokenPayload): The token data.
 
         Returns:
             UserAuth: The authenticated user.
@@ -101,7 +60,7 @@ class Authenticate:
         Raises:
             UnauthorizedException: If the user is not found (HTTP 401).
         """
-        user_id = token_payload["sub"]
+        user_id = token_payload.sub
         try:
             db_obj = await users_service.get(
                 item_id=user_id,
@@ -113,7 +72,7 @@ class Authenticate:
                         User.is_active,
                         User.is_superuser,
                     ),
-                    selectinload(User.role).load_only(Role.slug),
+                    joinedload(User.role).load_only(Role.slug),
                 ],
             )
             return users_service.to_schema(db_obj, schema_type=UserAuth)
@@ -142,8 +101,8 @@ class Authenticate:
         Raises:
             UnauthorizedException: If the token is invalid, blacklisted, or the user is inactive (HTTP 401).
         """
-        token_payload = get_payload_from_token(authentication_token=token)
-        refresh_jti = token_payload["jti"]
+        token_payload = get_refresh_token_payload(token=token)
+        refresh_jti = token_payload.jti
         token_exists = await is_token_in_blacklist(
             refresh_token_identifier=refresh_jti,
         )
@@ -159,6 +118,7 @@ class Authenticate:
             raise UnauthorizedException(message=msg)
 
         user_auth._refresh_jti = refresh_jti  # noqa: SLF001
+        user_auth._refresh_exp = token_payload.exp  # noqa: SLF001
         return user_auth
 
     @classmethod
@@ -176,7 +136,7 @@ class Authenticate:
         Returns:
             UserAuth: The authenticated user.
         """
-        token_payload = get_payload_from_token(authentication_token=token)
+        token_payload = await get_access_token_payload(token=token)
         return await cls._get_user_from_payload(
             token_payload=token_payload,
             users_service=users_service,
@@ -255,19 +215,15 @@ class Authenticate:
     def get_refresh_jti(
         cls,
         token: Annotated[str, Depends(refresh_token)],
-    ) -> str:
-        """Extract the JWT ID (jti) claim from a refresh token.
-
-        This method is primarily used to retrieve the JTI for blacklisting
-        during the token refresh process.
+    ) -> tuple[str, float]:
+        """Extract the JWT ID (jti) and expiration (exp) from a refresh token.
 
         Args:
             token (str): The refresh token string from the cookie.
 
         Returns:
-            str: The JTI claim.
+            tuple[str, float]: The JTI claim and expiration timestamp.
         """
-        token_payload = get_payload_from_token(authentication_token=token)
-        token_identifier: str = token_payload["jti"]
+        token_payload = get_refresh_token_payload(token=token)
 
-        return token_identifier
+        return token_payload.jti, token_payload.exp

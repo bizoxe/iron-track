@@ -11,22 +11,25 @@ def run_cli() -> None:
 
     The following command groups are included:
 
-    * **Server Management:** Commands for running the application in development (`dev`)
-      and production (`run`) mode.
+    * **Server Management:** Commands for running the application in
+      development-oriented (`dev`) mode via Uvicorn, or production-like (`run`)
+      mode via Granian.
     * **Database Migrations:** Commands for managing database schemas and migrations
       (provided by `advanced_alchemy`).
     * **Custom Tools:** Application-specific commands, such as those for user management.
 
     Examples:
-        1. Start Development Server:
+        1. Run in development-oriented mode:
             ``app server dev``
-        2. View Database Help:
+        2. Run in production-like mode:
+            ``app server run``
+        3. View Database Help:
             ``app database --help``
-        3. Apply Migrations:
+        4. Apply Migrations:
             ``app database upgrade head``
-        4. View User Management Help:
+        5. View User Management Help:
             ``app users --help``
-        5. Create New User:
+        6. Create New User:
             ``app users create-user --name "User Example" --email user@example.com --password secretpwd``
     """
     from advanced_alchemy.extensions.fastapi.cli import register_database_commands
@@ -45,7 +48,7 @@ def run_cli() -> None:
     main_cli.add_typer(server_cli_group)
     click_app = get_group(main_cli)
     click_app.add_command(register_database_commands(app), name="database")
-    click_app.add_command(user_management_group, name="users")
+    click_app.add_command(user_management_group, name="users")  # type: ignore[arg-type]
     click_app()
 
 

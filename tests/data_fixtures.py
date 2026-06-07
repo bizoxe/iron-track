@@ -8,7 +8,7 @@ from typing import (
 
 import pytest
 
-from app.config.constants import DEFAULT_ADMIN_EMAIL
+from app.config.base import get_settings
 
 if TYPE_CHECKING:
     from fastapi import FastAPI
@@ -28,6 +28,7 @@ def fx_app(
     """
     from app.server.core import create_app
 
+    monkeypatch.setattr("app.server.core.configure_logging", lambda: None)
     return create_app()
 
 
@@ -37,7 +38,7 @@ def fx_raw_users() -> list[dict[str, Any]]:
     return [
         {
             "id": "019a536a-5d4e-7703-896d-1eaa79d993cf",
-            "email": DEFAULT_ADMIN_EMAIL,
+            "email": get_settings().app.DEFAULT_ADMIN_EMAIL,
             "name": "System Administrator",
             "password": "Test_Password0!",
             "is_superuser": True,
@@ -92,8 +93,8 @@ def fx_db_fixtures_path() -> Path:
     return Path(__file__).resolve().parent / "fixtures"
 
 
-@pytest.fixture(scope="session", name="custom_exercises")
-def fx_custom_exercises() -> list[dict[str, Any]]:
+@pytest.fixture(scope="session", name="exercise_samples")
+def fx_exercise_samples() -> list[dict[str, Any]]:
     return [
         {
             "id": "019d1c19-0d21-78c0-809b-ec808d4e1e7b",

@@ -4,22 +4,19 @@ Handles user registration, login (JWT token issuance via cookies), token refresh
 and user-specific profile actions.
 """
 
+from time import time
 from typing import Annotated
 
 from advanced_alchemy.exceptions import DuplicateKeyError
 from fastapi import (
     APIRouter,
+    BackgroundTasks,
     Depends,
     Response,
     status,
 )
 from fastapi.security import OAuth2PasswordRequestForm
-from starlette.background import (
-    BackgroundTask,
-    BackgroundTasks,
-)
 
-from app.config import constants
 from app.config.base import get_settings
 from app.domain.users import urls
 from app.domain.users.auth import Authenticate
@@ -38,7 +35,10 @@ from app.domain.users.schemas import (
     User,
     UserAuth,
 )
-from app.domain.users.utils import perform_logout_cleanup
+from app.domain.users.utils import (
+    get_refresh_context,
+    perform_logout_cleanup,
+)
 from app.lib.exceptions import ConflictException
 from app.lib.invalidate_cache import invalidate_user_cache
 from app.lib.json_response import MsgSpecJSONResponse
@@ -91,7 +91,7 @@ async def signup(
     name="access:login",
     summary="Account login, issue access and refresh tokens.",
 )
-async def login_for_access_token(
+async def signin(
     users_service: UserServiceDep,
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
 ) -> Response:
@@ -113,18 +113,18 @@ async def login_for_access_token(
     response.set_cookie(
         key="access_token",
         value=access_token,
-        max_age=constants.ACCESS_TOKEN_MAX_AGE,
+        max_age=settings.jwt.access_token_max_age,
         httponly=True,
         samesite="lax",
-        secure=constants.COOKIE_SECURE_VALUE,
+        secure=settings.app.COOKIE_SECURE_VALUE,
     )
     response.set_cookie(
         key="refresh_token",
         value=refresh_token,
-        max_age=constants.REFRESH_TOKEN_MAX_AGE,
+        max_age=settings.jwt.refresh_token_max_age,
         httponly=True,
         samesite="strict",
-        secure=constants.COOKIE_SECURE_VALUE,
+        secure=settings.app.COOKIE_SECURE_VALUE,
     )
 
     return response
@@ -138,6 +138,7 @@ async def login_for_access_token(
     summary="Issue a new access token using the refresh token.",
 )
 async def user_auth_refresh_token(
+    background_tasks: BackgroundTasks,
     user_auth: Annotated[UserAuth, Depends(Authenticate.get_current_user_for_refresh)],
 ) -> Response:
     """Get the user by the refresh token and issue a new access token.
@@ -147,31 +148,35 @@ async def user_auth_refresh_token(
     Returns:
         Response: HTTP 204 No Content response with new access and refresh tokens.
     """
+    refresh_jti, refresh_exp = get_refresh_context(user_auth=user_auth)
+    ttl = int(refresh_exp - time())
+    if ttl > 0:
+        background_tasks.add_task(
+            add_token_to_blacklist,
+            refresh_token_identifier=refresh_jti,
+            ttl=ttl,
+        )
     access_token = create_access_token(
         user_id=user_auth.id,
         email=user_auth.email,
     )
     refresh_token = create_refresh_token(user_id=user_auth.id)
-    background_task = BackgroundTask(
-        func=add_token_to_blacklist,
-        refresh_token_identifier=user_auth._refresh_jti,  # type: ignore[arg-type]  # noqa: SLF001
-    )
-    response = Response(status_code=status.HTTP_204_NO_CONTENT, background=background_task)
+    response = Response(status_code=status.HTTP_204_NO_CONTENT)
     response.set_cookie(
         key="access_token",
         value=access_token,
-        max_age=constants.ACCESS_TOKEN_MAX_AGE,
+        max_age=settings.jwt.access_token_max_age,
         httponly=True,
         samesite="lax",
-        secure=constants.COOKIE_SECURE_VALUE,
+        secure=settings.app.COOKIE_SECURE_VALUE,
     )
     response.set_cookie(
         key="refresh_token",
         value=refresh_token,
-        max_age=constants.REFRESH_TOKEN_MAX_AGE,
+        max_age=settings.jwt.refresh_token_max_age,
         httponly=True,
         samesite="strict",
-        secure=constants.COOKIE_SECURE_VALUE,
+        secure=settings.app.COOKIE_SECURE_VALUE,
     )
 
     return response
@@ -184,26 +189,29 @@ async def user_auth_refresh_token(
     summary="Log out, delete tokens from cookies.",
 )
 async def logout(
+    background_tasks: BackgroundTasks,
     user_auth: Annotated[UserAuth, Depends(Authenticate.get_current_active_user())],
-    refresh_jti: Annotated[str, Depends(Authenticate.get_refresh_jti)],
+    refresh_context: Annotated[tuple[str, float], Depends(Authenticate.get_refresh_jti)],
 ) -> Response:
     """User Logout.
 
     Deletes access and refresh tokens from cookies and invalidates the refresh token JTI
-    in Redis as a background task.
+    in cache as a background task.
 
     Returns:
         Response: HTTP 204 No Content response.
     """
-    background_tasks = BackgroundTasks()
-    background_tasks.add_task(
-        func=perform_logout_cleanup,
-        refresh_jti=refresh_jti,
-        user_id=user_auth.id,
-    )
+    refresh_jti, refresh_exp = refresh_context
+    ttl = int(refresh_exp - time())
+    if ttl > 0:
+        background_tasks.add_task(
+            func=perform_logout_cleanup,
+            refresh_jti=refresh_jti,
+            ttl=ttl,
+            user_id=user_auth.id,
+        )
     response = Response(
         status_code=status.HTTP_204_NO_CONTENT,
-        background=background_tasks,
     )
     response.delete_cookie("access_token")
     response.delete_cookie("refresh_token")
@@ -218,13 +226,14 @@ async def logout(
     summary="Update your user password.",
 )
 async def update_password(
-    user_auth: Annotated[UserAuth, Depends(Authenticate.get_current_active_user())],
+    background_tasks: BackgroundTasks,
     users_service: UserServiceDep,
+    user_auth: Annotated[UserAuth, Depends(Authenticate.get_current_active_user())],
     pwd_data: PasswordUpdate,
 ) -> Response:
     """Update user password.
 
-    This action also invalidates the user's authentication cache in Redis and deletes
+    This action also invalidates the user's authentication cache and deletes
     access and refresh tokens from cookies.
 
     Returns:
@@ -234,13 +243,12 @@ async def update_password(
         data=pwd_data,
         user_id=user_auth.id,
     )
-    background_task = BackgroundTask(
+    background_tasks.add_task(
         func=invalidate_user_cache,
         user_id=user_auth.id,
     )
     response = Response(
         status_code=status.HTTP_204_NO_CONTENT,
-        background=background_task,
     )
     response.delete_cookie("access_token")
     response.delete_cookie("refresh_token")

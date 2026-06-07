@@ -21,7 +21,7 @@ from app.domain.users.schemas import (
     UserRoleAdd,
     UserRoleRevoke,
 )
-from app.domain.users.utils import check_user_before_modify_role
+from app.domain.users.utils import check_critical_action_forbidden
 from app.lib.exceptions import ConflictException
 from app.lib.invalidate_cache import invalidate_user_cache
 from app.lib.json_response import MsgSpecJSONResponse
@@ -54,11 +54,10 @@ async def assign_new_role(
         PermissionDeniedException: If the superuser attempts to modify their own account or the system admin.
         ConflictException: If the user already has the requested role.
     """
-    user_obj = await check_user_before_modify_role(
-        users_service=users_service,
+    user_obj = await users_service.get_and_validate_for_role_change(
         email=email,
     )
-    users_service.check_critical_action_forbidden(
+    check_critical_action_forbidden(
         target_user=user_obj,
         calling_superuser_id=super_user.id,
     )
@@ -99,11 +98,10 @@ async def revoke_and_set_default_role(
         PermissionDeniedException: If the superuser attempts to modify their own account or the system admin.
         ConflictException: If the user does not currently have the role that is requested for revocation.
     """
-    user_obj = await check_user_before_modify_role(
-        users_service=users_service,
+    user_obj = await users_service.get_and_validate_for_role_change(
         email=email,
     )
-    users_service.check_critical_action_forbidden(
+    check_critical_action_forbidden(
         target_user=user_obj,
         calling_superuser_id=super_user.id,
     )
