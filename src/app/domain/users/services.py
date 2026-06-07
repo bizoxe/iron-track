@@ -146,7 +146,7 @@ class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
     async def get_users_paginated_dto(self, params: UserFilters) -> OffsetPagination[UserDto]:
         """Provide a filtered and paginated list of users with caching."""
         filters = params.aa_technical_filters
-        results, total = await self.list_and_count(
+        results, total = await self.get_many_and_count(
             *filters,
             load=[
                 joinedload(self.model_type.role).load_only(m.Role.name, m.Role.slug),

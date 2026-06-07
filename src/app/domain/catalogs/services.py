@@ -1,9 +1,6 @@
 from __future__ import annotations
 
-from typing import (
-    TYPE_CHECKING,
-    Any,
-)
+from typing import TYPE_CHECKING, Any
 
 from advanced_alchemy.base import DefaultBase
 from advanced_alchemy.extensions.fastapi import (
@@ -38,8 +35,10 @@ from app.domain.catalogs.schemas import (
 if TYPE_CHECKING:
     from collections.abc import Iterable, Sequence
 
+    from advanced_alchemy.repository.typing import PrimaryKeyType
     from advanced_alchemy.service import ModelDictT
     from advanced_alchemy.service.typing import BulkModelDictT
+    from advanced_alchemy.utils.serialization import SchemaDumpConfig
     from sqlalchemy.orm import InstrumentedAttribute
     from sqlalchemy.sql.selectable import ForUpdateParameter
 
@@ -61,7 +60,7 @@ class BaseCatalogService[T: DefaultBase, S: Struct](service.SQLAlchemyAsyncRepos
     ) -> list[S]:
         """Retrieve a list of catalog items from database or cache with filtering."""
         filters = params.aa_filters
-        data = await self.list(*filters)
+        data = await self.get_many(*filters)
         return convert(data, type=list[self.read_schema], from_attributes=True)  # type: ignore[name-defined]
 
     @cache(
@@ -70,7 +69,7 @@ class BaseCatalogService[T: DefaultBase, S: Struct](service.SQLAlchemyAsyncRepos
     )
     async def get_all_cached(self) -> list[S]:
         """Retrieve all catalog items from cache or database."""
-        data = await self.list()
+        data = await self.get_many()
         return convert(data, type=list[self.read_schema], from_attributes=True)  # type: ignore[name-defined]
 
     async def _invalidate_cache(self) -> None:
@@ -101,6 +100,8 @@ class BaseCatalogService[T: DefaultBase, S: Struct](service.SQLAlchemyAsyncRepos
         load: LoadSpec | None = None,
         execution_options: dict[str, Any] | None = None,
         uniquify: bool | None = None,
+        bind_group: str | None = None,
+        schema_dump_config: SchemaDumpConfig | None = None,
     ) -> Sequence[T]:
         """Upsert multiple records and invalidate the associated cache."""
         objs = await super().upsert_many(
@@ -125,6 +126,8 @@ class BaseCatalogService[T: DefaultBase, S: Struct](service.SQLAlchemyAsyncRepos
         auto_expunge: bool | None = None,
         auto_refresh: bool | None = None,
         error_messages: ErrorMessages | EmptyType | None = Empty,
+        bind_group: str | None = None,
+        schema_dump_config: SchemaDumpConfig | None = None,
     ) -> T:
         """Create a new catalog item and invalidate cache."""
         obj = await super().create(
@@ -152,6 +155,8 @@ class BaseCatalogService[T: DefaultBase, S: Struct](service.SQLAlchemyAsyncRepos
         load: LoadSpec | None = None,
         execution_options: dict[str, Any] | None = None,
         uniquify: bool | None = None,
+        bind_group: str | None = None,
+        schema_dump_config: SchemaDumpConfig | None = None,
     ) -> T:
         """Update a catalog item and invalidate cache."""
         obj = await super().update(
@@ -173,7 +178,7 @@ class BaseCatalogService[T: DefaultBase, S: Struct](service.SQLAlchemyAsyncRepos
 
     async def delete(
         self,
-        item_id: Any,
+        item_id: PrimaryKeyType,
         *,
         auto_commit: bool | None = None,
         auto_expunge: bool | None = None,
@@ -182,6 +187,7 @@ class BaseCatalogService[T: DefaultBase, S: Struct](service.SQLAlchemyAsyncRepos
         load: LoadSpec | None = None,
         execution_options: dict[str, Any] | None = None,
         uniquify: bool | None = None,
+        bind_group: str | None = None,
     ) -> T:
         """Delete a catalog item and invalidate cache."""
         obj = await super().delete(

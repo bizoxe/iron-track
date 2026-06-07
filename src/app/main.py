@@ -48,7 +48,7 @@ def run_cli() -> None:
     main_cli.add_typer(server_cli_group)
     click_app = get_group(main_cli)
     click_app.add_command(register_database_commands(app), name="database")
-    click_app.add_command(user_management_group, name="users")
+    click_app.add_command(user_management_group, name="users")  # type: ignore[arg-type]
     click_app()
 
 

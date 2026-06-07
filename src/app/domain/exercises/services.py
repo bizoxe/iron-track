@@ -257,7 +257,7 @@ class ExerciseService(CompositeServiceMixin, service.SQLAlchemyAsyncRepositorySe
         cached_data = await cache.get(key=params_key)
         if not cached_data:
             filters = params.build_exercise_filters(user_id=user_id)
-            results, total = await self.list_and_count(*filters)
+            results, total = await self.get_many_and_count(*filters)
             exercises = self.to_schema(data=results, total=total, filters=filters, schema_type=ExerciseRead)
             await cache.set(key=params_key, value=exercises, expire="3m")
             return exercises
