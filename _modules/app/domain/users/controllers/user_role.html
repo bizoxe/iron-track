@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../../../../../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/shibuya.css?v=9454f7d5" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -20,7 +20,8 @@
   --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
 }
 </style>
-    <meta property="og:type" content="website"/><meta property="og:title" content="app.domain.users.controllers.user_role"/>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="app.domain.users.controllers.user_role"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -69,30 +70,29 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../api/index.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../../../api/scripts/index.html">Application Scripts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../../api/scripts/commands.html">User Management CLI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../../api/scripts/seeder.html">Database Seeding Script</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../../../api/server/index.html">Core Setup</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../../api/server/core.html">Server Core</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../../api/config/index.html">Application Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../../api/config/base.html">Base Settings Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../../api/config/app_settings.html">SQLAlchemy and Dependency Configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../../api/config/constants.html">Application Constants</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../api/server/index.html">Core Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../api/server/core.html">Server Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../api/server/lifespan.html">Lifespan Management</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../../api/db/index.html">ORM Models</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../../api/db/base.html">Base Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../../api/db/user.html">User Model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../../api/db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../api/db/reference.html">Reference Data Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../api/db/exercise.html">Exercise Model</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../../api/lib/index.html">Core Utilities (lib)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../../api/lib/auth.html">JWT Cookie Security Scheme</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../../api/lib/crypt.html">Security Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../api/lib/deps.html">Infrastructure Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../../api/lib/exceptions.html">API Exceptions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../../api/lib/filters.html">Query Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../../api/lib/handlers.html">Exception Handlers</a></li>
@@ -114,7 +114,11 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l3"><a class="reference internal" href="../../../../../api/utils/server_cli.html">Server CLI Commands</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../../../api/main.html">Entry Point (main.py)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../api/scripts/index.html">Application Scripts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../api/scripts/commands.html">User Management CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../api/scripts/seeder.html">Database Seeding Script</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../../api/domain/index.html">Domains Overview</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../../api/domain/users/index.html">Users Domain</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../../api/domain/users/controllers/access.html">Access Controllers</a></li>
@@ -123,9 +127,28 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l4"><a class="reference internal" href="../../../../../api/domain/users/services.html">User and Role Services</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../../api/domain/users/schemas.html">User Domain Schemas</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../../api/domain/users/auth.html">Authentication &amp; Authorization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../../../api/domain/users/utils.html">User Utilities and Helpers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../../api/domain/users/deps.html">User Domain Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../api/domain/users/filters.html">Users Domain Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../../api/domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../api/domain/users/utils.html">User Utilities and Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../api/domain/catalogs/index.html">Catalogs Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../api/domain/catalogs/controllers/equipment.html">Equipment Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../api/domain/catalogs/controllers/exercise_tags.html">Exercise Tag Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../api/domain/catalogs/controllers/muscle_groups.html">Muscle Group Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../api/domain/catalogs/services.html">Catalogs Domain Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../api/domain/catalogs/schemas.html">Catalogs Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../api/domain/catalogs/deps.html">Catalogs Domain Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../api/domain/catalogs/filters.html">Catalogs Domain Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../../api/domain/exercises/index.html">Exercises Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../api/domain/exercises/controllers.html">Exercise Management Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../api/domain/exercises/services.html">Exercises Domain Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../api/domain/exercises/schemas.html">Exercises Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../api/domain/exercises/filters.html">Exercises Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../../api/domain/exercises/deps.html">Exercises Domain Dependencies</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../../api/domain/system/index.html">System Domain</a><ul>
@@ -135,6 +158,7 @@ data-aria-dark="Switch to auto color mode">
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../../api/main.html">Entry Point (main.py)</a></li>
 </ul>
 </li>
 </ul>
@@ -210,7 +234,7 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="21">    <span class="n">UserRoleAdd</span><span class="p">,</span>
 </span><span data-line="22">    <span class="n">UserRoleRevoke</span><span class="p">,</span>
 </span><span data-line="23"><span class="p">)</span>
-</span><span data-line="24"><span class="kn">from</span><span class="w"> </span><span class="nn">app.domain.users.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_user_before_modify_role</span>
+</span><span data-line="24"><span class="kn">from</span><span class="w"> </span><span class="nn">app.domain.users.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_critical_action_forbidden</span>
 </span><span data-line="25"><span class="kn">from</span><span class="w"> </span><span class="nn">app.lib.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConflictException</span>
 </span><span data-line="26"><span class="kn">from</span><span class="w"> </span><span class="nn">app.lib.invalidate_cache</span><span class="w"> </span><span class="kn">import</span> <span class="n">invalidate_user_cache</span>
 </span><span data-line="27"><span class="kn">from</span><span class="w"> </span><span class="nn">app.lib.json_response</span><span class="w"> </span><span class="kn">import</span> <span class="n">MsgSpecJSONResponse</span>
@@ -245,85 +269,83 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="54"><span class="sd">        PermissionDeniedException: If the superuser attempts to modify their own account or the system admin.</span>
 </span><span data-line="55"><span class="sd">        ConflictException: If the user already has the requested role.</span>
 </span><span data-line="56"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span data-line="57">    <span class="n">user_obj</span> <span class="o">=</span> <span class="k">await</span> <span class="n">check_user_before_modify_role</span><span class="p">(</span>
-</span><span data-line="58">        <span class="n">users_service</span><span class="o">=</span><span class="n">users_service</span><span class="p">,</span>
-</span><span data-line="59">        <span class="n">email</span><span class="o">=</span><span class="n">email</span><span class="p">,</span>
-</span><span data-line="60">    <span class="p">)</span>
-</span><span data-line="61">    <span class="n">users_service</span><span class="o">.</span><span class="n">check_critical_action_forbidden</span><span class="p">(</span>
-</span><span data-line="62">        <span class="n">target_user</span><span class="o">=</span><span class="n">user_obj</span><span class="p">,</span>
-</span><span data-line="63">        <span class="n">calling_superuser_id</span><span class="o">=</span><span class="n">super_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-</span><span data-line="64">    <span class="p">)</span>
-</span><span data-line="65">    <span class="n">new_role</span> <span class="o">=</span> <span class="k">await</span> <span class="n">roles_service</span><span class="o">.</span><span class="n">get_id_and_slug_by_slug</span><span class="p">(</span><span class="n">slug</span><span class="o">=</span><span class="n">user_add_role</span><span class="o">.</span><span class="n">role_slug</span><span class="p">)</span>
-</span><span data-line="66">    <span class="k">if</span> <span class="n">user_obj</span><span class="o">.</span><span class="n">role_id</span> <span class="o">==</span> <span class="n">new_role</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
-</span><span data-line="67">        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;User </span><span class="si">{</span><span class="n">user_obj</span><span class="o">.</span><span class="n">email</span><span class="si">}</span><span class="s2"> already has the &#39;</span><span class="si">{</span><span class="n">new_role</span><span class="o">.</span><span class="n">slug</span><span class="si">}</span><span class="s2">&#39; role&quot;</span>
-</span><span data-line="68">        <span class="k">raise</span> <span class="n">ConflictException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
-</span><span data-line="69">
-</span><span data-line="70">    <span class="k">await</span> <span class="n">users_service</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;role_id&quot;</span><span class="p">:</span> <span class="n">new_role</span><span class="o">.</span><span class="n">id</span><span class="p">},</span> <span class="n">item_id</span><span class="o">=</span><span class="n">user_obj</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-</span><span data-line="71">    <span class="k">await</span> <span class="n">invalidate_user_cache</span><span class="p">(</span>
-</span><span data-line="72">        <span class="n">user_id</span><span class="o">=</span><span class="n">user_obj</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-</span><span data-line="73">    <span class="p">)</span>
-</span><span data-line="74">    <span class="k">return</span> <span class="n">MsgSpecJSONResponse</span><span class="p">(</span>
-</span><span data-line="75">        <span class="n">content</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Successfully assigned the &#39;</span><span class="si">{</span><span class="n">new_role</span><span class="o">.</span><span class="n">slug</span><span class="si">}</span><span class="s2">&#39; role to </span><span class="si">{</span><span class="n">user_obj</span><span class="o">.</span><span class="n">email</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span>
-</span><span data-line="76">    <span class="p">)</span></div>
+</span><span data-line="57">    <span class="n">user_obj</span> <span class="o">=</span> <span class="k">await</span> <span class="n">users_service</span><span class="o">.</span><span class="n">get_and_validate_for_role_change</span><span class="p">(</span>
+</span><span data-line="58">        <span class="n">email</span><span class="o">=</span><span class="n">email</span><span class="p">,</span>
+</span><span data-line="59">    <span class="p">)</span>
+</span><span data-line="60">    <span class="n">check_critical_action_forbidden</span><span class="p">(</span>
+</span><span data-line="61">        <span class="n">target_user</span><span class="o">=</span><span class="n">user_obj</span><span class="p">,</span>
+</span><span data-line="62">        <span class="n">calling_superuser_id</span><span class="o">=</span><span class="n">super_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+</span><span data-line="63">    <span class="p">)</span>
+</span><span data-line="64">    <span class="n">new_role</span> <span class="o">=</span> <span class="k">await</span> <span class="n">roles_service</span><span class="o">.</span><span class="n">get_id_and_slug_by_slug</span><span class="p">(</span><span class="n">slug</span><span class="o">=</span><span class="n">user_add_role</span><span class="o">.</span><span class="n">role_slug</span><span class="p">)</span>
+</span><span data-line="65">    <span class="k">if</span> <span class="n">user_obj</span><span class="o">.</span><span class="n">role_id</span> <span class="o">==</span> <span class="n">new_role</span><span class="o">.</span><span class="n">id</span><span class="p">:</span>
+</span><span data-line="66">        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;User </span><span class="si">{</span><span class="n">user_obj</span><span class="o">.</span><span class="n">email</span><span class="si">}</span><span class="s2"> already has the &#39;</span><span class="si">{</span><span class="n">new_role</span><span class="o">.</span><span class="n">slug</span><span class="si">}</span><span class="s2">&#39; role&quot;</span>
+</span><span data-line="67">        <span class="k">raise</span> <span class="n">ConflictException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="68">
+</span><span data-line="69">    <span class="k">await</span> <span class="n">users_service</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;role_id&quot;</span><span class="p">:</span> <span class="n">new_role</span><span class="o">.</span><span class="n">id</span><span class="p">},</span> <span class="n">item_id</span><span class="o">=</span><span class="n">user_obj</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</span><span data-line="70">    <span class="k">await</span> <span class="n">invalidate_user_cache</span><span class="p">(</span>
+</span><span data-line="71">        <span class="n">user_id</span><span class="o">=</span><span class="n">user_obj</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+</span><span data-line="72">    <span class="p">)</span>
+</span><span data-line="73">    <span class="k">return</span> <span class="n">MsgSpecJSONResponse</span><span class="p">(</span>
+</span><span data-line="74">        <span class="n">content</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;Successfully assigned the &#39;</span><span class="si">{</span><span class="n">new_role</span><span class="o">.</span><span class="n">slug</span><span class="si">}</span><span class="s2">&#39; role to </span><span class="si">{</span><span class="n">user_obj</span><span class="o">.</span><span class="n">email</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">},</span>
+</span><span data-line="75">    <span class="p">)</span></div>
 
+</span><span data-line="76">
 </span><span data-line="77">
-</span><span data-line="78">
 <div class="viewcode-block" id="revoke_and_set_default_role">
 <a class="viewcode-back" href="../../../../../api/domain/users/controllers/user_role.html#app.domain.users.controllers.user_role.revoke_and_set_default_role">[docs]</a>
-</span><span data-line="79"><span class="nd">@role_router</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
-</span><span data-line="80">    <span class="n">path</span><span class="o">=</span><span class="n">urls</span><span class="o">.</span><span class="n">ACCOUNT_REVOKE_ROLE</span><span class="p">,</span>
-</span><span data-line="81">    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;roles:revoke&quot;</span><span class="p">,</span>
-</span><span data-line="82"><span class="p">)</span>
-</span><span data-line="83"><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">revoke_and_set_default_role</span><span class="p">(</span>
-</span><span data-line="84">    <span class="n">super_user</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">UserAuth</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">Authenticate</span><span class="o">.</span><span class="n">superuser_required</span><span class="p">())],</span>
-</span><span data-line="85">    <span class="n">users_service</span><span class="p">:</span> <span class="n">UserServiceDep</span><span class="p">,</span>
-</span><span data-line="86">    <span class="n">roles_service</span><span class="p">:</span> <span class="n">RoleServiceDep</span><span class="p">,</span>
-</span><span data-line="87">    <span class="n">user_revoke_role</span><span class="p">:</span> <span class="n">UserRoleRevoke</span><span class="p">,</span>
-</span><span data-line="88">    <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-</span><span data-line="89"><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MsgSpecJSONResponse</span><span class="p">:</span>
-</span><span data-line="90"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Revoke the specified role from the user by email and set the default role.</span>
-</span><span data-line="91">
-</span><span data-line="92"><span class="sd">    This operation requires superuser privileges. **Self-modification is forbidden**</span>
-</span><span data-line="93"><span class="sd">    (superuser modifying their own account) for security.</span>
-</span><span data-line="94">
-</span><span data-line="95"><span class="sd">    Returns:</span>
-</span><span data-line="96"><span class="sd">        MsgSpecJSONResponse: Success message indicating the revoked and default roles.</span>
-</span><span data-line="97">
-</span><span data-line="98"><span class="sd">    Raises:</span>
-</span><span data-line="99"><span class="sd">        PermissionDeniedException: If the superuser attempts to modify their own account or the system admin.</span>
-</span><span data-line="100"><span class="sd">        ConflictException: If the user does not currently have the role that is requested for revocation.</span>
-</span><span data-line="101"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span data-line="102">    <span class="n">user_obj</span> <span class="o">=</span> <span class="k">await</span> <span class="n">check_user_before_modify_role</span><span class="p">(</span>
-</span><span data-line="103">        <span class="n">users_service</span><span class="o">=</span><span class="n">users_service</span><span class="p">,</span>
-</span><span data-line="104">        <span class="n">email</span><span class="o">=</span><span class="n">email</span><span class="p">,</span>
-</span><span data-line="105">    <span class="p">)</span>
-</span><span data-line="106">    <span class="n">users_service</span><span class="o">.</span><span class="n">check_critical_action_forbidden</span><span class="p">(</span>
-</span><span data-line="107">        <span class="n">target_user</span><span class="o">=</span><span class="n">user_obj</span><span class="p">,</span>
-</span><span data-line="108">        <span class="n">calling_superuser_id</span><span class="o">=</span><span class="n">super_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-</span><span data-line="109">    <span class="p">)</span>
-</span><span data-line="110">    <span class="n">old_role</span> <span class="o">=</span> <span class="k">await</span> <span class="n">roles_service</span><span class="o">.</span><span class="n">get_id_and_slug_by_slug</span><span class="p">(</span><span class="n">slug</span><span class="o">=</span><span class="n">user_revoke_role</span><span class="o">.</span><span class="n">role_slug</span><span class="p">)</span>
-</span><span data-line="111">    <span class="k">if</span> <span class="n">old_role</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">user_obj</span><span class="o">.</span><span class="n">role_id</span><span class="p">:</span>
-</span><span data-line="112">        <span class="n">default_role</span> <span class="o">=</span> <span class="k">await</span> <span class="n">roles_service</span><span class="o">.</span><span class="n">get_default_role</span><span class="p">(</span>
-</span><span data-line="113">            <span class="n">default_role_slug</span><span class="o">=</span><span class="n">users_service</span><span class="o">.</span><span class="n">default_role</span><span class="p">,</span>
-</span><span data-line="114">        <span class="p">)</span>
-</span><span data-line="115">        <span class="k">await</span> <span class="n">users_service</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;role_id&quot;</span><span class="p">:</span> <span class="n">default_role</span><span class="o">.</span><span class="n">id</span><span class="p">},</span> <span class="n">item_id</span><span class="o">=</span><span class="n">user_obj</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
-</span><span data-line="116">        <span class="k">await</span> <span class="n">invalidate_user_cache</span><span class="p">(</span>
-</span><span data-line="117">            <span class="n">user_id</span><span class="o">=</span><span class="n">user_obj</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-</span><span data-line="118">        <span class="p">)</span>
-</span><span data-line="119">        <span class="k">return</span> <span class="n">MsgSpecJSONResponse</span><span class="p">(</span>
-</span><span data-line="120">            <span class="n">content</span><span class="o">=</span><span class="p">{</span>
-</span><span data-line="121">                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="p">(</span>
-</span><span data-line="122">                    <span class="sa">f</span><span class="s2">&quot;Successfully revoked the &#39;</span><span class="si">{</span><span class="n">old_role</span><span class="o">.</span><span class="n">slug</span><span class="si">}</span><span class="s2">&#39; role for </span><span class="si">{</span><span class="n">user_obj</span><span class="o">.</span><span class="n">email</span><span class="si">}</span><span class="s2"> &quot;</span>
-</span><span data-line="123">                    <span class="sa">f</span><span class="s2">&quot;and set to default role &#39;</span><span class="si">{</span><span class="n">default_role</span><span class="o">.</span><span class="n">slug</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
-</span><span data-line="124">                <span class="p">)</span>
-</span><span data-line="125">            <span class="p">}</span>
-</span><span data-line="126">        <span class="p">)</span>
-</span><span data-line="127">
-</span><span data-line="128">    <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-</span><span data-line="129">        <span class="sa">f</span><span class="s2">&quot;User </span><span class="si">{</span><span class="n">user_obj</span><span class="o">.</span><span class="n">email</span><span class="si">}</span><span class="s2"> currently has the &#39;</span><span class="si">{</span><span class="n">user_obj</span><span class="o">.</span><span class="n">role_slug</span><span class="si">}</span><span class="s2">&#39; role, &quot;</span>
-</span><span data-line="130">        <span class="sa">f</span><span class="s2">&quot;which does not match the requested role &#39;</span><span class="si">{</span><span class="n">old_role</span><span class="o">.</span><span class="n">slug</span><span class="si">}</span><span class="s2">&#39; for revocation&quot;</span>
-</span><span data-line="131">    <span class="p">)</span>
-</span><span data-line="132">    <span class="k">raise</span> <span class="n">ConflictException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span></div>
+</span><span data-line="78"><span class="nd">@role_router</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+</span><span data-line="79">    <span class="n">path</span><span class="o">=</span><span class="n">urls</span><span class="o">.</span><span class="n">ACCOUNT_REVOKE_ROLE</span><span class="p">,</span>
+</span><span data-line="80">    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;roles:revoke&quot;</span><span class="p">,</span>
+</span><span data-line="81"><span class="p">)</span>
+</span><span data-line="82"><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">revoke_and_set_default_role</span><span class="p">(</span>
+</span><span data-line="83">    <span class="n">super_user</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">UserAuth</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">Authenticate</span><span class="o">.</span><span class="n">superuser_required</span><span class="p">())],</span>
+</span><span data-line="84">    <span class="n">users_service</span><span class="p">:</span> <span class="n">UserServiceDep</span><span class="p">,</span>
+</span><span data-line="85">    <span class="n">roles_service</span><span class="p">:</span> <span class="n">RoleServiceDep</span><span class="p">,</span>
+</span><span data-line="86">    <span class="n">user_revoke_role</span><span class="p">:</span> <span class="n">UserRoleRevoke</span><span class="p">,</span>
+</span><span data-line="87">    <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span data-line="88"><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MsgSpecJSONResponse</span><span class="p">:</span>
+</span><span data-line="89"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Revoke the specified role from the user by email and set the default role.</span>
+</span><span data-line="90">
+</span><span data-line="91"><span class="sd">    This operation requires superuser privileges. **Self-modification is forbidden**</span>
+</span><span data-line="92"><span class="sd">    (superuser modifying their own account) for security.</span>
+</span><span data-line="93">
+</span><span data-line="94"><span class="sd">    Returns:</span>
+</span><span data-line="95"><span class="sd">        MsgSpecJSONResponse: Success message indicating the revoked and default roles.</span>
+</span><span data-line="96">
+</span><span data-line="97"><span class="sd">    Raises:</span>
+</span><span data-line="98"><span class="sd">        PermissionDeniedException: If the superuser attempts to modify their own account or the system admin.</span>
+</span><span data-line="99"><span class="sd">        ConflictException: If the user does not currently have the role that is requested for revocation.</span>
+</span><span data-line="100"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span data-line="101">    <span class="n">user_obj</span> <span class="o">=</span> <span class="k">await</span> <span class="n">users_service</span><span class="o">.</span><span class="n">get_and_validate_for_role_change</span><span class="p">(</span>
+</span><span data-line="102">        <span class="n">email</span><span class="o">=</span><span class="n">email</span><span class="p">,</span>
+</span><span data-line="103">    <span class="p">)</span>
+</span><span data-line="104">    <span class="n">check_critical_action_forbidden</span><span class="p">(</span>
+</span><span data-line="105">        <span class="n">target_user</span><span class="o">=</span><span class="n">user_obj</span><span class="p">,</span>
+</span><span data-line="106">        <span class="n">calling_superuser_id</span><span class="o">=</span><span class="n">super_user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+</span><span data-line="107">    <span class="p">)</span>
+</span><span data-line="108">    <span class="n">old_role</span> <span class="o">=</span> <span class="k">await</span> <span class="n">roles_service</span><span class="o">.</span><span class="n">get_id_and_slug_by_slug</span><span class="p">(</span><span class="n">slug</span><span class="o">=</span><span class="n">user_revoke_role</span><span class="o">.</span><span class="n">role_slug</span><span class="p">)</span>
+</span><span data-line="109">    <span class="k">if</span> <span class="n">old_role</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">user_obj</span><span class="o">.</span><span class="n">role_id</span><span class="p">:</span>
+</span><span data-line="110">        <span class="n">default_role</span> <span class="o">=</span> <span class="k">await</span> <span class="n">roles_service</span><span class="o">.</span><span class="n">get_default_role</span><span class="p">(</span>
+</span><span data-line="111">            <span class="n">default_role_slug</span><span class="o">=</span><span class="n">users_service</span><span class="o">.</span><span class="n">default_role</span><span class="p">,</span>
+</span><span data-line="112">        <span class="p">)</span>
+</span><span data-line="113">        <span class="k">await</span> <span class="n">users_service</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;role_id&quot;</span><span class="p">:</span> <span class="n">default_role</span><span class="o">.</span><span class="n">id</span><span class="p">},</span> <span class="n">item_id</span><span class="o">=</span><span class="n">user_obj</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</span><span data-line="114">        <span class="k">await</span> <span class="n">invalidate_user_cache</span><span class="p">(</span>
+</span><span data-line="115">            <span class="n">user_id</span><span class="o">=</span><span class="n">user_obj</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+</span><span data-line="116">        <span class="p">)</span>
+</span><span data-line="117">        <span class="k">return</span> <span class="n">MsgSpecJSONResponse</span><span class="p">(</span>
+</span><span data-line="118">            <span class="n">content</span><span class="o">=</span><span class="p">{</span>
+</span><span data-line="119">                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="p">(</span>
+</span><span data-line="120">                    <span class="sa">f</span><span class="s2">&quot;Successfully revoked the &#39;</span><span class="si">{</span><span class="n">old_role</span><span class="o">.</span><span class="n">slug</span><span class="si">}</span><span class="s2">&#39; role for </span><span class="si">{</span><span class="n">user_obj</span><span class="o">.</span><span class="n">email</span><span class="si">}</span><span class="s2"> &quot;</span>
+</span><span data-line="121">                    <span class="sa">f</span><span class="s2">&quot;and set to default role &#39;</span><span class="si">{</span><span class="n">default_role</span><span class="o">.</span><span class="n">slug</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+</span><span data-line="122">                <span class="p">)</span>
+</span><span data-line="123">            <span class="p">}</span>
+</span><span data-line="124">        <span class="p">)</span>
+</span><span data-line="125">
+</span><span data-line="126">    <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+</span><span data-line="127">        <span class="sa">f</span><span class="s2">&quot;User </span><span class="si">{</span><span class="n">user_obj</span><span class="o">.</span><span class="n">email</span><span class="si">}</span><span class="s2"> currently has the &#39;</span><span class="si">{</span><span class="n">user_obj</span><span class="o">.</span><span class="n">role_slug</span><span class="si">}</span><span class="s2">&#39; role, &quot;</span>
+</span><span data-line="128">        <span class="sa">f</span><span class="s2">&quot;which does not match the requested role &#39;</span><span class="si">{</span><span class="n">old_role</span><span class="o">.</span><span class="n">slug</span><span class="si">}</span><span class="s2">&#39; for revocation&quot;</span>
+</span><span data-line="129">    <span class="p">)</span>
+</span><span data-line="130">    <span class="k">raise</span> <span class="n">ConflictException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span></div>
 
 </span></pre></div>
         </article><button class="back-to-top" type="button">
@@ -361,7 +383,7 @@ data-aria-dark="Switch to auto color mode">
       <script src="../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../../../_static/copybutton.js?v=f281be69"></script>
       <script src="../../../../../_static/design-tabs.js?v=f930bc37"></script>
-      <script src="../../../../../_static/shibuya.js?v=cac61aee"></script>
+      <script src="../../../../../_static/shibuya.js?v=50760d75"></script>
       <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
       <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
 
@@ -796,5 +818,6 @@ mermaid.initialize(
     }
 );
 
-window.addEventListener("load", load);</script></body>
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script></body>
 </html>

@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../_static/shibuya.css?v=9454f7d5" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -20,7 +20,8 @@
   --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
 }
 </style>
-    <meta property="og:type" content="website"/><meta property="og:title" content="Overview: module code"/>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Overview: module code"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -69,30 +70,29 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../api/scripts/index.html">Application Scripts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../api/scripts/commands.html">User Management CLI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/scripts/seeder.html">Database Seeding Script</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../api/server/index.html">Core Setup</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../api/server/core.html">Server Core</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../api/config/index.html">Application Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/config/base.html">Base Settings Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/config/app_settings.html">SQLAlchemy and Dependency Configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/config/constants.html">Application Constants</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../api/server/index.html">Core Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/server/core.html">Server Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/server/lifespan.html">Lifespan Management</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../api/db/index.html">ORM Models</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/db/base.html">Base Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/db/user.html">User Model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/db/reference.html">Reference Data Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/db/exercise.html">Exercise Model</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/lib/index.html">Core Utilities (lib)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/lib/auth.html">JWT Cookie Security Scheme</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/lib/crypt.html">Security Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/lib/deps.html">Infrastructure Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/lib/exceptions.html">API Exceptions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/lib/filters.html">Query Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/lib/handlers.html">Exception Handlers</a></li>
@@ -114,7 +114,11 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l3"><a class="reference internal" href="../api/utils/server_cli.html">Server CLI Commands</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../api/main.html">Entry Point (main.py)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/scripts/index.html">Application Scripts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/scripts/commands.html">User Management CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/scripts/seeder.html">Database Seeding Script</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../api/domain/index.html">Domains Overview</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/domain/users/index.html">Users Domain</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../api/domain/users/controllers/access.html">Access Controllers</a></li>
@@ -123,9 +127,28 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l4"><a class="reference internal" href="../api/domain/users/services.html">User and Role Services</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/domain/users/schemas.html">User Domain Schemas</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/domain/users/auth.html">Authentication &amp; Authorization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/domain/users/utils.html">User Utilities and Helpers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/domain/users/deps.html">User Domain Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/domain/users/filters.html">Users Domain Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/domain/users/utils.html">User Utilities and Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/domain/catalogs/index.html">Catalogs Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/domain/catalogs/controllers/equipment.html">Equipment Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/domain/catalogs/controllers/exercise_tags.html">Exercise Tag Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/domain/catalogs/controllers/muscle_groups.html">Muscle Group Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/domain/catalogs/services.html">Catalogs Domain Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/domain/catalogs/schemas.html">Catalogs Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/domain/catalogs/deps.html">Catalogs Domain Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/domain/catalogs/filters.html">Catalogs Domain Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/domain/exercises/index.html">Exercises Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/domain/exercises/controllers.html">Exercise Management Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/domain/exercises/services.html">Exercises Domain Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/domain/exercises/schemas.html">Exercises Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/domain/exercises/filters.html">Exercises Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/domain/exercises/deps.html">Exercises Domain Dependencies</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../api/domain/system/index.html">System Domain</a><ul>
@@ -135,6 +158,7 @@ data-aria-dark="Switch to auto color mode">
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../api/main.html">Entry Point (main.py)</a></li>
 </ul>
 </li>
 </ul>
@@ -187,8 +211,22 @@ data-aria-dark="Switch to auto color mode">
 <li><a href="advanced_alchemy/extensions/starlette/config.html">advanced_alchemy.extensions.starlette.config</a></li>
 <li><a href="app/config/base.html">app.config.base</a></li>
 <li><a href="app/db/models/base.html">app.db.models.base</a></li>
+<li><a href="app/db/models/exercise.html">app.db.models.exercise</a></li>
+<li><a href="app/db/models/reference.html">app.db.models.reference</a></li>
 <li><a href="app/db/models/role.html">app.db.models.role</a></li>
 <li><a href="app/db/models/user.html">app.db.models.user</a></li>
+<li><a href="app/domain/catalogs/controllers/equipment.html">app.domain.catalogs.controllers.equipment</a></li>
+<li><a href="app/domain/catalogs/controllers/exercise_tags.html">app.domain.catalogs.controllers.exercise_tags</a></li>
+<li><a href="app/domain/catalogs/controllers/muscle_groups.html">app.domain.catalogs.controllers.muscle_groups</a></li>
+<li><a href="app/domain/catalogs/deps.html">app.domain.catalogs.deps</a></li>
+<li><a href="app/domain/catalogs/filters.html">app.domain.catalogs.filters</a></li>
+<li><a href="app/domain/catalogs/schemas.html">app.domain.catalogs.schemas</a></li>
+<li><a href="app/domain/catalogs/services.html">app.domain.catalogs.services</a></li>
+<li><a href="app/domain/exercises/controllers.html">app.domain.exercises.controllers</a></li>
+<li><a href="app/domain/exercises/deps.html">app.domain.exercises.deps</a></li>
+<li><a href="app/domain/exercises/filters.html">app.domain.exercises.filters</a></li>
+<li><a href="app/domain/exercises/schemas.html">app.domain.exercises.schemas</a></li>
+<li><a href="app/domain/exercises/services.html">app.domain.exercises.services</a></li>
 <li><a href="app/domain/system/controllers.html">app.domain.system.controllers</a></li>
 <li><a href="app/domain/system/schemas.html">app.domain.system.schemas</a></li>
 <li><a href="app/domain/users/auth.html">app.domain.users.auth</a></li>
@@ -196,12 +234,14 @@ data-aria-dark="Switch to auto color mode">
 <li><a href="app/domain/users/controllers/user_role.html">app.domain.users.controllers.user_role</a></li>
 <li><a href="app/domain/users/controllers/users.html">app.domain.users.controllers.users</a></li>
 <li><a href="app/domain/users/deps.html">app.domain.users.deps</a></li>
+<li><a href="app/domain/users/filters.html">app.domain.users.filters</a></li>
 <li><a href="app/domain/users/jwt_helpers.html">app.domain.users.jwt_helpers</a></li>
 <li><a href="app/domain/users/schemas.html">app.domain.users.schemas</a></li>
 <li><a href="app/domain/users/services.html">app.domain.users.services</a></li>
 <li><a href="app/domain/users/utils.html">app.domain.users.utils</a></li>
 <li><a href="app/lib/auth.html">app.lib.auth</a></li>
 <li><a href="app/lib/crypt.html">app.lib.crypt</a></li>
+<li><a href="app/lib/deps.html">app.lib.deps</a></li>
 <li><a href="app/lib/exceptions.html">app.lib.exceptions</a></li>
 <li><a href="app/lib/filters.html">app.lib.filters</a></li>
 <li><a href="app/lib/handlers.html">app.lib.handlers</a></li>
@@ -214,15 +254,15 @@ data-aria-dark="Switch to auto color mode">
 <li><a href="app/main.html">app.main</a></li>
 <li><a href="app/scripts/seeder.html">app.scripts.seeder</a></li>
 <li><a href="app/server/core.html">app.server.core</a></li>
+<li><a href="app/server/lifespan.html">app.server.lifespan</a></li>
 <li><a href="app/utils/log_utils/handlers.html">app.utils.log_utils.handlers</a></li>
 <li><a href="app/utils/log_utils/middleware.html">app.utils.log_utils.middleware</a></li>
 <li><a href="app/utils/log_utils/setup.html">app.utils.log_utils.setup</a></li>
-<li><a href="concurrent/futures/thread.html">concurrent.futures.thread</a></li>
 <li><a href="functools.html">functools</a></li>
-<li><a href="pwdlib/_hash.html">pwdlib._hash</a></li>
 <li><a href="sqlalchemy/ext/associationproxy.html">sqlalchemy.ext.associationproxy</a></li>
 <li><a href="sqlalchemy/orm/attributes.html">sqlalchemy.orm.attributes</a></li>
 <li><a href="sqlalchemy/orm/properties.html">sqlalchemy.orm.properties</a></li>
+<li><a href="sqlalchemy/sql/schema.html">sqlalchemy.sql.schema</a></li>
 <li><a href="typing.html">typing</a></li>
 </ul>
         </article><button class="back-to-top" type="button">
@@ -260,7 +300,7 @@ data-aria-dark="Switch to auto color mode">
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=f281be69"></script>
       <script src="../_static/design-tabs.js?v=f930bc37"></script>
-      <script src="../_static/shibuya.js?v=cac61aee"></script>
+      <script src="../_static/shibuya.js?v=50760d75"></script>
       <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
       <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
 
@@ -695,5 +735,6 @@ mermaid.initialize(
     }
 );
 
-window.addEventListener("load", load);</script></body>
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script></body>
 </html>

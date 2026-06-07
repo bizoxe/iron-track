@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/shibuya.css?v=9454f7d5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -20,7 +20,8 @@
   --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
 }
 </style>
-    <meta property="og:type" content="website"/><meta property="og:title" content="advanced_alchemy.extensions.fastapi.extension"/>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="advanced_alchemy.extensions.fastapi.extension"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -69,30 +70,29 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../api/index.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../../api/scripts/index.html">Application Scripts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/scripts/commands.html">User Management CLI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/scripts/seeder.html">Database Seeding Script</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../../api/server/index.html">Core Setup</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/server/core.html">Server Core</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/config/index.html">Application Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/config/base.html">Base Settings Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/config/app_settings.html">SQLAlchemy and Dependency Configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/config/constants.html">Application Constants</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/server/index.html">Core Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/server/core.html">Server Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/server/lifespan.html">Lifespan Management</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/db/index.html">ORM Models</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/db/base.html">Base Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/db/user.html">User Model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/db/reference.html">Reference Data Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/db/exercise.html">Exercise Model</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/lib/index.html">Core Utilities (lib)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/auth.html">JWT Cookie Security Scheme</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/crypt.html">Security Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/deps.html">Infrastructure Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/exceptions.html">API Exceptions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/filters.html">Query Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/handlers.html">Exception Handlers</a></li>
@@ -114,7 +114,11 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/utils/server_cli.html">Server CLI Commands</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../../api/main.html">Entry Point (main.py)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/scripts/index.html">Application Scripts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/scripts/commands.html">User Management CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/scripts/seeder.html">Database Seeding Script</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/domain/index.html">Domains Overview</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/domain/users/index.html">Users Domain</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/controllers/access.html">Access Controllers</a></li>
@@ -123,9 +127,28 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/services.html">User and Role Services</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/schemas.html">User Domain Schemas</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/auth.html">Authentication &amp; Authorization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/utils.html">User Utilities and Helpers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/deps.html">User Domain Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/filters.html">Users Domain Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/utils.html">User Utilities and Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/domain/catalogs/index.html">Catalogs Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/catalogs/controllers/equipment.html">Equipment Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/catalogs/controllers/exercise_tags.html">Exercise Tag Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/catalogs/controllers/muscle_groups.html">Muscle Group Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/catalogs/services.html">Catalogs Domain Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/catalogs/schemas.html">Catalogs Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/catalogs/deps.html">Catalogs Domain Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/catalogs/filters.html">Catalogs Domain Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/domain/exercises/index.html">Exercises Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/exercises/controllers.html">Exercise Management Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/exercises/services.html">Exercises Domain Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/exercises/schemas.html">Exercises Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/exercises/filters.html">Exercises Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/exercises/deps.html">Exercises Domain Dependencies</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/domain/system/index.html">System Domain</a><ul>
@@ -135,6 +158,7 @@ data-aria-dark="Switch to auto color mode">
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/main.html">Entry Point (main.py)</a></li>
 </ul>
 </li>
 </ul>
@@ -227,120 +251,143 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="38">
 </span><span data-line="39"><span class="k">def</span><span class="w"> </span><span class="nf">assign_cli_group</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="s2">&quot;FastAPI&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
 </span><span data-line="40">    <span class="k">try</span><span class="p">:</span>
-</span><span data-line="41">        <span class="kn">from</span><span class="w"> </span><span class="nn">fastapi_cli.cli</span><span class="w"> </span><span class="kn">import</span> <span class="n">app</span> <span class="k">as</span> <span class="n">fastapi_cli_app</span>  <span class="c1"># pyright: ignore[reportUnknownVariableType]</span>
-</span><span data-line="42">        <span class="kn">from</span><span class="w"> </span><span class="nn">typer.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_group</span>
-</span><span data-line="43">    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-</span><span data-line="44">        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FastAPI CLI is not installed.  Skipping CLI registration.&quot;</span><span class="p">)</span>  <span class="c1"># noqa: T201</span>
-</span><span data-line="45">        <span class="k">return</span>
-</span><span data-line="46">    <span class="n">click_app</span> <span class="o">=</span> <span class="n">get_group</span><span class="p">(</span><span class="n">fastapi_cli_app</span><span class="p">)</span>  <span class="c1"># pyright: ignore[reportUnknownArgumentType]</span>
-</span><span data-line="47">    <span class="n">click_app</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">register_database_commands</span><span class="p">(</span><span class="n">app</span><span class="p">))</span>
+</span><span data-line="41">        <span class="kn">import</span><span class="w"> </span><span class="nn">typer</span>
+</span><span data-line="42">        <span class="kn">from</span><span class="w"> </span><span class="nn">click</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClickException</span>
+</span><span data-line="43">        <span class="kn">from</span><span class="w"> </span><span class="nn">click.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">Exit</span> <span class="k">as</span> <span class="n">ClickExit</span>
+</span><span data-line="44">        <span class="kn">from</span><span class="w"> </span><span class="nn">fastapi_cli.cli</span><span class="w"> </span><span class="kn">import</span> <span class="n">app</span> <span class="k">as</span> <span class="n">fastapi_cli_app</span>  <span class="c1"># pyright: ignore[reportUnknownVariableType]</span>
+</span><span data-line="45">    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+</span><span data-line="46">        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;FastAPI CLI is not installed.  Skipping CLI registration.&quot;</span><span class="p">)</span>  <span class="c1"># noqa: T201</span>
+</span><span data-line="47">        <span class="k">return</span>
 </span><span data-line="48">
-</span><span data-line="49">
-</span><span data-line="50"><span class="k">class</span><span class="w"> </span><span class="nc">AdvancedAlchemy</span><span class="p">(</span><span class="n">StarletteAdvancedAlchemy</span><span class="p">):</span>
-</span><span data-line="51"><span class="w">    </span><span class="sd">&quot;&quot;&quot;AdvancedAlchemy integration for FastAPI applications.</span>
-</span><span data-line="52">
-</span><span data-line="53"><span class="sd">    This class manages SQLAlchemy sessions and engine lifecycle within a FastAPI application.</span>
-</span><span data-line="54"><span class="sd">    It provides middleware for handling transactions based on commit strategies.</span>
-</span><span data-line="55"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span data-line="56">
-</span><span data-line="57">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
-</span><span data-line="58">        <span class="bp">self</span><span class="p">,</span>
-</span><span data-line="59">        <span class="n">config</span><span class="p">:</span> <span class="s2">&quot;Union[SQLAlchemyAsyncConfig, SQLAlchemySyncConfig, Sequence[Union[SQLAlchemyAsyncConfig, SQLAlchemySyncConfig]]]&quot;</span><span class="p">,</span>
-</span><span data-line="60">        <span class="n">app</span><span class="p">:</span> <span class="s2">&quot;Optional[FastAPI]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="61">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="62">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">app</span><span class="p">)</span>
+</span><span data-line="49">    <span class="k">def</span><span class="w"> </span><span class="nf">run_database_command</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">typer</span><span class="o">.</span><span class="n">Context</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="50">        <span class="n">database_group</span> <span class="o">=</span> <span class="n">register_database_commands</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+</span><span data-line="51">        <span class="n">args</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ctx</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[</span><span class="s2">&quot;--help&quot;</span><span class="p">]</span>
+</span><span data-line="52">        <span class="k">try</span><span class="p">:</span>
+</span><span data-line="53">            <span class="n">database_group</span><span class="o">.</span><span class="n">main</span><span class="p">(</span>
+</span><span data-line="54">                <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
+</span><span data-line="55">                <span class="n">prog_name</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">info_name</span> <span class="ow">or</span> <span class="n">database_group</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+</span><span data-line="56">                <span class="n">standalone_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span data-line="57">            <span class="p">)</span>
+</span><span data-line="58">        <span class="k">except</span> <span class="n">ClickExit</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span data-line="59">            <span class="k">raise</span> <span class="n">typer</span><span class="o">.</span><span class="n">Exit</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">exit_code</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+</span><span data-line="60">        <span class="k">except</span> <span class="n">ClickException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span data-line="61">            <span class="n">e</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span><span data-line="62">            <span class="k">raise</span> <span class="n">typer</span><span class="o">.</span><span class="n">Exit</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">exit_code</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
 </span><span data-line="63">
-</span><span data-line="64">    <span class="nd">@overload</span>
-</span><span data-line="65">    <span class="k">def</span><span class="w"> </span><span class="nf">provide_service</span><span class="p">(</span>
-</span><span data-line="66">        <span class="bp">self</span><span class="p">,</span>
-</span><span data-line="67">        <span class="n">service_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="s2">&quot;AsyncServiceT_co&quot;</span><span class="p">],</span>  <span class="c1"># pyright: ignore</span>
-</span><span data-line="68">        <span class="o">/</span><span class="p">,</span>
-</span><span data-line="69">        <span class="n">key</span><span class="p">:</span> <span class="s2">&quot;Optional[str]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="70">        <span class="n">statement</span><span class="p">:</span> <span class="s2">&quot;Optional[Select[tuple[ModelT]]]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="71">        <span class="n">error_messages</span><span class="p">:</span> <span class="s2">&quot;Optional[Union[ErrorMessages, EmptyType]]&quot;</span> <span class="o">=</span> <span class="n">Empty</span><span class="p">,</span>
-</span><span data-line="72">        <span class="n">load</span><span class="p">:</span> <span class="s2">&quot;Optional[LoadSpec]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="73">        <span class="n">execution_options</span><span class="p">:</span> <span class="s2">&quot;Optional[dict[str, Any]]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="74">        <span class="n">uniquify</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="75">        <span class="n">count_with_window_function</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="76">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Callable[..., AsyncGenerator[AsyncServiceT_co, None]]&quot;</span><span class="p">:</span> <span class="o">...</span>
-</span><span data-line="77">
-</span><span data-line="78">    <span class="nd">@overload</span>
-</span><span data-line="79">    <span class="k">def</span><span class="w"> </span><span class="nf">provide_service</span><span class="p">(</span>
-</span><span data-line="80">        <span class="bp">self</span><span class="p">,</span>
-</span><span data-line="81">        <span class="n">service_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="s2">&quot;SyncServiceT_co&quot;</span><span class="p">],</span>  <span class="c1"># pyright: ignore</span>
-</span><span data-line="82">        <span class="o">/</span><span class="p">,</span>
-</span><span data-line="83">        <span class="n">key</span><span class="p">:</span> <span class="s2">&quot;Optional[str]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="84">        <span class="n">statement</span><span class="p">:</span> <span class="s2">&quot;Optional[Select[tuple[ModelT]]]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="85">        <span class="n">error_messages</span><span class="p">:</span> <span class="s2">&quot;Optional[Union[ErrorMessages, EmptyType]]&quot;</span> <span class="o">=</span> <span class="n">Empty</span><span class="p">,</span>
-</span><span data-line="86">        <span class="n">load</span><span class="p">:</span> <span class="s2">&quot;Optional[LoadSpec]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="87">        <span class="n">execution_options</span><span class="p">:</span> <span class="s2">&quot;Optional[dict[str, Any]]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="88">        <span class="n">uniquify</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="89">        <span class="n">count_with_window_function</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="90">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Callable[..., Generator[SyncServiceT_co, None, None]]&quot;</span><span class="p">:</span> <span class="o">...</span>
-</span><span data-line="91">
-</span><span data-line="92">    <span class="k">def</span><span class="w"> </span><span class="nf">provide_service</span><span class="p">(</span>  <span class="c1"># pragma: no cover</span>
-</span><span data-line="93">        <span class="bp">self</span><span class="p">,</span>
-</span><span data-line="94">        <span class="n">service_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="s2">&quot;AsyncServiceT_co&quot;</span><span class="p">,</span> <span class="s2">&quot;SyncServiceT_co&quot;</span><span class="p">]],</span>
-</span><span data-line="95">        <span class="o">/</span><span class="p">,</span>
-</span><span data-line="96">        <span class="n">key</span><span class="p">:</span> <span class="s2">&quot;Optional[str]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="97">        <span class="n">statement</span><span class="p">:</span> <span class="s2">&quot;Optional[Select[tuple[ModelT]]]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="98">        <span class="n">error_messages</span><span class="p">:</span> <span class="s2">&quot;Optional[Union[ErrorMessages, EmptyType]]&quot;</span> <span class="o">=</span> <span class="n">Empty</span><span class="p">,</span>
-</span><span data-line="99">        <span class="n">load</span><span class="p">:</span> <span class="s2">&quot;Optional[LoadSpec]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="100">        <span class="n">execution_options</span><span class="p">:</span> <span class="s2">&quot;Optional[dict[str, Any]]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="101">        <span class="n">uniquify</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="102">        <span class="n">count_with_window_function</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="103">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Callable[..., Union[AsyncGenerator[AsyncServiceT_co, None], Generator[SyncServiceT_co, None, None]]]&quot;</span><span class="p">:</span>
-</span><span data-line="104"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Provides a service instance for dependency injection.</span>
-</span><span data-line="105">
-</span><span data-line="106"><span class="sd">        Args:</span>
-</span><span data-line="107"><span class="sd">            service_class: The service class to provide.</span>
-</span><span data-line="108"><span class="sd">            key: Optional key for the service.</span>
-</span><span data-line="109"><span class="sd">            statement: Optional SQLAlchemy statement.</span>
-</span><span data-line="110"><span class="sd">            error_messages: Optional error messages.</span>
-</span><span data-line="111"><span class="sd">            load: Optional load specification.</span>
-</span><span data-line="112"><span class="sd">            execution_options: Optional execution options.</span>
-</span><span data-line="113"><span class="sd">            uniquify: Optional flag to uniquify the service.</span>
-</span><span data-line="114"><span class="sd">            count_with_window_function: Optional flag to use window function for counting.</span>
-</span><span data-line="115">
-</span><span data-line="116"><span class="sd">        Returns:</span>
-</span><span data-line="117"><span class="sd">            A callable that returns an async generator for async services or a generator for sync services.</span>
-</span><span data-line="118"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="119">        <span class="kn">from</span><span class="w"> </span><span class="nn">advanced_alchemy.extensions.fastapi.providers</span><span class="w"> </span><span class="kn">import</span> <span class="n">provide_service</span> <span class="k">as</span> <span class="n">_provide_service</span>
-</span><span data-line="120">
-</span><span data-line="121">        <span class="k">return</span> <span class="n">_provide_service</span><span class="p">(</span>
-</span><span data-line="122">            <span class="n">service_class</span><span class="p">,</span>
-</span><span data-line="123">            <span class="n">extension</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
-</span><span data-line="124">            <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
-</span><span data-line="125">            <span class="n">statement</span><span class="o">=</span><span class="n">statement</span><span class="p">,</span>
-</span><span data-line="126">            <span class="n">error_messages</span><span class="o">=</span><span class="n">error_messages</span><span class="p">,</span>
-</span><span data-line="127">            <span class="n">load</span><span class="o">=</span><span class="n">load</span><span class="p">,</span>
-</span><span data-line="128">            <span class="n">execution_options</span><span class="o">=</span><span class="n">execution_options</span><span class="p">,</span>
-</span><span data-line="129">            <span class="n">uniquify</span><span class="o">=</span><span class="n">uniquify</span><span class="p">,</span>
-</span><span data-line="130">            <span class="n">count_with_window_function</span><span class="o">=</span><span class="n">count_with_window_function</span><span class="p">,</span>
-</span><span data-line="131">        <span class="p">)</span>
-</span><span data-line="132">
-</span><span data-line="133">    <span class="nd">@staticmethod</span>
-</span><span data-line="134">    <span class="k">def</span><span class="w"> </span><span class="nf">provide_filters</span><span class="p">(</span>  <span class="c1"># pragma: no cover</span>
-</span><span data-line="135">        <span class="n">config</span><span class="p">:</span> <span class="s2">&quot;FilterConfig&quot;</span><span class="p">,</span>
-</span><span data-line="136">        <span class="o">/</span><span class="p">,</span>
-</span><span data-line="137">        <span class="n">dep_defaults</span><span class="p">:</span> <span class="s2">&quot;Optional[DependencyDefaults]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span data-line="138">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Callable[..., list[filters.FilterTypes]]&quot;</span><span class="p">:</span>
-</span><span data-line="139"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Provides filters for dependency injection.</span>
-</span><span data-line="140">
-</span><span data-line="141"><span class="sd">        Args:</span>
-</span><span data-line="142"><span class="sd">            config: The filters to provide.</span>
-</span><span data-line="143"><span class="sd">            dep_defaults: Optional key for the filters.</span>
-</span><span data-line="144">
-</span><span data-line="145"><span class="sd">        Returns:</span>
-</span><span data-line="146"><span class="sd">            A callable that returns an async generator for async filters or a generator for sync filters.</span>
-</span><span data-line="147"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="148">        <span class="kn">from</span><span class="w"> </span><span class="nn">advanced_alchemy.extensions.fastapi.providers</span><span class="w"> </span><span class="kn">import</span> <span class="n">DEPENDENCY_DEFAULTS</span>
-</span><span data-line="149">        <span class="kn">from</span><span class="w"> </span><span class="nn">advanced_alchemy.extensions.fastapi.providers</span><span class="w"> </span><span class="kn">import</span> <span class="n">provide_filters</span> <span class="k">as</span> <span class="n">_provide_filters</span>
-</span><span data-line="150">
-</span><span data-line="151">        <span class="k">if</span> <span class="n">dep_defaults</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span data-line="152">            <span class="n">dep_defaults</span> <span class="o">=</span> <span class="n">DEPENDENCY_DEFAULTS</span>
-</span><span data-line="153">
-</span><span data-line="154">        <span class="k">return</span> <span class="n">_provide_filters</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">dep_defaults</span><span class="o">=</span><span class="n">dep_defaults</span><span class="p">)</span>
+</span><span data-line="64">    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;database&quot;</span><span class="p">,</span> <span class="s2">&quot;db&quot;</span><span class="p">):</span>
+</span><span data-line="65">        <span class="n">fastapi_cli_app</span><span class="o">.</span><span class="n">command</span><span class="p">(</span>
+</span><span data-line="66">            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+</span><span data-line="67">            <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Manage SQLAlchemy database components.&quot;</span><span class="p">,</span>
+</span><span data-line="68">            <span class="n">context_settings</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;allow_extra_args&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;ignore_unknown_options&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;help_option_names&quot;</span><span class="p">:</span> <span class="p">[]},</span>
+</span><span data-line="69">            <span class="n">add_help_option</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span><span data-line="70">        <span class="p">)(</span><span class="n">run_database_command</span><span class="p">)</span>
+</span><span data-line="71">
+</span><span data-line="72">
+</span><span data-line="73"><span class="k">class</span><span class="w"> </span><span class="nc">AdvancedAlchemy</span><span class="p">(</span><span class="n">StarletteAdvancedAlchemy</span><span class="p">):</span>
+</span><span data-line="74"><span class="w">    </span><span class="sd">&quot;&quot;&quot;AdvancedAlchemy integration for FastAPI applications.</span>
+</span><span data-line="75">
+</span><span data-line="76"><span class="sd">    This class manages SQLAlchemy sessions and engine lifecycle within a FastAPI application.</span>
+</span><span data-line="77"><span class="sd">    It provides middleware for handling transactions based on commit strategies.</span>
+</span><span data-line="78"><span class="sd">    &quot;&quot;&quot;</span>
+</span><span data-line="79">
+</span><span data-line="80">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+</span><span data-line="81">        <span class="bp">self</span><span class="p">,</span>
+</span><span data-line="82">        <span class="n">config</span><span class="p">:</span> <span class="s2">&quot;Union[SQLAlchemyAsyncConfig, SQLAlchemySyncConfig, Sequence[Union[SQLAlchemyAsyncConfig, SQLAlchemySyncConfig]]]&quot;</span><span class="p">,</span>
+</span><span data-line="83">        <span class="n">app</span><span class="p">:</span> <span class="s2">&quot;Optional[FastAPI]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="84">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="85">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">app</span><span class="p">)</span>
+</span><span data-line="86">
+</span><span data-line="87">    <span class="nd">@overload</span>
+</span><span data-line="88">    <span class="k">def</span><span class="w"> </span><span class="nf">provide_service</span><span class="p">(</span>
+</span><span data-line="89">        <span class="bp">self</span><span class="p">,</span>
+</span><span data-line="90">        <span class="n">service_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="s2">&quot;AsyncServiceT_co&quot;</span><span class="p">],</span>  <span class="c1"># pyright: ignore</span>
+</span><span data-line="91">        <span class="o">/</span><span class="p">,</span>
+</span><span data-line="92">        <span class="n">key</span><span class="p">:</span> <span class="s2">&quot;Optional[str]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="93">        <span class="n">statement</span><span class="p">:</span> <span class="s2">&quot;Optional[Select[tuple[ModelT]]]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="94">        <span class="n">error_messages</span><span class="p">:</span> <span class="s2">&quot;Optional[Union[ErrorMessages, EmptyType]]&quot;</span> <span class="o">=</span> <span class="n">Empty</span><span class="p">,</span>
+</span><span data-line="95">        <span class="n">load</span><span class="p">:</span> <span class="s2">&quot;Optional[LoadSpec]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="96">        <span class="n">execution_options</span><span class="p">:</span> <span class="s2">&quot;Optional[dict[str, Any]]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="97">        <span class="n">uniquify</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="98">        <span class="n">count_with_window_function</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="99">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Callable[..., AsyncGenerator[AsyncServiceT_co, None]]&quot;</span><span class="p">:</span> <span class="o">...</span>
+</span><span data-line="100">
+</span><span data-line="101">    <span class="nd">@overload</span>
+</span><span data-line="102">    <span class="k">def</span><span class="w"> </span><span class="nf">provide_service</span><span class="p">(</span>
+</span><span data-line="103">        <span class="bp">self</span><span class="p">,</span>
+</span><span data-line="104">        <span class="n">service_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="s2">&quot;SyncServiceT_co&quot;</span><span class="p">],</span>  <span class="c1"># pyright: ignore</span>
+</span><span data-line="105">        <span class="o">/</span><span class="p">,</span>
+</span><span data-line="106">        <span class="n">key</span><span class="p">:</span> <span class="s2">&quot;Optional[str]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="107">        <span class="n">statement</span><span class="p">:</span> <span class="s2">&quot;Optional[Select[tuple[ModelT]]]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="108">        <span class="n">error_messages</span><span class="p">:</span> <span class="s2">&quot;Optional[Union[ErrorMessages, EmptyType]]&quot;</span> <span class="o">=</span> <span class="n">Empty</span><span class="p">,</span>
+</span><span data-line="109">        <span class="n">load</span><span class="p">:</span> <span class="s2">&quot;Optional[LoadSpec]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="110">        <span class="n">execution_options</span><span class="p">:</span> <span class="s2">&quot;Optional[dict[str, Any]]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="111">        <span class="n">uniquify</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="112">        <span class="n">count_with_window_function</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="113">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Callable[..., Generator[SyncServiceT_co, None, None]]&quot;</span><span class="p">:</span> <span class="o">...</span>
+</span><span data-line="114">
+</span><span data-line="115">    <span class="k">def</span><span class="w"> </span><span class="nf">provide_service</span><span class="p">(</span>  <span class="c1"># pragma: no cover</span>
+</span><span data-line="116">        <span class="bp">self</span><span class="p">,</span>
+</span><span data-line="117">        <span class="n">service_class</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="s2">&quot;AsyncServiceT_co&quot;</span><span class="p">,</span> <span class="s2">&quot;SyncServiceT_co&quot;</span><span class="p">]],</span>
+</span><span data-line="118">        <span class="o">/</span><span class="p">,</span>
+</span><span data-line="119">        <span class="n">key</span><span class="p">:</span> <span class="s2">&quot;Optional[str]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="120">        <span class="n">statement</span><span class="p">:</span> <span class="s2">&quot;Optional[Select[tuple[ModelT]]]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="121">        <span class="n">error_messages</span><span class="p">:</span> <span class="s2">&quot;Optional[Union[ErrorMessages, EmptyType]]&quot;</span> <span class="o">=</span> <span class="n">Empty</span><span class="p">,</span>
+</span><span data-line="122">        <span class="n">load</span><span class="p">:</span> <span class="s2">&quot;Optional[LoadSpec]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="123">        <span class="n">execution_options</span><span class="p">:</span> <span class="s2">&quot;Optional[dict[str, Any]]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="124">        <span class="n">uniquify</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="125">        <span class="n">count_with_window_function</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="126">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Callable[..., Union[AsyncGenerator[AsyncServiceT_co, None], Generator[SyncServiceT_co, None, None]]]&quot;</span><span class="p">:</span>
+</span><span data-line="127"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Provides a service instance for dependency injection.</span>
+</span><span data-line="128">
+</span><span data-line="129"><span class="sd">        Args:</span>
+</span><span data-line="130"><span class="sd">            service_class: The service class to provide.</span>
+</span><span data-line="131"><span class="sd">            key: Optional key for the service.</span>
+</span><span data-line="132"><span class="sd">            statement: Optional SQLAlchemy statement.</span>
+</span><span data-line="133"><span class="sd">            error_messages: Optional error messages.</span>
+</span><span data-line="134"><span class="sd">            load: Optional load specification.</span>
+</span><span data-line="135"><span class="sd">            execution_options: Optional execution options.</span>
+</span><span data-line="136"><span class="sd">            uniquify: Optional flag to uniquify the service.</span>
+</span><span data-line="137"><span class="sd">            count_with_window_function: Optional flag to use window function for counting.</span>
+</span><span data-line="138">
+</span><span data-line="139"><span class="sd">        Returns:</span>
+</span><span data-line="140"><span class="sd">            A callable that returns an async generator for async services or a generator for sync services.</span>
+</span><span data-line="141"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="142">        <span class="kn">from</span><span class="w"> </span><span class="nn">advanced_alchemy.extensions.fastapi.providers</span><span class="w"> </span><span class="kn">import</span> <span class="n">provide_service</span> <span class="k">as</span> <span class="n">_provide_service</span>
+</span><span data-line="143">
+</span><span data-line="144">        <span class="k">return</span> <span class="n">_provide_service</span><span class="p">(</span>
+</span><span data-line="145">            <span class="n">service_class</span><span class="p">,</span>
+</span><span data-line="146">            <span class="n">extension</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+</span><span data-line="147">            <span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
+</span><span data-line="148">            <span class="n">statement</span><span class="o">=</span><span class="n">statement</span><span class="p">,</span>
+</span><span data-line="149">            <span class="n">error_messages</span><span class="o">=</span><span class="n">error_messages</span><span class="p">,</span>
+</span><span data-line="150">            <span class="n">load</span><span class="o">=</span><span class="n">load</span><span class="p">,</span>
+</span><span data-line="151">            <span class="n">execution_options</span><span class="o">=</span><span class="n">execution_options</span><span class="p">,</span>
+</span><span data-line="152">            <span class="n">uniquify</span><span class="o">=</span><span class="n">uniquify</span><span class="p">,</span>
+</span><span data-line="153">            <span class="n">count_with_window_function</span><span class="o">=</span><span class="n">count_with_window_function</span><span class="p">,</span>
+</span><span data-line="154">        <span class="p">)</span>
+</span><span data-line="155">
+</span><span data-line="156">    <span class="nd">@staticmethod</span>
+</span><span data-line="157">    <span class="k">def</span><span class="w"> </span><span class="nf">provide_filters</span><span class="p">(</span>  <span class="c1"># pragma: no cover</span>
+</span><span data-line="158">        <span class="n">config</span><span class="p">:</span> <span class="s2">&quot;FilterConfig&quot;</span><span class="p">,</span>
+</span><span data-line="159">        <span class="o">/</span><span class="p">,</span>
+</span><span data-line="160">        <span class="n">dep_defaults</span><span class="p">:</span> <span class="s2">&quot;Optional[DependencyDefaults]&quot;</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span data-line="161">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Callable[..., list[filters.FilterTypes]]&quot;</span><span class="p">:</span>
+</span><span data-line="162"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Provides filters for dependency injection.</span>
+</span><span data-line="163">
+</span><span data-line="164"><span class="sd">        Args:</span>
+</span><span data-line="165"><span class="sd">            config: The filters to provide.</span>
+</span><span data-line="166"><span class="sd">            dep_defaults: Optional key for the filters.</span>
+</span><span data-line="167">
+</span><span data-line="168"><span class="sd">        Returns:</span>
+</span><span data-line="169"><span class="sd">            A callable that returns an async generator for async filters or a generator for sync filters.</span>
+</span><span data-line="170"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="171">        <span class="kn">from</span><span class="w"> </span><span class="nn">advanced_alchemy.extensions.fastapi.providers</span><span class="w"> </span><span class="kn">import</span> <span class="n">DEPENDENCY_DEFAULTS</span>
+</span><span data-line="172">        <span class="kn">from</span><span class="w"> </span><span class="nn">advanced_alchemy.extensions.fastapi.providers</span><span class="w"> </span><span class="kn">import</span> <span class="n">provide_filters</span> <span class="k">as</span> <span class="n">_provide_filters</span>
+</span><span data-line="173">
+</span><span data-line="174">        <span class="k">if</span> <span class="n">dep_defaults</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span data-line="175">            <span class="n">dep_defaults</span> <span class="o">=</span> <span class="n">DEPENDENCY_DEFAULTS</span>
+</span><span data-line="176">
+</span><span data-line="177">        <span class="k">return</span> <span class="n">_provide_filters</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">dep_defaults</span><span class="o">=</span><span class="n">dep_defaults</span><span class="p">)</span>
 </span></pre></div>
         </article><button class="back-to-top" type="button">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -377,7 +424,7 @@ data-aria-dark="Switch to auto color mode">
       <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../../_static/copybutton.js?v=f281be69"></script>
       <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
-      <script src="../../../../_static/shibuya.js?v=cac61aee"></script>
+      <script src="../../../../_static/shibuya.js?v=50760d75"></script>
       <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
       <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
 
@@ -812,5 +859,6 @@ mermaid.initialize(
     }
 );
 
-window.addEventListener("load", load);</script></body>
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script></body>
 </html>

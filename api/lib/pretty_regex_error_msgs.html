@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=9454f7d5" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -20,7 +20,8 @@
   --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
 }
 </style>
-    <meta property="og:type" content="website"/><meta property="og:title" content="Custom Regex Errors"/>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Custom Regex Errors"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -69,30 +70,29 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../scripts/index.html">Application Scripts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../scripts/commands.html">User Management CLI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../scripts/seeder.html">Database Seeding Script</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../server/index.html">Core Setup</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../server/core.html">Server Core</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../config/index.html">Application Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../config/base.html">Base Settings Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../config/app_settings.html">SQLAlchemy and Dependency Configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../config/constants.html">Application Constants</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../server/index.html">Core Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../server/core.html">Server Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/lifespan.html">Lifespan Management</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../db/index.html">ORM Models</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../db/base.html">Base Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../db/user.html">User Model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/reference.html">Reference Data Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/exercise.html">Exercise Model</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Core Utilities (lib)</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="auth.html">JWT Cookie Security Scheme</a></li>
 <li class="toctree-l3"><a class="reference internal" href="crypt.html">Security Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deps.html">Infrastructure Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exceptions.html">API Exceptions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="filters.html">Query Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="handlers.html">Exception Handlers</a></li>
@@ -114,7 +114,11 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l3"><a class="reference internal" href="../utils/server_cli.html">Server CLI Commands</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../main.html">Entry Point (main.py)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scripts/index.html">Application Scripts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../scripts/commands.html">User Management CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scripts/seeder.html">Database Seeding Script</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../domain/index.html">Domains Overview</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../domain/users/index.html">Users Domain</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/access.html">Access Controllers</a></li>
@@ -123,9 +127,28 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/services.html">User and Role Services</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/schemas.html">User Domain Schemas</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication &amp; Authorization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/utils.html">User Utilities and Helpers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/deps.html">User Domain Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/users/filters.html">Users Domain Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/users/utils.html">User Utilities and Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/catalogs/index.html">Catalogs Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/equipment.html">Equipment Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/exercise_tags.html">Exercise Tag Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/muscle_groups.html">Muscle Group Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/services.html">Catalogs Domain Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/schemas.html">Catalogs Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/deps.html">Catalogs Domain Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/filters.html">Catalogs Domain Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/exercises/index.html">Exercises Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/controllers.html">Exercise Management Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/services.html">Exercises Domain Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/schemas.html">Exercises Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/filters.html">Exercises Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/deps.html">Exercises Domain Dependencies</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../domain/system/index.html">System Domain</a><ul>
@@ -135,6 +158,7 @@ data-aria-dark="Switch to auto color mode">
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../main.html">Entry Point (main.py)</a></li>
 </ul>
 </li>
 </ul>
@@ -154,13 +178,7 @@ data-aria-dark="Switch to auto color mode">
       <i class="i-lucide close"></i>
     </button>
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
-<li><a class="reference internal" href="#app.lib.pretty_regex_error_msgs.RegexValidator"><code class="docutils literal notranslate"><span class="pre">RegexValidator</span></code></a><ul>
-<li><a class="reference internal" href="#app.lib.pretty_regex_error_msgs.RegexValidator.pattern"><code class="docutils literal notranslate">pattern</span></code></a></li>
-<li><a class="reference internal" href="#app.lib.pretty_regex_error_msgs.RegexValidator.error_message"><code class="docutils literal notranslate">error_message</span></code></a></li>
-<li><a class="reference internal" href="#app.lib.pretty_regex_error_msgs.RegexValidator.__init_subclass__"><code class="docutils literal notranslate">__init_subclass__()</span></code></a></li>
-<li><a class="reference internal" href="#app.lib.pretty_regex_error_msgs.RegexValidator.__get_pydantic_core_schema__"><code class="docutils literal notranslate">__get_pydantic_core_schema__()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#app.lib.pretty_regex_error_msgs.RegexValidator"><code class="docutils literal notranslate"><span class="pre">RegexValidator</span></code></a></li>
 </ul>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
   </aside>
@@ -206,9 +224,7 @@ data-aria-dark="Switch to auto color mode">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RegexValidator</span></span><a class="reference internal" href="../../_modules/app/lib/pretty_regex_error_msgs.html#RegexValidator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.pretty_regex_error_msgs.RegexValidator" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Base class for creating reusable Pydantic regex validators.</p>
-<div class="tip admonition">
-<p class="admonition-title">Usage Example</p>
-<p>To create a new validator, subclass <code class="docutils literal notranslate"><span class="pre">RegexValidator</span></code>:</p>
+<p>Example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 </span><span data-line="2">
 </span><span data-line="3"><span class="k">class</span><span class="w"> </span><span class="nc">PasswordValidator</span><span class="p">(</span>
@@ -216,41 +232,9 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="5">    <span class="n">pattern</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^(?=.*[A-Z]).{8,}$&quot;</span><span class="p">),</span>
 </span><span data-line="6">    <span class="n">error_message</span><span class="o">=</span><span class="s2">&quot;Password must be at least 8 chars with 1 uppercase&quot;</span>
 </span><span data-line="7"><span class="p">):</span>
-</span><span data-line="8"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Validator for user passwords.&quot;&quot;&quot;</span>
+</span><span data-line="8">    <span class="k">pass</span>
 </span></pre></div>
 </div>
-</div>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="app.lib.pretty_regex_error_msgs.RegexValidator.pattern">
-<span class="sig-name descname"><span class="pre">pattern</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.14)"><span class="pre">ClassVar</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/re.html#re.Pattern" title="(in Python v3.14)"><span class="pre">Pattern</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#app.lib.pretty_regex_error_msgs.RegexValidator.pattern" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="app.lib.pretty_regex_error_msgs.RegexValidator.error_message">
-<span class="sig-name descname"><span class="pre">error_message</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.14)"><span class="pre">ClassVar</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#app.lib.pretty_regex_error_msgs.RegexValidator.error_message" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="app.lib.pretty_regex_error_msgs.RegexValidator.__init_subclass__">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">__init_subclass__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pattern</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/re.html#re.Pattern" title="(in Python v3.14)"><span class="pre">Pattern</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../_modules/app/lib/pretty_regex_error_msgs.html#RegexValidator.__init_subclass__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.pretty_regex_error_msgs.RegexValidator.__init_subclass__" title="Link to this definition">¶</a></dt>
-<dd><p>Configure the validator subclass with a specific regex pattern.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>pattern</strong> (<em>Pattern</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>]</em>) – The compiled regular expression to validate against.</p></li>
-<li><p><strong>error_message</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The custom message returned when validation fails.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="app.lib.pretty_regex_error_msgs.RegexValidator.__get_pydantic_core_schema__">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">__get_pydantic_core_schema__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.14)"><span class="pre">type</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">GetCoreSchemaHandler</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CoreSchema</span></span></span><a class="reference internal" href="../../_modules/app/lib/pretty_regex_error_msgs.html#RegexValidator.__get_pydantic_core_schema__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.pretty_regex_error_msgs.RegexValidator.__get_pydantic_core_schema__" title="Link to this definition">¶</a></dt>
-<dd><p>Generate the Pydantic Core Schema for the validator.</p>
-<p>Integrates the custom regex check into the standard validation chain.</p>
-</dd></dl>
-
 </dd></dl>
 
 </section>
@@ -304,5 +288,5 @@ data-aria-dark="Switch to auto color mode">
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
       <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-      <script src="../../_static/shibuya.js?v=cac61aee"></script></body>
+      <script src="../../_static/shibuya.js?v=50760d75"></script></body>
 </html>

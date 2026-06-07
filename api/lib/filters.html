@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=9454f7d5" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -20,7 +20,8 @@
   --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
 }
 </style>
-    <meta property="og:type" content="website"/><meta property="og:title" content="Query Filters"/>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Query Filters"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -69,30 +70,29 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../scripts/index.html">Application Scripts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../scripts/commands.html">User Management CLI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../scripts/seeder.html">Database Seeding Script</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../server/index.html">Core Setup</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../server/core.html">Server Core</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../config/index.html">Application Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../config/base.html">Base Settings Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../config/app_settings.html">SQLAlchemy and Dependency Configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../config/constants.html">Application Constants</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../server/index.html">Core Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../server/core.html">Server Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/lifespan.html">Lifespan Management</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../db/index.html">ORM Models</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../db/base.html">Base Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../db/user.html">User Model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/reference.html">Reference Data Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/exercise.html">Exercise Model</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Core Utilities (lib)</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="auth.html">JWT Cookie Security Scheme</a></li>
 <li class="toctree-l3"><a class="reference internal" href="crypt.html">Security Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deps.html">Infrastructure Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="exceptions.html">API Exceptions</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Query Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="handlers.html">Exception Handlers</a></li>
@@ -114,7 +114,11 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l3"><a class="reference internal" href="../utils/server_cli.html">Server CLI Commands</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../main.html">Entry Point (main.py)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scripts/index.html">Application Scripts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../scripts/commands.html">User Management CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scripts/seeder.html">Database Seeding Script</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../domain/index.html">Domains Overview</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../domain/users/index.html">Users Domain</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/access.html">Access Controllers</a></li>
@@ -123,9 +127,28 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/services.html">User and Role Services</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/schemas.html">User Domain Schemas</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication &amp; Authorization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/utils.html">User Utilities and Helpers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/deps.html">User Domain Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/users/filters.html">Users Domain Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/users/utils.html">User Utilities and Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/catalogs/index.html">Catalogs Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/equipment.html">Equipment Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/exercise_tags.html">Exercise Tag Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/muscle_groups.html">Muscle Group Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/services.html">Catalogs Domain Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/schemas.html">Catalogs Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/deps.html">Catalogs Domain Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/filters.html">Catalogs Domain Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/exercises/index.html">Exercises Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/controllers.html">Exercise Management Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/services.html">Exercises Domain Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/schemas.html">Exercises Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/filters.html">Exercises Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/deps.html">Exercises Domain Dependencies</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../domain/system/index.html">System Domain</a><ul>
@@ -135,6 +158,7 @@ data-aria-dark="Switch to auto color mode">
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../main.html">Entry Point (main.py)</a></li>
 </ul>
 </li>
 </ul>
@@ -162,7 +186,6 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#app.lib.filters.CommonFilters.page_size"><code class="docutils literal notranslate">page_size</span></code></a></li>
 <li><a class="reference internal" href="#app.lib.filters.CommonFilters.order_by"><code class="docutils literal notranslate">order_by</span></code></a></li>
 <li><a class="reference internal" href="#app.lib.filters.CommonFilters.sort_order"><code class="docutils literal notranslate">sort_order</span></code></a></li>
-<li><a class="reference internal" href="#app.lib.filters.CommonFilters.aa_technical_filters"><code class="docutils literal notranslate">aa_technical_filters</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -218,28 +241,10 @@ bridging frontend request parameters with <strong>Advanced Alchemy</strong> stat
 <p>Base schema for standard API query parameters.</p>
 <p>Provides foundational support for pagination, ordering, and
 keyword-based searching across different domains.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Fields<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><a class="reference internal" href="#app.lib.filters.CommonFilters.current_page" title="app.lib.filters.CommonFilters.current_page"><code class="xref py py-obj docutils literal notranslate"><span class="pre">current_page</span> <span class="pre">(int)</span></code></a></p></li>
-<li><p><a class="reference internal" href="#app.lib.filters.CommonFilters.order_by" title="app.lib.filters.CommonFilters.order_by"><code class="xref py py-obj docutils literal notranslate"><span class="pre">order_by</span> <span class="pre">(str)</span></code></a></p></li>
-<li><p><a class="reference internal" href="#app.lib.filters.CommonFilters.page_size" title="app.lib.filters.CommonFilters.page_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">page_size</span> <span class="pre">(int)</span></code></a></p></li>
-<li><p><a class="reference internal" href="#app.lib.filters.CommonFilters.search_string" title="app.lib.filters.CommonFilters.search_string"><code class="xref py py-obj docutils literal notranslate"><span class="pre">search_string</span> <span class="pre">(str</span> <span class="pre">|</span> <span class="pre">None)</span></code></a></p></li>
-<li><p><a class="reference internal" href="#app.lib.filters.CommonFilters.sort_order" title="app.lib.filters.CommonFilters.sort_order"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sort_order</span> <span class="pre">(Literal['asc',</span> <span class="pre">'desc'])</span></code></a></p></li>
-</ul>
-</dd>
-</dl>
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="app.lib.filters.CommonFilters.search_string">
 <em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search_string</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated[str</span> <span class="pre">|</span> <span class="pre">None,</span> <span class="pre">AfterValidator(lambda</span> <span class="pre">v:</span> <span class="pre">v.strip()</span> <span class="pre">if</span> <span class="pre">v</span> <span class="pre">else</span> <span class="pre">v),</span> <span class="pre">Field(description='Search</span> <span class="pre">term.')]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'searchString')</span></em><a class="headerlink" href="#app.lib.filters.CommonFilters.search_string" title="Link to this definition">¶</a></dt>
 <dd><p>Search term.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Constraints<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>func</strong> = &lt;function &lt;lambda&gt; at 0x7f6ab6100b80&gt;</p></li>
-</ul>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py attribute">
@@ -251,27 +256,12 @@ keyword-based searching across different domains.</p>
 <dt class="sig sig-object py" id="app.lib.filters.CommonFilters.current_page">
 <em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">current_page</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">ge</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Page</span> <span class="pre">number</span> <span class="pre">for</span> <span class="pre">pagination.'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'currentPage')</span></em><a class="headerlink" href="#app.lib.filters.CommonFilters.current_page" title="Link to this definition">¶</a></dt>
 <dd><p>Page number for pagination.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Constraints<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ge</strong> = 1</p></li>
-</ul>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="app.lib.filters.CommonFilters.page_size">
 <em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">page_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">ge</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">le</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Number</span> <span class="pre">of</span> <span class="pre">items</span> <span class="pre">per</span> <span class="pre">page.'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">20</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'pageSize')</span></em><a class="headerlink" href="#app.lib.filters.CommonFilters.page_size" title="Link to this definition">¶</a></dt>
 <dd><p>Number of items per page.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Constraints<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ge</strong> = 1</p></li>
-<li><p><strong>le</strong> = 100</p></li>
-</ul>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py attribute pydantic_field">
@@ -284,12 +274,6 @@ keyword-based searching across different domains.</p>
 <dt class="sig sig-object py" id="app.lib.filters.CommonFilters.sort_order">
 <em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sort_order</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'asc'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'desc'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">&quot;Sort</span> <span class="pre">order</span> <span class="pre">('asc'</span> <span class="pre">or</span> <span class="pre">'desc').&quot;</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'asc'</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'sortOrder')</span></em><a class="headerlink" href="#app.lib.filters.CommonFilters.sort_order" title="Link to this definition">¶</a></dt>
 <dd><p>Sort order (‘asc’ or ‘desc’).</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="app.lib.filters.CommonFilters.aa_technical_filters">
-<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">aa_technical_filters</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">StatementFilter</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#app.lib.filters.CommonFilters.aa_technical_filters" title="Link to this definition">¶</a></dt>
-<dd><p>Generate core SQLAlchemy filters for pagination, ordering, and search.</p>
 </dd></dl>
 
 </dd></dl>
@@ -346,5 +330,5 @@ keyword-based searching across different domains.</p>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
       <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-      <script src="../../_static/shibuya.js?v=cac61aee"></script></body>
+      <script src="../../_static/shibuya.js?v=50760d75"></script></body>
 </html>

@@ -3,8 +3,6 @@ JWT Cookie Security Scheme
 
 .. autoclass:: app.lib.auth.JWTCookieSecurity
 
-   .. automethod:: app.lib.auth.JWTCookieSecurity.__call__
-
 ---
 
 Public Instances

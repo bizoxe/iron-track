@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../../../../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/shibuya.css?v=9454f7d5" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -20,7 +20,8 @@
   --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
 }
 </style>
-    <meta property="og:type" content="website"/><meta property="og:title" content="app.domain.users.auth"/>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="app.domain.users.auth"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -69,30 +70,29 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../api/index.html">API Reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../../api/scripts/index.html">Application Scripts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/scripts/commands.html">User Management CLI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/scripts/seeder.html">Database Seeding Script</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../../api/server/index.html">Core Setup</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../../api/server/core.html">Server Core</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/config/index.html">Application Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/config/base.html">Base Settings Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/config/app_settings.html">SQLAlchemy and Dependency Configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/config/constants.html">Application Constants</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/server/index.html">Core Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/server/core.html">Server Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/server/lifespan.html">Lifespan Management</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/db/index.html">ORM Models</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/db/base.html">Base Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/db/user.html">User Model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/db/reference.html">Reference Data Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/db/exercise.html">Exercise Model</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/lib/index.html">Core Utilities (lib)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/auth.html">JWT Cookie Security Scheme</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/crypt.html">Security Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/deps.html">Infrastructure Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/exceptions.html">API Exceptions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/filters.html">Query Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/lib/handlers.html">Exception Handlers</a></li>
@@ -114,7 +114,11 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/utils/server_cli.html">Server CLI Commands</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../../api/main.html">Entry Point (main.py)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/scripts/index.html">Application Scripts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/scripts/commands.html">User Management CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/scripts/seeder.html">Database Seeding Script</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../api/domain/index.html">Domains Overview</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/domain/users/index.html">Users Domain</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/controllers/access.html">Access Controllers</a></li>
@@ -123,9 +127,28 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/services.html">User and Role Services</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/schemas.html">User Domain Schemas</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/auth.html">Authentication &amp; Authorization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/utils.html">User Utilities and Helpers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/deps.html">User Domain Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/filters.html">Users Domain Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/users/utils.html">User Utilities and Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/domain/catalogs/index.html">Catalogs Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/catalogs/controllers/equipment.html">Equipment Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/catalogs/controllers/exercise_tags.html">Exercise Tag Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/catalogs/controllers/muscle_groups.html">Muscle Group Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/catalogs/services.html">Catalogs Domain Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/catalogs/schemas.html">Catalogs Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/catalogs/deps.html">Catalogs Domain Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/catalogs/filters.html">Catalogs Domain Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/domain/exercises/index.html">Exercises Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/exercises/controllers.html">Exercise Management Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/exercises/services.html">Exercises Domain Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/exercises/schemas.html">Exercises Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/exercises/filters.html">Exercises Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/domain/exercises/deps.html">Exercises Domain Dependencies</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../api/domain/system/index.html">System Domain</a><ul>
@@ -135,6 +158,7 @@ data-aria-dark="Switch to auto color mode">
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/main.html">Entry Point (main.py)</a></li>
 </ul>
 </li>
 </ul>
@@ -191,300 +215,253 @@ data-aria-dark="Switch to auto color mode">
 </span><span data-line="2">    <span class="n">Awaitable</span><span class="p">,</span>
 </span><span data-line="3">    <span class="n">Callable</span><span class="p">,</span>
 </span><span data-line="4"><span class="p">)</span>
-</span><span data-line="5"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-</span><span data-line="6">    <span class="n">Annotated</span><span class="p">,</span>
-</span><span data-line="7">    <span class="n">Any</span><span class="p">,</span>
-</span><span data-line="8"><span class="p">)</span>
-</span><span data-line="9">
-</span><span data-line="10"><span class="kn">from</span><span class="w"> </span><span class="nn">advanced_alchemy.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">NotFoundError</span>
-</span><span data-line="11"><span class="kn">from</span><span class="w"> </span><span class="nn">cashews</span><span class="w"> </span><span class="kn">import</span> <span class="n">cache</span>
-</span><span data-line="12"><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Depends</span>
-</span><span data-line="13"><span class="kn">from</span><span class="w"> </span><span class="nn">joserfc.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">JoseError</span>
-</span><span data-line="14"><span class="kn">from</span><span class="w"> </span><span class="nn">joserfc.jwt</span><span class="w"> </span><span class="kn">import</span> <span class="n">JWTClaimsRegistry</span>
-</span><span data-line="15"><span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.orm</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-</span><span data-line="16">    <span class="n">load_only</span><span class="p">,</span>
-</span><span data-line="17">    <span class="n">selectinload</span><span class="p">,</span>
-</span><span data-line="18"><span class="p">)</span>
-</span><span data-line="19"><span class="kn">from</span><span class="w"> </span><span class="nn">structlog</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_logger</span>
-</span><span data-line="20">
-</span><span data-line="21"><span class="kn">from</span><span class="w"> </span><span class="nn">app.config.constants</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-</span><span data-line="22">    <span class="n">FITNESS_TRAINER_ROLE_SLUG</span><span class="p">,</span>
-</span><span data-line="23">    <span class="n">USER_AUTH_CACHE_TTL</span><span class="p">,</span>
-</span><span data-line="24"><span class="p">)</span>
-</span><span data-line="25"><span class="kn">from</span><span class="w"> </span><span class="nn">app.db.models.role</span><span class="w"> </span><span class="kn">import</span> <span class="n">Role</span>
-</span><span data-line="26"><span class="kn">from</span><span class="w"> </span><span class="nn">app.db.models.user</span><span class="w"> </span><span class="kn">import</span> <span class="n">User</span>
-</span><span data-line="27"><span class="kn">from</span><span class="w"> </span><span class="nn">app.domain.users.deps</span><span class="w"> </span><span class="kn">import</span> <span class="n">UserServiceDep</span>
-</span><span data-line="28"><span class="kn">from</span><span class="w"> </span><span class="nn">app.domain.users.jwt_helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_token_in_blacklist</span>
-</span><span data-line="29"><span class="kn">from</span><span class="w"> </span><span class="nn">app.domain.users.schemas</span><span class="w"> </span><span class="kn">import</span> <span class="n">UserAuth</span>
-</span><span data-line="30"><span class="kn">from</span><span class="w"> </span><span class="nn">app.lib.auth</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-</span><span data-line="31">    <span class="n">access_token</span><span class="p">,</span>
-</span><span data-line="32">    <span class="n">refresh_token</span><span class="p">,</span>
-</span><span data-line="33"><span class="p">)</span>
-</span><span data-line="34"><span class="kn">from</span><span class="w"> </span><span class="nn">app.lib.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-</span><span data-line="35">    <span class="n">PermissionDeniedException</span><span class="p">,</span>
-</span><span data-line="36">    <span class="n">UnauthorizedException</span><span class="p">,</span>
-</span><span data-line="37"><span class="p">)</span>
-</span><span data-line="38"><span class="kn">from</span><span class="w"> </span><span class="nn">app.lib.jwt_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">decode_jwt</span>
-</span><span data-line="39">
-</span><span data-line="40"><span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Authenticate&quot;</span><span class="p">,)</span>
-</span><span data-line="41">
-</span><span data-line="42"><span class="n">log</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">()</span>
-</span><span data-line="43">
-</span><span data-line="44"><span class="n">claims_registry</span> <span class="o">=</span> <span class="n">JWTClaimsRegistry</span><span class="p">(</span>
-</span><span data-line="45">    <span class="n">exp</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;essential&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
-</span><span data-line="46">    <span class="n">iat</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;essential&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
-</span><span data-line="47"><span class="p">)</span>
-</span><span data-line="48">
-</span><span data-line="49">
-<div class="viewcode-block" id="get_payload_from_token">
-<a class="viewcode-back" href="../../../../api/domain/users/auth.html#app.domain.users.auth.get_payload_from_token">[docs]</a>
-</span><span data-line="50"><span class="k">def</span><span class="w"> </span><span class="nf">get_payload_from_token</span><span class="p">(</span><span class="n">authentication_token</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span data-line="51"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Decode a JWT token and return its payload.</span>
-</span><span data-line="52">
-</span><span data-line="53"><span class="sd">    Args:</span>
-</span><span data-line="54"><span class="sd">        authentication_token (str): The raw JWT string.</span>
-</span><span data-line="55">
-</span><span data-line="56"><span class="sd">    Returns:</span>
-</span><span data-line="57"><span class="sd">        dict: The decoded JWT payload as a dictionary.</span>
-</span><span data-line="58">
-</span><span data-line="59"><span class="sd">    Raises:</span>
-</span><span data-line="60"><span class="sd">        UnauthorizedException: If the token is invalid, malformed, or expired (HTTP 401).</span>
-</span><span data-line="61"><span class="sd">    &quot;&quot;&quot;</span>
-</span><span data-line="62">    <span class="k">try</span><span class="p">:</span>
-</span><span data-line="63">        <span class="n">claims</span> <span class="o">=</span> <span class="n">decode_jwt</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">authentication_token</span><span class="p">)</span><span class="o">.</span><span class="n">claims</span>
-</span><span data-line="64">        <span class="n">claims_registry</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">claims</span><span class="o">=</span><span class="n">claims</span><span class="p">)</span>
-</span><span data-line="65">    <span class="k">except</span> <span class="n">JoseError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-</span><span data-line="66">        <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-</span><span data-line="67">            <span class="s2">&quot;JWT decode failed&quot;</span><span class="p">,</span>
-</span><span data-line="68">            <span class="n">error_type</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
-</span><span data-line="69">            <span class="n">error_detail</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">),</span>
-</span><span data-line="70">        <span class="p">)</span>
-</span><span data-line="71">        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid or expired token&quot;</span>
-</span><span data-line="72">        <span class="k">raise</span> <span class="n">UnauthorizedException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span>
-</span><span data-line="73">    <span class="k">else</span><span class="p">:</span>
-</span><span data-line="74">        <span class="k">return</span> <span class="n">claims</span></div>
-
-</span><span data-line="75">
-</span><span data-line="76">
+</span><span data-line="5"><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="kn">from</span><span class="w"> </span><span class="nn">advanced_alchemy.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="n">NotFoundError</span>
+</span><span data-line="8"><span class="kn">from</span><span class="w"> </span><span class="nn">cashews</span><span class="w"> </span><span class="kn">import</span> <span class="n">cache</span>
+</span><span data-line="9"><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">Depends</span>
+</span><span data-line="10"><span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.orm</span><span class="w"> </span><span class="kn">import</span> <span class="n">joinedload</span><span class="p">,</span> <span class="n">load_only</span>
+</span><span data-line="11">
+</span><span data-line="12"><span class="kn">from</span><span class="w"> </span><span class="nn">app.config.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_settings</span>
+</span><span data-line="13"><span class="kn">from</span><span class="w"> </span><span class="nn">app.config.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">FITNESS_TRAINER_ROLE_SLUG</span>
+</span><span data-line="14"><span class="kn">from</span><span class="w"> </span><span class="nn">app.db.models.role</span><span class="w"> </span><span class="kn">import</span> <span class="n">Role</span>
+</span><span data-line="15"><span class="kn">from</span><span class="w"> </span><span class="nn">app.db.models.user</span><span class="w"> </span><span class="kn">import</span> <span class="n">User</span>
+</span><span data-line="16"><span class="kn">from</span><span class="w"> </span><span class="nn">app.domain.users.deps</span><span class="w"> </span><span class="kn">import</span> <span class="n">UserServiceDep</span>
+</span><span data-line="17"><span class="kn">from</span><span class="w"> </span><span class="nn">app.domain.users.jwt_helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span data-line="18">    <span class="n">TokenPayloadBase</span><span class="p">,</span>
+</span><span data-line="19">    <span class="n">get_access_token_payload</span><span class="p">,</span>
+</span><span data-line="20">    <span class="n">get_refresh_token_payload</span><span class="p">,</span>
+</span><span data-line="21">    <span class="n">is_token_in_blacklist</span><span class="p">,</span>
+</span><span data-line="22"><span class="p">)</span>
+</span><span data-line="23"><span class="kn">from</span><span class="w"> </span><span class="nn">app.domain.users.schemas</span><span class="w"> </span><span class="kn">import</span> <span class="n">UserAuth</span>
+</span><span data-line="24"><span class="kn">from</span><span class="w"> </span><span class="nn">app.lib.auth</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span data-line="25">    <span class="n">access_token</span><span class="p">,</span>
+</span><span data-line="26">    <span class="n">refresh_token</span><span class="p">,</span>
+</span><span data-line="27"><span class="p">)</span>
+</span><span data-line="28"><span class="kn">from</span><span class="w"> </span><span class="nn">app.lib.exceptions</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span data-line="29">    <span class="n">PermissionDeniedException</span><span class="p">,</span>
+</span><span data-line="30">    <span class="n">UnauthorizedException</span><span class="p">,</span>
+</span><span data-line="31"><span class="p">)</span>
+</span><span data-line="32">
+</span><span data-line="33"><span class="n">settings</span> <span class="o">=</span> <span class="n">get_settings</span><span class="p">()</span>
+</span><span data-line="34">
+</span><span data-line="35">
 <div class="viewcode-block" id="Authenticate">
 <a class="viewcode-back" href="../../../../api/domain/users/auth.html#app.domain.users.auth.Authenticate">[docs]</a>
-</span><span data-line="77"><span class="k">class</span><span class="w"> </span><span class="nc">Authenticate</span><span class="p">:</span>
-</span><span data-line="78"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Provides FastAPI dependency factories for authentication and authorization.&quot;&quot;&quot;</span>
-</span><span data-line="79">
+</span><span data-line="36"><span class="k">class</span><span class="w"> </span><span class="nc">Authenticate</span><span class="p">:</span>
+</span><span data-line="37"><span class="w">    </span><span class="sd">&quot;&quot;&quot;Provides FastAPI dependency factories for authentication and authorization.&quot;&quot;&quot;</span>
+</span><span data-line="38">
 <div class="viewcode-block" id="Authenticate._get_user_from_payload">
 <a class="viewcode-back" href="../../../../api/domain/users/auth.html#app.domain.users.auth.Authenticate._get_user_from_payload">[docs]</a>
-</span><span data-line="80">    <span class="nd">@classmethod</span>
-</span><span data-line="81">    <span class="nd">@cache</span><span class="p">(</span>
-</span><span data-line="82">        <span class="n">ttl</span><span class="o">=</span><span class="n">USER_AUTH_CACHE_TTL</span><span class="p">,</span>
-</span><span data-line="83">        <span class="n">key</span><span class="o">=</span><span class="s2">&quot;user_auth:</span><span class="si">{token_payload[sub]}</span><span class="s2">&quot;</span><span class="p">,</span>
-</span><span data-line="84">    <span class="p">)</span>
-</span><span data-line="85">    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_get_user_from_payload</span><span class="p">(</span>
-</span><span data-line="86">        <span class="bp">cls</span><span class="p">,</span>
-</span><span data-line="87">        <span class="n">token_payload</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
-</span><span data-line="88">        <span class="n">users_service</span><span class="p">:</span> <span class="n">UserServiceDep</span><span class="p">,</span>
-</span><span data-line="89">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UserAuth</span><span class="p">:</span>
-</span><span data-line="90"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Load UserAuth schema from the database using the JWT &#39;sub&#39; claim.</span>
-</span><span data-line="91">
-</span><span data-line="92"><span class="sd">        The result of this function is aggressively cached to reduce database load.</span>
+</span><span data-line="39">    <span class="nd">@classmethod</span>
+</span><span data-line="40">    <span class="nd">@cache</span><span class="p">(</span>
+</span><span data-line="41">        <span class="n">ttl</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">user_auth_cache_ttl</span><span class="p">,</span>
+</span><span data-line="42">        <span class="n">key</span><span class="o">=</span><span class="s2">&quot;user_auth:</span><span class="si">{token_payload.sub}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span data-line="43">    <span class="p">)</span>
+</span><span data-line="44">    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_get_user_from_payload</span><span class="p">(</span>
+</span><span data-line="45">        <span class="bp">cls</span><span class="p">,</span>
+</span><span data-line="46">        <span class="n">users_service</span><span class="p">:</span> <span class="n">UserServiceDep</span><span class="p">,</span>
+</span><span data-line="47">        <span class="n">token_payload</span><span class="p">:</span> <span class="n">TokenPayloadBase</span><span class="p">,</span>
+</span><span data-line="48">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UserAuth</span><span class="p">:</span>
+</span><span data-line="49"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Load UserAuth schema from the database using the JWT &#39;sub&#39; claim.</span>
+</span><span data-line="50">
+</span><span data-line="51"><span class="sd">        The result of this function is aggressively cached to reduce database load.</span>
+</span><span data-line="52">
+</span><span data-line="53"><span class="sd">        Args:</span>
+</span><span data-line="54"><span class="sd">            users_service (UserService): Dependency for user service operations.</span>
+</span><span data-line="55"><span class="sd">            token_payload (TokenPayload): The token data.</span>
+</span><span data-line="56">
+</span><span data-line="57"><span class="sd">        Returns:</span>
+</span><span data-line="58"><span class="sd">            UserAuth: The authenticated user.</span>
+</span><span data-line="59">
+</span><span data-line="60"><span class="sd">        Raises:</span>
+</span><span data-line="61"><span class="sd">            UnauthorizedException: If the user is not found (HTTP 401).</span>
+</span><span data-line="62"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="63">        <span class="n">user_id</span> <span class="o">=</span> <span class="n">token_payload</span><span class="o">.</span><span class="n">sub</span>
+</span><span data-line="64">        <span class="k">try</span><span class="p">:</span>
+</span><span data-line="65">            <span class="n">db_obj</span> <span class="o">=</span> <span class="k">await</span> <span class="n">users_service</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+</span><span data-line="66">                <span class="n">item_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span>
+</span><span data-line="67">                <span class="n">load</span><span class="o">=</span><span class="p">[</span>
+</span><span data-line="68">                    <span class="n">load_only</span><span class="p">(</span>
+</span><span data-line="69">                        <span class="n">User</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+</span><span data-line="70">                        <span class="n">User</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+</span><span data-line="71">                        <span class="n">User</span><span class="o">.</span><span class="n">email</span><span class="p">,</span>
+</span><span data-line="72">                        <span class="n">User</span><span class="o">.</span><span class="n">is_active</span><span class="p">,</span>
+</span><span data-line="73">                        <span class="n">User</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">,</span>
+</span><span data-line="74">                    <span class="p">),</span>
+</span><span data-line="75">                    <span class="n">joinedload</span><span class="p">(</span><span class="n">User</span><span class="o">.</span><span class="n">role</span><span class="p">)</span><span class="o">.</span><span class="n">load_only</span><span class="p">(</span><span class="n">Role</span><span class="o">.</span><span class="n">slug</span><span class="p">),</span>
+</span><span data-line="76">                <span class="p">],</span>
+</span><span data-line="77">            <span class="p">)</span>
+</span><span data-line="78">            <span class="k">return</span> <span class="n">users_service</span><span class="o">.</span><span class="n">to_schema</span><span class="p">(</span><span class="n">db_obj</span><span class="p">,</span> <span class="n">schema_type</span><span class="o">=</span><span class="n">UserAuth</span><span class="p">)</span>
+</span><span data-line="79">        <span class="k">except</span> <span class="n">NotFoundError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+</span><span data-line="80">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid authentication credentials&quot;</span>
+</span><span data-line="81">            <span class="k">raise</span> <span class="n">UnauthorizedException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span></div>
+
+</span><span data-line="82">
+<div class="viewcode-block" id="Authenticate.get_current_user_for_refresh">
+<a class="viewcode-back" href="../../../../api/domain/users/auth.html#app.domain.users.auth.Authenticate.get_current_user_for_refresh">[docs]</a>
+</span><span data-line="83">    <span class="nd">@classmethod</span>
+</span><span data-line="84">    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_current_user_for_refresh</span><span class="p">(</span>
+</span><span data-line="85">        <span class="bp">cls</span><span class="p">,</span>
+</span><span data-line="86">        <span class="n">token</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">refresh_token</span><span class="p">)],</span>
+</span><span data-line="87">        <span class="n">users_service</span><span class="p">:</span> <span class="n">UserServiceDep</span><span class="p">,</span>
+</span><span data-line="88">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UserAuth</span><span class="p">:</span>
+</span><span data-line="89"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Authenticate the user using the refresh token.</span>
+</span><span data-line="90">
+</span><span data-line="91"><span class="sd">        Performs critical security checks including token blacklisting. This dependency</span>
+</span><span data-line="92"><span class="sd">        is used exclusively by the token refresh endpoint.</span>
 </span><span data-line="93">
 </span><span data-line="94"><span class="sd">        Args:</span>
-</span><span data-line="95"><span class="sd">            token_payload (dict): The decoded JWT payload.</span>
+</span><span data-line="95"><span class="sd">            token (str): The refresh token extracted from the cookie.</span>
 </span><span data-line="96"><span class="sd">            users_service (UserService): Dependency for user service operations.</span>
 </span><span data-line="97">
 </span><span data-line="98"><span class="sd">        Returns:</span>
-</span><span data-line="99"><span class="sd">            UserAuth: The authenticated user.</span>
+</span><span data-line="99"><span class="sd">            UserAuth: The authenticated user with JTI attached.</span>
 </span><span data-line="100">
 </span><span data-line="101"><span class="sd">        Raises:</span>
-</span><span data-line="102"><span class="sd">            UnauthorizedException: If the user is not found (HTTP 401).</span>
+</span><span data-line="102"><span class="sd">            UnauthorizedException: If the token is invalid, blacklisted, or the user is inactive (HTTP 401).</span>
 </span><span data-line="103"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="104">        <span class="n">user_id</span> <span class="o">=</span> <span class="n">token_payload</span><span class="p">[</span><span class="s2">&quot;sub&quot;</span><span class="p">]</span>
-</span><span data-line="105">        <span class="k">try</span><span class="p">:</span>
-</span><span data-line="106">            <span class="n">db_obj</span> <span class="o">=</span> <span class="k">await</span> <span class="n">users_service</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-</span><span data-line="107">                <span class="n">item_id</span><span class="o">=</span><span class="n">user_id</span><span class="p">,</span>
-</span><span data-line="108">                <span class="n">load</span><span class="o">=</span><span class="p">[</span>
-</span><span data-line="109">                    <span class="n">load_only</span><span class="p">(</span>
-</span><span data-line="110">                        <span class="n">User</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-</span><span data-line="111">                        <span class="n">User</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-</span><span data-line="112">                        <span class="n">User</span><span class="o">.</span><span class="n">email</span><span class="p">,</span>
-</span><span data-line="113">                        <span class="n">User</span><span class="o">.</span><span class="n">is_active</span><span class="p">,</span>
-</span><span data-line="114">                        <span class="n">User</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">,</span>
-</span><span data-line="115">                    <span class="p">),</span>
-</span><span data-line="116">                    <span class="n">selectinload</span><span class="p">(</span><span class="n">User</span><span class="o">.</span><span class="n">role</span><span class="p">)</span><span class="o">.</span><span class="n">load_only</span><span class="p">(</span><span class="n">Role</span><span class="o">.</span><span class="n">slug</span><span class="p">),</span>
-</span><span data-line="117">                <span class="p">],</span>
-</span><span data-line="118">            <span class="p">)</span>
-</span><span data-line="119">            <span class="k">return</span> <span class="n">users_service</span><span class="o">.</span><span class="n">to_schema</span><span class="p">(</span><span class="n">db_obj</span><span class="p">,</span> <span class="n">schema_type</span><span class="o">=</span><span class="n">UserAuth</span><span class="p">)</span>
-</span><span data-line="120">        <span class="k">except</span> <span class="n">NotFoundError</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-</span><span data-line="121">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid authentication credentials&quot;</span>
-</span><span data-line="122">            <span class="k">raise</span> <span class="n">UnauthorizedException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">exc</span></div>
+</span><span data-line="104">        <span class="n">token_payload</span> <span class="o">=</span> <span class="n">get_refresh_token_payload</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">)</span>
+</span><span data-line="105">        <span class="n">refresh_jti</span> <span class="o">=</span> <span class="n">token_payload</span><span class="o">.</span><span class="n">jti</span>
+</span><span data-line="106">        <span class="n">token_exists</span> <span class="o">=</span> <span class="k">await</span> <span class="n">is_token_in_blacklist</span><span class="p">(</span>
+</span><span data-line="107">            <span class="n">refresh_token_identifier</span><span class="o">=</span><span class="n">refresh_jti</span><span class="p">,</span>
+</span><span data-line="108">        <span class="p">)</span>
+</span><span data-line="109">        <span class="k">if</span> <span class="n">token_exists</span><span class="p">:</span>
+</span><span data-line="110">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid credentials&quot;</span>
+</span><span data-line="111">            <span class="k">raise</span> <span class="n">UnauthorizedException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="112">        <span class="n">user_auth</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_get_user_from_payload</span><span class="p">(</span>
+</span><span data-line="113">            <span class="n">token_payload</span><span class="o">=</span><span class="n">token_payload</span><span class="p">,</span>
+</span><span data-line="114">            <span class="n">users_service</span><span class="o">=</span><span class="n">users_service</span><span class="p">,</span>
+</span><span data-line="115">        <span class="p">)</span>
+</span><span data-line="116">        <span class="k">if</span> <span class="ow">not</span> <span class="n">user_auth</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
+</span><span data-line="117">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid credentials or account is unavailable&quot;</span>
+</span><span data-line="118">            <span class="k">raise</span> <span class="n">UnauthorizedException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="119">
+</span><span data-line="120">        <span class="n">user_auth</span><span class="o">.</span><span class="n">_refresh_jti</span> <span class="o">=</span> <span class="n">refresh_jti</span>  <span class="c1"># noqa: SLF001</span>
+</span><span data-line="121">        <span class="n">user_auth</span><span class="o">.</span><span class="n">_refresh_exp</span> <span class="o">=</span> <span class="n">token_payload</span><span class="o">.</span><span class="n">exp</span>  <span class="c1"># noqa: SLF001</span>
+</span><span data-line="122">        <span class="k">return</span> <span class="n">user_auth</span></div>
 
 </span><span data-line="123">
-<div class="viewcode-block" id="Authenticate.get_current_user_for_refresh">
-<a class="viewcode-back" href="../../../../api/domain/users/auth.html#app.domain.users.auth.Authenticate.get_current_user_for_refresh">[docs]</a>
-</span><span data-line="124">    <span class="nd">@classmethod</span>
-</span><span data-line="125">    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_current_user_for_refresh</span><span class="p">(</span>
-</span><span data-line="126">        <span class="bp">cls</span><span class="p">,</span>
-</span><span data-line="127">        <span class="n">token</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">refresh_token</span><span class="p">)],</span>
-</span><span data-line="128">        <span class="n">users_service</span><span class="p">:</span> <span class="n">UserServiceDep</span><span class="p">,</span>
-</span><span data-line="129">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UserAuth</span><span class="p">:</span>
-</span><span data-line="130"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Authenticate the user using the refresh token.</span>
-</span><span data-line="131">
-</span><span data-line="132"><span class="sd">        Performs critical security checks including token blacklisting. This dependency</span>
-</span><span data-line="133"><span class="sd">        is used exclusively by the token refresh endpoint.</span>
-</span><span data-line="134">
-</span><span data-line="135"><span class="sd">        Args:</span>
-</span><span data-line="136"><span class="sd">            token (str): The refresh token extracted from the cookie.</span>
-</span><span data-line="137"><span class="sd">            users_service (UserService): Dependency for user service operations.</span>
-</span><span data-line="138">
-</span><span data-line="139"><span class="sd">        Returns:</span>
-</span><span data-line="140"><span class="sd">            UserAuth: The authenticated user with JTI attached.</span>
-</span><span data-line="141">
-</span><span data-line="142"><span class="sd">        Raises:</span>
-</span><span data-line="143"><span class="sd">            UnauthorizedException: If the token is invalid, blacklisted, or the user is inactive (HTTP 401).</span>
-</span><span data-line="144"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="145">        <span class="n">token_payload</span> <span class="o">=</span> <span class="n">get_payload_from_token</span><span class="p">(</span><span class="n">authentication_token</span><span class="o">=</span><span class="n">token</span><span class="p">)</span>
-</span><span data-line="146">        <span class="n">refresh_jti</span> <span class="o">=</span> <span class="n">token_payload</span><span class="p">[</span><span class="s2">&quot;jti&quot;</span><span class="p">]</span>
-</span><span data-line="147">        <span class="n">token_exists</span> <span class="o">=</span> <span class="k">await</span> <span class="n">is_token_in_blacklist</span><span class="p">(</span>
-</span><span data-line="148">            <span class="n">refresh_token_identifier</span><span class="o">=</span><span class="n">refresh_jti</span><span class="p">,</span>
-</span><span data-line="149">        <span class="p">)</span>
-</span><span data-line="150">        <span class="k">if</span> <span class="n">token_exists</span><span class="p">:</span>
-</span><span data-line="151">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid credentials&quot;</span>
-</span><span data-line="152">            <span class="k">raise</span> <span class="n">UnauthorizedException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
-</span><span data-line="153">        <span class="n">user_auth</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_get_user_from_payload</span><span class="p">(</span>
-</span><span data-line="154">            <span class="n">token_payload</span><span class="o">=</span><span class="n">token_payload</span><span class="p">,</span>
-</span><span data-line="155">            <span class="n">users_service</span><span class="o">=</span><span class="n">users_service</span><span class="p">,</span>
-</span><span data-line="156">        <span class="p">)</span>
-</span><span data-line="157">        <span class="k">if</span> <span class="ow">not</span> <span class="n">user_auth</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
-</span><span data-line="158">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid credentials or account is unavailable&quot;</span>
-</span><span data-line="159">            <span class="k">raise</span> <span class="n">UnauthorizedException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
-</span><span data-line="160">
-</span><span data-line="161">        <span class="n">user_auth</span><span class="o">.</span><span class="n">_refresh_jti</span> <span class="o">=</span> <span class="n">refresh_jti</span>  <span class="c1"># noqa: SLF001</span>
-</span><span data-line="162">        <span class="k">return</span> <span class="n">user_auth</span></div>
-
-</span><span data-line="163">
 <div class="viewcode-block" id="Authenticate.get_current_user">
 <a class="viewcode-back" href="../../../../api/domain/users/auth.html#app.domain.users.auth.Authenticate.get_current_user">[docs]</a>
-</span><span data-line="164">    <span class="nd">@classmethod</span>
-</span><span data-line="165">    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_current_user</span><span class="p">(</span>
-</span><span data-line="166">        <span class="bp">cls</span><span class="p">,</span>
-</span><span data-line="167">        <span class="n">token</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">access_token</span><span class="p">)],</span>
-</span><span data-line="168">        <span class="n">users_service</span><span class="p">:</span> <span class="n">UserServiceDep</span><span class="p">,</span>
-</span><span data-line="169">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UserAuth</span><span class="p">:</span>
-</span><span data-line="170"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Authenticate the user using the access token.</span>
-</span><span data-line="171">
-</span><span data-line="172"><span class="sd">        Args:</span>
-</span><span data-line="173"><span class="sd">            token (str): The access token extracted from the cookie.</span>
-</span><span data-line="174"><span class="sd">            users_service (UserService): Dependency for user service operations.</span>
-</span><span data-line="175">
-</span><span data-line="176"><span class="sd">        Returns:</span>
-</span><span data-line="177"><span class="sd">            UserAuth: The authenticated user.</span>
-</span><span data-line="178"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="179">        <span class="n">token_payload</span> <span class="o">=</span> <span class="n">get_payload_from_token</span><span class="p">(</span><span class="n">authentication_token</span><span class="o">=</span><span class="n">token</span><span class="p">)</span>
-</span><span data-line="180">        <span class="k">return</span> <span class="k">await</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_get_user_from_payload</span><span class="p">(</span>
-</span><span data-line="181">            <span class="n">token_payload</span><span class="o">=</span><span class="n">token_payload</span><span class="p">,</span>
-</span><span data-line="182">            <span class="n">users_service</span><span class="o">=</span><span class="n">users_service</span><span class="p">,</span>
-</span><span data-line="183">        <span class="p">)</span></div>
+</span><span data-line="124">    <span class="nd">@classmethod</span>
+</span><span data-line="125">    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_current_user</span><span class="p">(</span>
+</span><span data-line="126">        <span class="bp">cls</span><span class="p">,</span>
+</span><span data-line="127">        <span class="n">token</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">access_token</span><span class="p">)],</span>
+</span><span data-line="128">        <span class="n">users_service</span><span class="p">:</span> <span class="n">UserServiceDep</span><span class="p">,</span>
+</span><span data-line="129">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UserAuth</span><span class="p">:</span>
+</span><span data-line="130"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Authenticate the user using the access token.</span>
+</span><span data-line="131">
+</span><span data-line="132"><span class="sd">        Args:</span>
+</span><span data-line="133"><span class="sd">            token (str): The access token extracted from the cookie.</span>
+</span><span data-line="134"><span class="sd">            users_service (UserService): Dependency for user service operations.</span>
+</span><span data-line="135">
+</span><span data-line="136"><span class="sd">        Returns:</span>
+</span><span data-line="137"><span class="sd">            UserAuth: The authenticated user.</span>
+</span><span data-line="138"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="139">        <span class="n">token_payload</span> <span class="o">=</span> <span class="k">await</span> <span class="n">get_access_token_payload</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">)</span>
+</span><span data-line="140">        <span class="k">return</span> <span class="k">await</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_get_user_from_payload</span><span class="p">(</span>
+</span><span data-line="141">            <span class="n">token_payload</span><span class="o">=</span><span class="n">token_payload</span><span class="p">,</span>
+</span><span data-line="142">            <span class="n">users_service</span><span class="o">=</span><span class="n">users_service</span><span class="p">,</span>
+</span><span data-line="143">        <span class="p">)</span></div>
 
-</span><span data-line="184">
+</span><span data-line="144">
 <div class="viewcode-block" id="Authenticate.get_current_active_user">
 <a class="viewcode-back" href="../../../../api/domain/users/auth.html#app.domain.users.auth.Authenticate.get_current_active_user">[docs]</a>
-</span><span data-line="185">    <span class="nd">@classmethod</span>
-</span><span data-line="186">    <span class="k">def</span><span class="w"> </span><span class="nf">get_current_active_user</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">UserAuth</span><span class="p">],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">UserAuth</span><span class="p">]]:</span>
-</span><span data-line="187"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Dependency factory to ensure the user is active.</span>
-</span><span data-line="188">
-</span><span data-line="189"><span class="sd">        It chains with `get_current_user` to perform both authentication and</span>
-</span><span data-line="190"><span class="sd">        basic authorization (account status check).</span>
-</span><span data-line="191">
-</span><span data-line="192"><span class="sd">        Returns:</span>
-</span><span data-line="193"><span class="sd">            Callable: A FastAPI dependency function.</span>
-</span><span data-line="194">
-</span><span data-line="195"><span class="sd">        Raises:</span>
-</span><span data-line="196"><span class="sd">            UnauthorizedException: If the user is found but not active (HTTP 401).</span>
-</span><span data-line="197"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="198">
-</span><span data-line="199">        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">current_user</span><span class="p">(</span>
-</span><span data-line="200">            <span class="n">user_auth</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">UserAuth</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">get_current_user</span><span class="p">)],</span>
-</span><span data-line="201">        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UserAuth</span><span class="p">:</span>
-</span><span data-line="202">            <span class="k">if</span> <span class="ow">not</span> <span class="n">user_auth</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
-</span><span data-line="203">                <span class="k">raise</span> <span class="n">UnauthorizedException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Invalid credentials or account is unavailable&quot;</span><span class="p">)</span>
-</span><span data-line="204">            <span class="k">return</span> <span class="n">user_auth</span>
-</span><span data-line="205">
-</span><span data-line="206">        <span class="k">return</span> <span class="n">current_user</span></div>
+</span><span data-line="145">    <span class="nd">@classmethod</span>
+</span><span data-line="146">    <span class="k">def</span><span class="w"> </span><span class="nf">get_current_active_user</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">UserAuth</span><span class="p">],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">UserAuth</span><span class="p">]]:</span>
+</span><span data-line="147"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Dependency factory to ensure the user is active.</span>
+</span><span data-line="148">
+</span><span data-line="149"><span class="sd">        It chains with `get_current_user` to perform both authentication and</span>
+</span><span data-line="150"><span class="sd">        basic authorization (account status check).</span>
+</span><span data-line="151">
+</span><span data-line="152"><span class="sd">        Returns:</span>
+</span><span data-line="153"><span class="sd">            Callable: A FastAPI dependency function.</span>
+</span><span data-line="154">
+</span><span data-line="155"><span class="sd">        Raises:</span>
+</span><span data-line="156"><span class="sd">            UnauthorizedException: If the user is found but not active (HTTP 401).</span>
+</span><span data-line="157"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="158">
+</span><span data-line="159">        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">current_user</span><span class="p">(</span>
+</span><span data-line="160">            <span class="n">user_auth</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">UserAuth</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">get_current_user</span><span class="p">)],</span>
+</span><span data-line="161">        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UserAuth</span><span class="p">:</span>
+</span><span data-line="162">            <span class="k">if</span> <span class="ow">not</span> <span class="n">user_auth</span><span class="o">.</span><span class="n">is_active</span><span class="p">:</span>
+</span><span data-line="163">                <span class="k">raise</span> <span class="n">UnauthorizedException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Invalid credentials or account is unavailable&quot;</span><span class="p">)</span>
+</span><span data-line="164">            <span class="k">return</span> <span class="n">user_auth</span>
+</span><span data-line="165">
+</span><span data-line="166">        <span class="k">return</span> <span class="n">current_user</span></div>
 
-</span><span data-line="207">
+</span><span data-line="167">
 <div class="viewcode-block" id="Authenticate.superuser_required">
 <a class="viewcode-back" href="../../../../api/domain/users/auth.html#app.domain.users.auth.Authenticate.superuser_required">[docs]</a>
-</span><span data-line="208">    <span class="nd">@classmethod</span>
-</span><span data-line="209">    <span class="k">def</span><span class="w"> </span><span class="nf">superuser_required</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">UserAuth</span><span class="p">],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">UserAuth</span><span class="p">]]:</span>
-</span><span data-line="210"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Dependency factory requiring superuser privileges.</span>
-</span><span data-line="211">
-</span><span data-line="212"><span class="sd">        It chains with `get_current_active_user` and performs the final authorization check.</span>
-</span><span data-line="213">
-</span><span data-line="214"><span class="sd">        Returns:</span>
-</span><span data-line="215"><span class="sd">            Callable: A FastAPI dependency function.</span>
-</span><span data-line="216">
-</span><span data-line="217"><span class="sd">        Raises:</span>
-</span><span data-line="218"><span class="sd">            PermissionDeniedException: If the user is not a superuser (HTTP 403).</span>
-</span><span data-line="219"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="220">
-</span><span data-line="221">        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">current_user</span><span class="p">(</span>
-</span><span data-line="222">            <span class="n">user_auth</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">UserAuth</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">get_current_active_user</span><span class="p">())],</span>
-</span><span data-line="223">        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UserAuth</span><span class="p">:</span>
-</span><span data-line="224">            <span class="k">if</span> <span class="ow">not</span> <span class="n">user_auth</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">:</span>
-</span><span data-line="225">                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Access denied: Superuser privileges required&quot;</span>
-</span><span data-line="226">                <span class="k">raise</span> <span class="n">PermissionDeniedException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
-</span><span data-line="227">            <span class="k">return</span> <span class="n">user_auth</span>
-</span><span data-line="228">
-</span><span data-line="229">        <span class="k">return</span> <span class="n">current_user</span></div>
+</span><span data-line="168">    <span class="nd">@classmethod</span>
+</span><span data-line="169">    <span class="k">def</span><span class="w"> </span><span class="nf">superuser_required</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">UserAuth</span><span class="p">],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">UserAuth</span><span class="p">]]:</span>
+</span><span data-line="170"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Dependency factory requiring superuser privileges.</span>
+</span><span data-line="171">
+</span><span data-line="172"><span class="sd">        It chains with `get_current_active_user` and performs the final authorization check.</span>
+</span><span data-line="173">
+</span><span data-line="174"><span class="sd">        Returns:</span>
+</span><span data-line="175"><span class="sd">            Callable: A FastAPI dependency function.</span>
+</span><span data-line="176">
+</span><span data-line="177"><span class="sd">        Raises:</span>
+</span><span data-line="178"><span class="sd">            PermissionDeniedException: If the user is not a superuser (HTTP 403).</span>
+</span><span data-line="179"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="180">
+</span><span data-line="181">        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">current_user</span><span class="p">(</span>
+</span><span data-line="182">            <span class="n">user_auth</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">UserAuth</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">get_current_active_user</span><span class="p">())],</span>
+</span><span data-line="183">        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UserAuth</span><span class="p">:</span>
+</span><span data-line="184">            <span class="k">if</span> <span class="ow">not</span> <span class="n">user_auth</span><span class="o">.</span><span class="n">is_superuser</span><span class="p">:</span>
+</span><span data-line="185">                <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Access denied: Superuser privileges required&quot;</span>
+</span><span data-line="186">                <span class="k">raise</span> <span class="n">PermissionDeniedException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="187">            <span class="k">return</span> <span class="n">user_auth</span>
+</span><span data-line="188">
+</span><span data-line="189">        <span class="k">return</span> <span class="n">current_user</span></div>
 
-</span><span data-line="230">
+</span><span data-line="190">
 <div class="viewcode-block" id="Authenticate.trainer_required">
 <a class="viewcode-back" href="../../../../api/domain/users/auth.html#app.domain.users.auth.Authenticate.trainer_required">[docs]</a>
-</span><span data-line="231">    <span class="nd">@classmethod</span>
-</span><span data-line="232">    <span class="k">def</span><span class="w"> </span><span class="nf">trainer_required</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">UserAuth</span><span class="p">],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">UserAuth</span><span class="p">]]:</span>
-</span><span data-line="233"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Dependency factory requiring the Fitness Trainer role.</span>
-</span><span data-line="234">
-</span><span data-line="235"><span class="sd">        It chains with `get_current_active_user` and performs the final role check.</span>
-</span><span data-line="236">
-</span><span data-line="237"><span class="sd">        Returns:</span>
-</span><span data-line="238"><span class="sd">            Callable: A FastAPI dependency function.</span>
-</span><span data-line="239">
-</span><span data-line="240"><span class="sd">        Raises:</span>
-</span><span data-line="241"><span class="sd">            PermissionDeniedException: If the user does not have the required role (HTTP 403).</span>
-</span><span data-line="242"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="243">
-</span><span data-line="244">        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">current_user</span><span class="p">(</span>
-</span><span data-line="245">            <span class="n">user_auth</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">UserAuth</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">get_current_active_user</span><span class="p">())],</span>
-</span><span data-line="246">        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UserAuth</span><span class="p">:</span>
-</span><span data-line="247">            <span class="k">if</span> <span class="n">user_auth</span><span class="o">.</span><span class="n">role_slug</span> <span class="o">==</span> <span class="n">FITNESS_TRAINER_ROLE_SLUG</span><span class="p">:</span>
-</span><span data-line="248">                <span class="k">return</span> <span class="n">user_auth</span>
-</span><span data-line="249">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Access restricted to fitness trainers&quot;</span>
-</span><span data-line="250">            <span class="k">raise</span> <span class="n">PermissionDeniedException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
-</span><span data-line="251">
-</span><span data-line="252">        <span class="k">return</span> <span class="n">current_user</span></div>
+</span><span data-line="191">    <span class="nd">@classmethod</span>
+</span><span data-line="192">    <span class="k">def</span><span class="w"> </span><span class="nf">trainer_required</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">UserAuth</span><span class="p">],</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">UserAuth</span><span class="p">]]:</span>
+</span><span data-line="193"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Dependency factory requiring the Fitness Trainer role.</span>
+</span><span data-line="194">
+</span><span data-line="195"><span class="sd">        It chains with `get_current_active_user` and performs the final role check.</span>
+</span><span data-line="196">
+</span><span data-line="197"><span class="sd">        Returns:</span>
+</span><span data-line="198"><span class="sd">            Callable: A FastAPI dependency function.</span>
+</span><span data-line="199">
+</span><span data-line="200"><span class="sd">        Raises:</span>
+</span><span data-line="201"><span class="sd">            PermissionDeniedException: If the user does not have the required role (HTTP 403).</span>
+</span><span data-line="202"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="203">
+</span><span data-line="204">        <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">current_user</span><span class="p">(</span>
+</span><span data-line="205">            <span class="n">user_auth</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="n">UserAuth</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">get_current_active_user</span><span class="p">())],</span>
+</span><span data-line="206">        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">UserAuth</span><span class="p">:</span>
+</span><span data-line="207">            <span class="k">if</span> <span class="n">user_auth</span><span class="o">.</span><span class="n">role_slug</span> <span class="o">==</span> <span class="n">FITNESS_TRAINER_ROLE_SLUG</span><span class="p">:</span>
+</span><span data-line="208">                <span class="k">return</span> <span class="n">user_auth</span>
+</span><span data-line="209">            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Access restricted to fitness trainers&quot;</span>
+</span><span data-line="210">            <span class="k">raise</span> <span class="n">PermissionDeniedException</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="n">msg</span><span class="p">)</span>
+</span><span data-line="211">
+</span><span data-line="212">        <span class="k">return</span> <span class="n">current_user</span></div>
 
-</span><span data-line="253">
+</span><span data-line="213">
 <div class="viewcode-block" id="Authenticate.get_refresh_jti">
 <a class="viewcode-back" href="../../../../api/domain/users/auth.html#app.domain.users.auth.Authenticate.get_refresh_jti">[docs]</a>
-</span><span data-line="254">    <span class="nd">@classmethod</span>
-</span><span data-line="255">    <span class="k">def</span><span class="w"> </span><span class="nf">get_refresh_jti</span><span class="p">(</span>
-</span><span data-line="256">        <span class="bp">cls</span><span class="p">,</span>
-</span><span data-line="257">        <span class="n">token</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">refresh_token</span><span class="p">)],</span>
-</span><span data-line="258">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span data-line="259"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract the JWT ID (jti) claim from a refresh token.</span>
-</span><span data-line="260">
-</span><span data-line="261"><span class="sd">        This method is primarily used to retrieve the JTI for blacklisting</span>
-</span><span data-line="262"><span class="sd">        during the token refresh process.</span>
-</span><span data-line="263">
-</span><span data-line="264"><span class="sd">        Args:</span>
-</span><span data-line="265"><span class="sd">            token (str): The refresh token string from the cookie.</span>
-</span><span data-line="266">
-</span><span data-line="267"><span class="sd">        Returns:</span>
-</span><span data-line="268"><span class="sd">            str: The JTI claim.</span>
-</span><span data-line="269"><span class="sd">        &quot;&quot;&quot;</span>
-</span><span data-line="270">        <span class="n">token_payload</span> <span class="o">=</span> <span class="n">get_payload_from_token</span><span class="p">(</span><span class="n">authentication_token</span><span class="o">=</span><span class="n">token</span><span class="p">)</span>
-</span><span data-line="271">        <span class="n">token_identifier</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">token_payload</span><span class="p">[</span><span class="s2">&quot;jti&quot;</span><span class="p">]</span>
-</span><span data-line="272">
-</span><span data-line="273">        <span class="k">return</span> <span class="n">token_identifier</span></div>
+</span><span data-line="214">    <span class="nd">@classmethod</span>
+</span><span data-line="215">    <span class="k">def</span><span class="w"> </span><span class="nf">get_refresh_jti</span><span class="p">(</span>
+</span><span data-line="216">        <span class="bp">cls</span><span class="p">,</span>
+</span><span data-line="217">        <span class="n">token</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Depends</span><span class="p">(</span><span class="n">refresh_token</span><span class="p">)],</span>
+</span><span data-line="218">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+</span><span data-line="219"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract the JWT ID (jti) and expiration (exp) from a refresh token.</span>
+</span><span data-line="220">
+</span><span data-line="221"><span class="sd">        Args:</span>
+</span><span data-line="222"><span class="sd">            token (str): The refresh token string from the cookie.</span>
+</span><span data-line="223">
+</span><span data-line="224"><span class="sd">        Returns:</span>
+</span><span data-line="225"><span class="sd">            tuple[str, float]: The JTI claim and expiration timestamp.</span>
+</span><span data-line="226"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="227">        <span class="n">token_payload</span> <span class="o">=</span> <span class="n">get_refresh_token_payload</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">)</span>
+</span><span data-line="228">
+</span><span data-line="229">        <span class="k">return</span> <span class="n">token_payload</span><span class="o">.</span><span class="n">jti</span><span class="p">,</span> <span class="n">token_payload</span><span class="o">.</span><span class="n">exp</span></div>
 </div>
 
 </span></pre></div>
@@ -523,7 +500,7 @@ data-aria-dark="Switch to auto color mode">
       <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../../_static/copybutton.js?v=f281be69"></script>
       <script src="../../../../_static/design-tabs.js?v=f930bc37"></script>
-      <script src="../../../../_static/shibuya.js?v=cac61aee"></script>
+      <script src="../../../../_static/shibuya.js?v=50760d75"></script>
       <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
       <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
 
@@ -958,5 +935,6 @@ mermaid.initialize(
     }
 );
 
-window.addEventListener("load", load);</script></body>
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script></body>
 </html>

@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=9454f7d5" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
@@ -20,7 +20,8 @@
   --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
 }
 </style>
-    <meta property="og:type" content="website"/><meta property="og:title" content="Base Settings Models"/>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Base Settings Models"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -69,30 +70,29 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../scripts/index.html">Application Scripts</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../scripts/commands.html">User Management CLI</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../scripts/seeder.html">Database Seeding Script</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../server/index.html">Core Setup</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../server/core.html">Server Core</a></li>
-</ul>
-</li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Application Configuration</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Base Settings Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="app_settings.html">SQLAlchemy and Dependency Configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="constants.html">Application Constants</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../server/index.html">Core Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../server/core.html">Server Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/lifespan.html">Lifespan Management</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../db/index.html">ORM Models</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../db/base.html">Base Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../db/user.html">User Model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/reference.html">Reference Data Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/exercise.html">Exercise Model</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../lib/index.html">Core Utilities (lib)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../lib/auth.html">JWT Cookie Security Scheme</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lib/crypt.html">Security Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/deps.html">Infrastructure Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lib/exceptions.html">API Exceptions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lib/filters.html">Query Filters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lib/handlers.html">Exception Handlers</a></li>
@@ -114,7 +114,11 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l3"><a class="reference internal" href="../utils/server_cli.html">Server CLI Commands</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../main.html">Entry Point (main.py)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../scripts/index.html">Application Scripts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../scripts/commands.html">User Management CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scripts/seeder.html">Database Seeding Script</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../domain/index.html">Domains Overview</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../domain/users/index.html">Users Domain</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/access.html">Access Controllers</a></li>
@@ -123,9 +127,28 @@ data-aria-dark="Switch to auto color mode">
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/services.html">User and Role Services</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/schemas.html">User Domain Schemas</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication &amp; Authorization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/utils.html">User Utilities and Helpers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/deps.html">User Domain Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/users/filters.html">Users Domain Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/users/utils.html">User Utilities and Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/catalogs/index.html">Catalogs Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/equipment.html">Equipment Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/exercise_tags.html">Exercise Tag Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/muscle_groups.html">Muscle Group Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/services.html">Catalogs Domain Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/schemas.html">Catalogs Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/deps.html">Catalogs Domain Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/filters.html">Catalogs Domain Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/exercises/index.html">Exercises Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/controllers.html">Exercise Management Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/services.html">Exercises Domain Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/schemas.html">Exercises Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/filters.html">Exercises Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/deps.html">Exercises Domain Dependencies</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../domain/system/index.html">System Domain</a><ul>
@@ -135,6 +158,7 @@ data-aria-dark="Switch to auto color mode">
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../main.html">Entry Point (main.py)</a></li>
 </ul>
 </li>
 </ul>
@@ -172,8 +196,12 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#app.config.base.AppSettings.NAME"><code class="docutils literal notranslate">NAME</span></code></a></li>
 <li><a class="reference internal" href="#app.config.base.AppSettings.ENVIRONMENT"><code class="docutils literal notranslate">ENVIRONMENT</span></code></a></li>
 <li><a class="reference internal" href="#app.config.base.AppSettings.API_V1_URL_PREFIX"><code class="docutils literal notranslate">API_V1_URL_PREFIX</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.AppSettings.COOKIE_SECURE_VALUE"><code class="docutils literal notranslate">COOKIE_SECURE_VALUE</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.AppSettings.DEFAULT_ADMIN_EMAIL"><code class="docutils literal notranslate">DEFAULT_ADMIN_EMAIL</span></code></a></li>
 <li><a class="reference internal" href="#app.config.base.AppSettings.CDN_RESOURCES_DEFAULT_URL"><code class="docutils literal notranslate">CDN_RESOURCES_DEFAULT_URL</span></code></a></li>
 <li><a class="reference internal" href="#app.config.base.AppSettings.EXERCISES_PATH_PREFIX"><code class="docutils literal notranslate">EXERCISES_PATH_PREFIX</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.AppSettings.CRYPTO_MAX_WORKERS"><code class="docutils literal notranslate">CRYPTO_MAX_WORKERS</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.AppSettings.user_auth_cache_ttl"><code class="docutils literal notranslate">user_auth_cache_ttl</span></code></a></li>
 <li><a class="reference internal" href="#app.config.base.AppSettings.cdn_exercises_url_prefix"><code class="docutils literal notranslate">cdn_exercises_url_prefix</span></code></a></li>
 </ul>
 </li>
@@ -225,6 +253,8 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#app.config.base.JWTSettings.JWT_PRIVATE_KEY"><code class="docutils literal notranslate">JWT_PRIVATE_KEY</span></code></a></li>
 <li><a class="reference internal" href="#app.config.base.JWTSettings.ACCESS_TOKEN_EXPIRE_MINUTES"><code class="docutils literal notranslate">ACCESS_TOKEN_EXPIRE_MINUTES</span></code></a></li>
 <li><a class="reference internal" href="#app.config.base.JWTSettings.REFRESH_TOKEN_EXPIRE_DAYS"><code class="docutils literal notranslate">REFRESH_TOKEN_EXPIRE_DAYS</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.JWTSettings.access_token_max_age"><code class="docutils literal notranslate">access_token_max_age</span></code></a></li>
+<li><a class="reference internal" href="#app.config.base.JWTSettings.refresh_token_max_age"><code class="docutils literal notranslate">refresh_token_max_age</span></code></a></li>
 <li><a class="reference internal" href="#app.config.base.JWTSettings.key_object"><code class="docutils literal notranslate">key_object</span></code></a></li>
 </ul>
 </li>
@@ -363,7 +393,7 @@ data-aria-dark="Switch to auto color mode">
 <h2>Application Settings (<cite>AppSettings</cite>)<a class="headerlink" href="#application-settings-appsettings" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.config.base.AppSettings">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AppSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DEBUG:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NAME:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'IronTrack'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ENVIRONMENT:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">API_V1_URL_PREFIX:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'/api/v1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CDN_RESOURCES_DEFAULT_URL:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EXERCISES_PATH_PREFIX:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'exercises'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#AppSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.AppSettings" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AppSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DEBUG:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NAME:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'IronTrack'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ENVIRONMENT:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">API_V1_URL_PREFIX:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'/api/v1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">COOKIE_SECURE_VALUE:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DEFAULT_ADMIN_EMAIL:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CDN_RESOURCES_DEFAULT_URL:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">EXERCISES_PATH_PREFIX:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'exercises'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CRYPTO_MAX_WORKERS:</span> <span class="pre">int</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/config/base.html#AppSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.config.base.AppSettings" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Application configuration.</p>
 <dl class="py attribute">
@@ -391,6 +421,18 @@ data-aria-dark="Switch to auto color mode">
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.AppSettings.COOKIE_SECURE_VALUE">
+<span class="sig-name descname"><span class="pre">COOKIE_SECURE_VALUE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><span class="pre">bool</span></a></em><a class="headerlink" href="#app.config.base.AppSettings.COOKIE_SECURE_VALUE" title="Link to this definition">¶</a></dt>
+<dd><p>Boolean value for the ‘secure’ flag on authentication cookies (requires HTTPS).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.AppSettings.DEFAULT_ADMIN_EMAIL">
+<span class="sig-name descname"><span class="pre">DEFAULT_ADMIN_EMAIL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.config.base.AppSettings.DEFAULT_ADMIN_EMAIL" title="Link to this definition">¶</a></dt>
+<dd><p>Primary system admin email.</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="app.config.base.AppSettings.CDN_RESOURCES_DEFAULT_URL">
 <span class="sig-name descname"><span class="pre">CDN_RESOURCES_DEFAULT_URL</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.config.base.AppSettings.CDN_RESOURCES_DEFAULT_URL" title="Link to this definition">¶</a></dt>
 <dd><p>The default base URL for CDN-hosted resources.</p>
@@ -400,6 +442,19 @@ data-aria-dark="Switch to auto color mode">
 <dt class="sig sig-object py" id="app.config.base.AppSettings.EXERCISES_PATH_PREFIX">
 <span class="sig-name descname"><span class="pre">EXERCISES_PATH_PREFIX</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'exercises'</span></em><a class="headerlink" href="#app.config.base.AppSettings.EXERCISES_PATH_PREFIX" title="Link to this definition">¶</a></dt>
 <dd><p>The standard directory prefix for exercise images.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.config.base.AppSettings.CRYPTO_MAX_WORKERS">
+<span class="sig-name descname"><span class="pre">CRYPTO_MAX_WORKERS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#app.config.base.AppSettings.CRYPTO_MAX_WORKERS" title="Link to this definition">¶</a></dt>
+<dd><p>The maximum number of threads allocated for password hashing operations.</p>
+<p>If None, the worker count is automatically calculated based on CPU affinity.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="app.config.base.AppSettings.user_auth_cache_ttl">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">user_auth_cache_ttl</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.config.base.AppSettings.user_auth_cache_ttl" title="Link to this definition">¶</a></dt>
+<dd><p>TTL for cached user authentication and authorization data.</p>
 </dd></dl>
 
 <dl class="py property">
@@ -666,6 +721,18 @@ in RFC 9864. The string must be a valid JSON containing ‘kty’, ‘crv’, �
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="app.config.base.JWTSettings.access_token_max_age">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">access_token_max_age</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.config.base.JWTSettings.access_token_max_age" title="Link to this definition">¶</a></dt>
+<dd><p>Access token lifetime in cookies (calculated in seconds).</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="app.config.base.JWTSettings.refresh_token_max_age">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">refresh_token_max_age</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.config.base.JWTSettings.refresh_token_max_age" title="Link to this definition">¶</a></dt>
+<dd><p>Refresh token lifetime in cookies (calculated in seconds).</p>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="app.config.base.JWTSettings.key_object">
 <em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">key_object</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">OKPKey</span></em><a class="headerlink" href="#app.config.base.JWTSettings.key_object" title="Link to this definition">¶</a></dt>
 <dd><p>The initialized Ed25519 key object for signing and verification.</p>
@@ -780,5 +847,5 @@ a ready-to-use OKPKey instance.</p>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
       <script src="../../_static/design-tabs.js?v=f930bc37"></script>
-      <script src="../../_static/shibuya.js?v=cac61aee"></script></body>
+      <script src="../../_static/shibuya.js?v=50760d75"></script></body>
 </html>

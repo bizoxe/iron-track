@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Exercises Domain Schemas - IronTrack Docs</title><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Exercises Domain Filters" href="filters.html" /><link rel="prev" title="Exercises Domain Services" href="services.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../../_static/print.css?v=20ff2c19" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Exercises Domain Schemas"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../../index.html">
+      <img class="light-logo" src="../../../_static/logo.svg" alt="irontrack" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../../_static/logo.svg" alt="irontrack" height="28" loading="lazy" />
+      <strong>irontrack</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../../usage/installation.html">Installation</a></li><li class="link"><a href="../../index.html">API Reference</a></li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/bizoxe/iron-track" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../usage/index.html">Usage Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage/installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage/development.html">Development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage/cli-guide.html">CLI Guide</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../config/index.html">Application Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../config/base.html">Base Settings Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../config/app_settings.html">SQLAlchemy and Dependency Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../config/constants.html">Application Constants</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../server/index.html">Core Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../server/core.html">Server Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/lifespan.html">Lifespan Management</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../db/index.html">ORM Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../db/base.html">Base Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/user.html">User Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/reference.html">Reference Data Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/exercise.html">Exercise Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lib/index.html">Core Utilities (lib)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/auth.html">JWT Cookie Security Scheme</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/crypt.html">Security Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/deps.html">Infrastructure Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/filters.html">Query Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/handlers.html">Exception Handlers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/invalidate_cache.html">Cache Invalidation Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/json_response.html">Custom JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/jwt_utils.html">JWT Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/schema.html">Base Models &amp; Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/serializers.html">Serialization Registry</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../utils/index.html">Utilities and Helpers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../utils/log_utils/index.html">Structured Logging Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/log_utils/handlers.html">Logging Handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/log_utils/setup.html">Logging Setup and Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/log_utils/middleware.html">ASGI Logging Middleware</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../utils/server_cli.html">Server CLI Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../scripts/index.html">Application Scripts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../scripts/commands.html">User Management CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scripts/seeder.html">Database Seeding Script</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Domains Overview</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../users/index.html">Users Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../users/controllers/access.html">Access Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/controllers/users.html">User CRUD Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/controllers/user_role.html">User Role Management Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/services.html">User and Role Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/schemas.html">User Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/auth.html">Authentication &amp; Authorization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/deps.html">User Domain Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/filters.html">Users Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/utils.html">User Utilities and Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../catalogs/index.html">Catalogs Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../catalogs/controllers/equipment.html">Equipment Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../catalogs/controllers/exercise_tags.html">Exercise Tag Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../catalogs/controllers/muscle_groups.html">Muscle Group Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../catalogs/services.html">Catalogs Domain Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../catalogs/schemas.html">Catalogs Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../catalogs/deps.html">Catalogs Domain Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../catalogs/filters.html">Catalogs Domain Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Exercises Domain</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="controllers.html">Exercise Management Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="services.html">Exercises Domain Services</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Exercises Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="filters.html">Exercises Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="deps.html">Exercises Domain Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../system/index.html">System Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../system/controllers.html">System Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../system/schemas.html">System Domain Schemas</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../main.html">Entry Point (main.py)</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution-guide.html">Contribution Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#utility-definitions">Utility Definitions</a><ul>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseScope"><code class="docutils literal notranslate"><span class="pre">ExerciseScope</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseScope.SYSTEM"><code class="docutils literal notranslate">SYSTEM</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseScope.USER"><code class="docutils literal notranslate">USER</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseScope.ALL"><code class="docutils literal notranslate">ALL</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.DifficultyLevelType"><code class="docutils literal notranslate"><span class="pre">DifficultyLevelType</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.DifficultyLevelType.BEGINNER"><code class="docutils literal notranslate">BEGINNER</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.DifficultyLevelType.INTERMEDIATE"><code class="docutils literal notranslate">INTERMEDIATE</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.DifficultyLevelType.EXPERT"><code class="docutils literal notranslate">EXPERT</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ForceType"><code class="docutils literal notranslate"><span class="pre">ForceType</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ForceType.PULL"><code class="docutils literal notranslate">PULL</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ForceType.PUSH"><code class="docutils literal notranslate">PUSH</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ForceType.STATIC"><code class="docutils literal notranslate">STATIC</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.MechanicType"><code class="docutils literal notranslate"><span class="pre">MechanicType</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.MechanicType.COMPOUND"><code class="docutils literal notranslate">COMPOUND</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.MechanicType.ISOLATION"><code class="docutils literal notranslate">ISOLATION</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.CategoryType"><code class="docutils literal notranslate"><span class="pre">CategoryType</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.CategoryType.STRENGTH"><code class="docutils literal notranslate">STRENGTH</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.CategoryType.STRETCHING"><code class="docutils literal notranslate">STRETCHING</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.CategoryType.PLYOMETRICS"><code class="docutils literal notranslate">PLYOMETRICS</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.CategoryType.STRONGMAN"><code class="docutils literal notranslate">STRONGMAN</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.CategoryType.POWERLIFTING"><code class="docutils literal notranslate">POWERLIFTING</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.CategoryType.CARDIO"><code class="docutils literal notranslate">CARDIO</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.CategoryType.OLYMPIC_WEIGHTLIFTING"><code class="docutils literal notranslate">OLYMPIC_WEIGHTLIFTING</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#base-definitions">Base Definitions</a><ul>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseBase"><code class="docutils literal notranslate"><span class="pre">ExerciseBase</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseBase.name"><code class="docutils literal notranslate">name</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseBase.primary_muscles"><code class="docutils literal notranslate">primary_muscles</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseBase.secondary_muscles"><code class="docutils literal notranslate">secondary_muscles</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseBase.force"><code class="docutils literal notranslate">force</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseBase.difficulty_level"><code class="docutils literal notranslate">difficulty_level</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseBase.mechanic"><code class="docutils literal notranslate">mechanic</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseBase.equipment"><code class="docutils literal notranslate">equipment</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseBase.category"><code class="docutils literal notranslate">category</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseBase.instructions"><code class="docutils literal notranslate">instructions</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#user-exercise-models">User Exercise Models</a><ul>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreate"><code class="docutils literal notranslate"><span class="pre">ExerciseCreate</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreate.name"><code class="docutils literal notranslate">name</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreate.primary_muscles"><code class="docutils literal notranslate">primary_muscles</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreate.difficulty_level"><code class="docutils literal notranslate">difficulty_level</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreate.category"><code class="docutils literal notranslate">category</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreate.secondary_muscles"><code class="docutils literal notranslate">secondary_muscles</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreate.force"><code class="docutils literal notranslate">force</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreate.mechanic"><code class="docutils literal notranslate">mechanic</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreate.equipment"><code class="docutils literal notranslate">equipment</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreate.instructions"><code class="docutils literal notranslate">instructions</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdate"><code class="docutils literal notranslate"><span class="pre">ExerciseUpdate</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdate.primary_muscles"><code class="docutils literal notranslate">primary_muscles</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdate.name"><code class="docutils literal notranslate">name</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdate.secondary_muscles"><code class="docutils literal notranslate">secondary_muscles</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdate.force"><code class="docutils literal notranslate">force</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdate.difficulty_level"><code class="docutils literal notranslate">difficulty_level</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdate.mechanic"><code class="docutils literal notranslate">mechanic</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdate.equipment"><code class="docutils literal notranslate">equipment</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdate.category"><code class="docutils literal notranslate">category</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdate.instructions"><code class="docutils literal notranslate">instructions</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#system-exercise-models">System Exercise Models</a><ul>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreateSystem"><code class="docutils literal notranslate"><span class="pre">ExerciseCreateSystem</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreateSystem.image_path_start"><code class="docutils literal notranslate">image_path_start</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreateSystem.image_path_end"><code class="docutils literal notranslate">image_path_end</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreateSystem.instructions"><code class="docutils literal notranslate">instructions</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreateSystem.tags"><code class="docutils literal notranslate">tags</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreateSystem.slug"><code class="docutils literal notranslate">slug</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreateSystem.name"><code class="docutils literal notranslate">name</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreateSystem.primary_muscles"><code class="docutils literal notranslate">primary_muscles</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreateSystem.difficulty_level"><code class="docutils literal notranslate">difficulty_level</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreateSystem.category"><code class="docutils literal notranslate">category</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreateSystem.secondary_muscles"><code class="docutils literal notranslate">secondary_muscles</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreateSystem.force"><code class="docutils literal notranslate">force</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreateSystem.mechanic"><code class="docutils literal notranslate">mechanic</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreateSystem.equipment"><code class="docutils literal notranslate">equipment</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdateSystem"><code class="docutils literal notranslate"><span class="pre">ExerciseUpdateSystem</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.image_path_start"><code class="docutils literal notranslate">image_path_start</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.image_path_end"><code class="docutils literal notranslate">image_path_end</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.tags"><code class="docutils literal notranslate">tags</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.slug"><code class="docutils literal notranslate">slug</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.primary_muscles"><code class="docutils literal notranslate">primary_muscles</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.name"><code class="docutils literal notranslate">name</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.secondary_muscles"><code class="docutils literal notranslate">secondary_muscles</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.force"><code class="docutils literal notranslate">force</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.difficulty_level"><code class="docutils literal notranslate">difficulty_level</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.mechanic"><code class="docutils literal notranslate">mechanic</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.equipment"><code class="docutils literal notranslate">equipment</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.category"><code class="docutils literal notranslate">category</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.instructions"><code class="docutils literal notranslate">instructions</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#response-models">Response Models</a><ul>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseRead"><code class="docutils literal notranslate"><span class="pre">ExerciseRead</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseRead.id"><code class="docutils literal notranslate">id</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseRead.name"><code class="docutils literal notranslate">name</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseRead.primary_muscles"><code class="docutils literal notranslate">primary_muscles</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseRead.secondary_muscles"><code class="docutils literal notranslate">secondary_muscles</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseRead.force"><code class="docutils literal notranslate">force</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseRead.difficulty_level"><code class="docutils literal notranslate">difficulty_level</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseRead.mechanic"><code class="docutils literal notranslate">mechanic</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseRead.equipment"><code class="docutils literal notranslate">equipment</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseRead.category"><code class="docutils literal notranslate">category</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseRead.instructions"><code class="docutils literal notranslate">instructions</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseRead.image_path_start"><code class="docutils literal notranslate">image_path_start</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseRead.image_path_end"><code class="docutils literal notranslate">image_path_end</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseRead.tags"><code class="docutils literal notranslate">tags</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseRead.slug"><code class="docutils literal notranslate">slug</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseRead.created_by"><code class="docutils literal notranslate">created_by</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseRead.created_at"><code class="docutils literal notranslate">created_at</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.schemas.ExerciseRead.updated_at"><code class="docutils literal notranslate">updated_at</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../../index.html"><span itemprop="name">irontrack</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">API Reference</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Domains Overview</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Exercises Domain</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="4" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Exercises Domain Schemas</strong>
+        <meta itemprop="position" content="5" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="exercises-domain-schemas">
+<h1>Exercises Domain Schemas<a class="headerlink" href="#exercises-domain-schemas" title="Link to this heading">¶</a></h1>
+<p>Pydantic &amp; msgspec.Struct Data Transfer Objects (DTOs) for the Exercises sub-domain.</p>
+<p>—</p>
+<section id="utility-definitions">
+<h2>Utility Definitions<a class="headerlink" href="#utility-definitions" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseScope">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ExerciseScope</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/app/domain/exercises/schemas.html#ExerciseScope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseScope" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.StrEnum" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">StrEnum</span></code></a></p>
+<p>Defines the visibility and ownership scope of an exercise.</p>
+<p>Used for filtering system-provided vs user-created content.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseScope.SYSTEM">
+<span class="sig-name descname"><span class="pre">SYSTEM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'system'</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseScope.SYSTEM" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseScope.USER">
+<span class="sig-name descname"><span class="pre">USER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'user'</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseScope.USER" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseScope.ALL">
+<span class="sig-name descname"><span class="pre">ALL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'all'</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseScope.ALL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.DifficultyLevelType">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DifficultyLevelType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/app/domain/exercises/schemas.html#DifficultyLevelType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.exercises.schemas.DifficultyLevelType" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.StrEnum" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">StrEnum</span></code></a></p>
+<p>The perceived difficulty level of an exercise.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.DifficultyLevelType.BEGINNER">
+<span class="sig-name descname"><span class="pre">BEGINNER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'beginner'</span></em><a class="headerlink" href="#app.domain.exercises.schemas.DifficultyLevelType.BEGINNER" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.DifficultyLevelType.INTERMEDIATE">
+<span class="sig-name descname"><span class="pre">INTERMEDIATE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'intermediate'</span></em><a class="headerlink" href="#app.domain.exercises.schemas.DifficultyLevelType.INTERMEDIATE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.DifficultyLevelType.EXPERT">
+<span class="sig-name descname"><span class="pre">EXPERT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'expert'</span></em><a class="headerlink" href="#app.domain.exercises.schemas.DifficultyLevelType.EXPERT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ForceType">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ForceType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/app/domain/exercises/schemas.html#ForceType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.exercises.schemas.ForceType" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.StrEnum" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">StrEnum</span></code></a></p>
+<p>The type of force required to perform the exercise.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ForceType.PULL">
+<span class="sig-name descname"><span class="pre">PULL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pull'</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ForceType.PULL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ForceType.PUSH">
+<span class="sig-name descname"><span class="pre">PUSH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'push'</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ForceType.PUSH" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ForceType.STATIC">
+<span class="sig-name descname"><span class="pre">STATIC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'static'</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ForceType.STATIC" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.MechanicType">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MechanicType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/app/domain/exercises/schemas.html#MechanicType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.exercises.schemas.MechanicType" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.StrEnum" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">StrEnum</span></code></a></p>
+<p>The mechanical action of the exercise.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.MechanicType.COMPOUND">
+<span class="sig-name descname"><span class="pre">COMPOUND</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'compound'</span></em><a class="headerlink" href="#app.domain.exercises.schemas.MechanicType.COMPOUND" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.MechanicType.ISOLATION">
+<span class="sig-name descname"><span class="pre">ISOLATION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'isolation'</span></em><a class="headerlink" href="#app.domain.exercises.schemas.MechanicType.ISOLATION" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.CategoryType">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CategoryType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/app/domain/exercises/schemas.html#CategoryType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.exercises.schemas.CategoryType" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.StrEnum" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">StrEnum</span></code></a></p>
+<p>The primary fitness category or goal of the exercise.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.CategoryType.STRENGTH">
+<span class="sig-name descname"><span class="pre">STRENGTH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'strength'</span></em><a class="headerlink" href="#app.domain.exercises.schemas.CategoryType.STRENGTH" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.CategoryType.STRETCHING">
+<span class="sig-name descname"><span class="pre">STRETCHING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'stretching'</span></em><a class="headerlink" href="#app.domain.exercises.schemas.CategoryType.STRETCHING" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.CategoryType.PLYOMETRICS">
+<span class="sig-name descname"><span class="pre">PLYOMETRICS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'plyometrics'</span></em><a class="headerlink" href="#app.domain.exercises.schemas.CategoryType.PLYOMETRICS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.CategoryType.STRONGMAN">
+<span class="sig-name descname"><span class="pre">STRONGMAN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'strongman'</span></em><a class="headerlink" href="#app.domain.exercises.schemas.CategoryType.STRONGMAN" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.CategoryType.POWERLIFTING">
+<span class="sig-name descname"><span class="pre">POWERLIFTING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'powerlifting'</span></em><a class="headerlink" href="#app.domain.exercises.schemas.CategoryType.POWERLIFTING" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.CategoryType.CARDIO">
+<span class="sig-name descname"><span class="pre">CARDIO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cardio'</span></em><a class="headerlink" href="#app.domain.exercises.schemas.CategoryType.CARDIO" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.CategoryType.OLYMPIC_WEIGHTLIFTING">
+<span class="sig-name descname"><span class="pre">OLYMPIC_WEIGHTLIFTING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'olympic</span> <span class="pre">weightlifting'</span></em><a class="headerlink" href="#app.domain.exercises.schemas.CategoryType.OLYMPIC_WEIGHTLIFTING" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="base-definitions">
+<h2>Base Definitions<a class="headerlink" href="#base-definitions" title="Link to this heading">¶</a></h2>
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ExerciseBase</span></span><a class="reference internal" href="../../../_modules/app/domain/exercises/schemas.html#ExerciseBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseBase" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../lib/schema.html#app.lib.schema.CamelizedBaseSchema" title="app.lib.schema.CamelizedBaseSchema"><code class="xref py py-class docutils literal notranslate"><span class="pre">CamelizedBaseSchema</span></code></a></p>
+<p>Base exercise attributes used as a blueprint for other schemas.</p>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseBase.name">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.14)"><span class="pre">Annotated</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Unique</span> <span class="pre">exercise</span> <span class="pre">name</span> <span class="pre">(3-100</span> <span class="pre">characters).'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="p"><span class="pre">[</span></span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">max_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseBase.name" title="Link to this definition">¶</a></dt>
+<dd><p>Unique exercise name (3-100 characters).</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseBase.primary_muscles">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">primary_muscles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.14)"><span class="pre">Annotated</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">True</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'IDs</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">**main</span> <span class="pre">muscle</span> <span class="pre">groups**</span> <span class="pre">targeted.</span> <span class="pre">Must</span> <span class="pre">include</span> <span class="pre">at</span> <span class="pre">least</span> <span class="pre">one</span> <span class="pre">ID.'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="p"><span class="pre">[</span></span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'primaryMuscles')</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseBase.primary_muscles" title="Link to this definition">¶</a></dt>
+<dd><p>IDs of the <strong>main muscle groups</strong> targeted. Must include at least one ID.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseBase.secondary_muscles">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">secondary_muscles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.14)"><span class="pre">Annotated</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">True</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'IDs</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">**assisting</span> <span class="pre">muscle</span> <span class="pre">groups**</span> <span class="pre">involved.</span> <span class="pre">Must</span> <span class="pre">include</span> <span class="pre">at</span> <span class="pre">least</span> <span class="pre">one</span> <span class="pre">ID.'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="p"><span class="pre">[</span></span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'secondaryMuscles')</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseBase.secondary_muscles" title="Link to this definition">¶</a></dt>
+<dd><p>IDs of the <strong>assisting muscle groups</strong> involved. Must include at least one ID.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseBase.force">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">force</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.domain.exercises.schemas.ForceType" title="app.domain.exercises.schemas.ForceType"><span class="pre">ForceType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseBase.force" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseBase.difficulty_level">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">difficulty_level</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.domain.exercises.schemas.DifficultyLevelType" title="app.domain.exercises.schemas.DifficultyLevelType"><span class="pre">DifficultyLevelType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'difficultyLevel')</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseBase.difficulty_level" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseBase.mechanic">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mechanic</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.domain.exercises.schemas.MechanicType" title="app.domain.exercises.schemas.MechanicType"><span class="pre">MechanicType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseBase.mechanic" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseBase.equipment">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">equipment</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.14)"><span class="pre">Annotated</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">True</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'IDs</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">**equipment**</span> <span class="pre">required</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">exercise.</span> <span class="pre">Must</span> <span class="pre">include</span> <span class="pre">at</span> <span class="pre">least</span> <span class="pre">one</span> <span class="pre">ID.'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="p"><span class="pre">[</span></span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseBase.equipment" title="Link to this definition">¶</a></dt>
+<dd><p>IDs of the <strong>equipment</strong> required for the exercise. Must include at least one ID.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseBase.category">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">category</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.domain.exercises.schemas.CategoryType" title="app.domain.exercises.schemas.CategoryType"><span class="pre">CategoryType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseBase.category" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseBase.instructions">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">instructions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseBase.instructions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p>—</p>
+</section>
+<section id="user-exercise-models">
+<h2>User Exercise Models<a class="headerlink" href="#user-exercise-models" title="Link to this heading">¶</a></h2>
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ExerciseCreate</span></span><a class="reference internal" href="../../../_modules/app/domain/exercises/schemas.html#ExerciseCreate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreate" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.exercises.schemas.ExerciseBase" title="app.domain.exercises.schemas.ExerciseBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExerciseBase</span></code></a></p>
+<p>Schema for user-level exercise creation. Requires core fields.</p>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreate.name">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.14)"><span class="pre">Annotated</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">True</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Unique</span> <span class="pre">exercise</span> <span class="pre">name</span> <span class="pre">(3-100</span> <span class="pre">characters).'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="p"><span class="pre">[</span></span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">max_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreate.name" title="Link to this definition">¶</a></dt>
+<dd><p>Unique exercise name (3-100 characters).</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreate.primary_muscles">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">primary_muscles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.14)"><span class="pre">Annotated</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">True</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'IDs</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">**main</span> <span class="pre">muscle</span> <span class="pre">groups**</span> <span class="pre">targeted.</span> <span class="pre">Must</span> <span class="pre">include</span> <span class="pre">at</span> <span class="pre">least</span> <span class="pre">one</span> <span class="pre">ID.'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="p"><span class="pre">[</span></span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'primaryMuscles')</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreate.primary_muscles" title="Link to this definition">¶</a></dt>
+<dd><p>IDs of the <strong>main muscle groups</strong> targeted. Must include at least one ID.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreate.difficulty_level">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">difficulty_level</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.domain.exercises.schemas.DifficultyLevelType" title="app.domain.exercises.schemas.DifficultyLevelType"><span class="pre">DifficultyLevelType</span></a></em><em class="property"> <span class="pre">[Required]</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'difficultyLevel')</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreate.difficulty_level" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreate.category">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">category</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.domain.exercises.schemas.CategoryType" title="app.domain.exercises.schemas.CategoryType"><span class="pre">CategoryType</span></a></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreate.category" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreate.secondary_muscles">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">secondary_muscles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'IDs</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">**assisting</span> <span class="pre">muscle</span> <span class="pre">groups**</span> <span class="pre">involved.</span> <span class="pre">Must</span> <span class="pre">include</span> <span class="pre">at</span> <span class="pre">least</span> <span class="pre">one</span> <span class="pre">ID.'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'secondaryMuscles')</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreate.secondary_muscles" title="Link to this definition">¶</a></dt>
+<dd><p>IDs of the <strong>assisting muscle groups</strong> involved. Must include at least one ID.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreate.force">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">force</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.domain.exercises.schemas.ForceType" title="app.domain.exercises.schemas.ForceType"><span class="pre">ForceType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreate.force" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreate.mechanic">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mechanic</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.domain.exercises.schemas.MechanicType" title="app.domain.exercises.schemas.MechanicType"><span class="pre">MechanicType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreate.mechanic" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreate.equipment">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">equipment</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'IDs</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">**equipment**</span> <span class="pre">required</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">exercise.</span> <span class="pre">Must</span> <span class="pre">include</span> <span class="pre">at</span> <span class="pre">least</span> <span class="pre">one</span> <span class="pre">ID.'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreate.equipment" title="Link to this definition">¶</a></dt>
+<dd><p>IDs of the <strong>equipment</strong> required for the exercise. Must include at least one ID.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreate.instructions">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">instructions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreate.instructions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ExerciseUpdate</span></span><a class="reference internal" href="../../../_modules/app/domain/exercises/schemas.html#ExerciseUpdate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdate" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.exercises.schemas.ExerciseBase" title="app.domain.exercises.schemas.ExerciseBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExerciseBase</span></code></a></p>
+<p>Schema for partial updates of user exercises.</p>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdate.primary_muscles">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">primary_muscles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.14)"><span class="pre">Annotated</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'IDs</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">**main</span> <span class="pre">muscle</span> <span class="pre">groups**</span> <span class="pre">targeted.</span> <span class="pre">Must</span> <span class="pre">include</span> <span class="pre">at</span> <span class="pre">least</span> <span class="pre">one</span> <span class="pre">ID.'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="p"><span class="pre">[</span></span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'primaryMuscles')</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdate.primary_muscles" title="Link to this definition">¶</a></dt>
+<dd><p>IDs of the <strong>main muscle groups</strong> targeted. Must include at least one ID.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdate.name">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">max_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Unique</span> <span class="pre">exercise</span> <span class="pre">name</span> <span class="pre">(3-100</span> <span class="pre">characters).'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdate.name" title="Link to this definition">¶</a></dt>
+<dd><p>Unique exercise name (3-100 characters).</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdate.secondary_muscles">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">secondary_muscles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'IDs</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">**assisting</span> <span class="pre">muscle</span> <span class="pre">groups**</span> <span class="pre">involved.</span> <span class="pre">Must</span> <span class="pre">include</span> <span class="pre">at</span> <span class="pre">least</span> <span class="pre">one</span> <span class="pre">ID.'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'secondaryMuscles')</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdate.secondary_muscles" title="Link to this definition">¶</a></dt>
+<dd><p>IDs of the <strong>assisting muscle groups</strong> involved. Must include at least one ID.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdate.force">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">force</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.domain.exercises.schemas.ForceType" title="app.domain.exercises.schemas.ForceType"><span class="pre">ForceType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdate.force" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdate.difficulty_level">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">difficulty_level</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.domain.exercises.schemas.DifficultyLevelType" title="app.domain.exercises.schemas.DifficultyLevelType"><span class="pre">DifficultyLevelType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'difficultyLevel')</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdate.difficulty_level" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdate.mechanic">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mechanic</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.domain.exercises.schemas.MechanicType" title="app.domain.exercises.schemas.MechanicType"><span class="pre">MechanicType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdate.mechanic" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdate.equipment">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">equipment</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'IDs</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">**equipment**</span> <span class="pre">required</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">exercise.</span> <span class="pre">Must</span> <span class="pre">include</span> <span class="pre">at</span> <span class="pre">least</span> <span class="pre">one</span> <span class="pre">ID.'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdate.equipment" title="Link to this definition">¶</a></dt>
+<dd><p>IDs of the <strong>equipment</strong> required for the exercise. Must include at least one ID.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdate.category">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">category</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.domain.exercises.schemas.CategoryType" title="app.domain.exercises.schemas.CategoryType"><span class="pre">CategoryType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdate.category" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdate.instructions">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">instructions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdate.instructions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p>—</p>
+</section>
+<section id="system-exercise-models">
+<h2>System Exercise Models<a class="headerlink" href="#system-exercise-models" title="Link to this heading">¶</a></h2>
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreateSystem">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ExerciseCreateSystem</span></span><a class="reference internal" href="../../../_modules/app/domain/exercises/schemas.html#ExerciseCreateSystem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreateSystem" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.exercises.schemas.ExerciseCreate" title="app.domain.exercises.schemas.ExerciseCreate"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExerciseCreate</span></code></a></p>
+<p>Admin-level schema for system exercises with specific fields.</p>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreateSystem.image_path_start">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">image_path_start</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.14)"><span class="pre">Annotated</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">True</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">&quot;Path</span> <span class="pre">relative</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">exercise</span> <span class="pre">folder.</span> <span class="pre">Must</span> <span class="pre">start</span> <span class="pre">with</span> <span class="pre">a</span> <span class="pre">slash.</span> <span class="pre">Used</span> <span class="pre">for</span> <span class="pre">'start'</span> <span class="pre">position</span> <span class="pre">images.</span> <span class="pre">Example</span> <span class="pre">format:</span> <span class="pre">'/{exercise</span> <span class="pre">name}/{filename}.jpg'&quot;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">examples</span></span><span class="o"><span class="pre">=</span></span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'/ab-roller/0.jpg'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'/bench-press/images/start.webp'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="p"><span class="pre">[</span></span><span class="pre">_PydanticGeneralMetadata</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'^/[a-z0-9\\-_]+(?:/[a-z0-9\\-_]+)*\\.(?:jpg|jpeg|png|webp)$'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'imagePathStart')</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreateSystem.image_path_start" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreateSystem.image_path_end">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">image_path_end</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.14)"><span class="pre">Annotated</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">True</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">&quot;Path</span> <span class="pre">relative</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">exercise</span> <span class="pre">folder.</span> <span class="pre">Must</span> <span class="pre">start</span> <span class="pre">with</span> <span class="pre">a</span> <span class="pre">slash.</span> <span class="pre">Used</span> <span class="pre">for</span> <span class="pre">'end'</span> <span class="pre">position</span> <span class="pre">images.</span> <span class="pre">Example</span> <span class="pre">format:</span> <span class="pre">'/{exercise</span> <span class="pre">name}/{filename}.jpg'&quot;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">examples</span></span><span class="o"><span class="pre">=</span></span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'/ab-roller/0.jpg'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'/bench-press/images/start.webp'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="p"><span class="pre">[</span></span><span class="pre">_PydanticGeneralMetadata</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'^/[a-z0-9\\-_]+(?:/[a-z0-9\\-_]+)*\\.(?:jpg|jpeg|png|webp)$'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'imagePathEnd')</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreateSystem.image_path_end" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreateSystem.instructions">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">instructions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreateSystem.instructions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreateSystem.tags">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.14)"><span class="pre">Annotated</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">True</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'System-defined</span> <span class="pre">tag</span> <span class="pre">IDs</span> <span class="pre">(e.g.,</span> <span class="pre">equipment</span> <span class="pre">types,</span> <span class="pre">goals).</span> <span class="pre">Must</span> <span class="pre">include</span> <span class="pre">at</span> <span class="pre">least</span> <span class="pre">one</span> <span class="pre">ID.'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="p"><span class="pre">[</span></span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreateSystem.tags" title="Link to this definition">¶</a></dt>
+<dd><p>System-defined tag IDs (e.g., equipment types, goals). Must include at least one ID.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreateSystem.slug">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">slug</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreateSystem.slug" title="Link to this definition">¶</a></dt>
+<dd><p>URL-friendly identifier generated from the name.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreateSystem.name">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">max_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Unique</span> <span class="pre">exercise</span> <span class="pre">name</span> <span class="pre">(3-100</span> <span class="pre">characters).'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreateSystem.name" title="Link to this definition">¶</a></dt>
+<dd><p>Unique exercise name (3-100 characters).</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreateSystem.primary_muscles">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">primary_muscles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'IDs</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">**main</span> <span class="pre">muscle</span> <span class="pre">groups**</span> <span class="pre">targeted.</span> <span class="pre">Must</span> <span class="pre">include</span> <span class="pre">at</span> <span class="pre">least</span> <span class="pre">one</span> <span class="pre">ID.'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'primaryMuscles')</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreateSystem.primary_muscles" title="Link to this definition">¶</a></dt>
+<dd><p>IDs of the <strong>main muscle groups</strong> targeted. Must include at least one ID.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreateSystem.difficulty_level">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">difficulty_level</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.domain.exercises.schemas.DifficultyLevelType" title="app.domain.exercises.schemas.DifficultyLevelType"><span class="pre">DifficultyLevelType</span></a></em><em class="property"> <span class="pre">[Required]</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'difficultyLevel')</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreateSystem.difficulty_level" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreateSystem.category">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">category</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.domain.exercises.schemas.CategoryType" title="app.domain.exercises.schemas.CategoryType"><span class="pre">CategoryType</span></a></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreateSystem.category" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreateSystem.secondary_muscles">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">secondary_muscles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'IDs</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">**assisting</span> <span class="pre">muscle</span> <span class="pre">groups**</span> <span class="pre">involved.</span> <span class="pre">Must</span> <span class="pre">include</span> <span class="pre">at</span> <span class="pre">least</span> <span class="pre">one</span> <span class="pre">ID.'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'secondaryMuscles')</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreateSystem.secondary_muscles" title="Link to this definition">¶</a></dt>
+<dd><p>IDs of the <strong>assisting muscle groups</strong> involved. Must include at least one ID.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreateSystem.force">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">force</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.domain.exercises.schemas.ForceType" title="app.domain.exercises.schemas.ForceType"><span class="pre">ForceType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreateSystem.force" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreateSystem.mechanic">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mechanic</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.domain.exercises.schemas.MechanicType" title="app.domain.exercises.schemas.MechanicType"><span class="pre">MechanicType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreateSystem.mechanic" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseCreateSystem.equipment">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">equipment</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'IDs</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">**equipment**</span> <span class="pre">required</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">exercise.</span> <span class="pre">Must</span> <span class="pre">include</span> <span class="pre">at</span> <span class="pre">least</span> <span class="pre">one</span> <span class="pre">ID.'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseCreateSystem.equipment" title="Link to this definition">¶</a></dt>
+<dd><p>IDs of the <strong>equipment</strong> required for the exercise. Must include at least one ID.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdateSystem">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ExerciseUpdateSystem</span></span><a class="reference internal" href="../../../_modules/app/domain/exercises/schemas.html#ExerciseUpdateSystem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdateSystem" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.exercises.schemas.ExerciseUpdate" title="app.domain.exercises.schemas.ExerciseUpdate"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExerciseUpdate</span></code></a></p>
+<p>Schema for administrative updates of system exercises.</p>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdateSystem.image_path_start">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">image_path_start</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.14)"><span class="pre">Annotated</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">True</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">&quot;Path</span> <span class="pre">relative</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">exercise</span> <span class="pre">folder.</span> <span class="pre">Must</span> <span class="pre">start</span> <span class="pre">with</span> <span class="pre">a</span> <span class="pre">slash.</span> <span class="pre">Used</span> <span class="pre">for</span> <span class="pre">'start'</span> <span class="pre">position</span> <span class="pre">images.</span> <span class="pre">Example</span> <span class="pre">format:</span> <span class="pre">'/{exercise</span> <span class="pre">name}/{filename}.jpg'&quot;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">examples</span></span><span class="o"><span class="pre">=</span></span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'/ab-roller/0.jpg'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'/bench-press/images/start.webp'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="p"><span class="pre">[</span></span><span class="pre">_PydanticGeneralMetadata</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'^/[a-z0-9\\-_]+(?:/[a-z0-9\\-_]+)*\\.(?:jpg|jpeg|png|webp)$'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'imagePathStart')</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.image_path_start" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdateSystem.image_path_end">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">image_path_end</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.14)"><span class="pre">Annotated</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">True</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">&quot;Path</span> <span class="pre">relative</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">exercise</span> <span class="pre">folder.</span> <span class="pre">Must</span> <span class="pre">start</span> <span class="pre">with</span> <span class="pre">a</span> <span class="pre">slash.</span> <span class="pre">Used</span> <span class="pre">for</span> <span class="pre">'end'</span> <span class="pre">position</span> <span class="pre">images.</span> <span class="pre">Example</span> <span class="pre">format:</span> <span class="pre">'/{exercise</span> <span class="pre">name}/{filename}.jpg'&quot;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">examples</span></span><span class="o"><span class="pre">=</span></span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'/ab-roller/0.jpg'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'/bench-press/images/start.webp'</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="p"><span class="pre">[</span></span><span class="pre">_PydanticGeneralMetadata</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">pattern</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'^/[a-z0-9\\-_]+(?:/[a-z0-9\\-_]+)*\\.(?:jpg|jpeg|png|webp)$'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'imagePathEnd')</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.image_path_end" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdateSystem.tags">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.14)"><span class="pre">Annotated</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">annotation</span></span><span class="o"><span class="pre">=</span></span><span class="pre">NoneType</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">required</span></span><span class="o"><span class="pre">=</span></span><span class="k"><span class="pre">False</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Updated</span> <span class="pre">list</span> <span class="pre">of</span> <span class="pre">system</span> <span class="pre">tag</span> <span class="pre">IDs.</span> <span class="pre">Must</span> <span class="pre">include</span> <span class="pre">at</span> <span class="pre">least</span> <span class="pre">one</span> <span class="pre">ID.'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">metadata</span></span><span class="o"><span class="pre">=</span></span><span class="p"><span class="pre">[</span></span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.tags" title="Link to this definition">¶</a></dt>
+<dd><p>Updated list of system tag IDs. Must include at least one ID.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdateSystem.slug">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">slug</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.14)"><span class="pre">Annotated</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://pydantic.dev/docs/validation/latest/api/pydantic/json_schema/#pydantic.json_schema.SkipJsonSchema" title="(in Pydantic v0.0.0)"><span class="pre">SkipJsonSchema</span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.slug" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdateSystem.primary_muscles">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">primary_muscles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'IDs</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">**main</span> <span class="pre">muscle</span> <span class="pre">groups**</span> <span class="pre">targeted.</span> <span class="pre">Must</span> <span class="pre">include</span> <span class="pre">at</span> <span class="pre">least</span> <span class="pre">one</span> <span class="pre">ID.'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'primaryMuscles')</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.primary_muscles" title="Link to this definition">¶</a></dt>
+<dd><p>IDs of the <strong>main muscle groups</strong> targeted. Must include at least one ID.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdateSystem.name">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">default</span></span><span class="o"><span class="pre">=</span></span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">max_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'Unique</span> <span class="pre">exercise</span> <span class="pre">name</span> <span class="pre">(3-100</span> <span class="pre">characters).'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.name" title="Link to this definition">¶</a></dt>
+<dd><p>Unique exercise name (3-100 characters).</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdateSystem.secondary_muscles">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">secondary_muscles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'IDs</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">**assisting</span> <span class="pre">muscle</span> <span class="pre">groups**</span> <span class="pre">involved.</span> <span class="pre">Must</span> <span class="pre">include</span> <span class="pre">at</span> <span class="pre">least</span> <span class="pre">one</span> <span class="pre">ID.'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'secondaryMuscles')</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.secondary_muscles" title="Link to this definition">¶</a></dt>
+<dd><p>IDs of the <strong>assisting muscle groups</strong> involved. Must include at least one ID.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdateSystem.force">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">force</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.domain.exercises.schemas.ForceType" title="app.domain.exercises.schemas.ForceType"><span class="pre">ForceType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.force" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdateSystem.difficulty_level">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">difficulty_level</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.domain.exercises.schemas.DifficultyLevelType" title="app.domain.exercises.schemas.DifficultyLevelType"><span class="pre">DifficultyLevelType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"> <span class="pre">(alias</span> <span class="pre">'difficultyLevel')</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.difficulty_level" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdateSystem.mechanic">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mechanic</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.domain.exercises.schemas.MechanicType" title="app.domain.exercises.schemas.MechanicType"><span class="pre">MechanicType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.mechanic" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdateSystem.equipment">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">equipment</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Field</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">description</span></span><span class="o"><span class="pre">=</span></span><span class="s"><span class="pre">'IDs</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">**equipment**</span> <span class="pre">required</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">exercise.</span> <span class="pre">Must</span> <span class="pre">include</span> <span class="pre">at</span> <span class="pre">least</span> <span class="pre">one</span> <span class="pre">ID.'</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.equipment" title="Link to this definition">¶</a></dt>
+<dd><p>IDs of the <strong>equipment</strong> required for the exercise. Must include at least one ID.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdateSystem.category">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">category</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#app.domain.exercises.schemas.CategoryType" title="app.domain.exercises.schemas.CategoryType"><span class="pre">CategoryType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.category" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseUpdateSystem.instructions">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">instructions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseUpdateSystem.instructions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p>—</p>
+</section>
+<section id="response-models">
+<h2>Response Models<a class="headerlink" href="#response-models" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseRead">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ExerciseRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/uuid.html#uuid.UUID" title="(in Python v3.14)"><span class="pre">UUID</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">primary_muscles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../catalogs/schemas.html#app.domain.catalogs.schemas.MuscleGroupRead" title="app.domain.catalogs.schemas.MuscleGroupRead"><span class="pre">MuscleGroupRead</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">secondary_muscles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../catalogs/schemas.html#app.domain.catalogs.schemas.MuscleGroupRead" title="app.domain.catalogs.schemas.MuscleGroupRead"><span class="pre">MuscleGroupRead</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">difficulty_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mechanic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">equipment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../catalogs/schemas.html#app.domain.catalogs.schemas.EquipmentRead" title="app.domain.catalogs.schemas.EquipmentRead"><span class="pre">EquipmentRead</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">instructions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_path_start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_path_end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../catalogs/schemas.html#app.domain.catalogs.schemas.ExerciseTagRead" title="app.domain.catalogs.schemas.ExerciseTagRead"><span class="pre">ExerciseTagRead</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/uuid.html#uuid.UUID" title="(in Python v3.14)"><span class="pre">UUID</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)"><span class="pre">datetime</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">updated_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)"><span class="pre">datetime</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/app/domain/exercises/schemas.html#ExerciseRead"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseRead" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../lib/schema.html#app.lib.schema.CamelizedBaseStruct" title="app.lib.schema.CamelizedBaseStruct"><code class="xref py py-class docutils literal notranslate"><span class="pre">CamelizedBaseStruct</span></code></a></p>
+<p>Complete exercise data representation for read operations.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseRead.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/uuid.html#uuid.UUID" title="(in Python v3.14)"><span class="pre">UUID</span></a></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseRead.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseRead.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseRead.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseRead.primary_muscles">
+<span class="sig-name descname"><span class="pre">primary_muscles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../catalogs/schemas.html#app.domain.catalogs.schemas.MuscleGroupRead" title="app.domain.catalogs.schemas.MuscleGroupRead"><span class="pre">MuscleGroupRead</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseRead.primary_muscles" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseRead.secondary_muscles">
+<span class="sig-name descname"><span class="pre">secondary_muscles</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../catalogs/schemas.html#app.domain.catalogs.schemas.MuscleGroupRead" title="app.domain.catalogs.schemas.MuscleGroupRead"><span class="pre">MuscleGroupRead</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseRead.secondary_muscles" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseRead.force">
+<span class="sig-name descname"><span class="pre">force</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseRead.force" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseRead.difficulty_level">
+<span class="sig-name descname"><span class="pre">difficulty_level</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseRead.difficulty_level" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseRead.mechanic">
+<span class="sig-name descname"><span class="pre">mechanic</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseRead.mechanic" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseRead.equipment">
+<span class="sig-name descname"><span class="pre">equipment</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../catalogs/schemas.html#app.domain.catalogs.schemas.EquipmentRead" title="app.domain.catalogs.schemas.EquipmentRead"><span class="pre">EquipmentRead</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseRead.equipment" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseRead.category">
+<span class="sig-name descname"><span class="pre">category</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseRead.category" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseRead.instructions">
+<span class="sig-name descname"><span class="pre">instructions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseRead.instructions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseRead.image_path_start">
+<span class="sig-name descname"><span class="pre">image_path_start</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseRead.image_path_start" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseRead.image_path_end">
+<span class="sig-name descname"><span class="pre">image_path_end</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseRead.image_path_end" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseRead.tags">
+<span class="sig-name descname"><span class="pre">tags</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../catalogs/schemas.html#app.domain.catalogs.schemas.ExerciseTagRead" title="app.domain.catalogs.schemas.ExerciseTagRead"><span class="pre">ExerciseTagRead</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseRead.tags" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseRead.slug">
+<span class="sig-name descname"><span class="pre">slug</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseRead.slug" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseRead.created_by">
+<span class="sig-name descname"><span class="pre">created_by</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/uuid.html#uuid.UUID" title="(in Python v3.14)"><span class="pre">UUID</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseRead.created_by" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseRead.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)"><span class="pre">datetime</span></a></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseRead.created_at" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.exercises.schemas.ExerciseRead.updated_at">
+<span class="sig-name descname"><span class="pre">updated_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)"><span class="pre">datetime</span></a></em><a class="headerlink" href="#app.domain.exercises.schemas.ExerciseRead.updated_at" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="services.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Exercises Domain Services</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="filters.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Exercises Domain Filters</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2026, Alexander Matveev</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+<a href="https://github.com/bizoxe/iron-track" aria-label="GitHub">
+  <iconify-icon icon="simple-icons:github"></iconify-icon>
+</a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../../_static/shibuya.js?v=50760d75"></script></body>
+</html>

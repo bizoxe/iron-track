@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=9454f7d5" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
@@ -90,6 +90,41 @@ data-aria-dark="Switch to auto color mode">
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
+       <a href="api/db/reference.html#module-app.db.models.reference"><code class="xref">app.db.models.reference</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="api/domain/catalogs/controllers/equipment.html#module-app.domain.catalogs.controllers.equipment"><code class="xref">app.domain.catalogs.controllers.equipment</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="api/domain/catalogs/controllers/exercise_tags.html#module-app.domain.catalogs.controllers.exercise_tags"><code class="xref">app.domain.catalogs.controllers.exercise_tags</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="api/domain/catalogs/controllers/muscle_groups.html#module-app.domain.catalogs.controllers.muscle_groups"><code class="xref">app.domain.catalogs.controllers.muscle_groups</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="api/domain/catalogs/deps.html#module-app.domain.catalogs.deps"><code class="xref">app.domain.catalogs.deps</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="api/domain/exercises/controllers.html#module-app.domain.exercises.controllers"><code class="xref">app.domain.exercises.controllers</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="api/domain/exercises/deps.html#module-app.domain.exercises.deps"><code class="xref">app.domain.exercises.deps</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
        <a href="api/domain/system/controllers.html#module-app.domain.system.controllers"><code class="xref">app.domain.system.controllers</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
@@ -120,17 +155,17 @@ data-aria-dark="Switch to auto color mode">
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="api/domain/users/jwt_helpers.html#module-app.domain.users.jwt_helpers"><code class="xref">app.domain.users.jwt_helpers</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
        <a href="api/domain/users/utils.html#module-app.domain.users.utils"><code class="xref">app.domain.users.utils</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
        <a href="api/lib/crypt.html#module-app.lib.crypt"><code class="xref">app.lib.crypt</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="api/lib/deps.html#module-0"><code class="xref">app.lib.deps</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
@@ -184,7 +219,7 @@ data-aria-dark="Switch to auto color mode">
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=f281be69"></script>
       <script src="_static/design-tabs.js?v=f930bc37"></script>
-      <script src="_static/shibuya.js?v=cac61aee"></script>
+      <script src="_static/shibuya.js?v=50760d75"></script>
       <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
       <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
 
@@ -619,5 +654,6 @@ mermaid.initialize(
     }
 );
 
-window.addEventListener("load", load);</script></body>
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script></body>
 </html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Catalogs Domain Services - IronTrack Docs</title><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Catalogs Domain Schemas" href="schemas.html" /><link rel="prev" title="Muscle Group Controllers" href="controllers/muscle_groups.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../../_static/print.css?v=20ff2c19" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Catalogs Domain Services"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../../index.html">
+      <img class="light-logo" src="../../../_static/logo.svg" alt="irontrack" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../../_static/logo.svg" alt="irontrack" height="28" loading="lazy" />
+      <strong>irontrack</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"><ul><li class="link"><a href="../../../usage/installation.html">Installation</a></li><li class="link"><a href="../../index.html">API Reference</a></li></ul></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials">
+  <a href="https://github.com/bizoxe/iron-track" aria-label="GitHub">
+    <iconify-icon icon="simple-icons:github"></iconify-icon>
+  </a></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><p class="caption" role="heading" aria-level="3"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../usage/index.html">Usage Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage/installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage/development.html">Development</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../usage/cli-guide.html">CLI Guide</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../config/index.html">Application Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../config/base.html">Base Settings Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../config/app_settings.html">SQLAlchemy and Dependency Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../config/constants.html">Application Constants</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../server/index.html">Core Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../server/core.html">Server Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/lifespan.html">Lifespan Management</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../db/index.html">ORM Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../db/base.html">Base Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/user.html">User Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/reference.html">Reference Data Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/exercise.html">Exercise Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../lib/index.html">Core Utilities (lib)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/auth.html">JWT Cookie Security Scheme</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/crypt.html">Security Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/deps.html">Infrastructure Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/filters.html">Query Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/handlers.html">Exception Handlers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/invalidate_cache.html">Cache Invalidation Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/json_response.html">Custom JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/jwt_utils.html">JWT Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/schema.html">Base Models &amp; Structures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/serializers.html">Serialization Registry</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../utils/index.html">Utilities and Helpers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../utils/log_utils/index.html">Structured Logging Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/log_utils/handlers.html">Logging Handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/log_utils/setup.html">Logging Setup and Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../utils/log_utils/middleware.html">ASGI Logging Middleware</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../utils/server_cli.html">Server CLI Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../scripts/index.html">Application Scripts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../scripts/commands.html">User Management CLI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scripts/seeder.html">Database Seeding Script</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html">Domains Overview</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../users/index.html">Users Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../users/controllers/access.html">Access Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/controllers/users.html">User CRUD Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/controllers/user_role.html">User Role Management Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/services.html">User and Role Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/schemas.html">User Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/auth.html">Authentication &amp; Authorization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/deps.html">User Domain Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/filters.html">Users Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../users/utils.html">User Utilities and Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Catalogs Domain</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="controllers/equipment.html">Equipment Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="controllers/exercise_tags.html">Exercise Tag Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="controllers/muscle_groups.html">Muscle Group Controllers</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Catalogs Domain Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="schemas.html">Catalogs Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="deps.html">Catalogs Domain Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="filters.html">Catalogs Domain Filters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../exercises/index.html">Exercises Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/controllers.html">Exercise Management Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/services.html">Exercises Domain Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/schemas.html">Exercises Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/filters.html">Exercises Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/deps.html">Exercises Domain Dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../system/index.html">System Domain</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../system/controllers.html">System Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../system/schemas.html">System Domain Schemas</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../main.html">Entry Point (main.py)</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribution-guide.html">Contribution Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#base-catalog-service-basecatalogservice">Base Catalog Service (<cite>BaseCatalogService</cite>)</a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.services.BaseCatalogService"><code class="docutils literal notranslate"><span class="pre">BaseCatalogService</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.services.BaseCatalogService.read_schema"><code class="docutils literal notranslate">read_schema</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.services.BaseCatalogService.get_list_items"><code class="docutils literal notranslate">get_list_items()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.services.BaseCatalogService.get_all_cached"><code class="docutils literal notranslate">get_all_cached()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.services.BaseCatalogService.get_managed_objs"><code class="docutils literal notranslate">get_managed_objs()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.services.BaseCatalogService.upsert_many"><code class="docutils literal notranslate">upsert_many()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.services.BaseCatalogService.create"><code class="docutils literal notranslate">create()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.services.BaseCatalogService.update"><code class="docutils literal notranslate">update()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.services.BaseCatalogService.delete"><code class="docutils literal notranslate">delete()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#muscle-group-service-musclegroupservice">Muscle Group Service (<cite>MuscleGroupService</cite>)</a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.services.MuscleGroupService"><code class="docutils literal notranslate"><span class="pre">MuscleGroupService</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.services.MuscleGroupService.read_schema"><code class="docutils literal notranslate">read_schema</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#equipment-service-equipmentservice">Equipment Service (<cite>EquipmentService</cite>)</a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.services.EquipmentService"><code class="docutils literal notranslate"><span class="pre">EquipmentService</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.services.EquipmentService.read_schema"><code class="docutils literal notranslate">read_schema</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#exercise-tag-service-exercisetagservice">Exercise Tag Service (<cite>ExerciseTagService</cite>)</a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.services.ExerciseTagService"><code class="docutils literal notranslate"><span class="pre">ExerciseTagService</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.services.ExerciseTagService.read_schema"><code class="docutils literal notranslate">read_schema</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../../index.html"><span itemprop="name">irontrack</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">API Reference</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">Domains Overview</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="3" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="index.html"><span itemprop="name">Catalogs Domain</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="4" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Catalogs Domain Services</strong>
+        <meta itemprop="position" content="5" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section id="catalogs-domain-services">
+<h1>Catalogs Domain Services<a class="headerlink" href="#catalogs-domain-services" title="Link to this heading">¶</a></h1>
+<p>Domain services encapsulating the business logic and caching strategies for catalog models.</p>
+<p>—</p>
+<section id="base-catalog-service-basecatalogservice">
+<h2>Base Catalog Service (<cite>BaseCatalogService</cite>)<a class="headerlink" href="#base-catalog-service-basecatalogservice" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.domain.catalogs.services.BaseCatalogService">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BaseCatalogService</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/services.html#BaseCatalogService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.services.BaseCatalogService" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://advanced-alchemy.litestar.dev/latest/reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService" title="(in advanced_alchemy)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SQLAlchemyAsyncRepositoryService</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>, Any], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generic" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a></p>
+<p>Base service for managing catalog data with automated caching.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.catalogs.services.BaseCatalogService.read_schema">
+<span class="sig-name descname"><span class="pre">read_schema</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.14)"><span class="pre">type</span></a><span class="p"><span class="pre">[</span></span><span class="pre">S</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#app.domain.catalogs.services.BaseCatalogService.read_schema" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.domain.catalogs.services.BaseCatalogService.get_list_items">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_list_items</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="filters.html#app.domain.catalogs.filters.CatalogFilters" title="app.domain.catalogs.filters.CatalogFilters"><span class="pre">CatalogFilters</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">S</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/services.html#BaseCatalogService.get_list_items"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.services.BaseCatalogService.get_list_items" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve a list of catalog items from database or cache with filtering.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.domain.catalogs.services.BaseCatalogService.get_all_cached">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_all_cached</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">S</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/services.html#BaseCatalogService.get_all_cached"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.services.BaseCatalogService.get_all_cached" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve all catalog items from cache or database.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.domain.catalogs.services.BaseCatalogService.get_managed_objs">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_managed_objs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_objs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">S</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/services.html#BaseCatalogService.get_managed_objs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.services.BaseCatalogService.get_managed_objs" title="Link to this definition">¶</a></dt>
+<dd><p>Merge detached catalog data into the current session without DB hits.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.domain.catalogs.services.BaseCatalogService.upsert_many">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">upsert_many</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">BulkModelDictT[T],</span> <span class="pre">*,</span> <span class="pre">auto_expunge:</span> <span class="pre">bool</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">auto_commit:</span> <span class="pre">bool</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">no_merge:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False,</span> <span class="pre">match_fields:</span> <span class="pre">list[str]</span> <span class="pre">|</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">error_messages:</span> <span class="pre">ErrorMessages</span> <span class="pre">|</span> <span class="pre">EmptyType</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'advanced_alchemy.utils.dataclass.Empty'&gt;,</span> <span class="pre">load:</span> <span class="pre">LoadSpec</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">execution_options:</span> <span class="pre">dict[str,</span> <span class="pre">Any]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">uniquify:</span> <span class="pre">bool</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">bind_group:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">schema_dump_config:</span> <span class="pre">SchemaDumpConfig</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/services.html#BaseCatalogService.upsert_many"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.services.BaseCatalogService.upsert_many" title="Link to this definition">¶</a></dt>
+<dd><p>Upsert multiple records and invalidate the associated cache.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.domain.catalogs.services.BaseCatalogService.create">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">ModelDictT[T],</span> <span class="pre">*,</span> <span class="pre">auto_commit:</span> <span class="pre">bool</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">auto_expunge:</span> <span class="pre">bool</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">auto_refresh:</span> <span class="pre">bool</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">error_messages:</span> <span class="pre">ErrorMessages</span> <span class="pre">|</span> <span class="pre">EmptyType</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'advanced_alchemy.utils.dataclass.Empty'&gt;,</span> <span class="pre">bind_group:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">schema_dump_config:</span> <span class="pre">SchemaDumpConfig</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/services.html#BaseCatalogService.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.services.BaseCatalogService.create" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new catalog item and invalidate cache.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.domain.catalogs.services.BaseCatalogService.update">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">ModelDictT[T],</span> <span class="pre">item_id:</span> <span class="pre">Any</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">*,</span> <span class="pre">attribute_names:</span> <span class="pre">Iterable[str]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">with_for_update:</span> <span class="pre">ForUpdateParameter</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">auto_commit:</span> <span class="pre">bool</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">auto_expunge:</span> <span class="pre">bool</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">auto_refresh:</span> <span class="pre">bool</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">id_attribute:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">InstrumentedAttribute[Any]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">error_messages:</span> <span class="pre">ErrorMessages</span> <span class="pre">|</span> <span class="pre">EmptyType</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'advanced_alchemy.utils.dataclass.Empty'&gt;,</span> <span class="pre">load:</span> <span class="pre">LoadSpec</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">execution_options:</span> <span class="pre">dict[str,</span> <span class="pre">Any]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">uniquify:</span> <span class="pre">bool</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">bind_group:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">schema_dump_config:</span> <span class="pre">SchemaDumpConfig</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/services.html#BaseCatalogService.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.services.BaseCatalogService.update" title="Link to this definition">¶</a></dt>
+<dd><p>Update a catalog item and invalidate cache.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="app.domain.catalogs.services.BaseCatalogService.delete">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item_id:</span> <span class="pre">PrimaryKeyType</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_commit:</span> <span class="pre">bool</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_expunge:</span> <span class="pre">bool</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_attribute:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">InstrumentedAttribute[Any]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_messages:</span> <span class="pre">ErrorMessages</span> <span class="pre">|</span> <span class="pre">EmptyType</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'advanced_alchemy.utils.dataclass.Empty'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load:</span> <span class="pre">LoadSpec</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">execution_options:</span> <span class="pre">dict[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Any]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uniquify:</span> <span class="pre">bool</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind_group:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">T</span></span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/services.html#BaseCatalogService.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.services.BaseCatalogService.delete" title="Link to this definition">¶</a></dt>
+<dd><p>Delete a catalog item and invalidate cache.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p>—</p>
+</section>
+<section id="muscle-group-service-musclegroupservice">
+<h2>Muscle Group Service (<cite>MuscleGroupService</cite>)<a class="headerlink" href="#muscle-group-service-musclegroupservice" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.domain.catalogs.services.MuscleGroupService">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MuscleGroupService</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/services.html#MuscleGroupService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.services.MuscleGroupService" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.services.BaseCatalogService" title="app.domain.catalogs.services.BaseCatalogService"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseCatalogService</span></code></a>[<a class="reference internal" href="../../db/reference.html#app.db.models.reference.MuscleGroup" title="app.db.models.reference.MuscleGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">MuscleGroup</span></code></a>, <a class="reference internal" href="schemas.html#app.domain.catalogs.schemas.MuscleGroupRead" title="app.domain.catalogs.schemas.MuscleGroupRead"><code class="xref py py-class docutils literal notranslate"><span class="pre">MuscleGroupRead</span></code></a>]</p>
+<p>Handles database operations for muscle groups.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.catalogs.services.MuscleGroupService.read_schema">
+<span class="sig-name descname"><span class="pre">read_schema</span></span><a class="headerlink" href="#app.domain.catalogs.services.MuscleGroupService.read_schema" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="schemas.html#app.domain.catalogs.schemas.MuscleGroupRead" title="app.domain.catalogs.schemas.MuscleGroupRead"><code class="xref py py-class docutils literal notranslate"><span class="pre">MuscleGroupRead</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<p>—</p>
+</section>
+<section id="equipment-service-equipmentservice">
+<h2>Equipment Service (<cite>EquipmentService</cite>)<a class="headerlink" href="#equipment-service-equipmentservice" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.domain.catalogs.services.EquipmentService">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EquipmentService</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/services.html#EquipmentService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.services.EquipmentService" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.services.BaseCatalogService" title="app.domain.catalogs.services.BaseCatalogService"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseCatalogService</span></code></a>[<a class="reference internal" href="../../db/reference.html#app.db.models.reference.Equipment" title="app.db.models.reference.Equipment"><code class="xref py py-class docutils literal notranslate"><span class="pre">Equipment</span></code></a>, <a class="reference internal" href="schemas.html#app.domain.catalogs.schemas.EquipmentRead" title="app.domain.catalogs.schemas.EquipmentRead"><code class="xref py py-class docutils literal notranslate"><span class="pre">EquipmentRead</span></code></a>]</p>
+<p>Handles database operations for equipment.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.catalogs.services.EquipmentService.read_schema">
+<span class="sig-name descname"><span class="pre">read_schema</span></span><a class="headerlink" href="#app.domain.catalogs.services.EquipmentService.read_schema" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="schemas.html#app.domain.catalogs.schemas.EquipmentRead" title="app.domain.catalogs.schemas.EquipmentRead"><code class="xref py py-class docutils literal notranslate"><span class="pre">EquipmentRead</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<p>—</p>
+</section>
+<section id="exercise-tag-service-exercisetagservice">
+<h2>Exercise Tag Service (<cite>ExerciseTagService</cite>)<a class="headerlink" href="#exercise-tag-service-exercisetagservice" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.domain.catalogs.services.ExerciseTagService">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ExerciseTagService</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/services.html#ExerciseTagService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.services.ExerciseTagService" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.services.BaseCatalogService" title="app.domain.catalogs.services.BaseCatalogService"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseCatalogService</span></code></a>[<a class="reference internal" href="../../db/reference.html#app.db.models.reference.ExerciseTag" title="app.db.models.reference.ExerciseTag"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExerciseTag</span></code></a>, <a class="reference internal" href="schemas.html#app.domain.catalogs.schemas.ExerciseTagRead" title="app.domain.catalogs.schemas.ExerciseTagRead"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExerciseTagRead</span></code></a>]</p>
+<p>Handles database operations for exercise tags.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.catalogs.services.ExerciseTagService.read_schema">
+<span class="sig-name descname"><span class="pre">read_schema</span></span><a class="headerlink" href="#app.domain.catalogs.services.ExerciseTagService.read_schema" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="schemas.html#app.domain.catalogs.schemas.ExerciseTagRead" title="app.domain.catalogs.schemas.ExerciseTagRead"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExerciseTagRead</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="controllers/muscle_groups.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Muscle Group Controllers</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="schemas.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Catalogs Domain Schemas</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2026, Alexander Matveev</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials">
+<a href="https://github.com/bizoxe/iron-track" aria-label="GitHub">
+  <iconify-icon icon="simple-icons:github"></iconify-icon>
+</a></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../../_static/shibuya.js?v=50760d75"></script></body>
+</html>

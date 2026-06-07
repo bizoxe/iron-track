@@ -6,7 +6,7 @@
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="_static/pygments.css?v=e1a1ceaf" />
-    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=44020203" />
+    <link rel="stylesheet" type="text/css" href="_static/shibuya.css?v=9454f7d5" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/autodoc_pydantic.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
@@ -62,7 +62,6 @@ data-aria-dark="Switch to auto color mode">
 
 <div class="genindex-jumpbox">
  <a href="#Symbols"><strong>Symbols</strong></a>
- | <a href="#_"><strong>_</strong></a>
  | <a href="#A"><strong>A</strong></a>
  | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
@@ -126,44 +125,18 @@ data-aria-dark="Switch to auto color mode">
   </ul></td>
 </tr></table>
 
-<h2 id="_">_</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/lib/auth.html#app.lib.auth.JWTCookieSecurity.__call__">__call__() (JWTCookieSecurity method)</a>
-</li>
-      <li><a href="api/lib/pretty_regex_error_msgs.html#app.lib.pretty_regex_error_msgs.RegexValidator.__get_pydantic_core_schema__">__get_pydantic_core_schema__() (RegexValidator class method)</a>
-</li>
-      <li><a href="api/lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse.__init__">__init__() (MsgSpecJSONResponse method)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/lib/pretty_regex_error_msgs.html#app.lib.pretty_regex_error_msgs.RegexValidator.__init_subclass__">__init_subclass__() (RegexValidator class method)</a>
-</li>
-      <li><a href="api/lib/serializers.html#app.lib.serializers.MsgSpecRegistry._ENCODER">_ENCODER (MsgSpecRegistry attribute)</a>
-</li>
-      <li><a href="api/domain/users/auth.html#app.domain.users.auth.Authenticate._get_user_from_payload">_get_user_from_payload() (Authenticate class method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.aa_technical_filters">aa_technical_filters (CommonFilters property)</a>
-
-      <ul>
-        <li><a href="api/domain/users/utils.html#app.domain.users.utils.UserFilters.aa_technical_filters">(UserFilters property)</a>
-</li>
-      </ul></li>
       <li><a href="api/config/base.html#app.config.base.JWTSettings.ACCESS_TOKEN_EXPIRE_MINUTES">ACCESS_TOKEN_EXPIRE_MINUTES (JWTSettings attribute)</a>
 </li>
-      <li><a href="api/config/constants.html#app.config.constants.ACCESS_TOKEN_MAX_AGE">ACCESS_TOKEN_MAX_AGE (in module app.config.constants)</a>
-</li>
-      <li><a href="api/utils/log_utils/setup.html#app.utils.log_utils.setup.add_correlation">add_correlation() (in module app.utils.log_utils.setup)</a>
+      <li><a href="api/config/base.html#app.config.base.JWTSettings.access_token_max_age">access_token_max_age (JWTSettings property)</a>
 </li>
       <li><a href="api/domain/users/jwt_helpers.html#app.domain.users.jwt_helpers.add_token_to_blacklist">add_token_to_blacklist() (in module app.domain.users.jwt_helpers)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.JWTSettings.ALGORITHM">ALGORITHM (JWTSettings attribute)</a>
+</li>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseScope.ALL">ALL (ExerciseScope attribute)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.AppSettings.API_V1_URL_PREFIX">API_V1_URL_PREFIX (AppSettings attribute)</a>
 </li>
@@ -196,6 +169,8 @@ data-aria-dark="Switch to auto color mode">
         <li><a href="api/scripts/commands.html#cmdoption-app-users-promote-to-superuser-email">--email</a>
 </li>
       </ul></li>
+      <li><a href="api/config/app_settings.html#app.config.app_settings.DatabaseSession">app.config.app_settings.DatabaseSession (built-in variable)</a>
+</li>
       <li>
     app.config.base
 
@@ -211,12 +186,63 @@ data-aria-dark="Switch to auto color mode">
 </li>
       </ul></li>
       <li>
+    app.db.models.reference
+
+      <ul>
+        <li><a href="api/db/reference.html#module-app.db.models.reference">module</a>
+</li>
+      </ul></li>
+      <li>
+    app.domain.catalogs.controllers.equipment
+
+      <ul>
+        <li><a href="api/domain/catalogs/controllers/equipment.html#module-app.domain.catalogs.controllers.equipment">module</a>
+</li>
+      </ul></li>
+      <li>
+    app.domain.catalogs.controllers.exercise_tags
+
+      <ul>
+        <li><a href="api/domain/catalogs/controllers/exercise_tags.html#module-app.domain.catalogs.controllers.exercise_tags">module</a>
+</li>
+      </ul></li>
+      <li>
+    app.domain.catalogs.controllers.muscle_groups
+
+      <ul>
+        <li><a href="api/domain/catalogs/controllers/muscle_groups.html#module-app.domain.catalogs.controllers.muscle_groups">module</a>
+</li>
+      </ul></li>
+      <li>
+    app.domain.catalogs.deps
+
+      <ul>
+        <li><a href="api/domain/catalogs/deps.html#module-app.domain.catalogs.deps">module</a>
+</li>
+      </ul></li>
+      <li>
+    app.domain.exercises.controllers
+
+      <ul>
+        <li><a href="api/domain/exercises/controllers.html#module-app.domain.exercises.controllers">module</a>
+</li>
+      </ul></li>
+      <li>
+    app.domain.exercises.deps
+
+      <ul>
+        <li><a href="api/domain/exercises/deps.html#module-app.domain.exercises.deps">module</a>
+</li>
+      </ul></li>
+      <li>
     app.domain.system.controllers
 
       <ul>
         <li><a href="api/domain/system/controllers.html#module-app.domain.system.controllers">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     app.domain.system.schemas
 
@@ -224,8 +250,6 @@ data-aria-dark="Switch to auto color mode">
         <li><a href="api/domain/system/schemas.html#module-app.domain.system.schemas">module</a>
 </li>
       </ul></li>
-      <li><a href="api/domain/users/auth.html#app.domain.users.auth.claims_registry">app.domain.users.auth.claims_registry (built-in variable)</a>
-</li>
       <li>
     app.domain.users.controllers.access
 
@@ -240,8 +264,6 @@ data-aria-dark="Switch to auto color mode">
         <li><a href="api/domain/users/controllers/user_role.html#module-app.domain.users.controllers.user_role">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     app.domain.users.controllers.users
 
@@ -254,13 +276,6 @@ data-aria-dark="Switch to auto color mode">
 
       <ul>
         <li><a href="api/domain/users/deps.html#module-app.domain.users.deps">module</a>
-</li>
-      </ul></li>
-      <li>
-    app.domain.users.jwt_helpers
-
-      <ul>
-        <li><a href="api/domain/users/jwt_helpers.html#module-app.domain.users.jwt_helpers">module</a>
 </li>
       </ul></li>
       <li>
@@ -279,6 +294,13 @@ data-aria-dark="Switch to auto color mode">
 
       <ul>
         <li><a href="api/lib/crypt.html#module-app.lib.crypt">module</a>
+</li>
+      </ul></li>
+      <li>
+    app.lib.deps
+
+      <ul>
+        <li><a href="api/lib/deps.html#module-0">module</a>, <a href="api/lib/deps.html#module-app.lib.deps">[1]</a>
 </li>
       </ul></li>
       <li>
@@ -335,11 +357,17 @@ data-aria-dark="Switch to auto color mode">
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/lib/exceptions.html#app.lib.exceptions.BadRequestException">BadRequestException (class in app.lib.exceptions)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/lib/exceptions.html#app.lib.exceptions.BaseAPIException">BaseAPIException (class in app.lib.exceptions)</a>
 </li>
+      <li><a href="api/domain/catalogs/services.html#app.domain.catalogs.services.BaseCatalogService">BaseCatalogService (class in app.domain.catalogs.services)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/lib/schema.html#app.lib.schema.BaseStruct">BaseStruct (class in app.lib.schema)</a>
+</li>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.DifficultyLevelType.BEGINNER">BEGINNER (DifficultyLevelType attribute)</a>
+</li>
+      <li><a href="api/domain/exercises/filters.html#app.domain.exercises.filters.ExerciseFilters.build_exercise_filters">build_exercise_filters() (ExerciseFilters method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -347,7 +375,11 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/lib/deps.html#app.lib.deps.CacheKeyBuilder">CacheKeyBuilder (class in app.lib.deps)</a>
+</li>
       <li><a href="api/lib/schema.html#app.lib.schema.CamelizedBaseStruct">CamelizedBaseStruct (class in app.lib.schema)</a>
+</li>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.CategoryType.CARDIO">CARDIO (CategoryType attribute)</a>
 </li>
       <li><a href="api/lib/serializers.html#app.lib.serializers.cashews_registry">cashews_registry() (in module app.lib.serializers)</a>
 </li>
@@ -355,54 +387,96 @@ data-aria-dark="Switch to auto color mode">
 </li>
       <li><a href="api/config/constants.html#app.config.constants.CATALOG_LIST_CACHE_TTL">CATALOG_LIST_CACHE_TTL (in module app.config.constants)</a>
 </li>
+      <li><a href="api/db/exercise.html#app.db.models.exercise.Exercise.category">category (Exercise attribute)</a>
+
+      <ul>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseBase.category">(ExerciseBase attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreate.category">(ExerciseCreate attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreateSystem.category">(ExerciseCreateSystem attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/filters.html#app.domain.exercises.filters.ExerciseFilters.category">(ExerciseFilters attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseRead.category">(ExerciseRead attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdate.category">(ExerciseUpdate attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdateSystem.category">(ExerciseUpdateSystem attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.CategoryType">CategoryType (class in app.domain.exercises.schemas)</a>
+</li>
       <li><a href="api/config/base.html#app.config.base.AppSettings.cdn_exercises_url_prefix">cdn_exercises_url_prefix (AppSettings property)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.AppSettings.CDN_RESOURCES_DEFAULT_URL">CDN_RESOURCES_DEFAULT_URL (AppSettings attribute)</a>
 </li>
-      <li><a href="api/domain/users/services.html#app.domain.users.services.UserService.check_critical_action_forbidden">check_critical_action_forbidden() (UserService method)</a>
-</li>
-      <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.AccountRegister.check_passwords_match">check_passwords_match() (AccountRegister method)</a>
+      <li><a href="api/domain/users/utils.html#app.domain.users.utils.check_critical_action_forbidden">check_critical_action_forbidden() (in module app.domain.users.utils)</a>
 </li>
       <li><a href="api/domain/system/controllers.html#app.domain.system.controllers.check_system_health">check_system_health() (in module app.domain.system.controllers)</a>
 </li>
-      <li><a href="api/domain/users/utils.html#app.domain.users.utils.check_user_before_modify_role">check_user_before_modify_role() (in module app.domain.users.utils)</a>
-</li>
       <li><a href="api/config/base.html#app.config.base.RedisSettings.client">client (RedisSettings property)</a>
+</li>
+      <li><a href="api/lib/deps.html#app.lib.deps.CompositeServiceMixin">CompositeServiceMixin (class in app.lib.deps)</a>
+</li>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.MechanicType.COMPOUND">COMPOUND (MechanicType attribute)</a>
 </li>
       <li><a href="api/utils/log_utils/setup.html#app.utils.log_utils.setup.configure_logging">configure_logging() (in module app.utils.log_utils.setup)</a>
 </li>
       <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.AccountRegister.confirm_password">confirm_password (AccountRegister attribute)</a>
 </li>
-      <li><a href="api/lib/exceptions.html#app.lib.exceptions.ConflictException">ConflictException (class in app.lib.exceptions)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/config/constants.html#app.config.constants.COOKIE_SECURE_VALUE">COOKIE_SECURE_VALUE (in module app.config.constants)</a>
+      <li><a href="api/lib/exceptions.html#app.lib.exceptions.ConflictException">ConflictException (class in app.lib.exceptions)</a>
 </li>
-      <li><a href="api/lib/crypt.html#app.lib.crypt.cpu_cores">cpu_cores (in module app.lib.crypt)</a>
+      <li><a href="api/config/base.html#app.config.base.AppSettings.COOKIE_SECURE_VALUE">COOKIE_SECURE_VALUE (AppSettings attribute)</a>
+</li>
+      <li><a href="api/domain/catalogs/services.html#app.domain.catalogs.services.BaseCatalogService.create">create() (BaseCatalogService method)</a>
 </li>
       <li><a href="api/domain/users/jwt_helpers.html#app.domain.users.jwt_helpers.create_access_token">create_access_token() (in module app.domain.users.jwt_helpers)</a>
 </li>
       <li><a href="api/server/core.html#app.server.core.create_app">create_app() (in module app.server.core)</a>
 </li>
+      <li><a href="api/domain/catalogs/controllers/equipment.html#app.domain.catalogs.controllers.equipment.create_equipment">create_equipment() (in module app.domain.catalogs.controllers.equipment)</a>
+</li>
+      <li><a href="api/domain/exercises/controllers.html#app.domain.exercises.controllers.create_exercise">create_exercise() (in module app.domain.exercises.controllers)</a>
+</li>
+      <li><a href="api/domain/catalogs/controllers/exercise_tags.html#app.domain.catalogs.controllers.exercise_tags.create_exercise_tag">create_exercise_tag() (in module app.domain.catalogs.controllers.exercise_tags)</a>
+</li>
+      <li><a href="api/domain/catalogs/controllers/muscle_groups.html#app.domain.catalogs.controllers.muscle_groups.create_muscle_group">create_muscle_group() (in module app.domain.catalogs.controllers.muscle_groups)</a>
+</li>
       <li><a href="api/domain/users/jwt_helpers.html#app.domain.users.jwt_helpers.create_refresh_token">create_refresh_token() (in module app.domain.users.jwt_helpers)</a>
+</li>
+      <li><a href="api/domain/exercises/controllers.html#app.domain.exercises.controllers.create_system_exercise">create_system_exercise() (in module app.domain.exercises.controllers)</a>
 </li>
       <li><a href="api/domain/users/controllers/users.html#app.domain.users.controllers.users.create_user">create_user() (in module app.domain.users.controllers.users)</a>
 </li>
-      <li><a href="api/domain/users/utils.html#app.domain.users.utils.UserFilters.created_after">created_after (UserFilters attribute)</a>
+      <li><a href="api/domain/users/filters.html#app.domain.users.filters.UserFilters.created_after">created_after (UserFilters attribute)</a>
 </li>
-      <li><a href="api/db/role.html#app.db.models.role.Role.created_at">created_at (Role attribute)</a>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseRead.created_at">created_at (ExerciseRead attribute)</a>
 
       <ul>
-        <li><a href="api/db/user.html#app.db.models.user.User.created_at">(User attribute)</a>, <a href="api/domain/users/schemas.html#app.domain.users.schemas.User.created_at">[1]</a>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.User.created_at">(User attribute)</a>
 </li>
       </ul></li>
-      <li><a href="api/domain/users/utils.html#app.domain.users.utils.UserFilters.created_before">created_before (UserFilters attribute)</a>
+      <li><a href="api/domain/users/filters.html#app.domain.users.filters.UserFilters.created_before">created_before (UserFilters attribute)</a>
 </li>
-      <li><a href="api/lib/crypt.html#app.lib.crypt.crypto_executor">crypto_executor (in module app.lib.crypt)</a>
+      <li><a href="api/db/exercise.html#app.db.models.exercise.Exercise.created_by">created_by (Exercise attribute)</a>
+
+      <ul>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseRead.created_by">(ExerciseRead attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="api/config/base.html#app.config.base.AppSettings.CRYPTO_MAX_WORKERS">CRYPTO_MAX_WORKERS (AppSettings attribute)</a>
 </li>
       <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.current_page">current_page (CommonFilters attribute)</a>
+
+      <ul>
+        <li><a href="api/domain/exercises/filters.html#app.domain.exercises.filters.ExerciseFilters.current_page">(ExerciseFilters attribute)</a>
 </li>
+        <li><a href="api/domain/users/filters.html#app.domain.users.filters.UserFilters.current_page">(UserFilters attribute)</a>
+</li>
+      </ul></li>
       <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.PasswordUpdate.current_password">current_password (PasswordUpdate attribute)</a>
 </li>
       <li><a href="api/utils/log_utils/handlers.html#app.utils.log_utils.handlers.CustomQueueHandler">CustomQueueHandler (class in app.utils.log_utils.handlers)</a>
@@ -421,17 +495,51 @@ data-aria-dark="Switch to auto color mode">
 </li>
       <li><a href="api/lib/jwt_utils.html#app.lib.jwt_utils.decode_jwt">decode_jwt() (in module app.lib.jwt_utils)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/config/constants.html#app.config.constants.DEFAULT_ADMIN_EMAIL">DEFAULT_ADMIN_EMAIL (in module app.config.constants)</a>
+      <li><a href="api/config/base.html#app.config.base.AppSettings.DEFAULT_ADMIN_EMAIL">DEFAULT_ADMIN_EMAIL (AppSettings attribute)</a>
 </li>
       <li><a href="api/domain/users/services.html#app.domain.users.services.UserService.default_role">default_role (UserService attribute)</a>
 </li>
       <li><a href="api/config/constants.html#app.config.constants.DEFAULT_USER_ROLE_SLUG">DEFAULT_USER_ROLE_SLUG (in module app.config.constants)</a>
 </li>
+      <li><a href="api/domain/catalogs/services.html#app.domain.catalogs.services.BaseCatalogService.delete">delete() (BaseCatalogService method)</a>
+</li>
+      <li><a href="api/domain/catalogs/controllers/equipment.html#app.domain.catalogs.controllers.equipment.delete_equipment">delete_equipment() (in module app.domain.catalogs.controllers.equipment)</a>
+</li>
+      <li><a href="api/domain/exercises/services.html#app.domain.exercises.services.ExerciseService.delete_exercise">delete_exercise() (ExerciseService method)</a>
+
+      <ul>
+        <li><a href="api/domain/exercises/controllers.html#app.domain.exercises.controllers.delete_exercise">(in module app.domain.exercises.controllers)</a>
+</li>
+      </ul></li>
+      <li><a href="api/domain/catalogs/controllers/exercise_tags.html#app.domain.catalogs.controllers.exercise_tags.delete_exercise_tag">delete_exercise_tag() (in module app.domain.catalogs.controllers.exercise_tags)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/domain/catalogs/controllers/muscle_groups.html#app.domain.catalogs.controllers.muscle_groups.delete_muscle_group">delete_muscle_group() (in module app.domain.catalogs.controllers.muscle_groups)</a>
+</li>
       <li><a href="api/domain/users/controllers/users.html#app.domain.users.controllers.users.delete_user">delete_user() (in module app.domain.users.controllers.users)</a>
 </li>
       <li><a href="api/db/role.html#app.db.models.role.Role.description">description (Role attribute)</a>
+</li>
+      <li><a href="api/db/exercise.html#app.db.models.exercise.Exercise.difficulty_level">difficulty_level (Exercise attribute)</a>
+
+      <ul>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseBase.difficulty_level">(ExerciseBase attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreate.difficulty_level">(ExerciseCreate attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreateSystem.difficulty_level">(ExerciseCreateSystem attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/filters.html#app.domain.exercises.filters.ExerciseFilters.difficulty_level">(ExerciseFilters attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseRead.difficulty_level">(ExerciseRead attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdate.difficulty_level">(ExerciseUpdate attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdateSystem.difficulty_level">(ExerciseUpdateSystem attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.DifficultyLevelType">DifficultyLevelType (class in app.domain.exercises.schemas)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -446,6 +554,8 @@ data-aria-dark="Switch to auto color mode">
       <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.AccountRegister.email">email (AccountRegister attribute)</a>
 
       <ul>
+        <li><a href="api/domain/users/jwt_helpers.html#app.domain.users.jwt_helpers.TokenPayloadAccess.email">(TokenPayloadAccess attribute)</a>
+</li>
         <li><a href="api/db/user.html#app.db.models.user.User.email">(User attribute)</a>, <a href="api/domain/users/schemas.html#app.domain.users.schemas.User.email">[1]</a>
 </li>
         <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserAuth.email">(UserAuth attribute)</a>
@@ -455,17 +565,73 @@ data-aria-dark="Switch to auto color mode">
         <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserUpdate.email">(UserUpdate attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/lib/jwt_utils.html#app.lib.jwt_utils.encode_jwt">encode_jwt() (in module app.lib.jwt_utils)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.engine">engine (DatabaseSettings property)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.AppSettings.ENVIRONMENT">ENVIRONMENT (AppSettings attribute)</a>
 </li>
-      <li><a href="api/lib/pretty_regex_error_msgs.html#app.lib.pretty_regex_error_msgs.RegexValidator.error_message">error_message (RegexValidator attribute)</a>
+      <li><a href="api/db/reference.html#app.db.models.reference.Equipment">Equipment (class in app.db.models.reference)</a>
+</li>
+      <li><a href="api/db/exercise.html#app.db.models.exercise.Exercise.equipment">equipment (Exercise attribute)</a>
+
+      <ul>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseBase.equipment">(ExerciseBase attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreate.equipment">(ExerciseCreate attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreateSystem.equipment">(ExerciseCreateSystem attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/filters.html#app.domain.exercises.filters.ExerciseFilters.equipment">(ExerciseFilters attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseRead.equipment">(ExerciseRead attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdate.equipment">(ExerciseUpdate attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdateSystem.equipment">(ExerciseUpdateSystem attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/domain/catalogs/deps.html#app.domain.catalogs.deps.EquipmentDep">EquipmentDep (in module app.domain.catalogs.deps)</a>
+</li>
+      <li><a href="api/domain/catalogs/schemas.html#app.domain.catalogs.schemas.EquipmentRead">EquipmentRead (class in app.domain.catalogs.schemas)</a>
+</li>
+      <li><a href="api/domain/catalogs/services.html#app.domain.catalogs.services.EquipmentService">EquipmentService (class in app.domain.catalogs.services)</a>
+</li>
+      <li><a href="api/db/exercise.html#app.db.models.exercise.Exercise">Exercise (class in app.db.models.exercise)</a>
+</li>
+      <li><a href="api/db/reference.html#app.db.models.reference.exercise_equipment">exercise_equipment (in module app.db.models.reference)</a>
+</li>
+      <li><a href="api/db/reference.html#app.db.models.reference.exercise_primary_muscles">exercise_primary_muscles (in module app.db.models.reference)</a>
+</li>
+      <li><a href="api/db/reference.html#app.db.models.reference.exercise_secondary_muscles">exercise_secondary_muscles (in module app.db.models.reference)</a>
+</li>
+      <li><a href="api/db/reference.html#app.db.models.reference.exercise_tag_map">exercise_tag_map (in module app.db.models.reference)</a>
+</li>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseRead">ExerciseRead (class in app.domain.exercises.schemas)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.AppSettings.EXERCISES_PATH_PREFIX">EXERCISES_PATH_PREFIX (AppSettings attribute)</a>
+</li>
+      <li><a href="api/db/reference.html#app.db.models.reference.Equipment.exercises_using">exercises_using (Equipment attribute)</a>
+</li>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseScope">ExerciseScope (class in app.domain.exercises.schemas)</a>
+</li>
+      <li><a href="api/domain/exercises/services.html#app.domain.exercises.services.ExerciseService">ExerciseService (class in app.domain.exercises.services)</a>
+</li>
+      <li><a href="api/domain/exercises/deps.html#app.domain.exercises.deps.ExerciseServiceDep">ExerciseServiceDep (in module app.domain.exercises.deps)</a>
+</li>
+      <li><a href="api/db/reference.html#app.db.models.reference.ExerciseTag">ExerciseTag (class in app.db.models.reference)</a>
+</li>
+      <li><a href="api/domain/catalogs/deps.html#app.domain.catalogs.deps.ExerciseTagDep">ExerciseTagDep (in module app.domain.catalogs.deps)</a>
+</li>
+      <li><a href="api/domain/catalogs/schemas.html#app.domain.catalogs.schemas.ExerciseTagRead">ExerciseTagRead (class in app.domain.catalogs.schemas)</a>
+</li>
+      <li><a href="api/domain/catalogs/services.html#app.domain.catalogs.services.ExerciseTagService">ExerciseTagService (class in app.domain.catalogs.services)</a>
+</li>
+      <li><a href="api/domain/users/jwt_helpers.html#app.domain.users.jwt_helpers.TokenPayloadBase.exp">exp (TokenPayloadBase attribute)</a>
+</li>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.DifficultyLevelType.EXPERT">EXPERT (DifficultyLevelType attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -473,15 +639,39 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/domain/catalogs/schemas.html#app.domain.catalogs.schemas.FieldsReadBase">FieldsReadBase (class in app.domain.catalogs.schemas)</a>
+</li>
       <li><a href="api/config/base.html#app.config.base.LogSettings.final_formatter">final_formatter (LogSettings property)</a>
+</li>
+      <li><a href="api/domain/exercises/controllers.html#app.domain.exercises.controllers.find_exercise">find_exercise() (in module app.domain.exercises.controllers)</a>
 </li>
       <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.RoleSlug.FITNESS_TRAINER">FITNESS_TRAINER (RoleSlug attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/config/constants.html#app.config.constants.FITNESS_TRAINER_ROLE_SLUG">FITNESS_TRAINER_ROLE_SLUG (in module app.config.constants)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.FIXTURE_PATH">FIXTURE_PATH (DatabaseSettings attribute)</a>
+</li>
+      <li><a href="api/lib/deps.html#app.lib.deps.CacheKeyBuilder.for_exercises">for_exercises() (CacheKeyBuilder class method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/db/exercise.html#app.db.models.exercise.Exercise.force">force (Exercise attribute)</a>
+
+      <ul>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseBase.force">(ExerciseBase attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreate.force">(ExerciseCreate attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreateSystem.force">(ExerciseCreateSystem attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseRead.force">(ExerciseRead attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdate.force">(ExerciseUpdate attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdateSystem.force">(ExerciseUpdateSystem attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ForceType">ForceType (class in app.domain.exercises.schemas)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -489,6 +679,12 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/domain/users/jwt_helpers.html#app.domain.users.jwt_helpers.get_access_token_payload">get_access_token_payload() (in module app.domain.users.jwt_helpers)</a>
+</li>
+      <li><a href="api/domain/catalogs/services.html#app.domain.catalogs.services.BaseCatalogService.get_all_cached">get_all_cached() (BaseCatalogService method)</a>
+</li>
+      <li><a href="api/domain/users/services.html#app.domain.users.services.UserService.get_and_validate_for_role_change">get_and_validate_for_role_change() (UserService method)</a>
+</li>
       <li><a href="api/lib/serializers.html#app.lib.serializers.MsgSpecRegistry.get_cashews_pair">get_cashews_pair() (MsgSpecRegistry class method)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.get_connection_url">get_connection_url() (DatabaseSettings method)</a>
@@ -501,17 +697,45 @@ data-aria-dark="Switch to auto color mode">
 </li>
       <li><a href="api/domain/users/services.html#app.domain.users.services.RoleService.get_default_role">get_default_role() (RoleService method)</a>
 </li>
+      <li><a href="api/domain/catalogs/controllers/equipment.html#app.domain.catalogs.controllers.equipment.get_equipment">get_equipment() (in module app.domain.catalogs.controllers.equipment)</a>
+</li>
+      <li><a href="api/domain/exercises/controllers.html#app.domain.exercises.controllers.get_exercise">get_exercise() (in module app.domain.exercises.controllers)</a>
+</li>
+      <li><a href="api/domain/exercises/services.html#app.domain.exercises.services.ExerciseService.get_exercise_by_filter">get_exercise_by_filter() (ExerciseService method)</a>
+</li>
+      <li><a href="api/domain/catalogs/controllers/exercise_tags.html#app.domain.catalogs.controllers.exercise_tags.get_exercise_tag">get_exercise_tag() (in module app.domain.catalogs.controllers.exercise_tags)</a>
+</li>
+      <li><a href="api/domain/exercises/services.html#app.domain.exercises.services.ExerciseService.get_exercises_paginated_dto">get_exercises_paginated_dto() (ExerciseService method)</a>
+</li>
+      <li><a href="api/domain/users/services.html#app.domain.users.services.RoleService.get_id_and_slug_by_slug">get_id_and_slug_by_slug() (RoleService method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/domain/users/services.html#app.domain.users.services.RoleService.get_id_and_slug_by_slug">get_id_and_slug_by_slug() (RoleService method)</a>
+      <li><a href="api/domain/catalogs/controllers/equipment.html#app.domain.catalogs.controllers.equipment.get_list_equipment">get_list_equipment() (in module app.domain.catalogs.controllers.equipment)</a>
+</li>
+      <li><a href="api/domain/catalogs/controllers/exercise_tags.html#app.domain.catalogs.controllers.exercise_tags.get_list_exercise_tags">get_list_exercise_tags() (in module app.domain.catalogs.controllers.exercise_tags)</a>
+</li>
+      <li><a href="api/domain/exercises/controllers.html#app.domain.exercises.controllers.get_list_exercises">get_list_exercises() (in module app.domain.exercises.controllers)</a>
+</li>
+      <li><a href="api/domain/catalogs/services.html#app.domain.catalogs.services.BaseCatalogService.get_list_items">get_list_items() (BaseCatalogService method)</a>
+</li>
+      <li><a href="api/domain/catalogs/controllers/muscle_groups.html#app.domain.catalogs.controllers.muscle_groups.get_list_muscle_groups">get_list_muscle_groups() (in module app.domain.catalogs.controllers.muscle_groups)</a>
 </li>
       <li><a href="api/domain/users/controllers/users.html#app.domain.users.controllers.users.get_list_users">get_list_users() (in module app.domain.users.controllers.users)</a>
 </li>
+      <li><a href="api/domain/catalogs/services.html#app.domain.catalogs.services.BaseCatalogService.get_managed_objs">get_managed_objs() (BaseCatalogService method)</a>
+</li>
+      <li><a href="api/domain/catalogs/controllers/muscle_groups.html#app.domain.catalogs.controllers.muscle_groups.get_muscle_group">get_muscle_group() (in module app.domain.catalogs.controllers.muscle_groups)</a>
+</li>
       <li><a href="api/lib/crypt.html#app.lib.crypt.get_password_hash">get_password_hash() (in module app.lib.crypt)</a>
 </li>
-      <li><a href="api/domain/users/auth.html#app.domain.users.auth.get_payload_from_token">get_payload_from_token() (in module app.domain.users.auth)</a>
+      <li><a href="api/domain/users/utils.html#app.domain.users.utils.get_refresh_context">get_refresh_context() (in module app.domain.users.utils)</a>
 </li>
       <li><a href="api/domain/users/auth.html#app.domain.users.auth.Authenticate.get_refresh_jti">get_refresh_jti() (Authenticate class method)</a>
+</li>
+      <li><a href="api/domain/users/jwt_helpers.html#app.domain.users.jwt_helpers.get_refresh_token_payload">get_refresh_token_payload() (in module app.domain.users.jwt_helpers)</a>
+</li>
+      <li><a href="api/domain/users/jwt_helpers.html#app.domain.users.jwt_helpers.get_unverified_jti">get_unverified_jti() (in module app.domain.users.jwt_helpers)</a>
 </li>
       <li><a href="api/domain/users/controllers/users.html#app.domain.users.controllers.users.get_user">get_user() (in module app.domain.users.controllers.users)</a>
 </li>
@@ -523,8 +747,6 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/lib/crypt.html#app.lib.crypt.hasher">hasher (in module app.lib.crypt)</a>
-</li>
       <li><a href="api/lib/exceptions.html#app.lib.exceptions.BaseAPIException.headers">headers (BaseAPIException attribute)</a>
 </li>
   </ul></td>
@@ -539,16 +761,66 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/db/role.html#app.db.models.role.Role.id">id (Role attribute)</a>
+      <li><a href="api/domain/users/jwt_helpers.html#app.domain.users.jwt_helpers.TokenPayloadBase.iat">iat (TokenPayloadBase attribute)</a>
+</li>
+      <li><a href="api/domain/catalogs/schemas.html#app.domain.catalogs.schemas.EquipmentRead.id">id (EquipmentRead attribute)</a>
 
       <ul>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseRead.id">(ExerciseRead attribute)</a>
+</li>
+        <li><a href="api/domain/catalogs/schemas.html#app.domain.catalogs.schemas.ExerciseTagRead.id">(ExerciseTagRead attribute)</a>
+</li>
+        <li><a href="api/domain/catalogs/schemas.html#app.domain.catalogs.schemas.FieldsReadBase.id">(FieldsReadBase attribute)</a>
+</li>
+        <li><a href="api/domain/catalogs/schemas.html#app.domain.catalogs.schemas.MuscleGroupRead.id">(MuscleGroupRead attribute)</a>
+</li>
         <li><a href="api/db/base.html#app.db.models.base.SmallIntPKBase.id">(SmallIntPKBase attribute)</a>
 </li>
-        <li><a href="api/db/user.html#app.db.models.user.User.id">(User attribute)</a>, <a href="api/domain/users/schemas.html#app.domain.users.schemas.User.id">[1]</a>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.User.id">(User attribute)</a>
 </li>
         <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserAuth.id">(UserAuth attribute)</a>
 </li>
       </ul></li>
+      <li><a href="api/db/exercise.html#app.db.models.exercise.Exercise.image_path_end">image_path_end (Exercise attribute)</a>
+
+      <ul>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreateSystem.image_path_end">(ExerciseCreateSystem attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseRead.image_path_end">(ExerciseRead attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdateSystem.image_path_end">(ExerciseUpdateSystem attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="api/db/exercise.html#app.db.models.exercise.Exercise.image_path_start">image_path_start (Exercise attribute)</a>
+
+      <ul>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreateSystem.image_path_start">(ExerciseCreateSystem attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseRead.image_path_start">(ExerciseRead attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdateSystem.image_path_start">(ExerciseUpdateSystem attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="api/db/exercise.html#app.db.models.exercise.Exercise.instructions">instructions (Exercise attribute)</a>
+
+      <ul>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseBase.instructions">(ExerciseBase attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreate.instructions">(ExerciseCreate attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreateSystem.instructions">(ExerciseCreateSystem attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseRead.instructions">(ExerciseRead attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdate.instructions">(ExerciseUpdate attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdateSystem.instructions">(ExerciseUpdateSystem attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.DifficultyLevelType.INTERMEDIATE">INTERMEDIATE (DifficultyLevelType attribute)</a>
+</li>
       <li><a href="api/lib/invalidate_cache.html#app.lib.invalidate_cache.invalidate_user_cache">invalidate_user_cache() (in module app.lib.invalidate_cache)</a>
 </li>
       <li><a href="api/db/user.html#app.db.models.user.User.is_active">is_active (User attribute)</a>, <a href="api/domain/users/schemas.html#app.domain.users.schemas.User.is_active">[1]</a>
@@ -558,13 +830,13 @@ data-aria-dark="Switch to auto color mode">
 </li>
         <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserCreate.is_active">(UserCreate attribute)</a>
 </li>
-        <li><a href="api/domain/users/utils.html#app.domain.users.utils.UserFilters.is_active">(UserFilters attribute)</a>
+        <li><a href="api/domain/users/filters.html#app.domain.users.filters.UserFilters.is_active">(UserFilters attribute)</a>
 </li>
         <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserUpdate.is_active">(UserUpdate attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/domain/users/jwt_helpers.html#app.domain.users.jwt_helpers.TokenPayloadBase.is_expired">is_expired (TokenPayloadBase property)</a>
+</li>
       <li><a href="api/db/user.html#app.db.models.user.User.is_superuser">is_superuser (User attribute)</a>, <a href="api/domain/users/schemas.html#app.domain.users.schemas.User.is_superuser">[1]</a>
 
       <ul>
@@ -575,7 +847,11 @@ data-aria-dark="Switch to auto color mode">
         <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserUpdate.is_superuser">(UserUpdate attribute)</a>
 </li>
       </ul></li>
+      <li><a href="api/db/exercise.html#app.db.models.exercise.Exercise.is_system_default">is_system_default (Exercise attribute)</a>
+</li>
       <li><a href="api/domain/users/jwt_helpers.html#app.domain.users.jwt_helpers.is_token_in_blacklist">is_token_in_blacklist() (in module app.domain.users.jwt_helpers)</a>
+</li>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.MechanicType.ISOLATION">ISOLATION (MechanicType attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -583,6 +859,8 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="J">J</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/domain/users/jwt_helpers.html#app.domain.users.jwt_helpers.TokenPayloadBase.jti">jti (TokenPayloadBase attribute)</a>
+</li>
       <li><a href="api/config/base.html#app.config.base.Settings.jwt">jwt (Settings attribute)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.JWTSettings.JWT_PRIVATE_KEY">JWT_PRIVATE_KEY (JWTSettings attribute)</a>
@@ -613,11 +891,9 @@ data-aria-dark="Switch to auto color mode">
 </li>
       <li><a href="api/server/core.html#app.server.core.lifespan">lifespan() (in module app.server.core)</a>
 </li>
-      <li><a href="api/config/base.html#app.config.base.Settings.log">log (Settings attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/domain/users/controllers/access.html#app.domain.users.controllers.access.login_for_access_token">login_for_access_token() (in module app.domain.users.controllers.access)</a>
+      <li><a href="api/config/base.html#app.config.base.Settings.log">log (Settings attribute)</a>
 </li>
       <li><a href="api/domain/users/controllers/access.html#app.domain.users.controllers.access.logout">logout() (in module app.domain.users.controllers.access)</a>
 </li>
@@ -629,6 +905,24 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/db/exercise.html#app.db.models.exercise.Exercise.mechanic">mechanic (Exercise attribute)</a>
+
+      <ul>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseBase.mechanic">(ExerciseBase attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreate.mechanic">(ExerciseCreate attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreateSystem.mechanic">(ExerciseCreateSystem attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseRead.mechanic">(ExerciseRead attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdate.mechanic">(ExerciseUpdate attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdateSystem.mechanic">(ExerciseUpdateSystem attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.MechanicType">MechanicType (class in app.domain.exercises.schemas)</a>
+</li>
       <li><a href="api/lib/exceptions.html#app.lib.exceptions.BaseAPIException.message">message (BaseAPIException attribute)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.LogSettings.MIDDLEWARE_LOG_LEVEL">MIDDLEWARE_LOG_LEVEL (LogSettings attribute)</a>
@@ -647,6 +941,20 @@ data-aria-dark="Switch to auto color mode">
 </li>
         <li><a href="api/config/constants.html#module-app.config.constants">app.config.constants</a>
 </li>
+        <li><a href="api/db/reference.html#module-app.db.models.reference">app.db.models.reference</a>
+</li>
+        <li><a href="api/domain/catalogs/controllers/equipment.html#module-app.domain.catalogs.controllers.equipment">app.domain.catalogs.controllers.equipment</a>
+</li>
+        <li><a href="api/domain/catalogs/controllers/exercise_tags.html#module-app.domain.catalogs.controllers.exercise_tags">app.domain.catalogs.controllers.exercise_tags</a>
+</li>
+        <li><a href="api/domain/catalogs/controllers/muscle_groups.html#module-app.domain.catalogs.controllers.muscle_groups">app.domain.catalogs.controllers.muscle_groups</a>
+</li>
+        <li><a href="api/domain/catalogs/deps.html#module-app.domain.catalogs.deps">app.domain.catalogs.deps</a>
+</li>
+        <li><a href="api/domain/exercises/controllers.html#module-app.domain.exercises.controllers">app.domain.exercises.controllers</a>
+</li>
+        <li><a href="api/domain/exercises/deps.html#module-app.domain.exercises.deps">app.domain.exercises.deps</a>
+</li>
         <li><a href="api/domain/system/controllers.html#module-app.domain.system.controllers">app.domain.system.controllers</a>
 </li>
         <li><a href="api/domain/system/schemas.html#module-app.domain.system.schemas">app.domain.system.schemas</a>
@@ -659,11 +967,11 @@ data-aria-dark="Switch to auto color mode">
 </li>
         <li><a href="api/domain/users/deps.html#module-app.domain.users.deps">app.domain.users.deps</a>
 </li>
-        <li><a href="api/domain/users/jwt_helpers.html#module-app.domain.users.jwt_helpers">app.domain.users.jwt_helpers</a>
-</li>
         <li><a href="api/domain/users/utils.html#module-app.domain.users.utils">app.domain.users.utils</a>
 </li>
         <li><a href="api/lib/crypt.html#module-app.lib.crypt">app.lib.crypt</a>
+</li>
+        <li><a href="api/lib/deps.html#module-0">app.lib.deps</a>, <a href="api/lib/deps.html#module-app.lib.deps">[1]</a>
 </li>
         <li><a href="api/lib/jwt_utils.html#module-app.lib.jwt_utils">app.lib.jwt_utils</a>
 </li>
@@ -676,11 +984,17 @@ data-aria-dark="Switch to auto color mode">
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/utils/log_utils/setup.html#app.utils.log_utils.setup.msgspec_dumps_str">msgspec_dumps_str() (in module app.utils.log_utils.setup)</a>
-</li>
       <li><a href="api/lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse">MsgSpecJSONResponse (class in app.lib.json_response)</a>
 </li>
       <li><a href="api/lib/serializers.html#app.lib.serializers.MsgSpecRegistry">MsgSpecRegistry (class in app.lib.serializers)</a>
+</li>
+      <li><a href="api/db/reference.html#app.db.models.reference.MuscleGroup">MuscleGroup (class in app.db.models.reference)</a>
+</li>
+      <li><a href="api/domain/catalogs/deps.html#app.domain.catalogs.deps.MuscleGroupDep">MuscleGroupDep (in module app.domain.catalogs.deps)</a>
+</li>
+      <li><a href="api/domain/catalogs/schemas.html#app.domain.catalogs.schemas.MuscleGroupRead">MuscleGroupRead (class in app.domain.catalogs.schemas)</a>
+</li>
+      <li><a href="api/domain/catalogs/services.html#app.domain.catalogs.services.MuscleGroupService">MuscleGroupService (class in app.domain.catalogs.services)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -692,9 +1006,53 @@ data-aria-dark="Switch to auto color mode">
 </li>
       <li><a href="api/config/base.html#app.config.base.AppSettings.NAME">NAME (AppSettings attribute)</a>
 </li>
-      <li><a href="api/db/role.html#app.db.models.role.Role.name">name (Role attribute)</a>
+      <li><a href="api/db/reference.html#app.db.models.reference.Equipment.name">name (Equipment attribute)</a>
 
       <ul>
+        <li><a href="api/domain/catalogs/schemas.html#app.domain.catalogs.schemas.EquipmentCreate.name">(EquipmentCreate attribute)</a>
+</li>
+        <li><a href="api/domain/catalogs/schemas.html#app.domain.catalogs.schemas.EquipmentRead.name">(EquipmentRead attribute)</a>
+</li>
+        <li><a href="api/domain/catalogs/schemas.html#app.domain.catalogs.schemas.EquipmentUpdate.name">(EquipmentUpdate attribute)</a>
+</li>
+        <li><a href="api/db/exercise.html#app.db.models.exercise.Exercise.name">(Exercise attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseBase.name">(ExerciseBase attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreate.name">(ExerciseCreate attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreateSystem.name">(ExerciseCreateSystem attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseRead.name">(ExerciseRead attribute)</a>
+</li>
+        <li><a href="api/db/reference.html#app.db.models.reference.ExerciseTag.name">(ExerciseTag attribute)</a>
+</li>
+        <li><a href="api/domain/catalogs/schemas.html#app.domain.catalogs.schemas.ExerciseTagCreate.name">(ExerciseTagCreate attribute)</a>
+</li>
+        <li><a href="api/domain/catalogs/schemas.html#app.domain.catalogs.schemas.ExerciseTagRead.name">(ExerciseTagRead attribute)</a>
+</li>
+        <li><a href="api/domain/catalogs/schemas.html#app.domain.catalogs.schemas.ExerciseTagUpdate.name">(ExerciseTagUpdate attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdate.name">(ExerciseUpdate attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdateSystem.name">(ExerciseUpdateSystem attribute)</a>
+</li>
+        <li><a href="api/domain/catalogs/schemas.html#app.domain.catalogs.schemas.FieldsCreateBase.name">(FieldsCreateBase attribute)</a>
+</li>
+        <li><a href="api/domain/catalogs/schemas.html#app.domain.catalogs.schemas.FieldsReadBase.name">(FieldsReadBase attribute)</a>
+</li>
+        <li><a href="api/domain/catalogs/schemas.html#app.domain.catalogs.schemas.FieldsUpdateBase.name">(FieldsUpdateBase attribute)</a>
+</li>
+        <li><a href="api/db/reference.html#app.db.models.reference.MuscleGroup.name">(MuscleGroup attribute)</a>
+</li>
+        <li><a href="api/domain/catalogs/schemas.html#app.domain.catalogs.schemas.MuscleGroupCreate.name">(MuscleGroupCreate attribute)</a>
+</li>
+        <li><a href="api/domain/catalogs/schemas.html#app.domain.catalogs.schemas.MuscleGroupRead.name">(MuscleGroupRead attribute)</a>
+</li>
+        <li><a href="api/domain/catalogs/schemas.html#app.domain.catalogs.schemas.MuscleGroupUpdate.name">(MuscleGroupUpdate attribute)</a>
+</li>
+        <li><a href="api/db/role.html#app.db.models.role.Role.name">(Role attribute)</a>
+</li>
         <li><a href="api/db/user.html#app.db.models.user.User.name">(User attribute)</a>, <a href="api/domain/users/schemas.html#app.domain.users.schemas.User.name">[1]</a>
 </li>
         <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.UserAuth.name">(UserAuth attribute)</a>
@@ -716,10 +1074,16 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.order_by">order_by (CommonFilters attribute)</a>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.CategoryType.OLYMPIC_WEIGHTLIFTING">OLYMPIC_WEIGHTLIFTING (CategoryType attribute)</a>
+</li>
+      <li><a href="api/domain/catalogs/filters.html#app.domain.catalogs.filters.CatalogFilters.order_by">order_by (CatalogFilters attribute)</a>
 
       <ul>
-        <li><a href="api/domain/users/utils.html#app.domain.users.utils.UserFilters.order_by">(UserFilters attribute)</a>
+        <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.order_by">(CommonFilters attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/filters.html#app.domain.exercises.filters.ExerciseFilters.order_by">(ExerciseFilters attribute)</a>
+</li>
+        <li><a href="api/domain/users/filters.html#app.domain.users.filters.UserFilters.order_by">(UserFilters attribute)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -729,7 +1093,13 @@ data-aria-dark="Switch to auto color mode">
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.page_size">page_size (CommonFilters attribute)</a>
+
+      <ul>
+        <li><a href="api/domain/exercises/filters.html#app.domain.exercises.filters.ExerciseFilters.page_size">(ExerciseFilters attribute)</a>
 </li>
+        <li><a href="api/domain/users/filters.html#app.domain.users.filters.UserFilters.page_size">(UserFilters attribute)</a>
+</li>
+      </ul></li>
       <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.AccountRegister.password">password (AccountRegister attribute)</a>
 
       <ul>
@@ -742,8 +1112,6 @@ data-aria-dark="Switch to auto color mode">
       </ul></li>
       <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.PasswordValidator">PasswordValidator (class in app.domain.users.schemas)</a>
 </li>
-      <li><a href="api/lib/pretty_regex_error_msgs.html#app.lib.pretty_regex_error_msgs.RegexValidator.pattern">pattern (RegexValidator attribute)</a>
-</li>
       <li><a href="api/domain/users/utils.html#app.domain.users.utils.perform_logout_cleanup">perform_logout_cleanup() (in module app.domain.users.utils)</a>
 </li>
       <li><a href="api/lib/exceptions.html#app.lib.exceptions.PermissionDeniedException">PermissionDeniedException (class in app.lib.exceptions)</a>
@@ -752,10 +1120,10 @@ data-aria-dark="Switch to auto color mode">
 </li>
       <li><a href="api/domain/system/controllers.html#app.domain.system.controllers.ping">ping() (in module app.domain.system.controllers)</a>
 </li>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.CategoryType.PLYOMETRICS">PLYOMETRICS (CategoryType attribute)</a>
+</li>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_DISABLED">POOL_DISABLED (DatabaseSettings attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_MAX_OVERFLOW">POOL_MAX_OVERFLOW (DatabaseSettings attribute)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POOL_PRE_PING">POOL_PRE_PING (DatabaseSettings attribute)</a>
@@ -770,17 +1138,53 @@ data-aria-dark="Switch to auto color mode">
 </li>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POSTGRES_HOST">POSTGRES_HOST (DatabaseSettings attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POSTGRES_PASSWORD">POSTGRES_PASSWORD (DatabaseSettings attribute)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POSTGRES_PORT">POSTGRES_PORT (DatabaseSettings attribute)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.POSTGRES_USER">POSTGRES_USER (DatabaseSettings attribute)</a>
 </li>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.CategoryType.POWERLIFTING">POWERLIFTING (CategoryType attribute)</a>
+</li>
       <li><a href="api/utils/log_utils/handlers.html#app.utils.log_utils.handlers.CustomQueueHandler.prepare">prepare() (CustomQueueHandler method)</a>
+</li>
+      <li><a href="api/db/reference.html#app.db.models.reference.MuscleGroup.primary_exercises">primary_exercises (MuscleGroup attribute)</a>
+</li>
+      <li><a href="api/db/exercise.html#app.db.models.exercise.Exercise.primary_muscles">primary_muscles (Exercise attribute)</a>
+
+      <ul>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseBase.primary_muscles">(ExerciseBase attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreate.primary_muscles">(ExerciseCreate attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreateSystem.primary_muscles">(ExerciseCreateSystem attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/filters.html#app.domain.exercises.filters.ExerciseFilters.primary_muscles">(ExerciseFilters attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseRead.primary_muscles">(ExerciseRead attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdate.primary_muscles">(ExerciseUpdate attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdateSystem.primary_muscles">(ExerciseUpdateSystem attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="api/domain/catalogs/deps.html#app.domain.catalogs.deps.provide_equipment_service">provide_equipment_service() (in module app.domain.catalogs.deps)</a>
+</li>
+      <li><a href="api/domain/exercises/deps.html#app.domain.exercises.deps.provide_exercise_service">provide_exercise_service() (in module app.domain.exercises.deps)</a>
+</li>
+      <li><a href="api/domain/catalogs/deps.html#app.domain.catalogs.deps.provide_exercise_tag_service">provide_exercise_tag_service() (in module app.domain.catalogs.deps)</a>
+</li>
+      <li><a href="api/domain/catalogs/deps.html#app.domain.catalogs.deps.provide_muscle_group_service">provide_muscle_group_service() (in module app.domain.catalogs.deps)</a>
 </li>
       <li><a href="api/domain/users/deps.html#app.domain.users.deps.provide_role_service">provide_role_service() (in module app.domain.users.deps)</a>
 </li>
       <li><a href="api/domain/users/deps.html#app.domain.users.deps.provide_users_service">provide_users_service() (in module app.domain.users.deps)</a>
+</li>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ForceType.PULL">PULL (ForceType attribute)</a>
+</li>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ForceType.PUSH">PUSH (ForceType attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -788,13 +1192,23 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/domain/catalogs/services.html#app.domain.catalogs.services.BaseCatalogService.read_schema">read_schema (BaseCatalogService attribute)</a>
+
+      <ul>
+        <li><a href="api/domain/catalogs/services.html#app.domain.catalogs.services.EquipmentService.read_schema">(EquipmentService attribute)</a>
+</li>
+        <li><a href="api/domain/catalogs/services.html#app.domain.catalogs.services.ExerciseTagService.read_schema">(ExerciseTagService attribute)</a>
+</li>
+        <li><a href="api/domain/catalogs/services.html#app.domain.catalogs.services.MuscleGroupService.read_schema">(MuscleGroupService attribute)</a>
+</li>
+      </ul></li>
       <li><a href="api/config/base.html#app.config.base.Settings.redis">redis (Settings attribute)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.RedisSettings">RedisSettings (class in app.config.base)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.JWTSettings.REFRESH_TOKEN_EXPIRE_DAYS">REFRESH_TOKEN_EXPIRE_DAYS (JWTSettings attribute)</a>
 </li>
-      <li><a href="api/config/constants.html#app.config.constants.REFRESH_TOKEN_MAX_AGE">REFRESH_TOKEN_MAX_AGE (in module app.config.constants)</a>
+      <li><a href="api/config/base.html#app.config.base.JWTSettings.refresh_token_max_age">refresh_token_max_age (JWTSettings property)</a>
 </li>
       <li><a href="api/lib/pretty_regex_error_msgs.html#app.lib.pretty_regex_error_msgs.RegexValidator">RegexValidator (class in app.lib.pretty_regex_error_msgs)</a>
 </li>
@@ -802,12 +1216,12 @@ data-aria-dark="Switch to auto color mode">
 </li>
       <li><a href="api/domain/users/controllers/user_role.html#app.domain.users.controllers.user_role.revoke_and_set_default_role">revoke_and_set_default_role() (in module app.domain.users.controllers.user_role)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/db/role.html#app.db.models.role.Role">Role (class in app.db.models.role)</a>
 </li>
       <li><a href="api/db/user.html#app.db.models.user.User.role">role (User attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/db/user.html#app.db.models.user.User.role_id">role_id (User attribute)</a>
 </li>
       <li><a href="api/db/user.html#app.db.models.user.User.role_name">role_name (User attribute)</a>, <a href="api/domain/users/schemas.html#app.domain.users.schemas.User.role_name">[1]</a>
@@ -836,39 +1250,97 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/domain/exercises/filters.html#app.domain.exercises.filters.ExerciseFilters.scope">scope (ExerciseFilters attribute)</a>
+</li>
       <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.search_fields">search_fields (CommonFilters attribute)</a>
+</li>
+      <li><a href="api/domain/catalogs/filters.html#app.domain.catalogs.filters.CatalogFilters.search_string">search_string (CatalogFilters attribute)</a>
 
       <ul>
-        <li><a href="api/domain/users/utils.html#app.domain.users.utils.UserFilters.search_fields">(UserFilters attribute)</a>
+        <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.search_string">(CommonFilters attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/filters.html#app.domain.exercises.filters.ExerciseFilters.search_string">(ExerciseFilters attribute)</a>
+</li>
+        <li><a href="api/domain/users/filters.html#app.domain.users.filters.UserFilters.search_string">(UserFilters attribute)</a>
 </li>
       </ul></li>
-      <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.search_string">search_string (CommonFilters attribute)</a>
+      <li><a href="api/db/reference.html#app.db.models.reference.MuscleGroup.secondary_exercises">secondary_exercises (MuscleGroup attribute)</a>
 </li>
+      <li><a href="api/db/exercise.html#app.db.models.exercise.Exercise.secondary_muscles">secondary_muscles (Exercise attribute)</a>
+
+      <ul>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseBase.secondary_muscles">(ExerciseBase attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreate.secondary_muscles">(ExerciseCreate attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreateSystem.secondary_muscles">(ExerciseCreateSystem attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseRead.secondary_muscles">(ExerciseRead attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdate.secondary_muscles">(ExerciseUpdate attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdateSystem.secondary_muscles">(ExerciseUpdateSystem attribute)</a>
+</li>
+      </ul></li>
       <li><a href="api/scripts/seeder.html#app.scripts.seeder.seed_db">seed_db() (in module app.scripts.seeder)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.Settings">Settings (class in app.config.base)</a>
 </li>
+      <li><a href="api/server/lifespan.html#app.server.lifespan.setup_app_cache">setup_app_cache() (in module app.server.lifespan)</a>
+</li>
+      <li><a href="api/domain/users/controllers/access.html#app.domain.users.controllers.access.signin">signin() (in module app.domain.users.controllers.access)</a>
+</li>
       <li><a href="api/domain/users/controllers/access.html#app.domain.users.controllers.access.signup">signup() (in module app.domain.users.controllers.access)</a>
 </li>
-      <li><a href="api/db/role.html#app.db.models.role.Role.slug">slug (Role attribute)</a>
+      <li><a href="api/db/exercise.html#app.db.models.exercise.Exercise.slug">slug (Exercise attribute)</a>
+
+      <ul>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreateSystem.slug">(ExerciseCreateSystem property)</a>
 </li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseRead.slug">(ExerciseRead attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdateSystem.slug">(ExerciseUpdateSystem attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/db/base.html#app.db.models.base.SmallIntPKBase">SmallIntPKBase (class in app.db.models.base)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.RedisSettings.SOCKET_CONNECT_TIMEOUT">SOCKET_CONNECT_TIMEOUT (RedisSettings attribute)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.RedisSettings.SOCKET_KEEPALIVE">SOCKET_KEEPALIVE (RedisSettings attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.sort_order">sort_order (CommonFilters attribute)</a>
+      <li><a href="api/domain/catalogs/filters.html#app.domain.catalogs.filters.CatalogFilters.sort_order">sort_order (CatalogFilters attribute)</a>
+
+      <ul>
+        <li><a href="api/lib/filters.html#app.lib.filters.CommonFilters.sort_order">(CommonFilters attribute)</a>
 </li>
+        <li><a href="api/domain/exercises/filters.html#app.domain.exercises.filters.ExerciseFilters.sort_order">(ExerciseFilters attribute)</a>
+</li>
+        <li><a href="api/domain/users/filters.html#app.domain.users.filters.UserFilters.sort_order">(UserFilters attribute)</a>
+</li>
+      </ul></li>
       <li><a href="api/config/base.html#app.config.base.LogSettings.SQLALCHEMY_LEVEL">SQLALCHEMY_LEVEL (LogSettings attribute)</a>
 </li>
+      <li><a href="api/utils/log_utils/setup.html#app.utils.log_utils.setup.start_logging">start_logging() (in module app.utils.log_utils.setup)</a>
+</li>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ForceType.STATIC">STATIC (ForceType attribute)</a>
+</li>
       <li><a href="api/lib/exceptions.html#app.lib.exceptions.BaseAPIException.status_code">status_code (BaseAPIException attribute)</a>
+</li>
+      <li><a href="api/utils/log_utils/setup.html#app.utils.log_utils.setup.stop_logging">stop_logging() (in module app.utils.log_utils.setup)</a>
+</li>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.CategoryType.STRENGTH">STRENGTH (CategoryType attribute)</a>
+</li>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.CategoryType.STRETCHING">STRETCHING (CategoryType attribute)</a>
+</li>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.CategoryType.STRONGMAN">STRONGMAN (CategoryType attribute)</a>
 </li>
       <li><a href="api/config/base.html#app.config.base.LogSettings.STRUCTLOG_LEVEL">STRUCTLOG_LEVEL (LogSettings attribute)</a>
 </li>
       <li><a href="api/utils/log_utils/middleware.html#app.utils.log_utils.middleware.StructLogMiddleware">StructLogMiddleware (class in app.utils.log_utils.middleware)</a>
+</li>
+      <li><a href="api/domain/users/jwt_helpers.html#app.domain.users.jwt_helpers.TokenPayloadBase.sub">sub (TokenPayloadBase attribute)</a>
 </li>
       <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.RoleSlug.SUPERUSER">SUPERUSER (RoleSlug attribute)</a>
 </li>
@@ -876,7 +1348,7 @@ data-aria-dark="Switch to auto color mode">
 </li>
       <li><a href="api/config/constants.html#app.config.constants.SUPERUSER_ROLE_SLUG">SUPERUSER_ROLE_SLUG (in module app.config.constants)</a>
 </li>
-      <li><a href="api/domain/users/services.html#app.domain.users.services.UserService.system_admin_email">system_admin_email (UserService attribute)</a>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseScope.SYSTEM">SYSTEM (ExerciseScope attribute)</a>
 </li>
       <li><a href="api/domain/system/schemas.html#app.domain.system.schemas.SystemHealth">SystemHealth (class in app.domain.system.schemas)</a>
 </li>
@@ -886,6 +1358,28 @@ data-aria-dark="Switch to auto color mode">
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/db/reference.html#app.db.models.reference.ExerciseTag.tagged_exercises">tagged_exercises (ExerciseTag attribute)</a>
+</li>
+      <li><a href="api/db/exercise.html#app.db.models.exercise.Exercise.tags">tags (Exercise attribute)</a>
+
+      <ul>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseCreateSystem.tags">(ExerciseCreateSystem attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/filters.html#app.domain.exercises.filters.ExerciseFilters.tags">(ExerciseFilters attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseRead.tags">(ExerciseRead attribute)</a>
+</li>
+        <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseUpdateSystem.tags">(ExerciseUpdateSystem attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/domain/users/jwt_helpers.html#app.domain.users.jwt_helpers.TokenPayloadAccess">TokenPayloadAccess (class in app.domain.users.jwt_helpers)</a>
+</li>
+      <li><a href="api/domain/users/jwt_helpers.html#app.domain.users.jwt_helpers.TokenPayloadBase">TokenPayloadBase (class in app.domain.users.jwt_helpers)</a>
+</li>
+      <li><a href="api/domain/users/jwt_helpers.html#app.domain.users.jwt_helpers.TokenPayloadRefresh">TokenPayloadRefresh (class in app.domain.users.jwt_helpers)</a>
+</li>
       <li><a href="api/domain/users/auth.html#app.domain.users.auth.Authenticate.trainer_required">trainer_required() (Authenticate class method)</a>
 </li>
   </ul></td>
@@ -896,20 +1390,38 @@ data-aria-dark="Switch to auto color mode">
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/lib/exceptions.html#app.lib.exceptions.UnauthorizedException">UnauthorizedException (class in app.lib.exceptions)</a>
 </li>
+      <li><a href="api/domain/catalogs/services.html#app.domain.catalogs.services.BaseCatalogService.update">update() (BaseCatalogService method)</a>
+</li>
+      <li><a href="api/domain/catalogs/controllers/equipment.html#app.domain.catalogs.controllers.equipment.update_equipment">update_equipment() (in module app.domain.catalogs.controllers.equipment)</a>
+</li>
+      <li><a href="api/domain/exercises/services.html#app.domain.exercises.services.ExerciseService.update_exercise">update_exercise() (ExerciseService method)</a>
+</li>
+      <li><a href="api/domain/catalogs/controllers/exercise_tags.html#app.domain.catalogs.controllers.exercise_tags.update_exercise_tag">update_exercise_tag() (in module app.domain.catalogs.controllers.exercise_tags)</a>
+</li>
+      <li><a href="api/domain/catalogs/controllers/muscle_groups.html#app.domain.catalogs.controllers.muscle_groups.update_muscle_group">update_muscle_group() (in module app.domain.catalogs.controllers.muscle_groups)</a>
+</li>
       <li><a href="api/domain/users/controllers/access.html#app.domain.users.controllers.access.update_password">update_password() (in module app.domain.users.controllers.access)</a>
 
       <ul>
         <li><a href="api/domain/users/services.html#app.domain.users.services.UserService.update_password">(UserService method)</a>
 </li>
       </ul></li>
+      <li><a href="api/domain/exercises/controllers.html#app.domain.exercises.controllers.update_system_exercise">update_system_exercise() (in module app.domain.exercises.controllers)</a>
+</li>
       <li><a href="api/domain/users/controllers/users.html#app.domain.users.controllers.users.update_user">update_user() (in module app.domain.users.controllers.users)</a>
 </li>
-      <li><a href="api/db/role.html#app.db.models.role.Role.updated_at">updated_at (Role attribute)</a>
+      <li><a href="api/domain/exercises/controllers.html#app.domain.exercises.controllers.update_user_exercise">update_user_exercise() (in module app.domain.exercises.controllers)</a>
+</li>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseRead.updated_at">updated_at (ExerciseRead attribute)</a>
 
       <ul>
-        <li><a href="api/db/user.html#app.db.models.user.User.updated_at">(User attribute)</a>, <a href="api/domain/users/schemas.html#app.domain.users.schemas.User.updated_at">[1]</a>
+        <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.User.updated_at">(User attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/domain/catalogs/services.html#app.domain.catalogs.services.BaseCatalogService.upsert_many">upsert_many() (BaseCatalogService method)</a>
+</li>
       <li><a href="api/config/base.html#app.config.base.DatabaseSettings.URL">URL (DatabaseSettings attribute)</a>
 
       <ul>
@@ -922,9 +1434,9 @@ data-aria-dark="Switch to auto color mode">
         <li><a href="api/domain/users/schemas.html#app.domain.users.schemas.User">(class in app.domain.users.schemas)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/config/constants.html#app.config.constants.USER_AUTH_CACHE_TTL">USER_AUTH_CACHE_TTL (in module app.config.constants)</a>
+      <li><a href="api/domain/exercises/schemas.html#app.domain.exercises.schemas.ExerciseScope.USER">USER (ExerciseScope attribute)</a>
+</li>
+      <li><a href="api/config/base.html#app.config.base.AppSettings.user_auth_cache_ttl">user_auth_cache_ttl (AppSettings property)</a>
 </li>
       <li><a href="api/domain/users/controllers/access.html#app.domain.users.controllers.access.user_auth_get_self_info">user_auth_get_self_info() (in module app.domain.users.controllers.access)</a>
 </li>
@@ -986,7 +1498,7 @@ data-aria-dark="Switch to auto color mode">
       <script src="_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="_static/copybutton.js?v=f281be69"></script>
       <script src="_static/design-tabs.js?v=f930bc37"></script>
-      <script src="_static/shibuya.js?v=cac61aee"></script>
+      <script src="_static/shibuya.js?v=50760d75"></script>
       <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
       <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
 
@@ -1421,5 +1933,6 @@ mermaid.initialize(
     }
 );
 
-window.addEventListener("load", load);</script></body>
+window.addEventListener("load", load);
+window.runMermaid = runMermaid;</script></body>
 </html>
