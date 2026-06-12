@@ -13,6 +13,7 @@ on:
     paths:
       - 'docs/**'
       - 'src/**'
+      - 'pyproject.toml'
   workflow_dispatch:
 
 concurrency:
@@ -30,8 +31,7 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     env:
-      JWT_PRIVATE_KEY: >-
-        {"kty": "OKP", "crv": "Ed25519", "x": "11qYAYKxCrfVS_7TyHUgSBUIm0cnCWMT1PA0VacWad0", "d": "nZ9gc0zkP7NGuic-TQp6806oT77N_R29mZ8oInC8mX8"}
+      JWT_PRIVATE_KEY: ${{ secrets.JWT_PRIVATE_KEY }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
