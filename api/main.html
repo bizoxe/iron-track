@@ -221,49 +221,21 @@ data-aria-dark="Switch to auto color mode">
 <dd><p>Entry point for the command-line interface (CLI).</p>
 <p>Initializes the main Typer application and integrates multiple command groups
 to provide comprehensive tooling for the application.</p>
-<p>The following command groups are included:</p>
-<ul class="simple">
-<li><p><strong>Server Management:</strong> Commands for running the application in
-development-oriented (<cite>dev</cite>) mode via Uvicorn, or production-like (<cite>run</cite>)
-mode via Granian.</p></li>
-<li><p><strong>Database Migrations:</strong> Commands for managing database schemas and migrations
-(provided by <cite>advanced_alchemy</cite>).</p></li>
-<li><p><strong>Custom Tools:</strong> Application-specific commands, such as those for user management.</p></li>
-</ul>
-<div class="admonition-examples admonition">
-<p class="admonition-title">Examples</p>
-<ol class="arabic simple">
-<li><dl class="simple">
-<dt>Run in development-oriented mode:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">server</span> <span class="pre">dev</span></code></p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Run in production-like mode:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">server</span> <span class="pre">run</span></code></p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>View Database Help:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">database</span> <span class="pre">--help</span></code></p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Apply Migrations:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">database</span> <span class="pre">upgrade</span> <span class="pre">head</span></code></p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>View User Management Help:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">users</span> <span class="pre">--help</span></code></p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>Create New User:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">app</span> <span class="pre">users</span> <span class="pre">create-user</span> <span class="pre">--name</span> <span class="pre">&quot;User</span> <span class="pre">Example&quot;</span> <span class="pre">--email</span> <span class="pre">user&#64;example.com</span> <span class="pre">--password</span> <span class="pre">secretpwd</span></code></p>
-</dd>
-</dl>
-</li>
-</ol>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="c1"># Server management</span>
+</span><span data-line="2">app<span class="w"> </span>server<span class="w"> </span>dev
+</span><span data-line="3">app<span class="w"> </span>server<span class="w"> </span>run
+</span><span data-line="4">
+</span><span data-line="5"><span class="c1"># Database management</span>
+</span><span data-line="6">app<span class="w"> </span>database<span class="w"> </span>--help
+</span><span data-line="7">app<span class="w"> </span>database<span class="w"> </span>upgrade<span class="w"> </span>head
+</span><span data-line="8">
+</span><span data-line="9"><span class="c1"># User management</span>
+</span><span data-line="10">app<span class="w"> </span>users<span class="w"> </span>--help
+</span><span data-line="11">app<span class="w"> </span>users<span class="w"> </span>create-user<span class="w"> </span>--name<span class="w"> </span><span class="s2">&quot;John Doe&quot;</span><span class="w"> </span>--email<span class="w"> </span>john@example.com<span class="w"> </span>--password<span class="w"> </span>secret
+</span></pre></div>
+</div>
 </div>
 </dd></dl>
 
@@ -312,7 +284,7 @@ mode via Granian.</p></li>
     </div>
   </div>
 </footer>
-      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/documentation_options.js?v=938c9ccc"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>

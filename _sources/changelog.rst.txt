@@ -3,12 +3,18 @@ Changelog
 
 All notable changes to this project will be documented in this file.
 
-[Unreleased]
-------------
+`Release [v0.2.0] - 2026-06-13 <https://github.com/bizoxe/iron-track/releases/tag/v0.2.0>`_
+-----------------------------------------------------------------------------------------------------------------------
+
+* `See All commits in v0.2.0 <https://github.com/bizoxe/iron-track/commits/v0.2.0>`_
 
 
 ⚙️ Miscellaneous Tasks
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* (`c0a527f <https://github.com/bizoxe/iron-track/commit/c0a527f43b4352a45b9726ad68b177c0c3389b62>`_) - Bump version to 0.2.0 (alexander)
+
+* (`366c906 <https://github.com/bizoxe/iron-track/commit/366c9067cb20157436792315858cf9dd5ab37ed1>`_) - Save local changes before bumping version (alexander)
 
 * (`d3f24bd <https://github.com/bizoxe/iron-track/commit/d3f24bdbfc0c515e39598786b52a9dcc76f512c5>`_) - Update project dependencies (alexander)
 
@@ -23,6 +29,8 @@ All notable changes to this project will be documented in this file.
 
 🐛 Bug Fixes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* (`04eb4ea <https://github.com/bizoxe/iron-track/commit/04eb4eac1d92c734151efef470df72563c80ed4d>`_) - Fix CLI help handling (alexander)
 
 * (`dffc73c <https://github.com/bizoxe/iron-track/commit/dffc73ced68447bce0e645ba20d2d4399313e6df>`_) - Fix import in commands.py (alexander)
 
@@ -76,6 +84,8 @@ All notable changes to this project will be documented in this file.
 🛠️ Refactor
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+* (`3400259 <https://github.com/bizoxe/iron-track/commit/3400259eeeb475b81037023dbe0388623e2742fe>`_) - Unify and optimize CI/CD pipelines (alexander)
+
 * (`76e568a <https://github.com/bizoxe/iron-track/commit/76e568a567756e1785b5ef9596c1a64ae19d8fc3>`_) - Optimize data handling and authentication (alexander)
 
 * (`db5ebd9 <https://github.com/bizoxe/iron-track/commit/db5ebd9ea75379c1042a1ac7c512cf322c316891>`_) - Cosmetic improvements and cleanup (alexander)
@@ -99,6 +109,8 @@ All notable changes to this project will be documented in this file.
 
 🧪 Testing
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* (`56f70fa <https://github.com/bizoxe/iron-track/commit/56f70fad06af1ae552512b1b29bd7057cb368ba3>`_) - Refactor test data to use shared constants (alexander)
 
 * (`64424ef <https://github.com/bizoxe/iron-track/commit/64424ef4032704d6086a22fd313aad88333c1a1a>`_) - Adapt tests to architectural changes (alexander)
 
