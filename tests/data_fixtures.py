@@ -9,6 +9,7 @@ from typing import (
 import pytest
 
 from app.config.base import get_settings
+from tests import constants as c
 
 if TYPE_CHECKING:
     from fastapi import FastAPI
@@ -37,7 +38,7 @@ def fx_raw_users() -> list[dict[str, Any]]:
     """Unstructured user representations."""
     return [
         {
-            "id": "019a536a-5d4e-7703-896d-1eaa79d993cf",
+            "id": c.DEFAULT_ADMIN_ID,
             "email": get_settings().app.DEFAULT_ADMIN_EMAIL,
             "name": "System Administrator",
             "password": "Test_Password0!",
@@ -45,40 +46,40 @@ def fx_raw_users() -> list[dict[str, Any]]:
             "is_active": True,
         },
         {
-            "id": "019a53be-bec9-7120-81a2-8a46e85f22a4",
-            "email": "superuser@example.com",
+            "id": c.SUPERUSER_ID,
+            "email": c.SUPERUSER_EMAIL,
             "name": "Super User",
             "password": "Test_Password1!",
             "is_superuser": True,
             "is_active": True,
         },
         {
-            "id": "019a5f0c-3a24-7693-abf4-3ed68ea9cf01",
-            "email": "user@example.com",
+            "id": c.USER_EXAMPLE_ID,
+            "email": c.USER_EXAMPLE_EMAIL,
             "name": "Example User",
             "password": "Test_Password2!",
             "is_superuser": False,
             "is_active": True,
         },
         {
-            "id": "019a643b-fe1e-7ae2-9fda-c45f3b77c3cb",
-            "email": "inactive@example.com",
+            "id": c.INACTIVE_USER_ID,
+            "email": c.INACTIVE_USER_EMAIL,
             "name": "Inactive User",
             "password": "Old_Password2!",
             "is_superuser": False,
             "is_active": False,
         },
         {
-            "id": "019a643f-5947-7110-8b7d-5b5be844de8e",
-            "email": "fitness.trainer@example.com",
+            "id": c.FITNESS_TRAINER_ID,
+            "email": c.FITNESS_TRAINER_EMAIL,
             "name": "Fitness Trainer",
             "password": "Test_Password3!",
             "is_superuser": False,
             "is_active": True,
         },
         {
-            "id": "019a643e-db0a-77d0-89a6-0536f6d00a24",
-            "email": "another@example.com",
+            "id": c.ANOTHER_USER_ID,
+            "email": c.ANOTHER_USER_EMAIL,
             "name": "Another User",
             "password": "Test_Password4!",
             "is_superuser": False,
@@ -97,8 +98,8 @@ def fx_db_fixtures_path() -> Path:
 def fx_exercise_samples() -> list[dict[str, Any]]:
     return [
         {
-            "id": "019d1c19-0d21-78c0-809b-ec808d4e1e7b",
-            "name": "Example User Exercise",
+            "id": c.USER_EXEMPLE_EXERCISE_ID,
+            "name": c.USER_EXEMPLE_EXERCISE_NAME,
             "force": "pull",
             "difficulty_level": "intermediate",
             "mechanic": "isolation",
@@ -107,11 +108,11 @@ def fx_exercise_samples() -> list[dict[str, Any]]:
             "secondary_muscles": [2, 3],
             "instructions": "This is a example user exercise.",
             "category": "strength",
-            "created_by": "019a5f0c-3a24-7693-abf4-3ed68ea9cf01",
+            "created_by": c.USER_EXAMPLE_ID,
         },
         {
-            "id": "019d1c19-0d24-7821-a465-d3487ed4c89a",
-            "name": "Example User Exercise Two",
+            "id": c.USER_EXEMPLE_EXERCISE_ID_TWO,
+            "name": c.USER_EXEMPLE_EXERCISE_NAME_TWO,
             "force": "pull",
             "difficulty_level": "beginner",
             "mechanic": "compound",
@@ -120,11 +121,11 @@ def fx_exercise_samples() -> list[dict[str, Any]]:
             "secondary_muscles": [5, 8, 6],
             "instructions": "This is a example user exercise two.",
             "category": "strength",
-            "created_by": "019a5f0c-3a24-7693-abf4-3ed68ea9cf01",
+            "created_by": c.USER_EXAMPLE_ID,
         },
         {
-            "id": "019d1c19-0d28-7e62-a4ab-0666afdf0a05",
-            "name": "Another User's Exercise",
+            "id": c.ANOTHER_USER_EXERCISE_ID,
+            "name": c.ANOTHER_USER_EXERCISE_NAME,
             "force": "pull",
             "difficulty_level": "beginner",
             "mechanic": "compound",
@@ -133,11 +134,11 @@ def fx_exercise_samples() -> list[dict[str, Any]]:
             "secondary_muscles": [10, 2],
             "instructions": "This is a another user's exercise.",
             "category": "strength",
-            "created_by": "019a643e-db0a-77d0-89a6-0536f6d00a24",
+            "created_by": c.ANOTHER_USER_ID,
         },
         {
-            "id": "019d1c19-0d21-78c0-809b-ee2c5cf41b1e",
-            "name": "Trail Running/Walking",
+            "id": c.SYSTEM_EXERCISE_ID,
+            "name": c.SYSTEM_EXERCISE_NAME,
             "slug": "trail-running-walking",
             "force": None,
             "difficulty_level": "beginner",
@@ -153,8 +154,8 @@ def fx_exercise_samples() -> list[dict[str, Any]]:
             "tags": [2, 5],
         },
         {
-            "id": "019d1c19-0d24-7821-a465-d6f0a719ae95",
-            "name": "Upright Row - With Bands",
+            "id": c.SYSTEM_EXERCISE_ID_TWO,
+            "name": c.SYSTEM_EXERCISE_NAME_TWO,
             "slug": "upright-row-with-bands",
             "force": "pull",
             "difficulty_level": "beginner",

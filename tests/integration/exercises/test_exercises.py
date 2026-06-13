@@ -1,7 +1,5 @@
-from typing import (
-    TYPE_CHECKING,
-    Any,
-)
+from typing import TYPE_CHECKING, Any
+from uuid import UUID
 
 import pytest
 from fastapi import status
@@ -10,8 +8,6 @@ from app.domain.exercises.schemas import slugify
 from tests import constants as c
 
 if TYPE_CHECKING:
-    from uuid import UUID
-
     from fastapi import FastAPI
     from httpx import AsyncClient
 
@@ -285,14 +281,14 @@ async def test_start_end_paths_by_create_system_exercise(
     [
         (c.USER_EXEMPLE_EXERCISE_ID, 200),
         (c.SYSTEM_EXERCISE_ID, 200),
-        ("019d1c19-0d28-7e62-a4ab-052011e5f48c", 404),
+        (UUID("019d1c19-0d28-7e62-a4ab-052011e5f48c"), 404),
         (c.ANOTHER_USER_EXERCISE_ID, 403),
     ],
 )
 async def test_get_exercise(
     app: "FastAPI",
     user_client: "AsyncClient",
-    exercise_id: "UUID",
+    exercise_id: UUID,
     status_code: int,
 ) -> None:
     """Verify access rules for system, own, and forbidden exercises."""
@@ -458,7 +454,7 @@ async def test_update_user_exercise_success(
 async def test_update_user_exercise_failed(
     app: "FastAPI",
     user_client: "AsyncClient",
-    exercise_id: "UUID",
+    exercise_id: UUID,
     data: dict[str, str],
     status_code: int,
 ) -> None:
@@ -487,7 +483,7 @@ async def test_update_system_exercise_success(
     )
     assert response.status_code == status.HTTP_200_OK
     response_data = response.json()
-    assert response_data["id"] == c.SYSTEM_EXERCISE_ID
+    assert response_data["id"] == str(c.SYSTEM_EXERCISE_ID)
     assert {m["id"] for m in response_data["primaryMuscles"]} == {4}
     assert {m["id"] for m in response_data["secondaryMuscles"]} == {1, 2, 3}
     assert {m["id"] for m in response_data["equipment"]} == {1, 2, 3}
@@ -542,13 +538,13 @@ async def test_update_system_exercise_slug_updates(
         (c.SYSTEM_EXERCISE_ID, {"name": c.SYSTEM_EXERCISE_NAME_TWO.replace("-", "/")}, status.HTTP_409_CONFLICT),
         (c.SYSTEM_EXERCISE_ID, {"primaryMuscles": []}, status.HTTP_422_UNPROCESSABLE_CONTENT),
         (c.SYSTEM_EXERCISE_ID, {"tags": []}, status.HTTP_422_UNPROCESSABLE_CONTENT),
-        ("019d1c19-0d25-7633-8fc0-bbfa290e5088", {}, status.HTTP_404_NOT_FOUND),
+        (UUID("019d1c19-0d25-7633-8fc0-bbfa290e5088"), {}, status.HTTP_404_NOT_FOUND),
     ],
 )
 async def test_update_system_exercise_failed(
     app: "FastAPI",
     superuser_client: "AsyncClient",
-    exercise_id: "UUID",
+    exercise_id: UUID,
     data: dict[str, Any],
     status_code: int,
 ) -> None:
@@ -600,13 +596,13 @@ async def test_start_end_paths_by_update_system_exercise(
         (c.SYSTEM_EXERCISE_ID, status.HTTP_403_FORBIDDEN),
         (c.ANOTHER_USER_EXERCISE_ID, status.HTTP_403_FORBIDDEN),
         (c.USER_EXEMPLE_EXERCISE_ID, status.HTTP_204_NO_CONTENT),
-        ("019d1c19-0d26-7330-b1af-91601739d0cd", status.HTTP_404_NOT_FOUND),
+        (UUID("019d1c19-0d26-7330-b1af-91601739d0cd"), status.HTTP_404_NOT_FOUND),
     ],
 )
 async def test_delete_user_exercise(
     app: "FastAPI",
     user_client: "AsyncClient",
-    exercise_id: "UUID",
+    exercise_id: UUID,
     status_code: int,
 ) -> None:
     """Verify that users can delete only their own exercises.
@@ -657,7 +653,7 @@ async def test_regular_user_access_forbidden(
     user_client: "AsyncClient",
     app: "FastAPI",
     url_path: str,
-    exercise_id: "UUID | None",
+    exercise_id: UUID | None,
     method: str,
 ) -> None:
     """Ensure administrative endpoints are restricted to regular users."""

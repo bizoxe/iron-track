@@ -9,30 +9,25 @@ def run_cli() -> None:
     Initializes the main Typer application and integrates multiple command groups
     to provide comprehensive tooling for the application.
 
-    The following command groups are included:
+    Example:
+        .. code-block:: bash
 
-    * **Server Management:** Commands for running the application in
-      development-oriented (`dev`) mode via Uvicorn, or production-like (`run`)
-      mode via Granian.
-    * **Database Migrations:** Commands for managing database schemas and migrations
-      (provided by `advanced_alchemy`).
-    * **Custom Tools:** Application-specific commands, such as those for user management.
+            # Server management
+            app server dev
+            app server run
 
-    Examples:
-        1. Run in development-oriented mode:
-            ``app server dev``
-        2. Run in production-like mode:
-            ``app server run``
-        3. View Database Help:
-            ``app database --help``
-        4. Apply Migrations:
-            ``app database upgrade head``
-        5. View User Management Help:
-            ``app users --help``
-        6. Create New User:
-            ``app users create-user --name "User Example" --email user@example.com --password secretpwd``
+            # Database management
+            app database --help
+            app database upgrade head
+
+            # User management
+            app users --help
+            app users create-user --name "John Doe" --email john@example.com --password secret
     """
+    import sys
+
     from advanced_alchemy.extensions.fastapi.cli import register_database_commands
+    from click.exceptions import Exit
     from typer import Typer
     from typer.main import get_group
 
@@ -49,7 +44,10 @@ def run_cli() -> None:
     click_app = get_group(main_cli)
     click_app.add_command(register_database_commands(app), name="database")
     click_app.add_command(user_management_group, name="users")  # type: ignore[arg-type]
-    click_app()
+    try:
+        click_app()
+    except Exit as e:
+        sys.exit(e.exit_code)
 
 
 if __name__ == "__main__":

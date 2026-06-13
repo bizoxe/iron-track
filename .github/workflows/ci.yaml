@@ -1,22 +1,9 @@
 name: Tests and Quality
 
 on:
+  pull_request:
   push:
     branches: [main]
-    paths:
-      - 'src/**'
-      - 'tests/**'
-      - 'pyproject.toml'
-      - 'uv.lock'
-      - '.github/workflows/**'
-      - '.pre-commit-config.yaml'
-  pull_request:
-    paths-ignore:
-      - 'README.md'
-      - 'docs/**'
-      - '.gitignore'
-      - 'LICENSE'
-      - 'deploy/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

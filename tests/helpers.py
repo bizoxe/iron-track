@@ -1,10 +1,7 @@
 from __future__ import annotations
 
 from datetime import timedelta
-from typing import (
-    TYPE_CHECKING,
-    Any,
-)
+from typing import TYPE_CHECKING, Any
 
 import anyio
 from advanced_alchemy.utils.fixtures import open_fixture_async
@@ -51,12 +48,12 @@ async def wait_for_blacklist_entry(
     timeout: float = 1.0,  # noqa: ASYNC109
     interval: float = 0.01,
 ) -> bool:
-    """Wait for the specified key to appear in Redis until timeout.
+    """Wait for the specified key to appear the cache until timeout.
 
     Used in tests to asynchronously verify the execution of FastAPI background tasks.
 
     Args:
-        key: The Redis key to check for.
+        key: The cache key to check for.
         timeout: The maximum time in seconds to wait for the key to appear.
         interval: The time in seconds to wait between checks.
 
