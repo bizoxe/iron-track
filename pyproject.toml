@@ -267,30 +267,16 @@ ignore-words-list = "selectin,selectinload,Flyes,Delt,Te,tread"
 
 [tool.bumpversion]
 current_version = "0.1.0"
-parse = """(?x)
-    (?P<major>0|[1-9]\\d*)\\.
-    (?P<minor>0|[1-9]\\d*)\\.
-    (?P<patch>0|[1-9]\\d*)
-    (?:
-        -
-        (?P<pre_l>[a-zA-Z-]+)
-        (?P<pre_n>0|[1-9]\\d*)
-    )?
-"""
-serialize = [
-    "{major}.{minor}.{patch}-{pre_l}{pre_n}",
-    "{major}.{minor}.{patch}",
-]
+parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)"
+serialize = ["{major}.{minor}.{patch}"]
 search = "{current_version}"
 replace = "{new_version}"
+regex = false
+ignore_missing_version = false
 tag = true
 tag_name = "v{new_version}"
 commit = true
 message = "bump: version {current_version} → {new_version}"
-
-[tool.bumpversion.parts.pre_l]
-values = ["dev", "rc", "final"]
-optional_value = "final"
 
 [[tool.bumpversion.files]]
 filename = "pyproject.toml"
