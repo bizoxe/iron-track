@@ -54,7 +54,7 @@ license = { text = "MIT" }
 name = "irontrack"
 readme = "README.md"
 requires-python = ">=3.12"
-version = "0.1.0"
+version = "0.2.0"
 
 [project.urls]
 Repository = "https://github.com/bizoxe/iron-track"
@@ -266,31 +266,21 @@ disallow_subclassing_any = false
 ignore-words-list = "selectin,selectinload,Flyes,Delt,Te,tread"
 
 [tool.bumpversion]
-current_version = "0.1.0"
-parse = """(?x)
-    (?P<major>0|[1-9]\\d*)\\.
-    (?P<minor>0|[1-9]\\d*)\\.
-    (?P<patch>0|[1-9]\\d*)
-    (?:
-        -
-        (?P<pre_l>[a-zA-Z-]+)
-        (?P<pre_n>0|[1-9]\\d*)
-    )?
-"""
-serialize = [
-    "{major}.{minor}.{patch}-{pre_l}{pre_n}",
-    "{major}.{minor}.{patch}",
-]
+current_version = "0.2.0"
+parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)"
+serialize = ["{major}.{minor}.{patch}"]
 search = "{current_version}"
 replace = "{new_version}"
-tag = true
+regex = false
+ignore_missing_version = false
+tag = false
+sign_tags = false
 tag_name = "v{new_version}"
-commit = true
+tag_message = "Bump version: {current_version} → {new_version}"
+allow_dirty = false
+commit = false
 message = "bump: version {current_version} → {new_version}"
-
-[tool.bumpversion.parts.pre_l]
-values = ["dev", "rc", "final"]
-optional_value = "final"
+commit_args = ""
 
 [[tool.bumpversion.files]]
 filename = "pyproject.toml"
