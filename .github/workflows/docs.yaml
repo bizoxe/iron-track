@@ -37,6 +37,7 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          fetch-tags: true
 
       - name: Install uv & Python
         uses: astral-sh/setup-uv@v7
@@ -52,7 +53,14 @@ jobs:
         uses: orhun/git-cliff-action@v4.7.1
         with:
           config: pyproject.toml
-          args: --verbose --output docs/changelog.rst
+          args: --verbose --all-tags --output docs/changelog.rst
+
+      - name: Commit updated changelog
+        if: github.event_name != 'pull_request'
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: "docs: update changelog [skip ci]"
+          file_pattern: docs/changelog.rst
 
       - name: Build Docs
         run: |
