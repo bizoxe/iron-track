@@ -18,5 +18,6 @@ Cache Infrastructure
 --------------------
 
 .. automodule:: app.lib.deps
+   :no-index:
    :members: CacheKeyBuilder
    :exclude-members: CompositeServiceMixin
