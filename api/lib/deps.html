@@ -182,13 +182,7 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#app.lib.deps.CompositeServiceMixin"><code class="docutils literal notranslate"><span class="pre">CompositeServiceMixin</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-0">Cache Infrastructure</a><ul>
-<li><a class="reference internal" href="#app.lib.deps.CacheKeyBuilder"><code class="docutils literal notranslate"><span class="pre">CacheKeyBuilder</span></code></a><ul>
-<li><a class="reference internal" href="#app.lib.deps.CacheKeyBuilder.for_exercises"><code class="docutils literal notranslate">for_exercises()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li><a class="reference internal" href="#cache-infrastructure">Cache Infrastructure</a></li>
 </ul>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
   </aside>
@@ -255,16 +249,16 @@ the parent service’s database session.</p>
 
 <p>—</p>
 </section>
-<section id="module-0">
-<span id="cache-infrastructure"></span><h2>Cache Infrastructure<a class="headerlink" href="#module-0" title="Link to this heading">¶</a></h2>
+<section id="cache-infrastructure">
+<h2>Cache Infrastructure<a class="headerlink" href="#cache-infrastructure" title="Link to this heading">¶</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="app.lib.deps.CacheKeyBuilder">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CacheKeyBuilder</span></span><a class="reference internal" href="../../_modules/app/lib/deps.html#CacheKeyBuilder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.deps.CacheKeyBuilder" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CacheKeyBuilder</span></span><a class="reference internal" href="../../_modules/app/lib/deps.html#CacheKeyBuilder"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Utility for generating cache keys for complex domain-specific scenarios.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="app.lib.deps.CacheKeyBuilder.for_exercises">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">for_exercises</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../domain/exercises/filters.html#app.domain.exercises.filters.ExerciseFilters" title="app.domain.exercises.filters.ExerciseFilters"><span class="pre">ExerciseFilters</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../../_modules/app/lib/deps.html#CacheKeyBuilder.for_exercises"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.deps.CacheKeyBuilder.for_exercises" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">for_exercises</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../domain/exercises/filters.html#app.domain.exercises.filters.ExerciseFilters" title="app.domain.exercises.filters.ExerciseFilters"><span class="pre">ExerciseFilters</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../../_modules/app/lib/deps.html#CacheKeyBuilder.for_exercises"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Extend the filter cache key with a user ID for data isolation.</p>
 <p>This ensures that cached results for private or shared scopes are correctly
 partitioned between different users.</p>
