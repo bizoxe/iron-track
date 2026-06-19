@@ -53,7 +53,7 @@ jobs:
         uses: orhun/git-cliff-action@v4.7.1
         with:
           config: pyproject.toml
-          args: --verbose --all-tags --output docs/changelog.rst
+          args: --verbose --output docs/changelog.rst
 
       - name: Commit updated changelog
         if: github.event_name != 'pull_request'
