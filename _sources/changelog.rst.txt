@@ -3,16 +3,6 @@ Changelog
 
 All notable changes to this project will be documented in this file.
 
-[Unreleased]
-------------
-
-
-📚 Documentation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* (`dde9654 <https://github.com/bizoxe/iron-track/commit/dde96543fb02dfabb1e0d2bbeab7cd95965feaf8>`_) - Update changelog (github-actions[bot])
-
-
 `Release [v0.2.0] - 2026-06-13 <https://github.com/bizoxe/iron-track/releases/tag/v0.2.0>`_
 -----------------------------------------------------------------------------------------------------------------------
 
