@@ -314,7 +314,9 @@ body = """
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 {% for commit in commits %}
 * (`{{ commit.id | truncate(length=7, end="") }} <https://github.com/bizoxe/iron-track/commit/{{ commit.id }}>`_) \
-{% if commit.breaking %}[**breaking**] {% endif %}- {{ commit.message | upper_first }} ({{ commit.author.name }})
+{% if commit.breaking %}[**breaking**] {% endif %}\
+{% if commit.scope %}(**{{ commit.scope }}**) {% endif %}\
+- {{ commit.message | upper_first }} ({{ commit.author.name }})
 {% endfor %}
 {% endfor %}
 """
@@ -328,17 +330,19 @@ conventional_commits = true
 filter_unconventional = true
 split_commits = false
 commit_parsers = [
-  { message = ".*!", group = "💥 Breaking Changes" },
-  { message = "^feat", group = "🚀 Features" },
-  { message = "^fix", group = "🐛 Bug Fixes" },
-  { message = "^doc", group = "📚 Documentation" },
-  { message = "^perf", group = "⚡ Performance" },
-  { message = "^refactor", group = "🛠️ Refactor" },
-  { message = "^style", group = "🎨 Styling" },
-  { message = "^test", group = "🧪 Testing" },
-  { message = "^chore\\(release\\): prepare for", skip = true },
-  { message = "^chore", group = "⚙️ Miscellaneous Tasks" },
-  { body = ".*security", group = "🛡️ Security" },
+    { message = ".*!", group = "💥 Breaking Changes" },
+    { message = "^feat", group = "🚀 Features" },
+    { message = "^fix", group = "🐛 Bug Fixes" },
+    { message = "^docs?", group = "📚 Documentation" },
+    { message = "^perf", group = "⚡ Performance" },
+    { message = "^refactor", group = "🛠️ Refactor" },
+    { message = "^style", group = "🎨 Styling" },
+    { message = "^test", group = "🧪 Testing" },
+    { message = "^ci", group = "👷 CI/CD" },
+    { message = "^build", group = "📦 Build System" },
+    { message = "^chore\\(release\\): prepare for", skip = true },
+    { message = "^chore", group = "⚙️ Miscellaneous Tasks" },
+    { body = ".*security", group = "🛡️ Security" },
 ]
 tag_pattern = "v[0-9]*"
 sort_commits = "newest"
