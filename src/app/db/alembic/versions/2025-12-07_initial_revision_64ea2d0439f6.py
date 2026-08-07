@@ -8,6 +8,7 @@ Create Date: 2025-12-07 14:44:59.625297+00:00
 
 import warnings
 from typing import TYPE_CHECKING
+from pathlib import Path
 
 import sqlalchemy as sa
 from alembic import op
@@ -32,6 +33,9 @@ down_revision = None
 branch_labels = None
 depends_on = None
 
+alembic_dir = Path(__file__).resolve().parents[1]
+sql_dir = alembic_dir / "sql"
+
 
 def upgrade() -> None:
     with warnings.catch_warnings():
@@ -49,11 +53,20 @@ def downgrade() -> None:
 
 def schema_upgrades() -> None:
     """schema upgrade migrations go here."""
-    pass
+    sql_types_script = (sql_dir / "db_types.sql").read_text(encoding="utf-8")
+    op.execute(sql_types_script)
 
 def schema_downgrades() -> None:
     """schema downgrade migrations go here."""
-    pass
+    op.execute("""
+        DROP TYPE IF EXISTS 
+            sharing_status_enum,
+            exercise_mode_enum,
+            category_enum,
+            mechanic_enum,
+            difficulty_level_enum,
+            force_enum;
+    """)
 
 def data_upgrades() -> None:
     """Add any optional data upgrade migrations here!"""
