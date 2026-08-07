@@ -1,9 +1,6 @@
 from __future__ import annotations
 
-from typing import (
-    TYPE_CHECKING,
-    Any,
-)
+from typing import TYPE_CHECKING, Any, ClassVar
 
 from fastapi import Response
 from msgspec import json as mjson
@@ -13,11 +10,11 @@ if TYPE_CHECKING:
 
     from starlette.background import BackgroundTask
 
-_json_encoder = mjson.Encoder()
-
 
 class MsgSpecJSONResponse(Response):
     """High-performance JSON response using `msgspec` for serialization."""
+
+    encoder: ClassVar[mjson.Encoder] = mjson.Encoder()
 
     def __init__(
         self,
@@ -27,7 +24,7 @@ class MsgSpecJSONResponse(Response):
         media_type: str = "application/json",
         background: BackgroundTask | None = None,
     ) -> None:
-        """Initializes the custom response class.
+        """Initialize the custom response class.
 
         Args:
             content: The content to be serialized.
@@ -47,4 +44,4 @@ class MsgSpecJSONResponse(Response):
         Returns:
             bytes: Serialized JSON content as bytes.
         """
-        return _json_encoder.encode(content)
+        return self.encoder.encode(content)

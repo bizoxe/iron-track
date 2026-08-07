@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import (
     TYPE_CHECKING,
     Any,
@@ -6,23 +8,22 @@ from typing import (
     cast,
 )
 
-from sqlalchemy.ext.asyncio import AsyncSession
-
 from app.domain.exercises.schemas import ExerciseScope
 
 if TYPE_CHECKING:
     from uuid import UUID
 
+    from sqlalchemy.ext.asyncio import AsyncSession
+
     from app.domain.exercises.filters import ExerciseFilters
 
 S = TypeVar("S", bound="_ServiceWithSession")
 
+# --- Service Composition & DI ---
+
 
 class _ServiceWithSession(Protocol):
     def __init__(self, *, session: AsyncSession) -> None: ...
-
-
-# --- Service Composition & DI ---
 
 
 class CompositeServiceMixin:
@@ -73,7 +74,7 @@ class CacheKeyBuilder:
     """Utility for generating cache keys for complex domain-specific scenarios."""
 
     @classmethod
-    def for_exercises(cls, params: "ExerciseFilters", user_id: "UUID") -> str:
+    def for_exercises(cls, params: ExerciseFilters, user_id: UUID) -> str:
         """Extend the filter cache key with a user ID for data isolation.
 
         This ensures that cached results for private or shared scopes are correctly

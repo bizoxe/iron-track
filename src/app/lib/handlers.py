@@ -1,3 +1,5 @@
+from typing import Any
+
 from fastapi import (
     Request,
     Response,
@@ -19,11 +21,16 @@ async def http_exception_handler(
         exc (BaseAPIException): The custom application exception instance.
 
     Returns:
-        Response: A JSON response containing the error message and status code.
+        Response: A JSON response containing the error message,
+        optional details, and status code.
     """
+    content: dict[str, Any] = {"message": exc.message}
+    if exc.details is not None:
+        content["details"] = exc.details
+
     return MsgSpecJSONResponse(
         status_code=exc.status_code,
-        content={"detail": exc.message},
+        content=content,
         headers=exc.headers,
     )
 

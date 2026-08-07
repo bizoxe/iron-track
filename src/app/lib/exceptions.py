@@ -1,3 +1,6 @@
+from typing import Any
+
+
 class BaseAPIException(Exception):  # noqa: N818
     """Base exception for all API-related errors."""
 
@@ -5,10 +8,12 @@ class BaseAPIException(Exception):  # noqa: N818
         self,
         status_code: int,
         message: str,
+        details: dict[str, Any] | None = None,
         headers: dict[str, str] | None = None,
     ) -> None:
         self.status_code = status_code
         self.message = message
+        self.details = details
         self.headers = headers
 
 
@@ -40,40 +45,60 @@ class UserNotFound(BaseAPIException):
 class BadRequestException(BaseAPIException):
     """400 Bad Request exception."""
 
-    def __init__(self, message: str) -> None:
+    def __init__(
+        self,
+        message: str,
+        details: dict[str, Any] | None = None,
+    ) -> None:
         super().__init__(
             status_code=400,
             message=message,
+            details=details,
         )
 
 
 class ConflictException(BaseAPIException):
     """409 Conflict exception."""
 
-    def __init__(self, message: str) -> None:
+    def __init__(
+        self,
+        message: str,
+        details: dict[str, Any] | None = None,
+    ) -> None:
         super().__init__(
             status_code=409,
             message=message,
+            details=details,
         )
 
 
 class PermissionDeniedException(BaseAPIException):
     """403 Permission Denied exception."""
 
-    def __init__(self, message: str) -> None:
+    def __init__(
+        self,
+        message: str,
+        details: dict[str, Any] | None = None,
+    ) -> None:
         super().__init__(
             status_code=403,
             message=message,
+            details=details,
         )
 
 
 class NotFoundException(BaseAPIException):
     """404 Not Found exception."""
 
-    def __init__(self, message: str) -> None:
+    def __init__(
+        self,
+        message: str,
+        details: dict[str, Any] | None = None,
+    ) -> None:
         super().__init__(
             status_code=404,
             message=message,
+            details=details,
         )
 
 

@@ -1,24 +1,10 @@
 from typing import Any
 
-from fastapi import (
-    Request,
-)
-from fastapi.openapi.models import (
-    APIKey,
-    APIKeyIn,
-)
+from fastapi import Request
+from fastapi.openapi.models import APIKey, APIKeyIn
 from fastapi.security.base import SecurityBase
 
-from app.config.base import get_settings
 from app.lib.exceptions import UnauthorizedException
-
-__all__ = (
-    "access_token",
-    "refresh_token",
-)
-
-
-settings = get_settings()
 
 
 class JWTCookieSecurity(SecurityBase):
@@ -36,22 +22,21 @@ class JWTCookieSecurity(SecurityBase):
         *,
         auto_error: bool = True,
     ) -> None:
+        self.authentication_token = authentication_token
         self.scheme_name = scheme_name or self.__class__.__name__
-        self._authentication_token = authentication_token
         self.auto_error = auto_error
         api_key_kwargs: dict[str, Any] = {
             "type": "apiKey",
             "in": APIKeyIn.cookie,
-            "name": self._authentication_token,
-            "description": "An authentication token (JWT) is stored in the HTTP-only Cookie"
-            f" '{self._authentication_token}'.",
+            "name": self.authentication_token,
+            "description": f"JWT authentication token from the HTTP-only cookie '{self.authentication_token}'.",
         }
         self.model = APIKey(
             **api_key_kwargs,
         )
 
     async def __call__(self, request: Request) -> str | None:
-        token = request.cookies.get(self._authentication_token)
+        token = request.cookies.get(self.authentication_token)
         if token is not None:
             return token
 
