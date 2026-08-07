@@ -71,10 +71,6 @@ def schema_upgrades() -> None:
     sa.UniqueConstraint('name'),
     sa.UniqueConstraint('name', name=op.f('uq_muscle_groups_name'))
     )
-    op.execute("CREATE TYPE force_enum AS ENUM ('pull', 'push', 'static')")
-    op.execute("CREATE TYPE difficulty_level_enum AS ENUM ('beginner', 'intermediate', 'expert')")
-    op.execute("CREATE TYPE mechanic_enum AS ENUM ('compound', 'isolation')")
-    op.execute("CREATE TYPE category_enum AS ENUM ('strength', 'stretching', 'plyometrics', 'strongman', 'powerlifting', 'cardio', 'olympic weightlifting')")
     op.create_table('exercises',
     sa.Column('id', sa.GUID(length=16), nullable=False),
     sa.Column('name', sa.String(length=100), nullable=True),
@@ -177,10 +173,6 @@ def schema_downgrades() -> None:
         batch_op.drop_index('uq_exercise_created_by_user', postgresql_where=sa.text('created_by IS NOT NULL'))
 
     op.drop_table('exercises')
-    op.execute("DROP TYPE force_enum")
-    op.execute("DROP TYPE difficulty_level_enum")
-    op.execute("DROP TYPE mechanic_enum")
-    op.execute("DROP TYPE category_enum")
     op.drop_table('muscle_groups')
     op.drop_table('exercise_tags')
     op.drop_table('equipment')
