@@ -28,10 +28,6 @@ from rich.panel import Panel
 from rich.table import Table
 from typer import Option, Typer
 
-from app.config.base import get_settings
-
-settings = get_settings()
-
 TARGET_APP_FACTORY: Final[str] = "src.app.server.core:create_app"
 
 

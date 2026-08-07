@@ -10,22 +10,22 @@ from fastapi.exceptions import RequestValidationError
 from app.__about__ import __version__ as current_version
 from app.config.app_settings import alchemy
 from app.config.base import get_settings
+from app.domain.accounts.controllers.access import access_router
+from app.domain.accounts.controllers.roles import roles_router
+from app.domain.accounts.controllers.users import users_router
 from app.domain.catalogs.controllers.equipment import equipment_router
 from app.domain.catalogs.controllers.exercise_tags import exercise_tags_router
 from app.domain.catalogs.controllers.muscle_groups import muscle_router
 from app.domain.exercises.controllers import exercise_router
 from app.domain.system.controllers import system_router
-from app.domain.users.controllers.access import access_router
-from app.domain.users.controllers.user_role import role_router
-from app.domain.users.controllers.users import users_router
 from app.lib.exceptions import BaseAPIException
 from app.lib.handlers import (
     http_exception_handler,
     validation_exception_handler,
 )
 from app.server.lifespan import setup_app_cache
-from app.utils.log_utils.middleware import StructLogMiddleware
-from app.utils.log_utils.setup import (
+from app.server.observability.middleware import StructLogMiddleware
+from app.server.observability.setup import (
     configure_logging,
     start_logging,
     stop_logging,
@@ -76,8 +76,8 @@ def _init_routers(app: FastAPI, settings: Settings) -> None:
         settings (Settings): The application settings object.
     """
     app.include_router(access_router, prefix=settings.app.API_V1_URL_PREFIX)
+    app.include_router(roles_router, prefix=settings.app.API_V1_URL_PREFIX)
     app.include_router(users_router, prefix=settings.app.API_V1_URL_PREFIX)
-    app.include_router(role_router, prefix=settings.app.API_V1_URL_PREFIX)
     app.include_router(equipment_router, prefix=settings.app.API_V1_URL_PREFIX)
     app.include_router(exercise_tags_router, prefix=settings.app.API_V1_URL_PREFIX)
     app.include_router(muscle_router, prefix=settings.app.API_V1_URL_PREFIX)
