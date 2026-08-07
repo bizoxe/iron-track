@@ -32,7 +32,7 @@ def run_cli() -> None:
     from typer.main import get_group
 
     from app.scripts.commands import user_management_group
-    from app.utils.server_cli import server_cli_group
+    from app.server.server_cli import server_cli_group
 
     main_cli = Typer(
         name="main_cli",

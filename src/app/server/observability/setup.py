@@ -21,18 +21,18 @@ if TYPE_CHECKING:
 
 settings = get_settings()
 
-_json_encoder = mjson.Encoder()
+json_encoder = mjson.Encoder()
 
-_log_queue: Queue[logging.LogRecord] = Queue(10000)
-_log_listener: logging.handlers.QueueListener | None = None
-
-
-def _msgspec_dumps_str(data: Mapping[str, Any], **kwargs: Any) -> str:
-    """Serialize a log record dictionary to a JSON string using msgspec."""
-    return _json_encoder.encode(data).decode()
+log_queue: Queue[logging.LogRecord] = Queue(10000)
+log_listener: logging.handlers.QueueListener | None = None
 
 
-def _add_correlation(
+def msgspec_dumps_str(data: Mapping[str, Any], **kwargs: Any) -> str:
+    """Serialize a log record dictionary to a JSON string using `msgspec`."""
+    return json_encoder.encode(data).decode()
+
+
+def add_correlation(
     logger: logging.Logger,
     method_name: str,
     event_dict: dict[str, Any],
@@ -46,7 +46,7 @@ def _add_correlation(
 def configure_logging() -> None:
     """Set up non-blocking, structured logging for the application."""
     shared_processors = [
-        _add_correlation,
+        add_correlation,
         structlog.contextvars.merge_contextvars,
         structlog.processors.TimeStamper(fmt="iso", utc=True),
         structlog.stdlib.add_logger_name,
@@ -63,7 +63,7 @@ def configure_logging() -> None:
         logger_factory=structlog.stdlib.LoggerFactory(),
     )
     minimal_pre_chain = [
-        _add_correlation,
+        add_correlation,
         structlog.processors.TimeStamper(fmt="iso", utc=True),
         structlog.stdlib.add_logger_name,
         structlog.stdlib.add_log_level,
@@ -76,7 +76,7 @@ def configure_logging() -> None:
             "formatters": {
                 "json_console": {
                     "()": structlog.stdlib.ProcessorFormatter,
-                    "processor": structlog.processors.JSONRenderer(serializer=_msgspec_dumps_str),
+                    "processor": structlog.processors.JSONRenderer(serializer=msgspec_dumps_str),
                     "foreign_pre_chain": minimal_pre_chain,
                 },
                 "plain_console": {
@@ -94,8 +94,8 @@ def configure_logging() -> None:
                     "formatter": settings.log.final_formatter,
                 },
                 "queue_handler": {
-                    "class": "app.utils.log_utils.handlers.CustomQueueHandler",
-                    "queue": _log_queue,
+                    "class": "app.server.observability.handlers.CustomQueueHandler",
+                    "queue": log_queue,
                     "handlers": ["console"],
                     "respect_handler_level": True,
                     "formatter": None,
@@ -145,15 +145,15 @@ def configure_logging() -> None:
         }
     )
     console_handler = cast("logging.StreamHandler[Any]", logging.getHandlerByName("console"))
-    global _log_listener  # noqa: PLW0603
-    _log_listener = logging.handlers.QueueListener(_log_queue, console_handler)
+    global log_listener  # noqa: PLW0603
+    log_listener = logging.handlers.QueueListener(log_queue, console_handler)
 
 
 def start_logging() -> None:
-    if _log_listener:
-        _log_listener.start()
+    if log_listener:
+        log_listener.start()
 
 
 def stop_logging() -> None:
-    if _log_listener:
-        _log_listener.stop()
+    if log_listener:
+        log_listener.stop()
