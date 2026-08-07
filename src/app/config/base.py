@@ -2,14 +2,9 @@ from __future__ import annotations
 
 import json
 import os
-from dataclasses import (
-    dataclass,
-    field,
-)
-from functools import (
-    cached_property,
-    lru_cache,
-)
+from contextlib import suppress
+from dataclasses import dataclass, field
+from functools import cached_property, lru_cache
 from pathlib import Path
 from typing import Final
 
@@ -55,10 +50,7 @@ class AppSettings:
     CRYPTO_MAX_WORKERS: int | None = field(
         default_factory=lambda: int(val) if (val := os.getenv("CRYPTO_MAX_WORKERS")) is not None else None
     )
-    """The maximum number of threads allocated for password hashing operations.
-
-    If None, the worker count is automatically calculated based on CPU affinity.
-    """
+    """The maximum number of threads allocated for password hashing operations."""
 
     _settings: Settings = field(init=False, repr=False)
 
@@ -72,6 +64,19 @@ class AppSettings:
         """The full CDN URL prefix for exercise media resources."""
         base = self.CDN_RESOURCES_DEFAULT_URL.rstrip("/")
         return f"{base}/{self.EXERCISES_PATH_PREFIX}"
+
+    @property
+    def crypto_workers(self) -> int:
+        """The safe default thread count for password hashing."""
+        if self.CRYPTO_MAX_WORKERS is not None:
+            return self.CRYPTO_MAX_WORKERS
+
+        cores = os.cpu_count() or 1
+        if hasattr(os, "sched_getaffinity"):
+            with suppress(Exception):
+                cores = len(os.sched_getaffinity(0))
+
+        return max(min(cores, 4), 1)
 
 
 @dataclass

@@ -1,15 +1,12 @@
 from __future__ import annotations
 
-from typing import (
-    TYPE_CHECKING,
-    Any,
-)
+from typing import TYPE_CHECKING, Any
 
 from cashews.serialize import register_type
 from msgspec import msgpack
 
+from app.domain.accounts.schemas import UserAuth
 from app.domain.exercises.schemas import ExerciseRead
-from app.domain.users.schemas import UserAuth
 
 if TYPE_CHECKING:
     from collections.abc import Awaitable, Callable
@@ -18,8 +15,7 @@ if TYPE_CHECKING:
 class MsgSpecRegistry:
     """Registry for msgspec-based serialization."""
 
-    _encoder = msgpack.Encoder()
-    """Internal msgpack encoder instance."""
+    encoder = msgpack.Encoder()
 
     @classmethod
     def get_cashews_pair(
@@ -34,7 +30,7 @@ class MsgSpecRegistry:
 
         async def _enc(value: Any, *args: Any, **kwargs: Any) -> bytes:
             """Encode a value to msgpack bytes."""
-            return cls._encoder.encode(value)
+            return cls.encoder.encode(value)
 
         async def _dec(value: bytes, *args: Any, **kwargs: Any) -> Any:
             """Decode msgpack bytes back to the target type."""
