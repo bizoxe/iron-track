@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 
 from cashews import cache
 
-from app.config.base import get_settings
+from app.config.constants import DEFAULT_ADMIN_EMAIL, USER_AUTH_CACHE_KEY_PREFIX
 from app.domain.accounts.jwt_helpers import add_token_to_blacklist
 from app.lib.exceptions import PermissionDeniedException
 
@@ -13,20 +13,22 @@ if TYPE_CHECKING:
     from uuid import UUID
 
     from app.db.models.user import User as UserModel
-    from app.domain.accounts.schemas import UserAuth
 
 
 async def invalidate_user_cache(user_id: UUID) -> None:
     """Invalidate the cached data for a user by ID."""
-    await cache.delete(key=f"user_auth:{user_id}")
+    await cache.delete(key=f"{USER_AUTH_CACHE_KEY_PREFIX}:{user_id}")
 
 
 def check_critical_action_forbidden(
     target_user: UserModel,
     calling_superuser_id: UUID,
-    admin_email: str = get_settings().app.DEFAULT_ADMIN_EMAIL,
+    admin_email: str = DEFAULT_ADMIN_EMAIL,
 ) -> None:
     """Disallow destructive action on self or system admin.
+
+    Intended for admin-surface handlers: the caller acts on another account.
+    Self-service paths enforce their own guards (see retire).
 
     Args:
         target_user (:py:class:`~app.db.models.user.User`): The user object targeted for action.
@@ -37,29 +39,21 @@ def check_critical_action_forbidden(
         PermissionDeniedException: If target is the system admin or the caller themselves.
     """
     if target_user.email == admin_email:
-        msg = "Forbidden: Cannot modify the primary system administrator account"
+        msg = "Cannot modify the primary system administrator account"
         raise PermissionDeniedException(message=msg)
 
     if target_user.id == calling_superuser_id:
-        msg = "Self-action forbidden: Cannot perform destructive action on your own account"
+        msg = "Cannot perform destructive action on your own account"
         raise PermissionDeniedException(message=msg)
-
-
-def get_refresh_context(user_auth: UserAuth) -> tuple[str, float]:
-    """Validate that the user authentication context contains refresh metadata."""
-    jti = user_auth._refresh_jti  # noqa: SLF001
-    exp = user_auth._refresh_exp  # noqa: SLF001
-    if jti is None or exp is None:
-        msg = "UserAuth context missing refresh token metadata"
-        raise ValueError(msg)
-    return jti, exp
 
 
 async def perform_logout_cleanup(refresh_jti: str, ttl: int, user_id: UUID) -> None:
     """Perform asynchronous cleanup tasks upon user logout.
 
     Executed as a FastAPI background task to non-blockingly revoke the refresh token
-    in cache and invalidate cached user data.
+    in cache and invalidate cached user data. The auth cache is dropped so the
+    next session rebuilds the auth context from the database — including any
+    UserAuth copies the refresh flow may have mutated with its jti/exp pair.
 
     Args:
         refresh_jti (str): The JWT ID (JTI) of the refresh token to be blacklisted.

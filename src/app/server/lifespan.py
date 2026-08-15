@@ -11,11 +11,7 @@ if TYPE_CHECKING:
 
 
 def setup_app_cache(settings: Settings) -> None:
-    """Initialize application cache with Redis and msgspec registry.
-
-    Register domain models for serialization and setup cashews backend
-    with client-side caching enabled.
-    """
+    """Configure cache backend and bind domain serializers."""
     cashews_registry()
     cache.setup(
         settings_url=settings.redis.URL,
