@@ -29,11 +29,9 @@ class MsgSpecRegistry:
         decoder = msgpack.Decoder(target_type)
 
         async def _enc(value: Any, *args: Any, **kwargs: Any) -> bytes:
-            """Encode a value to msgpack bytes."""
             return cls.encoder.encode(value)
 
         async def _dec(value: bytes, *args: Any, **kwargs: Any) -> Any:
-            """Decode msgpack bytes back to the target type."""
             return decoder.decode(value)
 
         return _enc, _dec

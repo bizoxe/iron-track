@@ -1,7 +1,4 @@
-from collections.abc import (
-    Awaitable,
-    Callable,
-)
+from collections.abc import Awaitable, Callable
 from typing import Annotated
 
 from advanced_alchemy.exceptions import NotFoundError
@@ -10,55 +7,53 @@ from fastapi import Depends
 from sqlalchemy.orm import joinedload, load_only
 
 from app.config.base import get_settings
-from app.config.constants import FITNESS_TRAINER_ROLE_SLUG
+from app.config.constants import (
+    DEFAULT_USER_ROLE_SLUG,
+    FITNESS_TRAINER_ROLE_SLUG,
+    SUPERUSER_ROLE_SLUG,
+    USER_AUTH_CACHE_KEY_PREFIX,
+)
 from app.db.models.role import Role
 from app.db.models.user import User
-from app.domain.users.deps import UserServiceDep
-from app.domain.users.jwt_helpers import (
+from app.domain.accounts.deps import UserServiceDep
+from app.domain.accounts.jwt_helpers import (
     TokenPayloadBase,
     get_access_token_payload,
     get_refresh_token_payload,
     is_token_in_blacklist,
 )
-from app.domain.users.schemas import UserAuth
-from app.lib.auth import (
-    access_token,
-    refresh_token,
-)
+from app.domain.accounts.schemas import UserAuth
+from app.lib.auth import access_token, refresh_token
 from app.lib.exceptions import (
     PermissionDeniedException,
     UnauthorizedException,
 )
 
-settings = get_settings()
-
 
 class Authenticate:
-    """Provides FastAPI dependency factories for authentication and authorization."""
+    """FastAPI auth dependencies and factories."""
 
     @classmethod
     @cache(
-        ttl=settings.app.user_auth_cache_ttl,
-        key="user_auth:{token_payload.sub}",
+        ttl=get_settings().app.user_auth_cache_ttl,
+        key=f"{USER_AUTH_CACHE_KEY_PREFIX}" + ":{token_payload.sub}",
     )
     async def _get_user_from_payload(
         cls,
         users_service: UserServiceDep,
         token_payload: TokenPayloadBase,
     ) -> UserAuth:
-        """Load UserAuth schema from the database using the JWT 'sub' claim.
-
-        The result of this function is aggressively cached to reduce database load.
+        """Load UserAuth schema from the database or cache.
 
         Args:
             users_service (UserService): Dependency for user service operations.
-            token_payload (TokenPayload): The token data.
+            token_payload (TokenPayloadBase): The token data.
 
         Returns:
             UserAuth: The authenticated user.
 
         Raises:
-            UnauthorizedException: If the user is not found (HTTP 401).
+            UnauthorizedException: If the user is not found.
         """
         user_id = token_payload.sub
         try:
@@ -72,7 +67,7 @@ class Authenticate:
                         User.is_active,
                         User.is_superuser,
                     ),
-                    joinedload(User.role).load_only(Role.slug),
+                    joinedload(User.role, innerjoin=True).load_only(Role.slug),
                 ],
             )
             return users_service.to_schema(db_obj, schema_type=UserAuth)
@@ -81,25 +76,23 @@ class Authenticate:
             raise UnauthorizedException(message=msg) from exc
 
     @classmethod
-    async def get_current_user_for_refresh(
+    async def get_current_user_with_refresh_context(
         cls,
         token: Annotated[str, Depends(refresh_token)],
         users_service: UserServiceDep,
-    ) -> UserAuth:
-        """Authenticate the user using the refresh token.
-
-        Performs critical security checks including token blacklisting. This dependency
-        is used exclusively by the token refresh endpoint.
+    ) -> tuple[UserAuth, str, float]:
+        """Authenticate the user via refresh token and check blacklisting.
 
         Args:
             token (str): The refresh token extracted from the cookie.
             users_service (UserService): Dependency for user service operations.
 
         Returns:
-            UserAuth: The authenticated user with JTI attached.
+            tuple[UserAuth, str, float]: The authenticated user along with
+                the refresh JTI and expiration timestamp.
 
         Raises:
-            UnauthorizedException: If the token is invalid, blacklisted, or the user is inactive (HTTP 401).
+            UnauthorizedException: If the token is invalid, blacklisted, or the user is inactive.
         """
         token_payload = get_refresh_token_payload(token=token)
         refresh_jti = token_payload.jti
@@ -119,7 +112,7 @@ class Authenticate:
 
         user_auth._refresh_jti = refresh_jti  # noqa: SLF001
         user_auth._refresh_exp = token_payload.exp  # noqa: SLF001
-        return user_auth
+        return user_auth, refresh_jti, token_payload.exp
 
     @classmethod
     async def get_current_user(
@@ -127,7 +120,7 @@ class Authenticate:
         token: Annotated[str, Depends(access_token)],
         users_service: UserServiceDep,
     ) -> UserAuth:
-        """Authenticate the user using the access token.
+        """Authenticate the user via the access token.
 
         Args:
             token (str): The access token extracted from the cookie.
@@ -146,14 +139,11 @@ class Authenticate:
     def get_current_active_user(cls) -> Callable[[UserAuth], Awaitable[UserAuth]]:
         """Dependency factory to ensure the user is active.
 
-        It chains with `get_current_user` to perform both authentication and
-        basic authorization (account status check).
-
         Returns:
             Callable: A FastAPI dependency function.
 
         Raises:
-            UnauthorizedException: If the user is found but not active (HTTP 401).
+            UnauthorizedException: If the user is found but not active.
         """
 
         async def current_user(
@@ -166,50 +156,67 @@ class Authenticate:
         return current_user
 
     @classmethod
-    def superuser_required(cls) -> Callable[[UserAuth], Awaitable[UserAuth]]:
-        """Dependency factory requiring superuser privileges.
+    def application_access_required(cls) -> Callable[[UserAuth], Awaitable[UserAuth]]:
+        """Dependency factory for user-area endpoints.
 
-        It chains with `get_current_active_user` and performs the final authorization check.
+        Requires an active user with a user-area role: application-access or
+        fitness-trainer. Superusers are deliberately excluded.
 
         Returns:
             Callable: A FastAPI dependency function.
 
         Raises:
-            PermissionDeniedException: If the user is not a superuser (HTTP 403).
+            PermissionDeniedException: If the user lacks a user-area role.
         """
 
-        async def current_user(
+        async def current_active_user(
             user_auth: Annotated[UserAuth, Depends(cls.get_current_active_user())],
         ) -> UserAuth:
-            if not user_auth.is_superuser:
-                msg = "Access denied: Superuser privileges required"
-                raise PermissionDeniedException(message=msg)
+            if user_auth.role_slug not in (DEFAULT_USER_ROLE_SLUG, FITNESS_TRAINER_ROLE_SLUG):
+                raise PermissionDeniedException(message="Access denied")
             return user_auth
 
-        return current_user
+        return current_active_user
+
+    @classmethod
+    def superuser_required(cls) -> Callable[[UserAuth], Awaitable[UserAuth]]:
+        """Dependency factory requiring the Superuser role.
+
+        Returns:
+            Callable: A FastAPI dependency function.
+
+        Raises:
+            PermissionDeniedException: If the user does not have the required role.
+        """
+
+        async def current_active_user(
+            user_auth: Annotated[UserAuth, Depends(cls.get_current_active_user())],
+        ) -> UserAuth:
+            if user_auth.role_slug != SUPERUSER_ROLE_SLUG:
+                raise PermissionDeniedException(message="Access restricted to superusers")
+            return user_auth
+
+        return current_active_user
 
     @classmethod
     def trainer_required(cls) -> Callable[[UserAuth], Awaitable[UserAuth]]:
         """Dependency factory requiring the Fitness Trainer role.
 
-        It chains with `get_current_active_user` and performs the final role check.
-
         Returns:
             Callable: A FastAPI dependency function.
 
         Raises:
-            PermissionDeniedException: If the user does not have the required role (HTTP 403).
+            PermissionDeniedException: If the user does not have the required role.
         """
 
-        async def current_user(
+        async def current_active_user(
             user_auth: Annotated[UserAuth, Depends(cls.get_current_active_user())],
         ) -> UserAuth:
-            if user_auth.role_slug == FITNESS_TRAINER_ROLE_SLUG:
-                return user_auth
-            msg = "Access restricted to fitness trainers"
-            raise PermissionDeniedException(message=msg)
+            if user_auth.role_slug != FITNESS_TRAINER_ROLE_SLUG:
+                raise PermissionDeniedException(message="Access restricted to fitness trainers")
+            return user_auth
 
-        return current_user
+        return current_active_user
 
     @classmethod
     def get_refresh_jti(

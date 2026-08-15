@@ -1,17 +1,11 @@
 from __future__ import annotations
 
-from typing import (
-    TYPE_CHECKING,
-    Annotated,
-)
+from typing import TYPE_CHECKING, Annotated
 
 from fastapi import Depends
 
 from app.config.app_settings import DatabaseSession  # noqa: TC001
-from app.domain.users.services import (
-    RoleService,
-    UserService,
-)
+from app.domain.accounts.services import RoleService, UserService
 
 if TYPE_CHECKING:
     from collections.abc import AsyncGenerator
@@ -33,10 +27,7 @@ async def provide_users_service(db_session: DatabaseSession) -> AsyncGenerator[U
         yield service
 
 
-UserServiceDep = Annotated[UserService, Depends(provide_users_service)]
-
-
-async def provide_role_service(db_session: DatabaseSession) -> AsyncGenerator[RoleService, None]:
+async def provide_roles_service(db_session: DatabaseSession) -> AsyncGenerator[RoleService, None]:
     """Provide a new, scoped instance of the RoleService.
 
     Args:
@@ -51,4 +42,5 @@ async def provide_role_service(db_session: DatabaseSession) -> AsyncGenerator[Ro
         yield service
 
 
-RoleServiceDep = Annotated[RoleService, Depends(provide_role_service)]
+UserServiceDep = Annotated[UserService, Depends(provide_users_service)]
+RoleServiceDep = Annotated[RoleService, Depends(provide_roles_service)]
