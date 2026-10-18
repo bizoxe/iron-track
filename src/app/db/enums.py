@@ -1,6 +1,7 @@
 """DB binding of the domain vocabulary: physical enum names, DDL, column types."""
 
 import re
+from collections.abc import Iterator
 from enum import StrEnum
 from typing import Final
 
@@ -46,3 +47,16 @@ def enum_values(enum_cls: type[StrEnum]) -> list[str]:
 def pg_enum[E: StrEnum](cls: type[E]) -> pg.ENUM:
     """Return a PostgreSQL enum column type without creating the database type."""
     return pg.ENUM(cls, name=enum_type_name(cls), create_type=False, values_callable=enum_values)
+
+
+def iter_enum_type_ddl() -> Iterator[str]:
+    """Yield one CREATE TYPE statement per registered enum."""
+    for cls in DB_ENUMS:
+        labels = ", ".join(f"'{value}'" for value in enum_values(cls))
+        yield f"CREATE TYPE {enum_type_name(cls)} AS ENUM ({labels})"
+
+
+def drop_enum_types_ddl() -> str:
+    """Return one DROP TYPE statement for all registered enums."""
+    names = ", ".join(enum_type_name(cls) for cls in DB_ENUMS)
+    return f"DROP TYPE IF EXISTS {names}"

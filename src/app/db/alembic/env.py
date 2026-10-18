@@ -1,9 +1,7 @@
-from __future__ import annotations
-
 import asyncio
 from typing import TYPE_CHECKING, cast
 
-from advanced_alchemy.base import orm_registry
+from advanced_alchemy.base import metadata_registry
 from alembic import context
 from alembic.autogenerate import rewriter
 from alembic.operations import ops
@@ -15,20 +13,18 @@ if TYPE_CHECKING:
     from alembic.runtime.environment import EnvironmentContext
     from sqlalchemy.engine import Connection
 
-
 __all__ = ("do_run_migrations", "run_migrations_offline", "run_migrations_online")
 
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
-config: AlembicCommandConfig = context.config  # type: ignore[assignment]
-target_metadata = orm_registry.metadata
+config: "AlembicCommandConfig" = context.config  # type: ignore[assignment]
 writer = rewriter.Rewriter()
 
 
 @writer.rewrites(ops.CreateTableOp)
 def order_columns(
-    context: EnvironmentContext,
+    context: "EnvironmentContext",
     revision: tuple[str, ...],
     op: ops.CreateTableOp,
 ) -> ops.CreateTableOp:
@@ -37,17 +33,12 @@ def order_columns(
     cols_by_key = [
         (
             special_names.get(col.key, index) if isinstance(col, Column) else 2000,
-            col.copy(),  # type: ignore[attr-defined]
+            col,
         )
         for index, col in enumerate(op.columns)
     ]
-    columns = [col for _, col in sorted(cols_by_key, key=lambda entry: entry[0])]
-    return ops.CreateTableOp(
-        op.table_name,
-        columns,
-        schema=op.schema,
-        **op.kw,
-    )
+    op.columns = [col for _, col in sorted(cols_by_key, key=lambda entry: entry[0])]
+    return op
 
 
 def run_migrations_offline() -> None:
@@ -63,7 +54,7 @@ def run_migrations_offline() -> None:
     """
     context.configure(
         url=config.db_url,
-        target_metadata=target_metadata,
+        target_metadata=metadata_registry.get(config.bind_key),
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
         compare_type=config.compare_type,
@@ -78,11 +69,11 @@ def run_migrations_offline() -> None:
         context.run_migrations()
 
 
-def do_run_migrations(connection: Connection) -> None:
+def do_run_migrations(connection: "Connection") -> None:
     """Run migrations."""
     context.configure(
         connection=connection,
-        target_metadata=target_metadata,
+        target_metadata=metadata_registry.get(config.bind_key),
         compare_type=config.compare_type,
         version_table=config.version_table_name,
         version_table_pk=config.version_table_pk,
@@ -118,10 +109,7 @@ async def run_migrations_online() -> None:
         ),
     )
     if connectable is None:  # pyright: ignore[reportUnnecessaryComparison]
-        msg = (  # type: ignore[unreachable]
-            "Could not get engine from config.  Please ensure your `alembic.ini` according to the "
-            "official Alembic documentation."
-        )
+        msg = "Could not get engine from config.  Please ensure your `alembic.ini` according to the official Alembic documentation."
         raise RuntimeError(
             msg,
         )
