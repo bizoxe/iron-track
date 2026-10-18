@@ -2,16 +2,16 @@
     {
         "slug": "application-access",
         "name": "Application Access",
-        "description": "Default role required for access. This role allows you to query and access the application."
+        "description": "Default role that grants access to the application."
     },
     {
         "slug": "superuser",
         "name": "Superuser",
-        "description": "Allows superuser access to the application."
+        "description": "Grants access to superuser-only areas of the application."
     },
     {
         "slug": "fitness-trainer",
         "name": "Fitness Trainer",
-        "description": "Provides access to client profiles, workout plans, and scheduling features."
+        "description": "Allows trainers to create and manage their own training units and training plans, and access the training data (sessions, progress) of their assigned clients."
     }
 ]
