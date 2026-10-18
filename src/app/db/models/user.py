@@ -1,11 +1,12 @@
 from __future__ import annotations
 
+from datetime import datetime  # noqa: TC003
 from typing import TYPE_CHECKING
 from uuid import UUID  # noqa: TC003
 
 from advanced_alchemy.base import UUIDv7AuditBase
-from advanced_alchemy.types import GUID
 from sqlalchemy import (
+    DateTime,
     ForeignKey,
     Index,
     String,
@@ -21,40 +22,52 @@ from sqlalchemy.orm import (
     relationship,
 )
 
+from app.db.models.mixins import SoftDeleteMixin
+
 if TYPE_CHECKING:
     from .role import Role
 
 
-class User(UUIDv7AuditBase):
-    """ORM Model representing a user account in the application."""
+class User(SoftDeleteMixin, UUIDv7AuditBase):
+    """User account for application access."""
 
     __tablename__ = "user_account"
     __pii_columns__ = {"name", "email"}  # noqa: RUF012
 
-    name: Mapped[str | None] = mapped_column(String(length=255), nullable=True, default=None)
-    """The user's full name."""
+    name: Mapped[str | None] = mapped_column(String(length=255), nullable=True)
+    """User's full name."""
     email: Mapped[str] = mapped_column(String(length=255), nullable=False)
-    """The unique email address for the user, used for login."""
+    """Unique email address for the user, used for login."""
     password: Mapped[str] = mapped_column(String(length=255), nullable=False, deferred=True)
-    """The hashed password for authentication."""
+    """Hashed password for authentication."""
     is_active: Mapped[bool] = mapped_column(default=True, nullable=False)
-    """Indicates if the user account is active."""
+    """Indicates whether the user account is administratively banned."""
     is_superuser: Mapped[bool] = mapped_column(default=False, nullable=False)
     """Indicates if the user has administrative privileges."""
+    last_activity_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True, deferred=True)
+    """Last successful login; None means user never logged in."""
 
-    role_id: Mapped[UUID] = mapped_column(GUID, ForeignKey("role.id", ondelete="RESTRICT"), nullable=False)
-    """Foreign key linking to the user's role (Role.id)."""
+    role_id: Mapped[UUID] = mapped_column(
+        ForeignKey("role.id", ondelete="RESTRICT"),
+        nullable=False,
+        index=True,
+    )
+    """Foreign key linking to the user's role."""
 
     __table_args__ = (
-        Index("uq_user_email_lower", func.lower(email), unique=True),
-        {"comment": "Users accounts for application access"},
+        Index("uidx_user_account_email_lower", func.lower(email), unique=True),
+        {"comment": "User accounts for application access"},
     )
 
     # ------------
     # ORM Relationships
     # ------------
-    role: Mapped[Role] = relationship(back_populates="users", lazy="selectin")
-    """The ORM relationship to the user's Role model."""
+    role: Mapped[Role] = relationship(lazy="selectin")
+    """Relationship to the user's Role model."""
+
+    # ------------
+    # Association Proxies
+    # ------------
     role_name: AssociationProxy[str] = association_proxy("role", "name")
     """Proxy access to the name of the user's role."""
     role_slug: AssociationProxy[str] = association_proxy("role", "slug")
