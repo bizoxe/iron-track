@@ -1,152 +1,124 @@
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
+from uuid import UUID  # noqa: TC003
 
 from advanced_alchemy.base import UUIDv7AuditBase
-from advanced_alchemy.types import GUID
 from sqlalchemy import (
-    Boolean,
+    CheckConstraint,
     ForeignKey,
     Index,
     String,
     Text,
 )
-from sqlalchemy.dialects import postgresql as pg
 from sqlalchemy.orm import (
     Mapped,
     mapped_column,
     relationship,
 )
 
-from app.domain.exercises.schemas import (
-    CategoryType,
-    DifficultyLevelType,
-    ForceType,
-    MechanicType,
-)
-
-from .reference import (
-    exercise_equipment,
-    exercise_primary_muscles,
-    exercise_secondary_muscles,
-    exercise_tag_map,
+from app.db.enums import pg_enum
+from app.db.models.catalog import exercise_equipment, exercise_tag
+from app.domain.enums import (
+    Category,
+    DifficultyLevel,
+    Force,
+    Mechanic,
+    MuscleRole,
 )
 
 if TYPE_CHECKING:
-    from .reference import Equipment, ExerciseTag, MuscleGroup
+    from .catalog import Equipment, ExerciseMuscle, MuscleGroup, Tag
 
 
 class Exercise(UUIDv7AuditBase):
-    """Represents a physical exercise and its biomechanical properties."""
+    """Physical exercise and its biomechanical properties."""
 
-    __tablename__ = "exercises"
+    __tablename__ = "exercise"
 
-    name: Mapped[str | None] = mapped_column(String(100), nullable=True)
-    """The display name of the exercise."""
-    force: Mapped[ForceType] = mapped_column(
-        pg.ENUM(
-            ForceType,
-            name="force_enum",
-            create_type=False,
-            values_callable=lambda enum_class: [member.value for member in enum_class],
-        ),
+    name: Mapped[str] = mapped_column(String(100), nullable=False)
+    """Display name of the exercise."""
+    force: Mapped[Force | None] = mapped_column(
+        pg_enum(Force),
         nullable=True,
     )
-    """Type of force applied (pull, push, static)."""
-    difficulty_level: Mapped[DifficultyLevelType] = mapped_column(
-        pg.ENUM(
-            DifficultyLevelType,
-            name="difficulty_level_enum",
-            create_type=False,
-            values_callable=lambda enum_class: [member.value for member in enum_class],
-        ),
+    """Type of force or action involved in the exercise."""
+    difficulty_level: Mapped[DifficultyLevel] = mapped_column(
+        pg_enum(DifficultyLevel),
         nullable=False,
     )
-    """Required experience level to perform the exercise."""
-    mechanic: Mapped[MechanicType] = mapped_column(
-        pg.ENUM(
-            MechanicType,
-            name="mechanic_enum",
-            create_type=False,
-            values_callable=lambda enum_class: [member.value for member in enum_class],
-        ),
+    """Difficulty level of the exercise."""
+    mechanic: Mapped[Mechanic | None] = mapped_column(
+        pg_enum(Mechanic),
         nullable=True,
     )
-    """Movement mechanic (compound or isolation)."""
-    category: Mapped[CategoryType] = mapped_column(
-        pg.ENUM(
-            CategoryType,
-            name="category_enum",
-            create_type=False,
-            values_callable=lambda enum_class: [member.value for member in enum_class],
-        ),
+    """Mechanical action of the exercise."""
+    category: Mapped[Category] = mapped_column(
+        pg_enum(Category),
         nullable=False,
     )
-    """The primary fitness discipline or training goal."""
+    """Primary fitness category or discipline of the exercise."""
     instructions: Mapped[str | None] = mapped_column(Text, nullable=True)
-    """Step-by-step guide on how to perform the movement."""
-    image_path_start: Mapped[str | None] = mapped_column(String(length=512), nullable=True)
-    """Relative path to the starting position image. Only for system-provided exercises."""
-    image_path_end: Mapped[str | None] = mapped_column(String(length=512), nullable=True)
-    """Relative path to the ending position image. Only for system-provided exercises."""
-    is_system_default: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    """Step-by-step guide on how to perform the exercise."""
+    image_start_path: Mapped[str | None] = mapped_column(String(length=512), nullable=True)
+    """Relative path to the starting-position image for a system-provided exercise."""
+    image_end_path: Mapped[str | None] = mapped_column(String(length=512), nullable=True)
+    """Relative path to the ending-position image for a system-provided exercise."""
+    is_system_default: Mapped[bool] = mapped_column(nullable=False, default=False)
     """Indicates if this is a system-provided exercise."""
-    created_by: Mapped[GUID] = mapped_column(
-        GUID,
+    created_by: Mapped[UUID | None] = mapped_column(
         ForeignKey("user_account.id", ondelete="SET NULL"),
         nullable=True,
     )
     """Reference to the user who created a custom exercise."""
-    slug: Mapped[str | None] = mapped_column(String(100), nullable=True)
-    """Unique URL-friendly identifier for system-default exercises."""
+    slug: Mapped[str] = mapped_column(String(100), nullable=False)
+    """URL-friendly identifier for the exercise."""
 
     __table_args__ = (
+        CheckConstraint(
+            "NOT is_system_default OR created_by IS NULL",
+            name="chk_exercise_system_no_author",
+        ),
         Index(
-            "uq_exercise_created_by_user",
+            "uidx_exercise_created_by_slug",
             "created_by",
-            "name",
+            "slug",
             unique=True,
             postgresql_where=created_by.is_not(None),
         ),
         Index(
-            "uq_sys_exercise_slug",
+            "uidx_exercise_system",
             "slug",
             unique=True,
             postgresql_where=is_system_default.is_(True),
         ),
-        Index(
-            "uq_sys_exercise_name",
-            "name",
-            unique=True,
-            postgresql_where=is_system_default.is_(True),
-        ),
-        {"comment": "Core exercise definitions including mechanics, difficulty, and muscle targeting"},
+        {"comment": "Core exercise definitions and fitness properties"},
     )
 
     # ------------
     # ORM Relationships
     # ------------
-    primary_muscles: Mapped[list[MuscleGroup]] = relationship(
-        secondary=exercise_primary_muscles,
-        back_populates="primary_exercises",
+    exercise_muscles: Mapped[list[ExerciseMuscle]] = relationship(
+        back_populates="exercise",
+        cascade="all, delete-orphan",
         lazy="selectin",
     )
-    """List of main target muscle groups."""
-    secondary_muscles: Mapped[list[MuscleGroup]] = relationship(
-        secondary=exercise_secondary_muscles,
-        back_populates="secondary_exercises",
-        lazy="selectin",
-    )
-    """List of assisting muscle groups."""
+    """Muscle groups targeted by the exercise, with their assigned roles."""
     equipment: Mapped[list[Equipment]] = relationship(
         secondary=exercise_equipment,
-        back_populates="exercises_using",
         lazy="selectin",
     )
-    """List of equipment required for the exercise."""
-    tags: Mapped[list[ExerciseTag]] = relationship(
-        secondary=exercise_tag_map,
-        back_populates="tagged_exercises",
+    """Equipment required for the exercise."""
+    tags: Mapped[list[Tag]] = relationship(
+        secondary=exercise_tag,
         lazy="selectin",
     )
     """System-defined metadata tags for categorization and filtering."""
+
+    @property
+    def primary_muscles(self) -> list[MuscleGroup]:
+        return [em.muscle_group for em in self.exercise_muscles if em.muscle_role is MuscleRole.PRIMARY]
+
+    @property
+    def secondary_muscles(self) -> list[MuscleGroup]:
+        return [em.muscle_group for em in self.exercise_muscles if em.muscle_role is MuscleRole.SECONDARY]
