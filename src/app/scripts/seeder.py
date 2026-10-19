@@ -1,104 +1,96 @@
+"""Seeds the system catalog: muscle groups, equipment, tags, system exercises.
+
+Idempotent: tables are upserted on their natural keys within a single
+transaction, so re-running is safe.
+
+Standalone entrypoint: ``python -m app.scripts.seeder``.
+"""
+
 from __future__ import annotations
 
-from typing import Any
+from typing import TYPE_CHECKING, Any
+
+if TYPE_CHECKING:
+    from collections.abc import AsyncGenerator, Sequence
+
+    from advanced_alchemy.service import SQLAlchemyAsyncRepositoryService
+    from structlog.typing import FilteringBoundLogger
 
 
-async def seed_db(logger: Any) -> None:
+async def seed_db(logger: FilteringBoundLogger) -> None:
     """Populate the database with system-default fixture data."""
+    # Runtime imports stay local: importing this module doesn't pull the app
+    # graph — only seed_db() pays for it.
     from contextlib import aclosing
     from pathlib import Path
-    from typing import TYPE_CHECKING
 
     from advanced_alchemy.utils.fixtures import open_fixture_async
-    from cashews import cache
-    from cashews.exceptions import CacheBackendInteractionError
     from sqlalchemy import text
-    from sqlalchemy.exc import DBAPIError, OperationalError
+    from sqlalchemy.exc import DBAPIError
 
     from app.config.app_settings import sqlalchemy_config
     from app.config.base import get_settings
     from app.domain.catalogs.deps import (
         provide_equipment_service,
-        provide_exercise_tag_service,
-        provide_muscle_group_service,
+        provide_muscle_groups_service,
+        provide_tags_service,
     )
-    from app.domain.exercises.deps import provide_exercise_service
-    from app.server.lifespan import setup_app_cache
+    from app.domain.exercises.deps import provide_exercises_service
 
-    if TYPE_CHECKING:
-        from collections.abc import AsyncGenerator, Sequence
+    async def get_service[T](gen: AsyncGenerator[T, None]) -> T:
+        """Helper to safely consume and close a service generator."""
+        async with aclosing(gen) as g:
+            return await anext(g)
 
-        from advanced_alchemy.service import SQLAlchemyAsyncRepositoryService
+    async def reset_sequence(service: SQLAlchemyAsyncRepositoryService[Any, Any]) -> None:
+        """Reset the Postgres primary key sequence to the current maximum ID."""
+        table_name = service.model_type.__tablename__
+        await service.repository.session.execute(
+            text(f"SELECT setval(pg_get_serial_sequence('{table_name}', 'id'), coalesce(max(id), 1)) FROM {table_name}")
+        )
 
-    type ServicesRegistryT = list[
-        tuple[Sequence[dict[str, Any]], SQLAlchemyAsyncRepositoryService[Any, Any], list[str]]
-    ]
+    settings = get_settings()
+    fixtures_path = Path(settings.db.FIXTURE_PATH)
+    muscle_groups = await open_fixture_async(fixtures_path, "muscle_groups")
+    equipment = await open_fixture_async(fixtures_path, "equipment")
+    system_exercises = await open_fixture_async(fixtures_path, "system_exercises")
+    exercise_tags = await open_fixture_async(fixtures_path, "exercise_tags")
 
-    async def _seed_db() -> None:
-        settings = get_settings()
-        setup_app_cache(settings=settings)
-        fixtures_path = Path(settings.db.FIXTURE_PATH)
-        muscle_groups_data = await open_fixture_async(fixtures_path, "muscle_groups")
-        equipment_data = await open_fixture_async(fixtures_path, "equipment")
-        exercises_data = await open_fixture_async(fixtures_path, "all_exercises")
-        tags_data = await open_fixture_async(fixtures_path, "exercise_tags")
-
-        async def get_service[T](gen: AsyncGenerator[T, None]) -> T:
-            """Helper to safely consume and close a service generator."""
-            async with aclosing(gen) as g:
-                return await anext(g)
-
-        async def reset_sequence(service: SQLAlchemyAsyncRepositoryService[Any, Any]) -> None:
-            """Reset the Postgres primary key sequence to the current maximum ID."""
-            table_name = service.model_type.__tablename__
-            await service.repository.session.execute(
-                text(
-                    f"SELECT setval(pg_get_serial_sequence('{table_name}', 'id'), "
-                    f"coalesce(max(id), 1)) FROM {table_name}"
-                )
-            )
-
+    async with sqlalchemy_config.get_session() as session:
         try:
-            await cache.ping()
-        except (CacheBackendInteractionError, TimeoutError):
-            logger.error("Cache connection failed")
+            await session.execute(text("SELECT 1"))
+        except (OSError, DBAPIError):
+            logger.error("Database connection failed")
             raise
 
-        async with sqlalchemy_config.get_session() as session:
+        muscle_groups_service = await get_service(provide_muscle_groups_service(session))
+        equipment_service = await get_service(provide_equipment_service(session))
+        tags_service = await get_service(provide_tags_service(session))
+        exercises_service = await get_service(provide_exercises_service(session))
+
+        services_registry: list[
+            tuple[Sequence[dict[str, Any]], SQLAlchemyAsyncRepositoryService[Any, Any], list[str], bool]
+        ] = [
+            (muscle_groups, muscle_groups_service, ["name"], True),
+            (equipment, equipment_service, ["name"], True),
+            (exercise_tags, tags_service, ["name"], True),
+            (system_exercises, exercises_service, ["slug"], False),
+        ]
+
+        for data, svc, match, needs_sequence_reset in services_registry:
             try:
-                await session.execute(text("SELECT 1"))
-            except (OSError, DBAPIError, OperationalError):
-                logger.error("Database connection failed")
+                logger.info(
+                    "Preparing to seed data...",
+                    table=svc.model_type.__tablename__,
+                    count=len(data),
+                )
+                await svc.upsert_many(data=data, match_fields=match, auto_commit=False)
+                if needs_sequence_reset:
+                    await reset_sequence(svc)
+            except Exception:
+                logger.error("Seeding aborted", table=svc.model_type.__tablename__)
                 raise
-
-            muscles_service = await get_service(provide_muscle_group_service(session))
-            equipment_service = await get_service(provide_equipment_service(session))
-            tags_service = await get_service(provide_exercise_tag_service(session))
-            exercise_service = await get_service(provide_exercise_service(session))
-
-            services_registry: ServicesRegistryT = [
-                (muscle_groups_data, muscles_service, ["name"]),
-                (equipment_data, equipment_service, ["name"]),
-                (tags_data, tags_service, ["name"]),
-                (exercises_data, exercise_service, ["name"]),
-            ]
-
-            for data, svc, match in services_registry:
-                try:
-                    logger.info(
-                        "Preparing to seed data...",
-                        table=svc.model_type.__tablename__,
-                        count=len(data),
-                    )
-                    await svc.upsert_many(data=data, match_fields=match, auto_commit=False)
-                    if svc.model_type.__tablename__ != exercise_service.model_type.__tablename__:
-                        await reset_sequence(svc)
-                except Exception:
-                    logger.error("Seeding aborted", table=svc.model_type.__tablename__)
-                    raise
-            await session.commit()
-
-    await _seed_db()
+        await session.commit()
 
 
 if __name__ == "__main__":

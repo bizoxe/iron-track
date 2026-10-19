@@ -27,7 +27,7 @@ def run_cli() -> None:
     import sys
 
     from advanced_alchemy.extensions.fastapi.cli import register_database_commands
-    from click.exceptions import ClickException, Exit
+    from click.exceptions import Abort, ClickException, Exit
     from typer import Typer
     from typer.main import get_group
 
@@ -51,6 +51,8 @@ def run_cli() -> None:
         sys.exit(e.exit_code)
     except Exit as e:
         sys.exit(e.exit_code)
+    except Abort:
+        sys.exit(1)
 
 
 if __name__ == "__main__":
