@@ -58,8 +58,6 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
       - run: uv sync --no-default-groups --group test
       - name: Run tests
-        env:
-          JWT_PRIVATE_KEY: ${{ secrets.JWT_PRIVATE_KEY }}
         run: uv run pytest tests -v
 
   release:
@@ -99,7 +97,6 @@ jobs:
             dist/*.whl
             dist/*.tar.gz
           draft: false
-          prerelease: ${{ contains(github.ref_name, '-') }}
           name: Release ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
