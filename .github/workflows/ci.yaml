@@ -53,8 +53,6 @@ jobs:
         run: uv sync --all-groups
 
       - name: Run tests
-        env:
-          JWT_PRIVATE_KEY: ${{ secrets.JWT_PRIVATE_KEY }}
         run: uv run pytest tests --cov=app --cov-report=xml
 
       - name: Upload coverage reports to Codecov

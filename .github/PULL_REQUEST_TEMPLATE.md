@@ -1,4 +1,7 @@
 ## 📝 Description
+
+<!-- Briefly describe what this PR changes. If it fixes an open issue, reference it here (e.g., "Resolves #123"). -->
+
 ## 🛠️ Type of Change
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New feature (non-breaking change which adds functionality)
@@ -11,7 +14,7 @@
 - [ ] Manual verification (e.g., Postman/Insomnia)
 
 ## 📋 Checklist
-- [ ] My code follows the **Google PEP 257** docstring style.
+- [ ] My code follows Google-style docstrings (PEP 257).
 - [ ] I have performed a self-review of my own code.
 - [ ] I have commented my code, particularly in hard-to-understand areas.
 - [ ] I have made corresponding changes to the documentation (Sphinx).
