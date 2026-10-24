@@ -1,8 +1,10 @@
-USER_EXERCISE_CREATE = "/exercises/user"
+EXERCISE_CREATE = "/exercises"
 SYSTEM_EXERCISE_CREATE = "/exercises/system"
-EXERCISE_DETAIL = "/exercises/{exercise_id}"
 EXERCISE_LIST = "/exercises"
-EXERCISE_FIND = "/exercises/criteria/"
-USER_EXERCISE_UPDATE = "/exercises/user/{exercise_id}"
+
+# Literal paths must be defined before parameterized paths.
+EXERCISE_LOOKUP = "/exercises/lookup"
+EXERCISE_DETAIL = "/exercises/{exercise_id}"
+EXERCISE_UPDATE = "/exercises/{exercise_id}"
 SYSTEM_EXERCISE_UPDATE = "/exercises/system/{exercise_id}"
 EXERCISE_DELETE = "/exercises/{exercise_id}"

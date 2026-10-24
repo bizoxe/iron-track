@@ -1,9 +1,6 @@
 from __future__ import annotations
 
-from typing import (
-    TYPE_CHECKING,
-    Annotated,
-)
+from typing import TYPE_CHECKING, Annotated
 
 from fastapi import Depends
 
@@ -14,7 +11,7 @@ if TYPE_CHECKING:
     from collections.abc import AsyncGenerator
 
 
-async def provide_exercise_service(db_session: DatabaseSession) -> AsyncGenerator[ExerciseService, None]:
+async def provide_exercises_service(db_session: DatabaseSession) -> AsyncGenerator[ExerciseService, None]:
     """Provide a new, scoped instance of the ExerciseService.
 
     Args:
@@ -27,4 +24,4 @@ async def provide_exercise_service(db_session: DatabaseSession) -> AsyncGenerato
         yield service
 
 
-ExerciseServiceDep = Annotated[ExerciseService, Depends(provide_exercise_service)]
+ExerciseServiceDep = Annotated[ExerciseService, Depends(provide_exercises_service)]
