@@ -1,20 +1,18 @@
 """Exercise Tags Management Endpoints.
 
-Provides functionality for CRUD operations on exercise tags.
+Provides functionality for managing exercise tags.
+
 Exercise tags are strictly system-wide identifiers used solely for classifying
-and searching system-default exercises.
+and searching system exercises.
 
 Users cannot associate tags with their custom exercises.
-Creating, updating, and deleting tags requires superuser privileges.
-Reading tag data is available to all authenticated users.
+Creating, updating, retiring, or restoring tags requires superuser privileges.
+Reading tag data is available to all users.
 """
 
 from typing import Annotated
 
-from advanced_alchemy.exceptions import (
-    DuplicateKeyError,
-    NotFoundError,
-)
+from advanced_alchemy.exceptions import DuplicateKeyError, NotFoundError
 from fastapi import (
     APIRouter,
     Depends,
@@ -23,167 +21,233 @@ from fastapi import (
     status,
 )
 
+from app.domain.accounts.auth import Authenticate
+from app.domain.accounts.schemas import UserAuth
 from app.domain.catalogs import urls
-from app.domain.catalogs.deps import ExerciseTagDep
-from app.domain.catalogs.filters import CatalogFilters
-from app.domain.catalogs.schemas import (
-    ExerciseTagCreate,
-    ExerciseTagRead,
-    ExerciseTagUpdate,
-)
-from app.domain.users.auth import Authenticate
-from app.domain.users.schemas import UserAuth
-from app.lib.exceptions import (
-    ConflictException,
-    NotFoundException,
-)
+from app.domain.catalogs.deps import TagDep
+from app.domain.catalogs.filters import CatalogFilters, CatalogFiltersWithRetired
+from app.domain.catalogs.schemas import TagCreate, TagRead, TagRestore, TagUpdate
+from app.lib.exceptions import ConflictException, NotFoundException
 from app.lib.json_response import MsgSpecJSONResponse
+from app.lib.openapi_helpers import response_spec, response_spec_list
+from app.lib.schema import ErrorInfo
 
 exercise_tags_router = APIRouter(
-    tags=["Exercise Tags"],
+    tags=["Catalogs: Exercise Tags"],
 )
 
 
 @exercise_tags_router.post(
     path=urls.EXERCISE_TAG_CREATE,
-    operation_id="CreateExerciseTag",
+    operation_id="CreateTag",
     name="exercise_tags:create",
-    summary="Create exercise tag.",
+    summary="Create tag",
+    status_code=status.HTTP_201_CREATED,
+    responses={
+        201: response_spec(schema=TagRead, description="Created"),
+        409: {
+            "model": ErrorInfo,
+        },
+    },
 )
 async def create_exercise_tag(
     _: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
-    exercise_tag_service: ExerciseTagDep,
-    schema_data: ExerciseTagCreate,
+    tags_service: TagDep,
+    data: TagCreate,
 ) -> MsgSpecJSONResponse:
-    """Create a new exercise tag entry.
+    """Create a new exercise tag.
 
     Requires superuser privileges.
-
-    Returns:
-        ExerciseTagRead: The created exercise tag data.
-
-    Raises:
-        ConflictException: If an exercise tag with the same name already exists.
     """
     try:
-        db_obj = await exercise_tag_service.create(data=schema_data)
-        exercise_tag = exercise_tag_service.to_schema(db_obj, schema_type=ExerciseTagRead)
-        return MsgSpecJSONResponse(content=exercise_tag, status_code=status.HTTP_201_CREATED)
+        db_obj = await tags_service.create(data=data.model_dump())
+        tag = tags_service.to_schema(db_obj, schema_type=TagRead)
+        return MsgSpecJSONResponse(content=tag, status_code=status.HTTP_201_CREATED)
     except DuplicateKeyError as exc:
-        msg = f"An exercise tag with the name '{schema_data.name}' already exists"
+        msg = "An exercise tag with the same name already exists"
         raise ConflictException(message=msg) from exc
 
 
 @exercise_tags_router.get(
     path=urls.EXERCISE_TAG_LIST,
-    operation_id="ListExerciseTags",
+    operation_id="ListTags",
     name="exercise_tags:list",
-    summary="List of exercise tags.",
+    summary="List of tags",
+    responses={200: response_spec_list(schema=TagRead)},
 )
 async def get_list_exercise_tags(
     _: Annotated[UserAuth, Depends(Authenticate.get_current_active_user())],
-    exercise_tag_service: ExerciseTagDep,
+    tags_service: TagDep,
     params: Annotated[CatalogFilters, Query()],
 ) -> MsgSpecJSONResponse:
-    """Retrieve all exercise tags with filtering and sorting.
+    """Retrieve a list of exercise tags.
 
-    Returns:
-        list[ExerciseTagRead]: A list of exercise tags items.
+    Visibility:
+
+    * Only active exercise tags are returned.
     """
-    exercise_tags = await exercise_tag_service.get_list_items(params=params)
-    return MsgSpecJSONResponse(content=exercise_tags)
+    tags = await tags_service.get_list_items(params=params)
+    return MsgSpecJSONResponse(content=tags)
+
+
+@exercise_tags_router.get(
+    path=urls.EXERCISE_TAG_WITH_RETIRED_LIST,
+    operation_id="ListTagsWithRetired",
+    name="exercise_tags:list-with-retired",
+    summary="List of tags including retired",
+    responses={200: response_spec_list(schema=TagRead)},
+)
+async def get_list_with_retired_exercise_tags(
+    _: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
+    tags_service: TagDep,
+    params: Annotated[CatalogFiltersWithRetired, Query()],
+) -> MsgSpecJSONResponse:
+    """Retrieve a list of exercise tags with retired items.
+
+    Requires superuser privileges.
+
+    Visibility:
+
+    * Active and retired exercise tags are returned.
+    """
+    tags = await tags_service.get_list_with_retired_items(params=params)
+    return MsgSpecJSONResponse(content=tags)
 
 
 @exercise_tags_router.get(
     path=urls.EXERCISE_TAG_DETAIL,
-    operation_id="GetExerciseTag",
+    operation_id="GetTag",
     name="exercise_tags:get",
-    summary="Get exercise tag details.",
+    summary="Get tag",
+    responses={
+        200: response_spec(schema=TagRead),
+        404: {
+            "model": ErrorInfo,
+        },
+    },
 )
 async def get_exercise_tag(
     _: Annotated[UserAuth, Depends(Authenticate.get_current_active_user())],
-    exercise_tag_service: ExerciseTagDep,
+    tags_service: TagDep,
     tag_id: int,
 ) -> MsgSpecJSONResponse:
-    """Get information about a specific exercise tag.
+    """Retrieve exercise tag by ID.
 
-    Returns:
-        ExerciseTagRead: Detailed exercise tag data.
+    Visibility:
 
-    Raises:
-        NotFoundException: If the exercise tag with the given ID does not exist.
+    * Only active exercise tags are returned.
     """
     try:
-        db_obj = await exercise_tag_service.get(item_id=tag_id)
-        exercise_tag = exercise_tag_service.to_schema(db_obj, schema_type=ExerciseTagRead)
-        return MsgSpecJSONResponse(content=exercise_tag)
+        db_obj = await tags_service.get(item_id=tag_id)
+        tag = tags_service.to_schema(db_obj, schema_type=TagRead)
+        return MsgSpecJSONResponse(content=tag)
     except NotFoundError as exc:
-        msg = f"Exercise tag with ID '{tag_id}' not found"
+        msg = "Exercise tag not found"
         raise NotFoundException(message=msg) from exc
 
 
 @exercise_tags_router.patch(
     path=urls.EXERCISE_TAG_UPDATE,
-    operation_id="UpdateExerciseTag",
+    operation_id="UpdateTag",
     name="exercise_tags:update",
-    summary="Update exercise tag.",
+    summary="Update tag",
+    responses={
+        200: response_spec(schema=TagRead, description="Updated"),
+        404: {
+            "model": ErrorInfo,
+        },
+        409: {
+            "model": ErrorInfo,
+        },
+    },
 )
 async def update_exercise_tag(
     _: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
-    exercise_tag_service: ExerciseTagDep,
-    schema_data: ExerciseTagUpdate,
+    tags_service: TagDep,
     tag_id: int,
+    data: TagUpdate,
 ) -> MsgSpecJSONResponse:
-    """Update information about a specific exercise tag.
+    """Update exercise tag by ID.
+
+    Requires superuser privileges.
+    """
+    try:
+        db_obj = await tags_service.update(
+            item_id=tag_id,
+            data=data.model_dump(),
+        )
+        tag = tags_service.to_schema(db_obj, schema_type=TagRead)
+        return MsgSpecJSONResponse(content=tag)
+    except (NotFoundError, DuplicateKeyError) as exc:
+        if isinstance(exc, NotFoundError):
+            msg = "Exercise tag not found"
+            raise NotFoundException(message=msg) from exc
+        msg = "An exercise tag with the same name already exists"
+        raise ConflictException(message=msg) from exc
+
+
+@exercise_tags_router.patch(
+    path=urls.EXERCISE_TAG_RESTORE,
+    operation_id="RestoreTag",
+    name="exercise_tags:restore",
+    summary="Restore tag",
+    responses={
+        200: response_spec(schema=TagRead, description="Updated"),
+        404: {
+            "model": ErrorInfo,
+        },
+        409: {
+            "model": ErrorInfo,
+        },
+    },
+)
+async def restore_exercise_tag(
+    _: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
+    tags_service: TagDep,
+    tag_id: int,
+    data: TagRestore,
+) -> MsgSpecJSONResponse:
+    """Restore a retired exercise tag, optionally renaming it.
 
     Requires superuser privileges.
 
-    Returns:
-        ExerciseTagRead: The updated exercise tag data.
-
-    Raises:
-        NotFoundException: If the exercise tag with the given ID does not exist.
-        ConflictException: If an exercise tag with the same name already exists.
+    A name change may be required if the original name is already used
+    by another active exercise tag.
     """
-    try:
-        db_obj = await exercise_tag_service.update(
-            item_id=tag_id,
-            data=schema_data,
-        )
-        exercise_tag = exercise_tag_service.to_schema(db_obj, schema_type=ExerciseTagRead)
-        return MsgSpecJSONResponse(content=exercise_tag)
-    except (NotFoundError, DuplicateKeyError) as exc:
-        if isinstance(exc, NotFoundError):
-            msg = f"Exercise tag with ID '{tag_id}' not found"
-            raise NotFoundException(message=msg) from exc
-        msg = f"An exercise tag with the name '{schema_data.name}' already exists"
-        raise ConflictException(message=msg) from exc
+    db_obj = await tags_service.restore(
+        item_id=tag_id,
+        data=data.model_dump(exclude_unset=True),
+        error_prefix="Exercise tag",
+        error_entity="An exercise tag",
+    )
+    tag = tags_service.to_schema(db_obj, schema_type=TagRead)
+    return MsgSpecJSONResponse(content=tag)
 
 
 @exercise_tags_router.delete(
     path=urls.EXERCISE_TAG_DELETE,
-    operation_id="DeleteExerciseTag",
+    operation_id="DeleteTag",
     name="exercise_tags:delete",
-    summary="Delete exercise tag.",
+    summary="Retire tag",
+    status_code=status.HTTP_204_NO_CONTENT,
+    responses={
+        204: {"description": "No Content"},
+        404: {
+            "model": ErrorInfo,
+        },
+    },
 )
 async def delete_exercise_tag(
     _: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
-    exercise_tag_service: ExerciseTagDep,
+    tags_service: TagDep,
     tag_id: int,
 ) -> Response:
-    """Remove an exercise tag from the system.
+    """Retire an exercise tag.
 
     Requires superuser privileges.
-
-    Returns:
-        Response: 204 No Content on success.
-
-    Raises:
-        NotFoundException: If the exercise tag with the given ID does not exist.
     """
-    try:
-        await exercise_tag_service.delete(item_id=tag_id)
-        return Response(status_code=status.HTTP_204_NO_CONTENT)
-    except NotFoundError as exc:
-        msg = f"Exercise tag with ID '{tag_id}' not found"
-        raise NotFoundException(message=msg) from exc
+    await tags_service.retire(
+        item_id=tag_id,
+        error_prefix="Exercise tag",
+    )
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

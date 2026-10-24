@@ -1,75 +1,63 @@
 from __future__ import annotations
 
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any
 
-from advanced_alchemy.base import DefaultBase
-from advanced_alchemy.extensions.fastapi import (
-    repository,
-    service,
-)
-from advanced_alchemy.repository import (
-    Empty,
-    EmptyType,
-    ErrorMessages,
-    LoadSpec,
-)
+from advanced_alchemy.extensions.fastapi import repository, service
+from advanced_alchemy.repository import Empty, EmptyType, ErrorMessages
 from cashews import cache
-from msgspec import (
-    Struct,
-    convert,
-    to_builtins,
-)
-from sqlalchemy.orm import make_transient_to_detached
+from msgspec import convert
+from sqlalchemy.exc import IntegrityError
 
-from app.config.constants import (
-    CATALOG_ALL_CACHE_TTL,
-    CATALOG_LIST_CACHE_TTL,
-)
+from app.config.base import get_settings
 from app.db import models as m
-from app.domain.catalogs.schemas import (
-    EquipmentRead,
-    ExerciseTagRead,
-    MuscleGroupRead,
-)
+from app.domain.catalogs.schemas import EquipmentRead, MuscleGroupRead, TagRead
+from app.lib.exceptions import ConflictException, NotFoundException
 
 if TYPE_CHECKING:
-    from collections.abc import Iterable, Sequence
+    from collections.abc import Iterable
 
-    from advanced_alchemy.repository.typing import PrimaryKeyType
+    from advanced_alchemy.repository import LoadSpec
     from advanced_alchemy.service import ModelDictT
-    from advanced_alchemy.service.typing import BulkModelDictT
     from advanced_alchemy.utils.serialization import SchemaDumpConfig
     from sqlalchemy.orm import InstrumentedAttribute
     from sqlalchemy.sql.selectable import ForUpdateParameter
 
+    from app.db.models.catalog import CatalogBase
     from app.domain.catalogs.filters import CatalogFilters
+    from app.domain.catalogs.schemas import FieldsReadBase
 
 
-class BaseCatalogService[T: DefaultBase, S: Struct](service.SQLAlchemyAsyncRepositoryService[T]):
-    """Base service for managing catalog data with automated caching."""
+class BaseCatalogService[CatalogT: CatalogBase, ReadSchemaT: FieldsReadBase](
+    service.SQLAlchemyAsyncRepositoryService[CatalogT]
+):
+    """Base service for managing soft-deletable catalog data with caching."""
 
-    read_schema: type[S]
+    read_schema: type[ReadSchemaT]
 
     @cache(
-        ttl=CATALOG_LIST_CACHE_TTL,
+        ttl=get_settings().app.CATALOG_LIST_CACHE_TTL,
         key="{self.model_type.__tablename__}:{params}",
     )
     async def get_list_items(
         self,
         params: CatalogFilters,
-    ) -> list[S]:
-        """Retrieve a list of catalog items from database or cache with filtering."""
-        filters = params.aa_filters
+    ) -> list[ReadSchemaT]:
+        """Retrieve a list of catalog items from database or cache."""
+        filters = params.as_aa_filters
         data = await self.get_many(*filters)
         return convert(data, type=list[self.read_schema], from_attributes=True)  # type: ignore[name-defined]
 
-    @cache(
-        ttl=CATALOG_ALL_CACHE_TTL,
-        key="{self.model_type.__tablename__}:all",
-    )
-    async def get_all_cached(self) -> list[S]:
-        """Retrieve all catalog items from cache or database."""
-        data = await self.get_many()
+    async def get_list_with_retired_items(
+        self,
+        params: CatalogFilters,
+    ) -> list[ReadSchemaT]:
+        """Retrieve a list of catalog items from database, including retired items."""
+        filters = params.as_aa_filters
+        data = await self.get_many(
+            *filters,
+            execution_options={"include_deleted": True},
+        )
         return convert(data, type=list[self.read_schema], from_attributes=True)  # type: ignore[name-defined]
 
     async def _invalidate_cache(self) -> None:
@@ -77,50 +65,9 @@ class BaseCatalogService[T: DefaultBase, S: Struct](service.SQLAlchemyAsyncRepos
         table_name = self.model_type.__tablename__
         await cache.delete_match(pattern=f"{table_name}:*")
 
-    async def get_managed_objs(self, target_objs: list[S]) -> list[T]:
-        """Merge detached catalog data into the current session without DB hits."""
-        managed_objs = []
-        for obj in target_objs:
-            model_obj = self.repository.model_type(**to_builtins(obj))
-            make_transient_to_detached(model_obj)
-            merged = await self.repository.session.merge(model_obj, load=False)
-            managed_objs.append(merged)
-
-        return managed_objs
-
-    async def upsert_many(
-        self,
-        data: BulkModelDictT[T],
-        *,
-        auto_expunge: bool | None = None,
-        auto_commit: bool | None = None,
-        no_merge: bool = False,
-        match_fields: list[str] | str | None = None,
-        error_messages: ErrorMessages | EmptyType | None = Empty,
-        load: LoadSpec | None = None,
-        execution_options: dict[str, Any] | None = None,
-        uniquify: bool | None = None,
-        bind_group: str | None = None,
-        schema_dump_config: SchemaDumpConfig | None = None,
-    ) -> Sequence[T]:
-        """Upsert multiple records and invalidate the associated cache."""
-        objs = await super().upsert_many(
-            data,
-            auto_expunge=auto_expunge,
-            auto_commit=auto_commit,
-            no_merge=no_merge,
-            match_fields=match_fields,
-            error_messages=error_messages,
-            load=load,
-            execution_options=execution_options,
-            uniquify=uniquify,
-        )
-        await self._invalidate_cache()
-        return objs
-
     async def create(
         self,
-        data: ModelDictT[T],
+        data: ModelDictT[CatalogT],
         *,
         auto_commit: bool | None = None,
         auto_expunge: bool | None = None,
@@ -128,8 +75,12 @@ class BaseCatalogService[T: DefaultBase, S: Struct](service.SQLAlchemyAsyncRepos
         error_messages: ErrorMessages | EmptyType | None = Empty,
         bind_group: str | None = None,
         schema_dump_config: SchemaDumpConfig | None = None,
-    ) -> T:
-        """Create a new catalog item and invalidate cache."""
+    ) -> CatalogT:
+        """Create a new catalog item and invalidate cache.
+
+        Raises:
+            DuplicateKeyError: If an item with the same name already exists.
+        """
         obj = await super().create(
             data=data,
             auto_commit=auto_commit,
@@ -142,7 +93,7 @@ class BaseCatalogService[T: DefaultBase, S: Struct](service.SQLAlchemyAsyncRepos
 
     async def update(
         self,
-        data: ModelDictT[T],
+        data: ModelDictT[CatalogT],
         item_id: Any | None = None,
         *,
         attribute_names: Iterable[str] | None = None,
@@ -157,8 +108,13 @@ class BaseCatalogService[T: DefaultBase, S: Struct](service.SQLAlchemyAsyncRepos
         uniquify: bool | None = None,
         bind_group: str | None = None,
         schema_dump_config: SchemaDumpConfig | None = None,
-    ) -> T:
-        """Update a catalog item and invalidate cache."""
+    ) -> CatalogT:
+        """Update a catalog item and invalidate cache.
+
+        Raises:
+            NotFoundError: If the catalog item does not exist.
+            DuplicateKeyError: If an item with the same name already exists.
+        """
         obj = await super().update(
             data=data,
             item_id=item_id,
@@ -176,32 +132,59 @@ class BaseCatalogService[T: DefaultBase, S: Struct](service.SQLAlchemyAsyncRepos
         await self._invalidate_cache()
         return obj
 
-    async def delete(
+    async def retire(
         self,
-        item_id: PrimaryKeyType,
+        item_id: int,
         *,
-        auto_commit: bool | None = None,
-        auto_expunge: bool | None = None,
-        id_attribute: str | InstrumentedAttribute[Any] | None = None,
-        error_messages: ErrorMessages | EmptyType | None = Empty,
-        load: LoadSpec | None = None,
-        execution_options: dict[str, Any] | None = None,
-        uniquify: bool | None = None,
-        bind_group: str | None = None,
-    ) -> T:
-        """Delete a catalog item and invalidate cache."""
-        obj = await super().delete(
-            item_id=item_id,
-            auto_commit=auto_commit,
-            auto_expunge=auto_expunge,
-            id_attribute=id_attribute,
-            error_messages=error_messages,
-            load=load,
-            execution_options=execution_options,
-            uniquify=uniquify,
-        )
+        error_prefix: str,
+    ) -> None:
+        """Retire a catalog item.
+
+        Raises:
+            NotFoundException: If the catalog item does not exist.
+        """
+        db_obj = await self.get_one_or_none(id=item_id)
+        if db_obj is None:
+            raise NotFoundException(message=f"{error_prefix} not found")
+
+        db_obj.deleted_at = datetime.now(tz=UTC)
+        await self.repository.session.flush()
         await self._invalidate_cache()
-        return obj
+
+    async def restore(
+        self,
+        item_id: int,
+        data: dict[str, Any],
+        *,
+        error_prefix: str,
+        error_entity: str,
+    ) -> CatalogT:
+        """Restore a retired catalog item.
+
+        Raises:
+            NotFoundException: If the catalog item does not exist.
+            ConflictException: If the item is not retired or an item with the same name already exists.
+        """
+        db_obj = await self.get_one_or_none(
+            id=item_id,
+            execution_options={"include_deleted": True},
+        )
+        if db_obj is None:
+            raise NotFoundException(message=f"{error_prefix} not found")
+        if db_obj.deleted_at is None:
+            raise ConflictException(message=f"{error_prefix} is not retired")
+
+        for field, value in data.items():
+            setattr(db_obj, field, value)
+        db_obj.deleted_at = None
+        try:
+            await self.repository.session.flush()
+        except IntegrityError as exc:
+            msg = f"{error_entity} with the same name already exists"
+            raise ConflictException(message=msg) from exc
+        await self._invalidate_cache()
+
+        return db_obj
 
 
 class MuscleGroupService(BaseCatalogService[m.MuscleGroup, MuscleGroupRead]):
@@ -228,13 +211,13 @@ class EquipmentService(BaseCatalogService[m.Equipment, EquipmentRead]):
     read_schema = EquipmentRead
 
 
-class ExerciseTagService(BaseCatalogService[m.ExerciseTag, ExerciseTagRead]):
+class TagService(BaseCatalogService[m.Tag, TagRead]):
     """Handles database operations for exercise tags."""
 
-    class ExerciseTagRepository(repository.SQLAlchemyAsyncRepository[m.ExerciseTag]):
+    class TagRepository(repository.SQLAlchemyAsyncRepository[m.Tag]):
         """Exercise tags SQLAlchemy Repository."""
 
-        model_type = m.ExerciseTag
+        model_type = m.Tag
 
-    repository_type = ExerciseTagRepository
-    read_schema = ExerciseTagRead
+    repository_type = TagRepository
+    read_schema = TagRead
