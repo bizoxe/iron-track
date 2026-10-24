@@ -1,17 +1,15 @@
 """Muscle Groups Management Endpoints.
 
-Provides functionality for CRUD operations on muscle groups.
+Provides functionality for managing muscle groups.
 
-Creating, updating, and deleting muscle group entries requires superuser privileges.
-Reading muscle group data is available to all authenticated users.
+Creating, updating, retiring, or restoring muscle groups requires
+superuser privileges.
+Reading muscle group data is available to all users.
 """
 
 from typing import Annotated
 
-from advanced_alchemy.exceptions import (
-    DuplicateKeyError,
-    NotFoundError,
-)
+from advanced_alchemy.exceptions import DuplicateKeyError, NotFoundError
 from fastapi import (
     APIRouter,
     Depends,
@@ -20,167 +18,238 @@ from fastapi import (
     status,
 )
 
+from app.domain.accounts.auth import Authenticate
+from app.domain.accounts.schemas import UserAuth
 from app.domain.catalogs import urls
 from app.domain.catalogs.deps import MuscleGroupDep
-from app.domain.catalogs.filters import CatalogFilters
+from app.domain.catalogs.filters import CatalogFilters, CatalogFiltersWithRetired
 from app.domain.catalogs.schemas import (
     MuscleGroupCreate,
     MuscleGroupRead,
+    MuscleGroupRestore,
     MuscleGroupUpdate,
 )
-from app.domain.users.auth import Authenticate
-from app.domain.users.schemas import UserAuth
-from app.lib.exceptions import (
-    ConflictException,
-    NotFoundException,
-)
+from app.lib.exceptions import ConflictException, NotFoundException
 from app.lib.json_response import MsgSpecJSONResponse
+from app.lib.openapi_helpers import response_spec, response_spec_list
+from app.lib.schema import ErrorInfo
 
-muscle_router = APIRouter(
-    tags=["Muscle Groups"],
+muscle_groups_router = APIRouter(
+    tags=["Catalogs: Muscle Groups"],
 )
 
 
-@muscle_router.post(
+@muscle_groups_router.post(
     path=urls.MUSCLE_GROUP_CREATE,
     operation_id="CreateMuscleGroup",
-    name="muscles:create",
-    summary="Create a new muscle group.",
+    name="muscle_groups:create",
+    summary="Create muscle group",
+    status_code=status.HTTP_201_CREATED,
+    responses={
+        201: response_spec(schema=MuscleGroupRead, description="Created"),
+        409: {
+            "model": ErrorInfo,
+        },
+    },
 )
 async def create_muscle_group(
     _: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
-    muscle_service: MuscleGroupDep,
-    schema_data: MuscleGroupCreate,
+    muscle_groups_service: MuscleGroupDep,
+    data: MuscleGroupCreate,
 ) -> MsgSpecJSONResponse:
-    """Create a new muscle group entry.
+    """Create a new muscle group.
 
     Requires superuser privileges.
-
-    Returns:
-        MuscleGroupRead: The created muscle group data.
-
-    Raises:
-        ConflictException: If a muscle group with the same name already exists.
     """
     try:
-        db_obj = await muscle_service.create(data=schema_data)
-        muscle_group = muscle_service.to_schema(db_obj, schema_type=MuscleGroupRead)
+        db_obj = await muscle_groups_service.create(data=data.model_dump())
+        muscle_group = muscle_groups_service.to_schema(db_obj, schema_type=MuscleGroupRead)
         return MsgSpecJSONResponse(content=muscle_group, status_code=status.HTTP_201_CREATED)
     except DuplicateKeyError as exc:
-        msg = f"A muscle group with the name '{schema_data.name}' already exists"
+        msg = "A muscle group with the same name already exists"
         raise ConflictException(message=msg) from exc
 
 
-@muscle_router.get(
+@muscle_groups_router.get(
     path=urls.MUSCLE_GROUP_LIST,
     operation_id="ListMuscleGroups",
-    name="muscles:list",
-    summary="List of muscle groups.",
+    name="muscle_groups:list",
+    summary="List of muscle groups",
+    responses={200: response_spec_list(schema=MuscleGroupRead)},
 )
 async def get_list_muscle_groups(
     _: Annotated[UserAuth, Depends(Authenticate.get_current_active_user())],
-    muscle_service: MuscleGroupDep,
+    muscle_groups_service: MuscleGroupDep,
     params: Annotated[CatalogFilters, Query()],
 ) -> MsgSpecJSONResponse:
-    """Retrieve all muscle groups with filtering and sorting.
+    """Retrieve a list of muscle groups.
 
-    Returns:
-        list[MuscleGroupRead]: A list of muscle group items.
+    Visibility:
+
+    * Only active muscle groups are returned.
     """
-    muscle_groups = await muscle_service.get_list_items(params=params)
+    muscle_groups = await muscle_groups_service.get_list_items(params=params)
     return MsgSpecJSONResponse(content=muscle_groups)
 
 
-@muscle_router.get(
+@muscle_groups_router.get(
+    path=urls.MUSCLE_GROUP_WITH_RETIRED_LIST,
+    operation_id="ListMuscleGroupsWithRetired",
+    name="muscle_groups:list-with-retired",
+    summary="List of muscle groups including retired",
+    responses={200: response_spec_list(schema=MuscleGroupRead)},
+)
+async def get_list_with_retired_muscle_groups(
+    _: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
+    muscle_groups_service: MuscleGroupDep,
+    params: Annotated[CatalogFiltersWithRetired, Query()],
+) -> MsgSpecJSONResponse:
+    """Retrieve a list of muscle groups with retired items.
+
+    Requires superuser privileges.
+
+    Visibility:
+
+    * Active and retired muscle groups are returned.
+    """
+    muscle_groups = await muscle_groups_service.get_list_with_retired_items(params=params)
+    return MsgSpecJSONResponse(content=muscle_groups)
+
+
+@muscle_groups_router.get(
     path=urls.MUSCLE_GROUP_DETAIL,
     operation_id="GetMuscleGroup",
-    name="muscles:get",
-    summary="Get muscle group details.",
+    name="muscle_groups:get",
+    summary="Get muscle group",
+    responses={
+        200: response_spec(schema=MuscleGroupRead),
+        404: {
+            "model": ErrorInfo,
+        },
+    },
 )
 async def get_muscle_group(
     _: Annotated[UserAuth, Depends(Authenticate.get_current_active_user())],
-    muscle_service: MuscleGroupDep,
+    muscle_groups_service: MuscleGroupDep,
     muscle_id: int,
 ) -> MsgSpecJSONResponse:
-    """Get information about a specific muscle group.
+    """Retrieve muscle group by ID.
 
-    Returns:
-        MuscleGroupRead: Detailed muscle group data.
+    Visibility:
 
-    Raises:
-        NotFoundException: If the muscle group with the given ID does not exist.
+    * Only active muscle groups are returned.
     """
     try:
-        db_obj = await muscle_service.get(item_id=muscle_id)
-        muscle_group = muscle_service.to_schema(db_obj, schema_type=MuscleGroupRead)
+        db_obj = await muscle_groups_service.get(item_id=muscle_id)
+        muscle_group = muscle_groups_service.to_schema(db_obj, schema_type=MuscleGroupRead)
         return MsgSpecJSONResponse(content=muscle_group)
     except NotFoundError as exc:
-        msg = f"Muscle group with ID '{muscle_id}' not found"
+        msg = "Muscle group not found"
         raise NotFoundException(message=msg) from exc
 
 
-@muscle_router.patch(
+@muscle_groups_router.patch(
     path=urls.MUSCLE_GROUP_UPDATE,
     operation_id="UpdateMuscleGroup",
-    name="muscles:update",
-    summary="Update muscle group.",
+    name="muscle_groups:update",
+    summary="Update muscle group",
+    responses={
+        200: response_spec(schema=MuscleGroupRead, description="Updated"),
+        404: {
+            "model": ErrorInfo,
+        },
+        409: {
+            "model": ErrorInfo,
+        },
+    },
 )
 async def update_muscle_group(
     _: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
-    muscle_service: MuscleGroupDep,
-    schema_data: MuscleGroupUpdate,
+    muscle_groups_service: MuscleGroupDep,
     muscle_id: int,
+    data: MuscleGroupUpdate,
 ) -> MsgSpecJSONResponse:
-    """Update information about a specific muscle group.
+    """Update muscle group by ID.
 
     Requires superuser privileges.
-
-    Returns:
-        MuscleGroupRead: The updated muscle group data.
-
-    Raises:
-        NotFoundException: If the muscle group with the given ID does not exist.
-        ConflictException: If a muscle group with the same name already exists.
     """
     try:
-        db_obj = await muscle_service.update(
+        db_obj = await muscle_groups_service.update(
             item_id=muscle_id,
-            data=schema_data,
+            data=data.model_dump(),
         )
-        muscle_group = muscle_service.to_schema(db_obj, schema_type=MuscleGroupRead)
+        muscle_group = muscle_groups_service.to_schema(db_obj, schema_type=MuscleGroupRead)
         return MsgSpecJSONResponse(content=muscle_group)
     except (NotFoundError, DuplicateKeyError) as exc:
         if isinstance(exc, NotFoundError):
-            msg = f"Muscle group with ID '{muscle_id}' not found"
+            msg = "Muscle group not found"
             raise NotFoundException(message=msg) from exc
-        msg = f"A muscle group with the name '{schema_data.name}' already exists"
+        msg = "A muscle group with the same name already exists"
         raise ConflictException(message=msg) from exc
 
 
-@muscle_router.delete(
-    path=urls.MUSCLE_GROUP_DELETE,
-    operation_id="DeleteMuscleGroup",
-    name="muscles:delete",
-    summary="Delete a muscle group.",
+@muscle_groups_router.patch(
+    path=urls.MUSCLE_GROUP_RESTORE,
+    operation_id="RestoreMuscleGroup",
+    name="muscle_groups:restore",
+    summary="Restore muscle group",
+    responses={
+        200: response_spec(schema=MuscleGroupRead, description="Updated"),
+        404: {
+            "model": ErrorInfo,
+        },
+        409: {
+            "model": ErrorInfo,
+        },
+    },
 )
-async def delete_muscle_group(
+async def restore_muscle_group(
     _: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
-    muscle_service: MuscleGroupDep,
+    muscle_groups_service: MuscleGroupDep,
     muscle_id: int,
-) -> Response:
-    """Remove a muscle group from the system.
+    data: MuscleGroupRestore,
+) -> MsgSpecJSONResponse:
+    """Restore a retired muscle group, optionally renaming it.
 
     Requires superuser privileges.
 
-    Returns:
-        Response: 204 No Content on success.
-
-    Raises:
-        NotFoundException: If the muscle group with the given ID does not exist.
+    A name change may be required if the original name is already used
+    by another active muscle group.
     """
-    try:
-        await muscle_service.delete(item_id=muscle_id)
-        return Response(status_code=status.HTTP_204_NO_CONTENT)
-    except NotFoundError as exc:
-        msg = f"Muscle group with ID '{muscle_id}' not found"
-        raise NotFoundException(message=msg) from exc
+    db_obj = await muscle_groups_service.restore(
+        item_id=muscle_id,
+        data=data.model_dump(exclude_unset=True),
+        error_prefix="Muscle group",
+        error_entity="A muscle group",
+    )
+    muscle_group = muscle_groups_service.to_schema(db_obj, schema_type=MuscleGroupRead)
+    return MsgSpecJSONResponse(content=muscle_group)
+
+
+@muscle_groups_router.delete(
+    path=urls.MUSCLE_GROUP_DELETE,
+    operation_id="DeleteMuscleGroup",
+    name="muscle_groups:delete",
+    summary="Retire muscle group",
+    status_code=status.HTTP_204_NO_CONTENT,
+    responses={
+        204: {"description": "No Content"},
+        404: {
+            "model": ErrorInfo,
+        },
+    },
+)
+async def delete_muscle_group(
+    _: Annotated[UserAuth, Depends(Authenticate.superuser_required())],
+    muscle_groups_service: MuscleGroupDep,
+    muscle_id: int,
+) -> Response:
+    """Retire a muscle group.
+
+    Requires superuser privileges.
+    """
+    await muscle_groups_service.retire(
+        item_id=muscle_id,
+        error_prefix="Muscle group",
+    )
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

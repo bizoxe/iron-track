@@ -1,10 +1,8 @@
+from datetime import datetime
 from typing import Annotated
 
-from annotated_types import (
-    MaxLen,
-    MinLen,
-)
-from pydantic import field_validator
+from annotated_types import MaxLen, MinLen
+from pydantic import Field, field_validator
 
 from app.lib.schema import (
     CamelizedBaseSchema,
@@ -14,22 +12,26 @@ from app.lib.schema import (
 __all__ = (
     "EquipmentCreate",
     "EquipmentRead",
+    "EquipmentRestore",
     "EquipmentUpdate",
-    "ExerciseTagCreate",
-    "ExerciseTagRead",
-    "ExerciseTagUpdate",
     "FieldsReadBase",
     "MuscleGroupCreate",
     "MuscleGroupRead",
+    "MuscleGroupRestore",
     "MuscleGroupUpdate",
+    "TagCreate",
+    "TagRead",
+    "TagRestore",
+    "TagUpdate",
 )
 
 
-class FieldsReadBase(CamelizedBaseStruct):
+class FieldsReadBase(CamelizedBaseStruct, omit_defaults=True):
     """Base schema for reading catalog items."""
 
     id: int
     name: str
+    deleted_at: datetime | None = None
 
 
 class FieldsCreateBase(CamelizedBaseSchema):
@@ -37,34 +39,21 @@ class FieldsCreateBase(CamelizedBaseSchema):
 
     name: Annotated[str, MinLen(3), MaxLen(100)]
 
-    @field_validator("name", mode="after")
-    def normalize_name(cls, v: str) -> str:  # noqa: N805
-        return " ".join(v.split()).lower()
+    @field_validator("name", mode="before")
+    def normalize_name(cls, v: object) -> object:  # noqa: N805
+        if isinstance(v, str):
+            return " ".join(v.split()).lower()
+        return v
 
 
 class FieldsUpdateBase(FieldsCreateBase):
     """Base schema for updating catalog items."""
 
 
-class MuscleGroupCreate(FieldsCreateBase):
-    """Schema for creating a new muscle group.
+class FieldsRestoreBase(FieldsCreateBase):
+    """Base schema for restoring catalog items."""
 
-    Example: 'chest', 'biceps'.
-    """
-
-
-class EquipmentCreate(FieldsCreateBase):
-    """Schema for creating a new piece of equipment.
-
-    Example: 'barbell', 'kettlebells'.
-    """
-
-
-class ExerciseTagCreate(FieldsCreateBase):
-    """Schema for creating a new exercise tag.
-
-    Example: 'mobility', 'isometric'.
-    """
+    name: Annotated[str, MinLen(3), MaxLen(100), Field(default=None)]
 
 
 class MuscleGroupRead(FieldsReadBase):
@@ -75,8 +64,20 @@ class EquipmentRead(FieldsReadBase):
     """Public representation of a piece of equipment."""
 
 
-class ExerciseTagRead(FieldsReadBase):
+class TagRead(FieldsReadBase):
     """Public representation of an exercise tag."""
+
+
+class MuscleGroupCreate(FieldsCreateBase):
+    """Schema for creating a new muscle group."""
+
+
+class EquipmentCreate(FieldsCreateBase):
+    """Schema for creating a new piece of equipment."""
+
+
+class TagCreate(FieldsCreateBase):
+    """Schema for creating a new exercise tag."""
 
 
 class MuscleGroupUpdate(FieldsUpdateBase):
@@ -87,5 +88,17 @@ class EquipmentUpdate(FieldsUpdateBase):
     """Schema for updating a piece of equipment."""
 
 
-class ExerciseTagUpdate(FieldsUpdateBase):
+class TagUpdate(FieldsUpdateBase):
     """Schema for updating an exercise tag."""
+
+
+class MuscleGroupRestore(FieldsRestoreBase):
+    """Schema for restoring a retired muscle group."""
+
+
+class EquipmentRestore(FieldsRestoreBase):
+    """Schema for restoring a retired piece of equipment."""
+
+
+class TagRestore(FieldsRestoreBase):
+    """Schema for restoring a retired exercise tag."""
