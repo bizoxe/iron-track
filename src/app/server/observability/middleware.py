@@ -1,11 +1,7 @@
 from __future__ import annotations
 
 import time
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    TypedDict,
-)
+from typing import TYPE_CHECKING, Any, TypedDict
 
 from structlog import get_logger
 
@@ -81,7 +77,7 @@ class StructLogMiddleware:
                 logger.info(
                     "request_completed",
                     duration_ms=process_time,
-                    status_code=info["status_code"],
+                    http_status=info["status_code"],
                     method=scope["method"],
                     path=path,
                     query=scope.get("query_string", b"").decode() or None,

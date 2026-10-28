@@ -3,12 +3,9 @@ from __future__ import annotations
 import logging
 import logging.config
 import logging.handlers
+from datetime import UTC, datetime
 from queue import Queue
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    cast,
-)
+from typing import TYPE_CHECKING, Any, cast
 
 import structlog
 from asgi_correlation_id import correlation_id
@@ -18,6 +15,8 @@ from app.config.base import get_settings
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
+
+    from structlog.typing import EventDict, WrappedLogger
 
 settings = get_settings()
 
@@ -32,14 +31,26 @@ def msgspec_dumps_str(data: Mapping[str, Any], **kwargs: Any) -> str:
     return json_encoder.encode(data).decode()
 
 
-def add_correlation(
-    logger: logging.Logger,
-    method_name: str,
-    event_dict: dict[str, Any],
-) -> dict[str, Any]:
+def add_correlation(logger: logging.Logger, method_name: str, event_dict: EventDict) -> EventDict:
     """Add request id to log message."""
     if request_id := correlation_id.get():
         event_dict["request_id"] = request_id
+    return event_dict
+
+
+def add_request_id(logger: WrappedLogger, name: str, event_dict: EventDict) -> EventDict:
+    """Attach the request id captured by CustomQueueHandler at queuing time."""
+    record = event_dict.get("_record")
+    if (request_id := getattr(record, "request_id", None)) is not None:
+        event_dict["request_id"] = request_id
+    return event_dict
+
+
+def stamp_from_record(logger: WrappedLogger, name: str, event_dict: EventDict) -> EventDict:
+    """Stamp records with their creation time, not listener format time."""
+    record = event_dict.get("_record")
+    if record is not None:
+        event_dict["timestamp"] = datetime.fromtimestamp(record.created, tz=UTC).isoformat().replace("+00:00", "Z")
     return event_dict
 
 
@@ -51,7 +62,6 @@ def configure_logging() -> None:
         structlog.processors.TimeStamper(fmt="iso", utc=True),
         structlog.stdlib.add_logger_name,
         structlog.stdlib.add_log_level,
-        structlog.processors.format_exc_info,
     ]
 
     processors: list[Any] = [*shared_processors, structlog.stdlib.ProcessorFormatter.wrap_for_formatter]
@@ -63,8 +73,8 @@ def configure_logging() -> None:
         logger_factory=structlog.stdlib.LoggerFactory(),
     )
     minimal_pre_chain = [
-        add_correlation,
-        structlog.processors.TimeStamper(fmt="iso", utc=True),
+        add_request_id,
+        stamp_from_record,
         structlog.stdlib.add_logger_name,
         structlog.stdlib.add_log_level,
     ]
@@ -76,15 +86,22 @@ def configure_logging() -> None:
             "formatters": {
                 "json_console": {
                     "()": structlog.stdlib.ProcessorFormatter,
-                    "processor": structlog.processors.JSONRenderer(serializer=msgspec_dumps_str),
+                    "processors": [
+                        structlog.stdlib.ProcessorFormatter.remove_processors_meta,
+                        structlog.processors.format_exc_info,
+                        structlog.processors.JSONRenderer(serializer=msgspec_dumps_str),
+                    ],
                     "foreign_pre_chain": minimal_pre_chain,
                 },
                 "plain_console": {
                     "()": structlog.stdlib.ProcessorFormatter,
-                    "processor": structlog.dev.ConsoleRenderer(
-                        sort_keys=True,
-                        exception_formatter=structlog.dev.plain_traceback,
-                    ),
+                    "processors": [
+                        structlog.stdlib.ProcessorFormatter.remove_processors_meta,
+                        structlog.dev.ConsoleRenderer(
+                            sort_keys=True,
+                            exception_formatter=structlog.dev.plain_traceback,
+                        ),
+                    ],
                     "foreign_pre_chain": minimal_pre_chain,
                 },
             },
@@ -96,8 +113,6 @@ def configure_logging() -> None:
                 "queue_handler": {
                     "class": "app.server.observability.handlers.CustomQueueHandler",
                     "queue": log_queue,
-                    "handlers": ["console"],
-                    "respect_handler_level": True,
                     "formatter": None,
                 },
             },
@@ -140,6 +155,9 @@ def configure_logging() -> None:
                     "propagate": False,
                     "level": settings.log.ASGI_ACCESS_LEVEL,
                     "handlers": ["queue_handler"],
+                },
+                "cashews": {
+                    "level": settings.log.CASHEWS_LEVEL,
                 },
             },
         }
