@@ -1,8 +1,6 @@
-FROM alpine:3.21.5
+FROM alpine:3.24
 
-RUN apk update && \
-    apk add --no-cache pgbouncer postgresql-client su-exec gettext && \
-    rm -rf /var/cache/apk/* && \
+RUN apk add --no-cache pgbouncer postgresql-client su-exec gettext && \
     adduser -D -h /etc/pgbouncer pgbouncer && \
     mkdir -p /var/lib/pgbouncer && \
     chown pgbouncer:pgbouncer /var/lib/pgbouncer
