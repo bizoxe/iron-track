@@ -9,18 +9,15 @@ from pathlib import Path
 from typing import Final
 
 from joserfc.jwk import OKPKey
-from redis.asyncio import Redis
-from sqlalchemy.ext.asyncio import (
-    AsyncEngine,
-    create_async_engine,
-)
+from sqlalchemy.engine import URL, make_url
+from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 from sqlalchemy.pool import NullPool
 
 from app.lib.exceptions import JWTKeyConfigError
 
 BASE_DIR: Final[Path] = Path(__file__).resolve().parent.parent
 DEFAULT_DOTENV_FILE_PATH: Final[Path] = BASE_DIR / "config" / ".env"
-TRUE_VALUES = {"True", "true", "1", "yes", "Y", "T"}
+TRUE_VALUES: Final[frozenset[str]] = frozenset({"True", "true", "1", "yes", "Y", "T"})
 
 
 @dataclass
@@ -28,29 +25,32 @@ class AppSettings:
     """Application configuration."""
 
     DEBUG: bool = field(default_factory=lambda: os.getenv("FASTAPI_DEBUG", "False") in TRUE_VALUES)
-    """Whether to run the FastAPI application in debug mode."""
+    """FastAPI application debug mode."""
     NAME: str = field(default="IronTrack")
     """Application name."""
     ENVIRONMENT: str = field(default_factory=lambda: os.getenv("APP_ENVIRONMENT", "dev"))
-    """The application execution environment (e.g., 'dev', 'prod')."""
+    """Application execution environment (e.g., `dev`, `prod`)."""
     API_V1_URL_PREFIX: str = field(default="/api/v1")
-    """The default URL prefix for API Version routes."""
+    """Default URL prefix for API version routes."""
     COOKIE_SECURE_VALUE: bool = field(default_factory=lambda: os.getenv("COOKIE_SECURE", "False") in TRUE_VALUES)
-    """Boolean value for the 'secure' flag on authentication cookies (requires HTTPS)."""
-    DEFAULT_ADMIN_EMAIL: str = field(default_factory=lambda: os.getenv("ADMIN_EMAIL", "system.admin@example.com"))
-    """Primary system admin email."""
-    CDN_RESOURCES_DEFAULT_URL: str = field(
+    """Secure' flag for authentication cookies (requires HTTPS)."""
+    CDN_BASE_URL: str = field(
         default_factory=lambda: os.getenv(
-            "CDN_RESOURCES_URL", "https://raw.githubusercontent.com/bizoxe/iron-track/media/resources"
+            "CDN_BASE_URL", "https://raw.githubusercontent.com/bizoxe/iron-track/media/resources"
         ),
     )
-    """The default base URL for CDN-hosted resources."""
-    EXERCISES_PATH_PREFIX: str = field(default="exercises")
-    """The standard directory prefix for exercise images."""
+    """Base CDN URL for hosted resources.
+
+    Temporary: GitHub raw media branch; move to a dedicated CDN later.
+    """
     CRYPTO_MAX_WORKERS: int | None = field(
         default_factory=lambda: int(val) if (val := os.getenv("CRYPTO_MAX_WORKERS")) is not None else None
     )
-    """The maximum number of threads allocated for password hashing operations."""
+    """Maximum number of threads allocated for password hashing operations."""
+    CATALOG_LIST_CACHE_TTL: str = field(
+        default_factory=lambda: os.getenv("CATALOG_LIST_CACHE_TTL", "3h"),
+    )
+    """TTL for cached catalog lists."""
 
     _settings: Settings = field(init=False, repr=False)
 
@@ -60,14 +60,14 @@ class AppSettings:
         return f"{self._settings.jwt.ACCESS_TOKEN_EXPIRE_MINUTES}m"
 
     @property
-    def cdn_exercises_url_prefix(self) -> str:
-        """The full CDN URL prefix for exercise media resources."""
-        base = self.CDN_RESOURCES_DEFAULT_URL.rstrip("/")
-        return f"{base}/{self.EXERCISES_PATH_PREFIX}"
+    def cdn_images_url_prefix(self) -> str:
+        """Full CDN URL prefix for image resources."""
+        base = self.CDN_BASE_URL.rstrip("/")
+        return f"{base}/images"
 
     @property
     def crypto_workers(self) -> int:
-        """The safe default thread count for password hashing."""
+        """Safe default thread count for password hashing."""
         if self.CRYPTO_MAX_WORKERS is not None:
             return self.CRYPTO_MAX_WORKERS
 
@@ -102,16 +102,17 @@ class LogSettings:
     monitoring and analysis.
     """
     SQLALCHEMY_LEVEL: int = field(default_factory=lambda: int(os.getenv("SQLALCHEMY_LEVEL", "30")))
-    """SQLAlchemy logs level."""
+    """SQLAlchemy log level."""
+    CASHEWS_LEVEL: int = field(default=40)
+    """Fixed logging level for Cashews."""
 
     _settings: Settings = field(init=False, repr=False)
 
     @property
     def final_formatter(self) -> str:
-        """The name of the logging formatter based on the current environment.
+        """Name of the logging formatter based on the current environment.
 
-        Returns:
-            str: 'plain_console' for development, 'json_console' otherwise.
+        `plain_console` for development, `json_console` otherwise.
         """
         if self._settings.app.ENVIRONMENT == "dev":
             return "plain_console"
@@ -123,64 +124,68 @@ class DatabaseSettings:
     """Database configuration."""
 
     POSTGRES_HOST: str = field(default_factory=lambda: os.getenv("POSTGRES_HOST", "localhost"))
-    """The PostgreSQL server hostname."""
+    """PostgreSQL server hostname."""
     POSTGRES_PORT: int = field(default_factory=lambda: int(os.getenv("POSTGRES_PORT", "5432")))
-    """The PostgreSQL server port number."""
+    """PostgreSQL server port number."""
     POSTGRES_USER: str = field(default_factory=lambda: os.getenv("POSTGRES_USER", "postgres"))
-    """The PostgreSQL database username."""
+    """PostgreSQL database username."""
     POSTGRES_PASSWORD: str = field(default_factory=lambda: os.getenv("POSTGRES_PASSWORD", "supersecretpassword"))
-    """The PostgreSQL database password."""
+    """PostgreSQL database password."""
     POSTGRES_DB: str = field(default_factory=lambda: os.getenv("POSTGRES_DB", "iron_track"))
-    """The PostgreSQL database name."""
-    URL: str | None = field(default_factory=lambda: os.getenv("DATABASE_URL"))
-    """Optional: The full, pre-configured database connection URL."""
+    """PostgreSQL database name."""
+    DATABASE_URL: str | None = field(default_factory=lambda: os.getenv("DATABASE_URL"))
+    """Optional: Full, pre-configured database connection URL."""
 
     ECHO: bool = field(default_factory=lambda: os.getenv("DATABASE_ECHO", "False") in TRUE_VALUES)
     """Enable SQLAlchemy engine logs."""
     ECHO_POOL: bool = field(default_factory=lambda: os.getenv("DATABASE_ECHO_POOL", "False") in TRUE_VALUES)
     """Enable SQLAlchemy connection pool logs."""
     POOL_MAX_OVERFLOW: int = field(default_factory=lambda: int(os.getenv("DATABASE_MAX_POOL_OVERFLOW", "10")))
-    """Max overflow for SQLAlchemy connection pool"""
+    """Maximum overflow for the SQLAlchemy connection pool."""
     POOL_SIZE: int = field(default_factory=lambda: int(os.getenv("DATABASE_POOL_SIZE", "5")))
-    """Pool size for SQLAlchemy connection pool"""
+    """Pool size for SQLAlchemy connection pool."""
     POOL_TIMEOUT: int = field(default_factory=lambda: int(os.getenv("DATABASE_POOL_TIMEOUT", "30")))
-    """Time in seconds for timing connections out of the connection pool."""
+    """Connection timeout, in seconds."""
     POOL_RECYCLE: int = field(default_factory=lambda: int(os.getenv("DATABASE_POOL_RECYCLE", "300")))
     """Amount of time to wait before recycling connections."""
     POOL_PRE_PING: bool = field(default_factory=lambda: os.getenv("DATABASE_PRE_POOL_PING", "False") in TRUE_VALUES)
-    """Optionally ping database before fetching a session from the connection pool."""
+    """Ping the database before fetching a connection from the pool."""
     POOL_DISABLED: bool = field(default_factory=lambda: os.getenv("DATABASE_POOL_DISABLED", "False") in TRUE_VALUES)
     """Disable SQLAlchemy pool configuration."""
 
     MIGRATION_CONFIG: str = field(default_factory=lambda: f"{BASE_DIR}/db/alembic/alembic.ini")
-    """The path to the `alembic.ini` configuration file."""
+    """Path to the `alembic.ini` configuration file."""
     MIGRATION_PATH: str = field(default_factory=lambda: f"{BASE_DIR}/db/alembic")
-    """The path to the `alembic` database migrations."""
+    """Path to the `alembic` database migrations."""
     MIGRATION_DDL_VERSION_TABLE: str = field(default="ddl_version")
-    """The name to use for the `alembic` versions table name."""
+    """Name for the `alembic` versions table."""
     FIXTURE_PATH: str = field(default_factory=lambda: f"{BASE_DIR}/db/fixtures")
-    """The path to JSON fixture files to load into tables."""
+    """Path to JSON fixture files to load into tables."""
     PGBOUNCER_ENABLED: bool = field(default_factory=lambda: os.getenv("PGBOUNCER_ENABLED", "True") in TRUE_VALUES)
     """Enable PgBouncer connection pooling for SQLAlchemy."""
 
-    _engine_instance: AsyncEngine | None = field(default=None, init=False)
+    _engine_instance: AsyncEngine | None = field(default=None, init=False, repr=False)
 
-    def get_connection_url(self) -> str:
+    def get_connection_url(self) -> URL:
         """Construct the full PostgreSQL connection URL.
 
-        The method prioritizes the explicit URL attribute if it is set.
-
-        Returns:
-            str: The full connection URL string.
+        Prioritizes the explicit URL attribute if set.
         """
-        if self.URL is not None:
-            return self.URL
+        if self.DATABASE_URL is not None:
+            return make_url(self.DATABASE_URL)
 
-        return f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
+        return URL.create(
+            drivername="postgresql+asyncpg",
+            username=self.POSTGRES_USER,
+            password=self.POSTGRES_PASSWORD,
+            host=self.POSTGRES_HOST,
+            port=self.POSTGRES_PORT,
+            database=self.POSTGRES_DB,
+        )
 
     @property
     def engine(self) -> AsyncEngine:
-        """The SQLAlchemy async engine instance for database operations."""
+        """SQLAlchemy async engine instance for database operations."""
         return self.get_engine()
 
     def get_engine(self) -> AsyncEngine:
@@ -210,7 +215,12 @@ class DatabaseSettings:
         return self._engine_instance
 
     def configure_pgbouncer_engine(self) -> AsyncEngine:
-        """Create the SQLAlchemy engine for PgBouncer compatibility."""
+        """Create the SQLAlchemy engine for PgBouncer compatibility.
+
+        asyncpg's statement cache stays enabled: PgBouncer tracks prepared
+        statements (`max_prepared_statements` in pgbouncer.ini), which makes
+        it safe in transaction pooling mode.
+        """
         if self._engine_instance is not None:
             return self._engine_instance
 
@@ -219,11 +229,10 @@ class DatabaseSettings:
             echo=self.ECHO,
             poolclass=NullPool,
             execution_options={
-                "compiled_cache": None,
                 "isolation_level": "READ COMMITTED",
             },
             connect_args={
-                "statement_cache_size": 0,
+                "statement_cache_size": 100,
             },
         )
         self._engine_instance = engine
@@ -235,12 +244,12 @@ class JWTSettings:
     """JWT configuration."""
 
     ALGORITHM: str = field(default="Ed25519")
-    """The cryptographic algorithm used for JWS (JSON Web Signature)."""
+    """Cryptographic algorithm used for JWS (JSON Web Signature)."""
     JWT_PRIVATE_KEY: str | None = field(default_factory=lambda: os.getenv("JWT_PRIVATE_KEY"))
-    """The `Ed25519` private key in JWK (JSON Web Key) format.
+    """Ed25519 private key in JWK (JSON Web Key) format.
 
-    This key is used for both signing and verifying tokens using the Ed25519 algorithm as specified
-    in RFC 9864. The string must be a valid JSON containing 'kty', 'crv', 'x', and 'd' parameters.
+    Used for both signing and verifying tokens with the fully-specified Ed25519 algorithm identifier
+    (RFC 9864). The string must be a valid JSON containing 'kty', 'crv', 'x', and 'd' parameters.
 
     Example:
         '{"kty":"OKP","crv":"Ed25519","x":"...","d":"..."}'
@@ -264,16 +273,10 @@ class JWTSettings:
 
     @cached_property
     def key_object(self) -> OKPKey:
-        """The initialized Ed25519 key object for signing and verification.
-
-        Parses the JWT_PRIVATE_KEY from environment variables and returns
-        a ready-to-use OKPKey instance.
-
-        Returns:
-            OKPKey: The cryptographic key object for Ed25519 operations.
+        """Initialized Ed25519 key object for signing and verification.
 
         Raises:
-            JWTKeyConfigError: If the key is missing, not a valid JSON,
+            JWTKeyConfigError: If the key is missing, not valid JSON,
                 or lacks required JWK parameters (kty, crv, x, d).
         """
         if self.JWT_PRIVATE_KEY is None:
@@ -283,44 +286,24 @@ class JWTSettings:
         try:
             key_data = json.loads(self.JWT_PRIVATE_KEY)
             return OKPKey.import_key(key_data)
-        except (json.JSONDecodeError, TypeError, ValueError) as exc:
+        except (TypeError, ValueError) as exc:
             msg = f"Failed to initialize Ed25519 key from JWT_PRIVATE_KEY: {exc}"
             raise JWTKeyConfigError(message=msg) from exc
 
 
 @dataclass
-class RedisSettings:
-    """Redis configuration."""
+class CacheSettings:
+    """Cache configuration."""
 
-    URL: str = field(default_factory=lambda: os.getenv("REDIS_URL", "redis://localhost:6379/0"))
-    """Redis connection URL."""
-    SOCKET_CONNECT_TIMEOUT: int = field(default_factory=lambda: int(os.getenv("REDIS_CONNECT_TIMEOUT", "5")))
-    """Length of time to wait (in seconds) for a connection to become active."""
-    HEALTH_CHECK_INTERVAL: int = field(default_factory=lambda: int(os.getenv("REDIS_HEALTH_CHECK_INTERVAL", "5")))
-    """Length of time to wait (in seconds) before testing connection health."""
-    SOCKET_KEEPALIVE: bool = field(default_factory=lambda: os.getenv("REDIS_SOCKET_KEEPALIVE", "True") in TRUE_VALUES)
-    """Length of time to wait (in seconds) between keepalive commands."""
+    URL: str = field(default_factory=lambda: os.getenv("VALKEY_URL", "redis://localhost:6379/0"))
+    """Valkey server connection URL."""
 
-    _client: Redis | None = field(default=None, init=False, repr=False)
+    _settings: Settings = field(init=False, repr=False)
 
     @property
-    def client(self) -> Redis:
-        """The configured asynchronous Redis client instance."""
-        if self._client is None:
-            self._client = self.get_client()
-        return self._client
-
-    def get_client(self) -> Redis:
-        """Initialize and configure the asynchronous Redis client."""
-        redis_client: Redis = Redis.from_url(
-            url=self.URL,
-            encoding="utf-8",
-            decode_responses=False,
-            socket_connect_timeout=self.SOCKET_CONNECT_TIMEOUT,
-            socket_keepalive=self.SOCKET_KEEPALIVE,
-            health_check_interval=self.HEALTH_CHECK_INTERVAL,
-        )
-        return redis_client
+    def suppress(self) -> bool:
+        """Whether cache backend errors are suppressed outside development."""
+        return self._settings.app.ENVIRONMENT != "dev"
 
 
 @dataclass
@@ -332,18 +315,19 @@ class Settings:
         log (LogSettings): Logging configuration.
         db (DatabaseSettings): Database connection and pool settings.
         jwt (JWTSettings): JWT token configuration.
-        redis (RedisSettings): Redis client and connection settings.
+        cache (CacheSettings): Cache configuration.
     """
 
     app: AppSettings = field(default_factory=AppSettings)
     log: LogSettings = field(default_factory=LogSettings)
     db: DatabaseSettings = field(default_factory=DatabaseSettings)
     jwt: JWTSettings = field(default_factory=JWTSettings)
-    redis: RedisSettings = field(default_factory=RedisSettings)
+    cache: CacheSettings = field(default_factory=CacheSettings)
 
     def __post_init__(self) -> None:
-        self.log._settings = self  # noqa: SLF001
-        self.app._settings = self  # noqa: SLF001
+        self.log._settings = self
+        self.app._settings = self
+        self.cache._settings = self
 
     @classmethod
     def from_env(cls, dotenv_file: Path) -> Settings:
