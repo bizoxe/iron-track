@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import UTC
 from re import compile as re_compile
 from typing import (
     TYPE_CHECKING,
@@ -10,11 +11,7 @@ from typing import (
 )
 
 from advanced_alchemy.extensions.fastapi import filters as aa_filters
-from pydantic import (
-    AfterValidator,
-    Field,
-    PrivateAttr,
-)
+from pydantic import AfterValidator, AwareDatetime, Field, PrivateAttr
 
 from app.lib.schema import CamelizedBaseSchema
 
@@ -23,6 +20,11 @@ if TYPE_CHECKING:
 
 
 _CAMEL_TO_SNAKE_RE = re_compile(r"(?<!^)(?=[A-Z])")
+
+
+def camel_to_snake(field: str) -> str:
+    """Convert a camelCase query field name to its snake_case column name."""
+    return _CAMEL_TO_SNAKE_RE.sub("_", field).lower()
 
 
 class CommonFilters(CamelizedBaseSchema):
@@ -35,7 +37,7 @@ class CommonFilters(CamelizedBaseSchema):
     search_string: Annotated[
         str | None,
         AfterValidator(lambda v: v.strip() if v else v),
-        Field(description="Search term."),
+        Field(max_length=100, description="Search term."),
     ] = None
     search_fields: ClassVar[str | set[str]] = "name"
     current_page: Annotated[
@@ -58,9 +60,9 @@ class CommonFilters(CamelizedBaseSchema):
     _cache_key: str = PrivateAttr(default="")
 
     @property
-    def aa_technical_filters(self) -> list[StatementFilter]:
-        """Generate core SQLAlchemy filters for pagination, ordering, and search."""
-        db_order_field = _CAMEL_TO_SNAKE_RE.sub("_", self.order_by).lower()
+    def as_aa_filters(self) -> list[StatementFilter]:
+        """Core filters for pagination, ordering, and search."""
+        db_order_field = camel_to_snake(field=self.order_by)
         filters: list[StatementFilter] = [
             aa_filters.LimitOffset(
                 limit=self.page_size,
@@ -75,9 +77,9 @@ class CommonFilters(CamelizedBaseSchema):
             )
         return filters
 
-    def model_post_init(self, context: Any) -> None:  # noqa: ARG002
+    def model_post_init(self, _context: Any) -> None:
         """Initialize the unique cache key based on the provided filter values."""
-        s = self.search_string.strip().replace(":", "|") if self.search_string else "se_all"
+        s = self.search_string.replace("\\", "\\\\").replace(":", "\\:") if self.search_string else "se:all"
         parts = [
             "CF",
             f":{s}",
@@ -89,4 +91,40 @@ class CommonFilters(CamelizedBaseSchema):
         self._cache_key = "".join(parts)
 
     def __str__(self) -> str:
+        """Return the cache key representation (not user-facing)."""
         return self._cache_key
+
+
+class CreatedAtRangeFilters(CamelizedBaseSchema):
+    """Created-at range filters with inclusive bounds."""
+
+    range_field_name: ClassVar[str] = "created_at"
+    created_before: Annotated[
+        AwareDatetime | None,
+        AfterValidator(lambda v: v.astimezone(UTC) if v else v),
+        Field(
+            description=(
+                "Filter by created date on or before this timestamp (ISO 8601 UTC). Example: 2026-03-10T14:00:00Z"
+            ),
+        ),
+    ] = None
+    created_after: Annotated[
+        AwareDatetime | None,
+        AfterValidator(lambda v: v.astimezone(UTC) if v else v),
+        Field(
+            description=(
+                "Filter by created date on or after this timestamp (ISO 8601 UTC). Example: 2026-03-10T14:00:00Z"
+            ),
+        ),
+    ] = None
+
+    @property
+    def range_filter(self) -> StatementFilter | None:
+        """Created-at range criterion."""
+        if self.created_before is None and self.created_after is None:
+            return None
+        return aa_filters.OnBeforeAfter(
+            field_name=self.range_field_name,
+            on_or_before=self.created_before,
+            on_or_after=self.created_after,
+        )
