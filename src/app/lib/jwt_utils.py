@@ -1,14 +1,7 @@
 from __future__ import annotations
 
-from datetime import (
-    UTC,
-    datetime,
-    timedelta,
-)
-from typing import (
-    TYPE_CHECKING,
-    Any,
-)
+from datetime import UTC, datetime, timedelta
+from typing import TYPE_CHECKING, Any
 from uuid import uuid4
 
 from joserfc import jwt
@@ -38,7 +31,8 @@ def encode_jwt(
         payload (dict): The base data to include in the token (e.g., user ID, email).
         key_obj (OKPKey): The private key used for signing the token.
             Defaults to the application's configured private key.
-        algorithm (str): The cryptographic algorithm used for signing (e.g., 'Ed25519').
+        algorithm (str): the `alg` identifier written into the token header;
+            the decode side accepts only this same value.
             Defaults to the configured algorithm.
         expire_minutes (int): The token's lifespan in minutes, used only if
             `expire_timedelta` is not provided.
@@ -70,16 +64,18 @@ def decode_jwt(
     key_obj: OKPKey = settings.jwt.key_object,
     algorithm: str = settings.jwt.ALGORITHM,
 ) -> Token:
-    """Decode and validate a JWT using the application's key.
+    """Decode and verify a JWT's signature using the application's key.
 
-    This function automatically verifies the token's signature and standard claims
-    (such as expiration time).
+    Verifies the signature and parses the payload as JSON; claim structure
+    and semantics (e.g. expiration) are NOT checked here - the caller
+    validates them (`TokenPayloadAccess(**claims)` / `.is_expired`).
 
     Args:
         token (str | bytes): The encoded JWT string or bytes to be decoded.
         key_obj (OKPKey): The key used for verifying the token's signature.
             Defaults to the application's configured key.
-        algorithm (str): The cryptographic algorithm used for verification (e.g., 'Ed25519').
+        algorithm (str): the only accepted `alg` value; anything else - e.g. the
+            legacy `EdDSA` - fails before the signature check.
             Defaults to the configured algorithm.
 
     Returns:
