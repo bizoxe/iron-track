@@ -28,7 +28,7 @@ from app.lib.handlers import (
     validation_exception_handler,
 )
 from app.lib.schema import ValidationErrorSchema
-from app.server.lifespan import setup_app_cache
+from app.server.cache import setup_app_cache, shutdown_app_cache
 from app.server.observability.middleware import StructLogMiddleware
 from app.server.observability.setup import (
     configure_logging,
@@ -47,9 +47,11 @@ if TYPE_CHECKING:
 async def lifespan(app: FastAPI, settings: Settings) -> AsyncIterator[None]:
     start_logging()
     setup_app_cache(settings=settings)
-
-    yield
-    stop_logging()
+    try:
+        yield
+    finally:
+        await shutdown_app_cache()
+        stop_logging()
 
 
 def custom_openapi(app: FastAPI) -> None:

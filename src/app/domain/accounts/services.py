@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Any, ClassVar
 
 from advanced_alchemy.exceptions import NotFoundError
 from advanced_alchemy.extensions.fastapi import repository, service
-from advanced_alchemy.service import schema_dump
+from advanced_alchemy.service import OffsetPagination, schema_dump
 from cashews import cache
 from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError
@@ -14,6 +14,7 @@ from sqlalchemy.orm import joinedload, load_only, noload
 from app.config.constants import DEFAULT_ADMIN_EMAIL, SUPERUSER_ROLE_SLUG
 from app.db import models as m
 from app.domain.accounts.schemas import User as UserDto
+from app.domain.accounts.schemas import UserPage
 from app.domain.accounts.utils import check_critical_action_forbidden
 from app.lib import crypt
 from app.lib.exceptions import (
@@ -27,7 +28,7 @@ from app.lib.exceptions import (
 if TYPE_CHECKING:
     from uuid import UUID
 
-    from advanced_alchemy.service import ModelDictT, OffsetPagination
+    from advanced_alchemy.service import ModelDictT
 
     from app.domain.accounts.filters import UserFilters
     from app.domain.accounts.schemas import PasswordUpdate
@@ -46,12 +47,6 @@ class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
 
     async def to_model_on_create(self, data: ModelDictT[m.User]) -> ModelDictT[m.User]:
         return await self._populate_with_hashed_password(schema_dump(data))
-
-    @staticmethod
-    async def _populate_with_hashed_password(data: dict[str, Any]) -> dict[str, Any]:
-        if "password" in data:
-            data["password"] = await crypt.get_password_hash(password=data["password"])
-        return data
 
     async def authenticate(self, username: str, password: str) -> m.User:
         """Authenticate a user.
@@ -173,18 +168,10 @@ class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
         user_obj.deleted_at = datetime.now(tz=UTC)
         user_obj.is_active = False
 
-    @cache(ttl="1m", key="users_list:{params}")
     async def get_users_paginated_dto(self, params: UserFilters) -> OffsetPagination[UserDto]:
         """Provide a filtered and paginated list of users with caching."""
-        filters = params.as_aa_filters
-        results, total = await self.get_many_and_count(
-            *filters,
-            load=[
-                joinedload(self.model_type.role, innerjoin=True).load_only(m.Role.name, m.Role.slug),
-            ],
-            execution_options={"include_deleted": True},
-        )
-        return self.to_schema(data=results, total=total, filters=filters, schema_type=UserDto)
+        page = await self._get_users_page(params)
+        return OffsetPagination(items=page.items, total=page.total, limit=page.limit, offset=page.offset)
 
     async def get_and_validate_for_role_change(self, user_id: UUID) -> m.User:
         """Retrieve an active user by ID for role modification.
@@ -222,6 +209,7 @@ class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
 
     @staticmethod
     def assign_role(user_obj: m.User, new_role: m.Role) -> None:
+        """Apply a new role and keep the superuser flag in sync."""
         if new_role.slug == SUPERUSER_ROLE_SLUG:
             user_obj.is_superuser = True
         if user_obj.is_superuser and new_role.slug != SUPERUSER_ROLE_SLUG:
@@ -230,8 +218,32 @@ class UserService(service.SQLAlchemyAsyncRepositoryService[m.User]):
 
     @staticmethod
     def revoke_role(user_obj: m.User, default_role: m.Role) -> None:
+        """Reset the user to the default role and clear the superuser flag."""
         user_obj.is_superuser = False
         user_obj.role_id = default_role.id
+
+    @staticmethod
+    async def _populate_with_hashed_password(data: dict[str, Any]) -> dict[str, Any]:
+        if "password" in data:
+            data["password"] = await crypt.get_password_hash(password=data["password"])
+        return data
+
+    # TTL-only by design: user mutations do not invalidate cached pages.
+    @cache(ttl="1m", key="users_list:{params}")
+    async def _get_users_page(self, params: UserFilters) -> UserPage:
+        """Fetch and cache a user page as a plain envelope."""
+        filters = params.as_aa_filters
+        results, total = await self.get_many_and_count(
+            *filters,
+            load=[
+                joinedload(self.model_type.role, innerjoin=True).load_only(m.Role.name, m.Role.slug),
+            ],
+            execution_options={"include_deleted": True},
+        )
+        pagination = self.to_schema(data=results, total=total, filters=filters, schema_type=UserDto)
+        return UserPage(
+            items=pagination.items, total=pagination.total, limit=pagination.limit, offset=pagination.offset
+        )
 
 
 class RoleService(service.SQLAlchemyAsyncRepositoryService[m.Role]):
