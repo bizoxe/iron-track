@@ -17,31 +17,6 @@ class BaseAPIException(Exception):  # noqa: N818
         self.headers = headers
 
 
-class UnauthorizedException(BaseAPIException):
-    """401 Unauthorized exception."""
-
-    def __init__(
-        self,
-        message: str = "Not authenticated",
-    ) -> None:
-        super().__init__(
-            status_code=401,
-            message=message,
-        )
-
-
-class UserNotFound(BaseAPIException):
-    """404 User not found exception."""
-
-    def __init__(
-        self,
-    ) -> None:
-        super().__init__(
-            status_code=404,
-            message="User not found",
-        )
-
-
 class BadRequestException(BaseAPIException):
     """400 Bad Request exception."""
 
@@ -57,18 +32,16 @@ class BadRequestException(BaseAPIException):
         )
 
 
-class ConflictException(BaseAPIException):
-    """409 Conflict exception."""
+class UnauthorizedException(BaseAPIException):
+    """401 Unauthorized exception."""
 
     def __init__(
         self,
-        message: str,
-        details: dict[str, Any] | None = None,
+        message: str = "Not authenticated",
     ) -> None:
         super().__init__(
-            status_code=409,
+            status_code=401,
             message=message,
-            details=details,
         )
 
 
@@ -97,6 +70,33 @@ class NotFoundException(BaseAPIException):
     ) -> None:
         super().__init__(
             status_code=404,
+            message=message,
+            details=details,
+        )
+
+
+class UserNotFound(BaseAPIException):
+    """404 User not found exception."""
+
+    def __init__(
+        self,
+    ) -> None:
+        super().__init__(
+            status_code=404,
+            message="User not found",
+        )
+
+
+class ConflictException(BaseAPIException):
+    """409 Conflict exception."""
+
+    def __init__(
+        self,
+        message: str,
+        details: dict[str, Any] | None = None,
+    ) -> None:
+        super().__init__(
+            status_code=409,
             message=message,
             details=details,
         )

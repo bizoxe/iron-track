@@ -12,6 +12,7 @@ def response_spec(
     schema: type[msgspec.Struct],
     description: str | None = None,
 ) -> dict[str, Any]:
+    """Build an OpenAPI response object for a single struct."""
     payload: dict[str, Any] = {
         "content": {"application/json": {"schema": {"$ref": f"#/components/schemas/{schema.__name__}"}}},
     }
@@ -21,6 +22,7 @@ def response_spec(
 
 
 def response_spec_paginated(schema: type[msgspec.Struct]) -> dict[str, Any]:
+    """Build an OpenAPI response object for a paginated list of structs."""
     schema_name = f"{OffsetPagination.__name__}_{schema.__name__}_"
     payload: dict[str, Any] = {
         "content": {"application/json": {"schema": {"$ref": f"#/components/schemas/{schema_name}"}}},
@@ -29,6 +31,7 @@ def response_spec_paginated(schema: type[msgspec.Struct]) -> dict[str, Any]:
 
 
 def response_spec_list(schema: type[msgspec.Struct]) -> dict[str, Any]:
+    """Build an OpenAPI response object for an array of structs."""
     payload: dict[str, Any] = {
         "content": {
             "application/json": {
