@@ -13,6 +13,7 @@ from pydantic import (
 
 from app.lib.pretty_regex_error_msgs import RegexValidator
 from app.lib.schema import (
+    BasePage,
     CamelizedBaseSchema,
     CamelizedBaseStruct,
 )
@@ -23,13 +24,18 @@ __all__ = (
     "User",
     "UserAuth",
     "UserCreate",
+    "UserPage",
     "UserRoleAdd",
     "UserRoleRevoke",
     "UserUpdate",
 )
 
 
-NormalizedEmail = Annotated[EmailStr, AfterValidator(str.lower)]
+def normalize_email(email: str) -> str:
+    return email.lower()
+
+
+NormalizedEmail = Annotated[EmailStr, AfterValidator(func=normalize_email)]
 
 
 class RoleSlug(StrEnum):
@@ -64,6 +70,10 @@ class User(CamelizedBaseStruct, omit_defaults=True):
     created_at: datetime
     updated_at: datetime
     deleted_at: datetime | None = None
+
+
+class UserPage(BasePage[User]):
+    """Cache envelope for a page of users."""
 
 
 class UserAuth(CamelizedBaseStruct, dict=True):

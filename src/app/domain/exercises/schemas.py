@@ -13,6 +13,7 @@ from app.domain.catalogs.schemas import (
 )
 from app.domain.enums import Category, DifficultyLevel, Force, Mechanic
 from app.lib.schema import (
+    BasePage,
     CamelizedBaseSchema,
     CamelizedBaseStruct,
 )
@@ -20,6 +21,7 @@ from app.lib.schema import (
 __all__ = (
     "ExerciseCreate",
     "ExerciseCreateSystem",
+    "ExercisePage",
     "ExerciseRead",
     "ExerciseScope",
     "ExerciseUpdate",
@@ -54,6 +56,37 @@ class ExerciseScope(StrEnum):
     SYSTEM = "system"
     USER = "user"
     ALL = "all"
+
+
+class ExerciseRead(CamelizedBaseStruct):
+    """Complete exercise data representation for read operations."""
+
+    id: UUID
+    name: str
+    created_by: UUID | None
+    primary_muscles: list[MuscleGroupRead]
+    secondary_muscles: list[MuscleGroupRead]
+    force: str | None
+    mechanic: str | None
+    difficulty_level: str
+    category: str
+    equipment: list[EquipmentRead]
+    tags: list[TagRead]
+    instructions: str | None
+    image_start_path: str | None
+    image_end_path: str | None
+    created_at: datetime
+    updated_at: datetime
+
+    def __post_init__(self) -> None:
+        if self.image_start_path:
+            self.image_start_path = f"{FULL_CDN_PREFIX}{self.image_start_path}"
+        if self.image_end_path:
+            self.image_end_path = f"{FULL_CDN_PREFIX}{self.image_end_path}"
+
+
+class ExercisePage(BasePage[ExerciseRead]):
+    """Cache envelope for a page of exercises."""
 
 
 class ExerciseBase(CamelizedBaseSchema):
@@ -176,30 +209,3 @@ class ExerciseUpdateSystem(ExerciseUpdate):
             ),
         ),
     ]
-
-
-class ExerciseRead(CamelizedBaseStruct):
-    """Complete exercise data representation for read operations."""
-
-    id: UUID
-    name: str
-    created_by: UUID | None
-    primary_muscles: list[MuscleGroupRead]
-    secondary_muscles: list[MuscleGroupRead]
-    force: str | None
-    mechanic: str | None
-    difficulty_level: str
-    category: str
-    equipment: list[EquipmentRead]
-    tags: list[TagRead]
-    instructions: str | None
-    image_start_path: str | None
-    image_end_path: str | None
-    created_at: datetime
-    updated_at: datetime
-
-    def __post_init__(self) -> None:
-        if self.image_start_path:
-            self.image_start_path = f"{FULL_CDN_PREFIX}{self.image_start_path}"
-        if self.image_end_path:
-            self.image_end_path = f"{FULL_CDN_PREFIX}{self.image_end_path}"

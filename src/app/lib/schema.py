@@ -1,3 +1,4 @@
+from collections.abc import Sequence
 from typing import Annotated, Any
 
 from advanced_alchemy.utils.text import camelize
@@ -25,6 +26,15 @@ class CamelizedBaseSchema(BaseSchema):
         from_attributes=False,
         frozen=True,
     )
+
+
+class BasePage[T](BaseStruct):
+    """Base envelope for paginated list results."""
+
+    items: Sequence[T]
+    total: int
+    limit: int
+    offset: int
 
 
 class ErrorInfo(BaseSchema):

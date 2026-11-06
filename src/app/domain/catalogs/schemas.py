@@ -5,28 +5,33 @@ from annotated_types import MaxLen, MinLen
 from pydantic import Field, field_validator
 
 from app.lib.schema import (
+    BaseStruct,
     CamelizedBaseSchema,
     CamelizedBaseStruct,
 )
 
 __all__ = (
+    "CatalogList",
+    "CatalogReadBase",
     "EquipmentCreate",
+    "EquipmentList",
     "EquipmentRead",
     "EquipmentRestore",
     "EquipmentUpdate",
-    "FieldsReadBase",
     "MuscleGroupCreate",
+    "MuscleGroupList",
     "MuscleGroupRead",
     "MuscleGroupRestore",
     "MuscleGroupUpdate",
     "TagCreate",
+    "TagList",
     "TagRead",
     "TagRestore",
     "TagUpdate",
 )
 
 
-class FieldsReadBase(CamelizedBaseStruct, omit_defaults=True):
+class CatalogReadBase(CamelizedBaseStruct, omit_defaults=True):
     """Base schema for reading catalog items."""
 
     id: int
@@ -34,7 +39,7 @@ class FieldsReadBase(CamelizedBaseStruct, omit_defaults=True):
     deleted_at: datetime | None = None
 
 
-class FieldsCreateBase(CamelizedBaseSchema):
+class CatalogCreateBase(CamelizedBaseSchema):
     """Base schema for creating new catalog items."""
 
     name: Annotated[str, MinLen(3), MaxLen(100)]
@@ -46,59 +51,77 @@ class FieldsCreateBase(CamelizedBaseSchema):
         return v
 
 
-class FieldsUpdateBase(FieldsCreateBase):
+class CatalogUpdateBase(CatalogCreateBase):
     """Base schema for updating catalog items."""
 
 
-class FieldsRestoreBase(FieldsCreateBase):
+class CatalogRestoreBase(CatalogCreateBase):
     """Base schema for restoring catalog items."""
 
     name: Annotated[str, MinLen(3), MaxLen(100), Field(default=None)]
 
 
-class MuscleGroupRead(FieldsReadBase):
+class MuscleGroupRead(CatalogReadBase):
     """Public representation of a muscle group."""
 
 
-class EquipmentRead(FieldsReadBase):
+class EquipmentRead(CatalogReadBase):
     """Public representation of a piece of equipment."""
 
 
-class TagRead(FieldsReadBase):
+class TagRead(CatalogReadBase):
     """Public representation of an exercise tag."""
 
 
-class MuscleGroupCreate(FieldsCreateBase):
+class MuscleGroupCreate(CatalogCreateBase):
     """Schema for creating a new muscle group."""
 
 
-class EquipmentCreate(FieldsCreateBase):
+class EquipmentCreate(CatalogCreateBase):
     """Schema for creating a new piece of equipment."""
 
 
-class TagCreate(FieldsCreateBase):
+class TagCreate(CatalogCreateBase):
     """Schema for creating a new exercise tag."""
 
 
-class MuscleGroupUpdate(FieldsUpdateBase):
+class MuscleGroupUpdate(CatalogUpdateBase):
     """Schema for updating a muscle group."""
 
 
-class EquipmentUpdate(FieldsUpdateBase):
+class EquipmentUpdate(CatalogUpdateBase):
     """Schema for updating a piece of equipment."""
 
 
-class TagUpdate(FieldsUpdateBase):
+class TagUpdate(CatalogUpdateBase):
     """Schema for updating an exercise tag."""
 
 
-class MuscleGroupRestore(FieldsRestoreBase):
+class MuscleGroupRestore(CatalogRestoreBase):
     """Schema for restoring a retired muscle group."""
 
 
-class EquipmentRestore(FieldsRestoreBase):
+class EquipmentRestore(CatalogRestoreBase):
     """Schema for restoring a retired piece of equipment."""
 
 
-class TagRestore(FieldsRestoreBase):
+class TagRestore(CatalogRestoreBase):
     """Schema for restoring a retired exercise tag."""
+
+
+class CatalogList[T](BaseStruct):
+    """Base envelope for catalog list results."""
+
+    items: list[T]
+
+
+class EquipmentList(CatalogList[EquipmentRead]):
+    """Cache envelope for the equipment list."""
+
+
+class MuscleGroupList(CatalogList[MuscleGroupRead]):
+    """Cache envelope for the muscle group list."""
+
+
+class TagList(CatalogList[TagRead]):
+    """Cache envelope for the tag list."""

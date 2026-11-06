@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, Literal, cast
+from typing import TYPE_CHECKING, Any, Literal
 
 from advanced_alchemy.base import DefaultBase
 from advanced_alchemy.exceptions import NotFoundError
 from advanced_alchemy.extensions.fastapi import repository, service
 from advanced_alchemy.repository import Empty, EmptyType, ErrorMessages
-from advanced_alchemy.service import schema_dump
+from advanced_alchemy.service import OffsetPagination, schema_dump
 from cashews import cache
 from sqlalchemy import select
 from sqlalchemy.orm import load_only, noload
@@ -18,7 +18,7 @@ from app.domain.catalogs.services import (
     TagService,
 )
 from app.domain.enums import MuscleRole
-from app.domain.exercises.schemas import ExerciseRead, ExerciseScope
+from app.domain.exercises.schemas import ExercisePage, ExerciseRead, ExerciseScope
 from app.domain.exercises.utils import can_delete_exercise, slugify
 from app.lib.deps import (
     CacheKeyBuilder,
@@ -35,7 +35,7 @@ if TYPE_CHECKING:
     from uuid import UUID
 
     from advanced_alchemy.repository import LoadSpec
-    from advanced_alchemy.service import ModelDictT, OffsetPagination
+    from advanced_alchemy.service import ModelDictT
     from advanced_alchemy.service.typing import SchemaDumpConfig
     from sqlalchemy.orm import InstrumentedAttribute
     from sqlalchemy.sql.selectable import ForUpdateParameter
@@ -85,73 +85,6 @@ class ExerciseService(CompositeServiceMixin, service.SQLAlchemyAsyncRepositorySe
 
     # --- Public API ---
 
-    async def get_by_name(
-        self,
-        user_id: UUID,
-        scope: Literal[ExerciseScope.USER, ExerciseScope.SYSTEM],
-        name: str,
-    ) -> m.Exercise:
-        """Retrieve user-defined or system exercise by name.
-
-        The name is normalized to a slug before lookup, so names that normalize
-        to the same slug resolve to the same exercise.
-
-        The scope determines the search space: ``USER`` searches exercises created
-        by ``user_id``; ``SYSTEM`` searches system defaults and ignores ``user_id``.
-
-        Raises:
-            NotFoundException: If no exercise matches the normalized name in the given scope.
-        """
-        try:
-            if scope == ExerciseScope.USER:
-                db_obj = await self.get_one(
-                    self.model_type.created_by == user_id,
-                    slug=slugify(name),
-                )
-            else:
-                db_obj = await self.get_one(
-                    self.model_type.is_system_default.is_(True),
-                    slug=slugify(name),
-                )
-        except NotFoundError as exc:
-            msg = f"Exercise with '{name}' not found"
-            raise NotFoundException(message=msg) from exc
-
-        return db_obj
-
-    async def get_exercises_paginated_dto(
-        self,
-        params: ExerciseFilters,
-        user_id: UUID,
-    ) -> OffsetPagination[ExerciseRead]:
-        """Provide filtered and paginated list of exercises with caching."""
-        params_key = CacheKeyBuilder.for_exercises(params=params, user_id=user_id)
-        cached_data = await cache.get(key=params_key)
-        if not cached_data:
-            filters = params.build_exercise_filters(user_id=user_id)
-            results, total = await self.get_many_and_count(*filters)
-            exercises = self.to_schema(data=results, total=total, filters=filters, schema_type=ExerciseRead)
-            await cache.set(key=params_key, value=exercises, expire="3m")
-            return exercises
-
-        return cast("OffsetPagination[ExerciseRead]", cached_data)
-
-    async def exercise_exists(
-        self,
-        exercise_id: UUID,
-        created_by: UUID | None,
-    ) -> bool:
-        """Check existence under the caller's ownership scope (owner id or system)."""
-        if created_by is not None:
-            return await self.exists(
-                self.model_type.id == exercise_id,
-                self.model_type.created_by == created_by,
-            )
-        return await self.exists(
-            self.model_type.id == exercise_id,
-            self.model_type.is_system_default.is_(True),
-        )
-
     async def update(
         self,
         data: ModelDictT[m.Exercise],
@@ -174,12 +107,12 @@ class ExerciseService(CompositeServiceMixin, service.SQLAlchemyAsyncRepositorySe
 
         Advanced Alchemy's update() has no partial-collection contract: a collection
         key in the payload replaces the whole relationship, and the junction's
-        ``muscle_role`` cannot be expressed by plain assignment — muscle keys are
-        popped here and merged object-aware (see _merge_exercise_muscles).
+        `muscle_role` cannot be expressed by plain assignment — muscle keys are
+        popped here and merged object-aware (see `_merge_exercise_muscles`).
 
-        ``auto_commit`` is accepted for interface compatibility but never honored:
+        `auto_commit` is accepted for interface compatibility but never honored:
         this method relies on the outer session lifecycle to commit, so the junction
-        merge shares one transaction with the scalar update. ``schema_dump_config`` is
+        merge shares one transaction with the scalar update. `schema_dump_config` is
         not forwarded — the payload is normalized to a dict before persistence.
 
         Raises:
@@ -221,8 +154,8 @@ class ExerciseService(CompositeServiceMixin, service.SQLAlchemyAsyncRepositorySe
         """Delete an exercise after checking access permissions.
 
         Deletion relies on the outer session lifecycle to commit, same as
-        ``update()``: ``session.delete()`` only stages the deletion, and the DELETE
-        is issued during the flush triggered by the outer ``commit()``.
+        `update()`: `session.delete()` only stages the deletion, and the DELETE
+        is issued during the flush triggered by the outer `commit()`.
 
         Raises:
             NotFoundException: If the exercise is not found.
@@ -246,6 +179,80 @@ class ExerciseService(CompositeServiceMixin, service.SQLAlchemyAsyncRepositorySe
             raise PermissionDeniedException(message=msg)
 
         await self.repository.session.delete(db_obj)
+
+    async def get_exercises_paginated_dto(
+        self,
+        params: ExerciseFilters,
+        user_id: UUID,
+    ) -> OffsetPagination[ExerciseRead]:
+        """Provide filtered and paginated list of exercises with caching."""
+        # TTL-only by design: exercise mutations do not invalidate cached pages.
+        params_key = CacheKeyBuilder.for_exercises(params=params, user_id=user_id)
+        cached = await cache.get(key=params_key)
+        if cached is not None:
+            return OffsetPagination(items=cached.items, total=cached.total, limit=cached.limit, offset=cached.offset)
+
+        filters = params.build_exercise_filters(user_id=user_id)
+        results, total = await self.get_many_and_count(*filters)
+        pagination = self.to_schema(data=results, total=total, filters=filters, schema_type=ExerciseRead)
+        await cache.set(
+            key=params_key,
+            value=ExercisePage(
+                items=pagination.items, total=pagination.total, limit=pagination.limit, offset=pagination.offset
+            ),
+            expire="3m",
+        )
+        return pagination
+
+    async def get_by_name(
+        self,
+        user_id: UUID,
+        scope: Literal[ExerciseScope.USER, ExerciseScope.SYSTEM],
+        name: str,
+    ) -> m.Exercise:
+        """Retrieve user-defined or system exercise by name.
+
+        The name is normalized to a slug before lookup, so names that normalize
+        to the same slug resolve to the same exercise.
+
+        The scope determines the search space: `USER` searches exercises created
+        by `user_id`; `SYSTEM` searches system defaults and ignores `user_id`.
+
+        Raises:
+            NotFoundException: If no exercise matches the normalized name in the given scope.
+        """
+        try:
+            if scope == ExerciseScope.USER:
+                db_obj = await self.get_one(
+                    self.model_type.created_by == user_id,
+                    slug=slugify(name),
+                )
+            else:
+                db_obj = await self.get_one(
+                    self.model_type.is_system_default.is_(True),
+                    slug=slugify(name),
+                )
+        except NotFoundError as exc:
+            msg = f"Exercise with '{name}' not found"
+            raise NotFoundException(message=msg) from exc
+
+        return db_obj
+
+    async def exercise_exists(
+        self,
+        exercise_id: UUID,
+        created_by: UUID | None,
+    ) -> bool:
+        """Check existence under the caller's ownership scope (owner id or system)."""
+        if created_by is not None:
+            return await self.exists(
+                self.model_type.id == exercise_id,
+                self.model_type.created_by == created_by,
+            )
+        return await self.exists(
+            self.model_type.id == exercise_id,
+            self.model_type.is_system_default.is_(True),
+        )
 
     # --- Private helpers ---
 

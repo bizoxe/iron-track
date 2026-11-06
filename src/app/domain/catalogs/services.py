@@ -11,7 +11,14 @@ from sqlalchemy.exc import IntegrityError
 
 from app.config.base import get_settings
 from app.db import models as m
-from app.domain.catalogs.schemas import EquipmentRead, MuscleGroupRead, TagRead
+from app.domain.catalogs.schemas import (
+    EquipmentList,
+    EquipmentRead,
+    MuscleGroupList,
+    MuscleGroupRead,
+    TagList,
+    TagRead,
+)
 from app.lib.exceptions import ConflictException, NotFoundException
 
 if TYPE_CHECKING:
@@ -24,46 +31,17 @@ if TYPE_CHECKING:
     from sqlalchemy.sql.selectable import ForUpdateParameter
 
     from app.db.models.catalog import CatalogBase
-    from app.domain.catalogs.filters import CatalogFilters
-    from app.domain.catalogs.schemas import FieldsReadBase
+    from app.domain.catalogs.filters import CatalogFilters, CatalogFiltersWithRetired
+    from app.domain.catalogs.schemas import CatalogList, CatalogReadBase
 
 
-class BaseCatalogService[CatalogT: CatalogBase, ReadSchemaT: FieldsReadBase](
+class BaseCatalogService[CatalogT: CatalogBase, ReadSchemaT: CatalogReadBase](
     service.SQLAlchemyAsyncRepositoryService[CatalogT]
 ):
     """Base service for managing soft-deletable catalog data with caching."""
 
     read_schema: type[ReadSchemaT]
-
-    @cache(
-        ttl=get_settings().app.CATALOG_LIST_CACHE_TTL,
-        key="{self.model_type.__tablename__}:{params}",
-    )
-    async def get_list_items(
-        self,
-        params: CatalogFilters,
-    ) -> list[ReadSchemaT]:
-        """Retrieve a list of catalog items from database or cache."""
-        filters = params.as_aa_filters
-        data = await self.get_many(*filters)
-        return convert(data, type=list[self.read_schema], from_attributes=True)  # type: ignore[name-defined]
-
-    async def get_list_with_retired_items(
-        self,
-        params: CatalogFilters,
-    ) -> list[ReadSchemaT]:
-        """Retrieve a list of catalog items from database, including retired items."""
-        filters = params.as_aa_filters
-        data = await self.get_many(
-            *filters,
-            execution_options={"include_deleted": True},
-        )
-        return convert(data, type=list[self.read_schema], from_attributes=True)  # type: ignore[name-defined]
-
-    async def _invalidate_cache(self) -> None:
-        """Remove the catalog data from the associated cache."""
-        table_name = self.model_type.__tablename__
-        await cache.delete_match(pattern=f"{table_name}:*")
+    list_envelope: type[CatalogList[ReadSchemaT]]
 
     async def create(
         self,
@@ -138,7 +116,7 @@ class BaseCatalogService[CatalogT: CatalogBase, ReadSchemaT: FieldsReadBase](
         *,
         error_prefix: str,
     ) -> None:
-        """Retire a catalog item.
+        """Retire a catalog item and invalidate cache.
 
         Raises:
             NotFoundException: If the catalog item does not exist.
@@ -159,7 +137,7 @@ class BaseCatalogService[CatalogT: CatalogBase, ReadSchemaT: FieldsReadBase](
         error_prefix: str,
         error_entity: str,
     ) -> CatalogT:
-        """Restore a retired catalog item.
+        """Restore a retired catalog item and invalidate cache.
 
         Raises:
             NotFoundException: If the catalog item does not exist.
@@ -186,6 +164,42 @@ class BaseCatalogService[CatalogT: CatalogBase, ReadSchemaT: FieldsReadBase](
 
         return db_obj
 
+    async def get_list_items(
+        self,
+        params: CatalogFilters,
+    ) -> list[ReadSchemaT]:
+        """Retrieve a list of catalog items from database or cache."""
+        return (await self._get_list_envelope(params)).items
+
+    async def get_list_with_retired_items(
+        self,
+        params: CatalogFiltersWithRetired,
+    ) -> list[ReadSchemaT]:
+        """Retrieve a list of catalog items from database, including retired items."""
+        filters = params.as_aa_filters
+        data = await self.get_many(
+            *filters,
+            execution_options={"include_deleted": True},
+        )
+        return convert(data, type=list[self.read_schema], from_attributes=True)  # type: ignore[name-defined]
+
+    # Key prefix is coupled to _invalidate_cache's delete_match pattern.
+    @cache(
+        ttl=get_settings().app.CATALOG_LIST_CACHE_TTL,
+        key="{self.model_type.__tablename__}:{params}",
+    )
+    async def _get_list_envelope(self, params: CatalogFilters) -> CatalogList[ReadSchemaT]:
+        """Fetch and cache the catalog list as a per-entity envelope."""
+        filters = params.as_aa_filters
+        data = await self.get_many(*filters)
+        items = convert(data, type=list[self.read_schema], from_attributes=True)  # type: ignore[name-defined]
+        return self.list_envelope(items=items)
+
+    async def _invalidate_cache(self) -> None:
+        """Remove the catalog data from the associated cache."""
+        table_name = self.model_type.__tablename__
+        await cache.delete_match(pattern=f"{table_name}:*")
+
 
 class MuscleGroupService(BaseCatalogService[m.MuscleGroup, MuscleGroupRead]):
     """Handles database operations for muscle groups."""
@@ -197,6 +211,7 @@ class MuscleGroupService(BaseCatalogService[m.MuscleGroup, MuscleGroupRead]):
 
     repository_type = MuscleGroupRepository
     read_schema = MuscleGroupRead
+    list_envelope = MuscleGroupList
 
 
 class EquipmentService(BaseCatalogService[m.Equipment, EquipmentRead]):
@@ -209,6 +224,7 @@ class EquipmentService(BaseCatalogService[m.Equipment, EquipmentRead]):
 
     repository_type = EquipmentRepository
     read_schema = EquipmentRead
+    list_envelope = EquipmentList
 
 
 class TagService(BaseCatalogService[m.Tag, TagRead]):
@@ -221,3 +237,4 @@ class TagService(BaseCatalogService[m.Tag, TagRead]):
 
     repository_type = TagRepository
     read_schema = TagRead
+    list_envelope = TagList
