@@ -1,4 +1,4 @@
-"""User Role Management API Endpoints.
+"""User Role Endpoints.
 
 Defines the operations for assigning and revoking user roles.
 Requires superuser privileges.

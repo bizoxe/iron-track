@@ -28,7 +28,8 @@ def check_critical_action_forbidden(
     """Disallow destructive action on self or system admin.
 
     Intended for admin-surface handlers: the caller acts on another account.
-    Self-service paths enforce their own guards (see retire).
+    Self-service paths enforce their own guards (see
+    :py:meth:`~app.domain.accounts.services.UserService.retire`).
 
     Args:
         target_user (:py:class:`~app.db.models.user.User`): The user object targeted for action.
@@ -47,13 +48,12 @@ def check_critical_action_forbidden(
         raise PermissionDeniedException(message=msg)
 
 
-async def perform_logout_cleanup(refresh_jti: str, ttl: int, user_id: UUID) -> None:
-    """Perform asynchronous cleanup tasks upon user logout.
+async def revoke_session(refresh_jti: str, ttl: int, user_id: UUID) -> None:
+    """Revoke the user's current session as a background task.
 
-    Executed as a FastAPI background task to non-blockingly revoke the refresh token
-    in cache and invalidate cached user data. The auth cache is dropped so the
-    next session rebuilds the auth context from the database — including any
-    UserAuth copies the refresh flow may have mutated with its jti/exp pair.
+    Blacklists the refresh token and drops the cached auth context so the
+    next request rebuilds it from the database — including any UserAuth
+    copy the refresh flow may have mutated with its jti/exp pair.
 
     Args:
         refresh_jti (str): The JWT ID (JTI) of the refresh token to be blacklisted.

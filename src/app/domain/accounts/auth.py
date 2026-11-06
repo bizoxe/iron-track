@@ -36,7 +36,7 @@ class Authenticate:
     @classmethod
     @cache(
         ttl=get_settings().app.user_auth_cache_ttl,
-        key=f"{USER_AUTH_CACHE_KEY_PREFIX}" + ":{token_payload.sub}",
+        key=USER_AUTH_CACHE_KEY_PREFIX + ":{token_payload.sub}",
     )
     async def _get_user_from_payload(
         cls,

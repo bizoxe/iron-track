@@ -37,9 +37,7 @@ from app.domain.accounts.schemas import (
     User,
     UserAuth,
 )
-from app.domain.accounts.utils import (
-    perform_logout_cleanup,
-)
+from app.domain.accounts.utils import revoke_session
 from app.lib.exceptions import ConflictException
 from app.lib.json_response import MsgSpecJSONResponse
 from app.lib.openapi_helpers import response_spec
@@ -233,7 +231,7 @@ async def update_password(
     ttl = int(refresh_exp - time())
     if ttl > 0:
         background_tasks.add_task(
-            func=perform_logout_cleanup,
+            func=revoke_session,
             refresh_jti=refresh_jti,
             ttl=ttl,
             user_id=user_auth.id,
@@ -271,7 +269,7 @@ async def logout(
     ttl = int(refresh_exp - time())
     if ttl > 0:
         background_tasks.add_task(
-            func=perform_logout_cleanup,
+            func=revoke_session,
             refresh_jti=refresh_jti,
             ttl=ttl,
             user_id=user_auth.id,
@@ -312,7 +310,7 @@ async def delete_account(
     ttl = int(refresh_exp - time())
     if ttl > 0:
         background_tasks.add_task(
-            func=perform_logout_cleanup,
+            func=revoke_session,
             refresh_jti=refresh_jti,
             ttl=ttl,
             user_id=user_auth.id,
