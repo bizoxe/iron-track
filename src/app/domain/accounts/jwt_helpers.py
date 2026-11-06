@@ -1,5 +1,6 @@
 from base64 import urlsafe_b64decode
 from datetime import timedelta
+from math import isfinite
 from time import time
 from typing import TYPE_CHECKING
 
@@ -23,9 +24,11 @@ if TYPE_CHECKING:
 
 log = get_logger()
 
+_REFRESH_TOKEN_LIFETIME = timedelta(days=get_settings().jwt.REFRESH_TOKEN_EXPIRE_DAYS)
+
 
 class TokenPayloadBase(Struct):
-    """Base set of validated JWT claims."""
+    """Typed JWT claims shared by access and refresh payloads."""
 
     iat: float
     exp: float
@@ -34,22 +37,21 @@ class TokenPayloadBase(Struct):
 
     @property
     def is_expired(self) -> bool:
-        return self.exp <= time()
+        return not isfinite(self.exp) or self.exp <= time()
 
 
 class TokenPayloadAccess(TokenPayloadBase):
-    """Payload data specific to the access token."""
+    """Access token payload (base claims plus email)."""
 
     email: str
 
 
 class TokenPayloadRefresh(TokenPayloadBase):
-    """Payload data specific to the refresh token."""
+    """Refresh token payload (base claims only)."""
 
 
 encoder = msgpack.Encoder()
 access_decoder = msgpack.Decoder(TokenPayloadAccess)
-refresh_decoder = msgpack.Decoder(TokenPayloadRefresh)
 json_decoder = json.Decoder(TokenPayloadBase)
 
 
@@ -57,13 +59,13 @@ def get_unverified_jti(token: str) -> str | None:
     """Extract the jti claim from a JWT token without validation.
 
     Used solely to build the access-payload cache key: the lookup happens
-    before verification by design (see get_access_token_payload); a None
+    before verification by design (see `get_access_token_payload`); a None
     return simply skips the cache, and the token still fails full decode
     if forged.
     """
     try:
         payload_segment = token.split(".")[1]
-        payload_segment += "=" * (4 - len(payload_segment) % 4)
+        payload_segment += "=" * (-len(payload_segment) % 4)
         payload_bytes = urlsafe_b64decode(payload_segment.encode("utf-8"))
         struct_obj = json_decoder.decode(payload_bytes)
     except (IndexError, ValueError, DecodeError):
@@ -92,11 +94,16 @@ def create_access_token(
     return encode_jwt(payload=jwt_payload)
 
 
-def create_refresh_token(user_id: "UUID") -> str:
+def create_refresh_token(
+    user_id: "UUID",
+    expire_timedelta: timedelta = _REFRESH_TOKEN_LIFETIME,
+) -> str:
     """Create a long-lived JWT refresh token.
 
     Args:
         user_id (UUID): The unique identifier of the user.
+        expire_timedelta (timedelta): Explicit lifespan of the refresh token.
+            Defaults to the configured refresh token lifetime.
 
     Returns:
         str: The encoded refresh token string.
@@ -106,13 +113,11 @@ def create_refresh_token(user_id: "UUID") -> str:
     }
     return encode_jwt(
         payload=jwt_payload,
-        expire_timedelta=timedelta(
-            days=get_settings().jwt.REFRESH_TOKEN_EXPIRE_DAYS,
-        ),
+        expire_timedelta=expire_timedelta,
     )
 
 
-async def get_access_token_payload(token: str) -> TokenPayloadAccess:
+async def get_access_token_payload(token: str) -> TokenPayloadAccess:  # noqa: C901
     """Decode an access token and validate its claims.
 
     Args:
@@ -128,16 +133,21 @@ async def get_access_token_payload(token: str) -> TokenPayloadAccess:
     # The cache lookup intentionally precedes signature verification: the
     # key is jti from the unverified payload segment, but trust is safe
     # because entries are written only after full verification and jti is
-    # uuid4 (unpredictable). Making jti deterministic or caching before
-    # verify would break this contract.
+    # uuid4 (unpredictable). Making jti deterministic or writing entries before
+    # verification would break this contract.
     token_id = get_unverified_jti(token=token)
     if token_id:
         cache_key = f"jwt:access:{token_id}"
         cached_data = await cache.get(key=cache_key)
         if cached_data:
-            payload = access_decoder.decode(cached_data)
-            if not payload.is_expired:
-                return payload
+            try:
+                payload = access_decoder.decode(cached_data)
+            except DecodeError:
+                # stale/corrupted entry: fall through to full verification
+                pass
+            else:
+                if not payload.is_expired:
+                    return payload
     try:
         token_obj = decode_jwt(token=token)
         claims = token_obj.claims
@@ -148,7 +158,7 @@ async def get_access_token_payload(token: str) -> TokenPayloadAccess:
 
         now = time()
         ttl = int(payload.exp - now)
-        if ttl > 0:
+        if token_id and ttl > 0:
             serialized = encoder.encode(payload)
             cache_key = f"jwt:access:{token_id}"
             await cache.set(key=cache_key, value=serialized, expire=ttl)
@@ -191,8 +201,7 @@ def get_refresh_token_payload(token: str) -> TokenPayloadRefresh:
             error_type=type(exc).__name__,
             error_detail=str(exc),
         )
-        msg = "Invalid token"
-        raise UnauthorizedException(message=msg) from exc
+        raise UnauthorizedException(message="Invalid token") from exc
     else:
         return payload
 
@@ -208,4 +217,4 @@ async def add_token_to_blacklist(refresh_token_identifier: str, ttl: int) -> Non
 
 async def is_token_in_blacklist(refresh_token_identifier: str) -> bool:
     """Check if a refresh token identifier exists in the blacklist."""
-    return await cache.exists(f"revoked:{refresh_token_identifier}")
+    return await cache.exists(key=f"revoked:{refresh_token_identifier}")

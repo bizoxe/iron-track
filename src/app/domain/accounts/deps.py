@@ -20,10 +20,7 @@ async def provide_users_service(db_session: DatabaseSession) -> AsyncGenerator[U
     Yields:
         UserService: The new service instance.
     """
-    async with UserService.new(
-        session=db_session,
-        error_messages={"duplicate_key": "This user already exists.", "integrity": "User operation failed."},
-    ) as service:
+    async with UserService.new(session=db_session) as service:
         yield service
 
 
@@ -36,9 +33,7 @@ async def provide_roles_service(db_session: DatabaseSession) -> AsyncGenerator[R
     Yields:
         RoleService: The new service instance.
     """
-    async with RoleService.new(
-        session=db_session,
-    ) as service:
+    async with RoleService.new(session=db_session) as service:
         yield service
 
 
