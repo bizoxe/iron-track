@@ -4,7 +4,13 @@
 
 **Status:** Decided
 
-**Target Modules:** [API Endpoints](../src/app/domain/users/controllers/access.py) | [MsgSpecJSONResponse](../src/app/lib/json_response.py)
+**Code Revision:**
+
+* **Baseline:** [`532828e`](https://github.com/bizoxe/iron-track/commit/532828ee4a7732d60f9329214ef2adc160b9da7f) — the last commit on `main` before this report itself ([`b4ebcd7`](https://github.com/bizoxe/iron-track/commit/b4ebcd7064a2282947ca694c87930f4d7b83ff46), authored 2026-05-28, committed 2026-05-30): `main` saw no commits between 2026-04-29 and the report, so this is also the tip of `main` on the test date. The commit itself is docs-only; `src/` was last changed in [`c6902a5`](https://github.com/bizoxe/iron-track/commit/c6902a5e1a4576bdb626e1d9119992056bcd977c) (`feat(domain): implement CRUD operations for exercises`, 2026-03-30; developed on `feat/exercise-constructor`, merged into `main` by fast-forward — hence no merge commit) and is unchanged since.
+* **Optimization 1 / Final:** benchmarked in a local working tree; the key changes were committed on 2026-05-31 in the `refactor/auth-serialization` branch (cut from [`2c300e3`](https://github.com/bizoxe/iron-track/commit/2c300e3f7c4262bd490243776a2471746d537bc9), the `docs(adr)` commit, authored 2026-05-30, committed 2026-05-31): [`63abf8d`](https://github.com/bizoxe/iron-track/commit/63abf8d2370dc82cb0f3d885a29a067eb858b4ab) (logging middleware and lifecycle refactor; dynamic `user_auth_cache_ttl`), [`819e95d`](https://github.com/bizoxe/iron-track/commit/819e95d216e34bbb63a876de23d83a2804d7ac31) (crypto thread pool config externalization), and [`76e568a`](https://github.com/bizoxe/iron-track/commit/76e568a567756e1785b5ef9596c1a64ae19d8fc3) (auth: joserfc, claims fast-path, ORM loading, msgspec structs). That branch was merged into `refactor/core-improvements-01` on 2026-06-02, which in turn reached `main` via PR #5 (22 commits, merge commit [`a7fa035`](https://github.com/bizoxe/iron-track/commit/a7fa0350d2cbf8d84dddb50c9f5a7a8130138966), 2026-06-07). The underlying `lib` layer — the executor-based `crypt.py`, the `msgspec` serializer stack (json_response / schema / serializers), and the `jwt_utils.py` migration to `joserfc` — predates the benchmark: it was committed in [`41291b0`](https://github.com/bizoxe/iron-track/commit/41291b0d0fc350d28ecdd2a1fa31ee1dcaa4fb2d) (`refactor: optimize system performance and security baseline`, 2026-02-11) and reached `main` on the same `feat/exercise-constructor` branch; in that commit, `MsgSpecJSONResponse` switched to native `msgspec` encoding (dropping `jsonable_encoder`), and `schema.py` / `serializers.py` first appeared.
+* **Artifacts:** [`c96eda5`](https://github.com/bizoxe/iron-track/commit/c96eda5216a79b920b1a52c5053a88df2f3f7f91) — Initialize benchmarks storage (2026-05-28), the only commit of the dedicated `benchmarks` branch that stores the test artifacts referenced in this report.
+
+**Target Modules:** [API Endpoints](../src/app/domain/accounts/controllers/access.py) | [MsgSpecJSONResponse](../src/app/lib/json_response.py)
 
 **Environment:** [Test Bench Specification](SPEC.md)
 
@@ -29,24 +35,24 @@
 
 ## Bottleneck Analysis
 
-### 1. Hypothesis for `/api/v1/access/signup` (Registration)
+### 1. Hypothesis for `/signup` (Registration)
 
 * **Premise:** Using synchronous password hashing at the ORM level (`advanced-alchemy` | `pwdlib.hashers.argon2.Argon2Hasher`) requires significant CPU computational power, and the subsequent data writing involves disk I/O operations.
 * **Hypothesis Formulation:** Due to the cooperative nature of asynchrony in Python, performing heavy synchronous hash calculations (`Argon2id`) in the main thread under load from `wrk2` will completely block the Event Loop and the application server worker for the duration of the mathematical operation. This will stop the processing of incoming network events, causing other clients' requests to queue up at the system socket level. The bottleneck will not be the disk subsystem, but the monopolization of the single Event Loop thread by synchronous code (lack of offloading the task to `run_in_executor`).
 * **Objective:** Determine whether async offloading of CPU-bound tasks (delegating computations to a `ThreadPoolExecutor`) is required for user password hashing, or if the current synchronous execution is optimal.
 
-### 2. Hypothesis for `/api/v1/access/signin` (Login)
+### 2. Hypothesis for `/signin` (Login)
 
-* **Premise:** User authentication involves synchronous password verification (see `/api/v1/access/signup` above), as well as the generation of two tokens (access/refresh) using `RSA-2048` asymmetric cryptography, which requires significant CPU computational power. Searching for the user in the database (I/O) has low latency due to the use of an index (the `email` column).
+* **Premise:** User authentication involves synchronous password verification (see `/signup` above), as well as the generation of two tokens (access/refresh) using `RSA-2048` asymmetric cryptography, which requires significant CPU computational power. Searching for the user in the database (I/O) has low latency due to the use of an index (the `email` column).
 * **Hypothesis Formulation:** See point one. On this endpoint, the situation will worsen: the worker will sequentially hang first on password verification, and then be blocked twice by RSA-2048 asymmetric encryption when generating signatures for the access and refresh tokens. The total time a single request monopolizes the thread will increase several times over.
 * **Objective:** Verify the hypothesis that the sequential execution of CPU-bound operations (password verification + RSA signatures) is a critical bottleneck, and evaluate the feasibility of switching to signature algorithms with lower computational costs (`Ed25519`).
 
-### 3. Hypothesis for `/api/v1/access/me` (Get User Profile)
+### 3. Hypothesis for `/me` (Get User Profile)
 * **Premise:** The endpoint relies on the `get_current_active_user` dependency. On each request, the JWT token is first decoded (RSA-2048 asymmetric algorithm via `decode_jwt`). After successful validation, the cache is checked (decorator `@cache` from `fastapi_cache.decorator`). On a cache hit, the bytes are retrieved and deserialized (calling `msgspec.msgpack.decode` + `UserAuth.model_validate`). On a cache miss, a database query is executed, followed by converting the ORM object to `UserAuth` and saving it to the cache (serialized using `msgspec.msgpack.encode` + `jsonable_encoder`).
 * **Hypothesis Formulation:** With a cache, we reduce the load on the database but transfer part of the load to the CPU (deserialization). However, as the load on the endpoint increases, the cryptographic decoding and verification of the JWT (RSA-2048) will place a noticeable load on the CPU and reduce overall throughput. Deserialization will not have a significant impact.
 * **Objective:** Evaluate the computational costs of decoding and cryptographically verifying access tokens when using the `RSA-2048` algorithm.
 
-**Note:** Authentication/Authorization chain execution flow
+**Note:** Authentication/Authorization chain execution flow (baseline code state, before the optimizations described below)
 
 ```text
 [HTTP Request]
@@ -120,8 +126,8 @@ async def lifespan(app: FastAPI):
 ```
 
 **Results of logging "heavy" callbacks:**
-* **`/api/v1/access/signup`**: Thread blocking during synchronous password hashing was **~150 ms**.
-* **`/api/v1/access/signin`**: The total blocking time for password verification and the sequential issuance of an access/refresh token pair reaches **~350–400 ms** (of which: password verification — **~150 ms**, token generation — **~250 ms**).
+* **`/signup`**: Thread blocking during synchronous password hashing was **~150 ms**.
+* **`/signin`**: The total blocking time for password verification and the sequential issuance of an access/refresh token pair reaches **~350–400 ms** (of which: password verification — **~150 ms**, token generation — **~250 ms**).
 
 **Note:** The figures provided are Wall-clock time (total astronomical delay time) recorded by `asyncio debug`. This is not pure cryptography mathematics in a vacuum, but the total time during which the main Python thread was monopolized by computations without returning control to the Event Loop. These measurements serve as a clear demonstration of how heavy CPU-bound code paralyzes the asynchronous runtime.
 
@@ -129,39 +135,39 @@ async def lifespan(app: FastAPI):
 * **Conditions:**
   * **Application Server:** Uvicorn, 1 worker, mapped to 1 physical module (core 0).
   * **py-spy (`record` mode, no core affinity) | wrk2 (mapped to 1 physical module (core 7))**:
-    * Endpoint `/api/v1/access/signup`: py-spy -> `--rate 100`; wrk2 -> RPS 4, 1 threads.
-    * Endpoint `/api/v1/access/signin`: py-spy -> `--rate 100` (increased to 150 after optimization); wrk2 -> RPS 2, 1 threads.
-    * Endpoint `/api/v1/access/me`: py-spy -> `--rate 150`; wrk2 -> RPS 300, 1 threads.
+    * Endpoint `/signup`: py-spy -> `--rate 100`; wrk2 -> RPS 4, 1 threads.
+    * Endpoint `/signin`: py-spy -> `--rate 100` (increased to 150 after optimization); wrk2 -> RPS 2, 1 threads.
+    * Endpoint `/me`: py-spy -> `--rate 150`; wrk2 -> RPS 300, 1 threads.
   * **Docker containers:** PostgreSQL, PGBouncer (cores 2,3) | Valkey (cores 4,5) were running. `ulimit (nofile=65535)` was set for all containers.
   * OS limits were raised (see `OS Tuning`)
 
 
 * **Baseline Analysis:**
-  * Endpoint `/api/v1/access/signup`: The CPU time share for synchronous user password hashing was within **~22-25%**. The flame graph clearly shows a deep call stack from the ORM integration level (`advanced_alchemy/types/password...`) down to the low-level `argon2.low_level.hash_secret` library, which monopolizes CPU time within the main thread.
-  * Endpoint `/api/v1/access/signin`: The flame graph shows the cumulative effect of blocking the Event Loop with two heavy CPU-bound operations within a single request. The share of synchronous password verification via `argon2.low_level.verify_secret` takes about **~10–12%** of the worker's CPU time. The main overhead in the execution profile is formed by the sequential issuance of a pair of JWT tokens (access/refresh) using the asymmetric RSA-2048 algorithm (`jwt.algorithms.prepare_key` / `encode_jwt`), taking up **~32–34%** of CPU time for each token (a total of ~66% of the entire graph width).
-  * Endpoint `/api/v1/access/me`: Decoding and verifying the signature of the incoming JWT token using the asymmetric RSA-2048 algorithm (`decode_jwt` -> `pyjwt.verify`) takes about **~10–12%** of CPU time. At the same time, the layer for working with the Valkey cache backend and deserializing user data using `msgspec` take up a minimal share of the CPU.
+  * Endpoint `/signup`: The CPU time share for synchronous user password hashing was within **~22-25%**. The flame graph clearly shows a deep call stack from the ORM integration level (`advanced_alchemy/types/password...`) down to the low-level `argon2.low_level.hash_secret` library, which monopolizes CPU time within the main thread.
+  * Endpoint `/signin`: The flame graph shows the cumulative effect of blocking the Event Loop with two heavy CPU-bound operations within a single request. The share of synchronous password verification via `argon2.low_level.verify_secret` takes about **~10–12%** of the worker's CPU time. The main overhead in the execution profile is formed by the sequential issuance of a pair of JWT tokens (access/refresh) using the asymmetric RSA-2048 algorithm (`jwt.algorithms.prepare_key` / `encode_jwt`), taking up **~32–34%** of CPU time for each token (a total of ~66% of the entire graph width).
+  * Endpoint `/me`: Decoding and verifying the signature of the incoming JWT token using the asymmetric RSA-2048 algorithm (`decode_jwt` -> `pyjwt.verify`) takes about **~10–12%** of CPU time. At the same time, the layer for working with the Valkey cache backend and deserializing user data using `msgspec` take up a minimal share of the CPU.
 
-**Artifacts:** [signup.svg](https://github.com/bizoxe/iron-track/blob/benchmarks/benchmarks/docs/assets/auth-serialization/signup.svg) | [signin.svg](https://github.com/bizoxe/iron-track/blob/benchmarks/benchmarks/docs/assets/auth-serialization/signup.svg) | [me.svg](https://github.com/bizoxe/iron-track/blob/benchmarks/benchmarks/docs/assets/auth-serialization/me.svg)
+**Artifacts:** [signup.svg](https://github.com/bizoxe/iron-track/blob/benchmarks/benchmarks/docs/assets/auth-serialization/signup.svg) | [signin.svg](https://github.com/bizoxe/iron-track/blob/benchmarks/benchmarks/docs/assets/auth-serialization/signin.svg) | [me.svg](https://github.com/bizoxe/iron-track/blob/benchmarks/benchmarks/docs/assets/auth-serialization/me.svg)
 
 * **Analysis after the first optimization:**
-  * Endpoint `/api/v1/access/signin`: The flame graph clearly shows two isolated towers. Synchronous password hashing (`Argon2id`), wrapped in the pwdlib interface, has completely moved out of the main Event Loop into a dedicated ThreadPoolExecutor (crypto_executor). Token generation and signing operations are completely absent from the profiling graph.
-  * Endpoint `/api/v1/access/me`: Decoding and verifying the token signature via `joserfc` collectively take ~20-22% of CPU (compared to ~10-12% for `PyJWT`). The load is distributed between the computational verification of the cryptographic signature (verify) and the internal mechanisms of deserialization/claims validation (`deserialize_compact`, `validate_compact`). **As a primary working hypothesis, I assumed (analyzing the me-joserfc.svg graph)** that this increase is explained by the library's deep OOP layer (the `JWTClaimsRegistry` class), where the call to `.validate(claims)` leads to the creation of intermediate objects, dynamic validator lookup, and data type inspection, taking up a significant percentage of processor time.
+  * Endpoint `/signin`: The flame graph clearly shows two isolated towers. Synchronous password hashing (`Argon2id`), wrapped in the pwdlib interface, has completely moved out of the main Event Loop into a dedicated ThreadPoolExecutor (crypto_executor). Token generation and signing operations are completely absent from the profiling graph.
+  * Endpoint `/me`: Decoding and verifying the token signature via `joserfc` collectively take ~20-22% of CPU (compared to ~10-12% for `PyJWT`). The load is distributed between the computational verification of the cryptographic signature (verify) and the internal mechanisms of deserialization/claims validation (`deserialize_compact`, `validate_compact`). **As a primary working hypothesis, I assumed (analyzing the me-joserfc.svg graph)** that this increase is explained by the library's deep OOP layer (the `JWTClaimsRegistry` class), where the call to `.validate(claims)` leads to the creation of intermediate objects, dynamic validator lookup, and data type inspection, taking up a significant percentage of processor time.
 
-**Important clarification on the results of the final profiling: (Endpoint `/api/v1/access/me`)**
+**Important clarification on the results of the final profiling: (Endpoint `/me`)**
 Subsequent analysis of the flame graph after implementing the "fast-path" showed that the Python wrapper for claims validation (`exp`, `iat` check) itself created minimal overhead.
 The main processor time in these ~20-22% is spent on the **mathematics of verifying the cryptographic signature of the Ed25519 algorithm**. Unlike the asymmetric RSA-2048, where verification with a public key is "free" for the processor, the Ed25519 algorithm requires equally heavy scalar computations for both signing and verification.
-Thus, the manual "fast-path" made the code cleaner and freed it from the library's unnecessary abstractions, but it was not possible to significantly reduce this ~20-22% CPU plateau on the `/api/v1/access/me` endpoint.
+Thus, the manual "fast-path" made the code cleaner and freed it from the library's unnecessary abstractions, but it was not possible to significantly reduce this ~20-22% CPU plateau on the `/me` endpoint.
 
 **Artifacts:** [signin-optimized.svg](https://github.com/bizoxe/iron-track/blob/benchmarks/benchmarks/docs/assets/auth-serialization/signin-optimized.svg) | [me-joserfc.svg](https://github.com/bizoxe/iron-track/blob/benchmarks/benchmarks/docs/assets/auth-serialization/me-joserfc.svg)
 
 #### Hypothesis Confirmation
-* **Endpoint `/api/v1/access/signup`:**
+* **Endpoint `/signup`:**
   * Flame Graph analysis (baseline) confirmed the hypothesis: `Argon2id` monopolizes the Event Loop.
   * System artifacts analysis: `sar` data confirms critical load on the scheduler during peak registration moments: `runq-sz` spikes up to 10 are recorded, which significantly exceeds the number of allocated cores and indicates a state of acute CPU time deficit (resource contention). The high level of `cswch/s` (up to ~5335) indicates excessive context switching caused by the OS's attempts to process incoming requests while the main Event Loop is blocked by synchronous `Argon2id` computations ([sar-logs](https://github.com/bizoxe/iron-track/blob/benchmarks/benchmarks/results/auth-serialization/test-signup/baseline/sar-metrics/reports/system.txt)).
-* **Endpoint `/api/v1/access/signin`:**
+* **Endpoint `/signin`:**
   * Flame Graph analysis (baseline) partially confirmed my hypothesis: The Event Loop blocking is cumulative. Although password verification (`Argon2id`) makes a significant contribution, the main load is generated by the sequential generation of JWT tokens via RSA-2048.
   * System artifacts analysis: `sar` data confirms that during authentication, the system enters a "pulsating" load mode: alternating periods of deep Event Loop blocking (generating RSA signatures) and sharp processing bursts (processing the accumulated queue). Spikes in `runq-sz` to 10 and `cswch/s` to ~6592 clearly illustrate the degradation of response time when several CPU-bound tasks are executed simultaneously ([sar-logs](https://github.com/bizoxe/iron-track/blob/benchmarks/benchmarks/results/auth-serialization/test-signin/baseline/sar-metrics/reports/system.txt)).
-* **Endpoint `/api/v1/access/me`:**
+* **Endpoint `/me`:**
   * Flame Graph analysis (baseline) confirmed the hypothesis: Decoding and verifying the cryptographic signature of access tokens take significantly more processor time than deserializing user data. The flame graph analysis is self-sufficient to confirm the hypothesis.
 
 *The methodology for the runs (wrk2) and sar metric collection are described below.*
@@ -170,9 +176,9 @@ Thus, the manual "fast-path" made the code cleaner and freed it from the library
 * **Conditions:**
   * **Run methodology**: Before the start of each test series (Baseline / Optimization), the database was completely cleared. Testing was performed as a series of 4 consecutive runs: the first to record system metrics (sar), the subsequent three to average the performance results. The total size of the `user_account` table within one series did not exceed 1000 records.
   * **wrk2 (cores 6,7)**:
-    * Endpoint `/api/v1/access/signup`: 5 RPS, 2 threads and 4 connections.
-    * Endpoint `/api/v1/access/signin`: 3 RPS, 2 threads and 4 connections.
-    * Endpoint `/api/v1/access/me`: 600 RPS, 2 threads and 4 connections.
+    * Endpoint `/signup`: 5 RPS, 2 threads and 4 connections.
+    * Endpoint `/signin`: 3 RPS, 2 threads and 4 connections.
+    * Endpoint `/me`: 600 RPS, 2 threads and 4 connections.
   * **Application Server:** Uvicorn, 2 workers, mapped to 1 physical module (cores 0,1).
   * **Docker containers:** PostgreSQL, PGBouncer (cores 2,3) | Valkey (cores 4,5) were running. `ulimit (nofile=65535)` was set for all containers.
   * OS limits were raised (see `OS Tuning`)
@@ -181,7 +187,7 @@ Thus, the manual "fast-path" made the code cleaner and freed it from the library
 
 **Technical note:** For an objective assessment of efficiency, we rely on **Mean Latency**, **P90**, and **CPU Load** (see `Justification for the relevance of wrk2 metrics`).
 
-#### Endpoint `/api/v1/access/signup`
+#### Endpoint `/signup`
 
 | Metric                | **Baseline** | **Optimization 1** | **Difference (Delta)**  |
 |-----------------------|--------------|--------------------|-------------------------|
@@ -199,7 +205,7 @@ Thus, the manual "fast-path" made the code cleaner and freed it from the library
 
 **Optimization 1 artifacts:** [wrk2-logs directory](https://github.com/bizoxe/iron-track/tree/benchmarks/benchmarks/results/auth-serialization/test-signup/optimization-01/wrk2-logs) | [sar-metrics directory](https://github.com/bizoxe/iron-track/tree/benchmarks/benchmarks/results/auth-serialization/test-signup/optimization-01/sar-metrics)
 
-### Endpoint `/api/v1/access/signin`
+### Endpoint `/signin`
 
 | Metric                | **Baseline**       | **Optimization 1** | **Difference (Delta)**  |
 |-----------------------|--------------------|--------------------|-------------------------|
@@ -217,7 +223,7 @@ Thus, the manual "fast-path" made the code cleaner and freed it from the library
 
 **Optimization 1 artifacts:** [wrk2-logs directory](https://github.com/bizoxe/iron-track/tree/benchmarks/benchmarks/results/auth-serialization/test-signin/optimization-01/wrk2-logs) | [sar-metrics directory](https://github.com/bizoxe/iron-track/tree/benchmarks/benchmarks/results/auth-serialization/test-signin/optimization-01/sar-metrics)
 
-### Endpoint `/api/v1/access/me`
+### Endpoint `/me`
 
 | Metric                | **Baseline** | **Optimization 1** | **Difference (Delta)** |
 |-----------------------|--------------|--------------------|------------------------|
@@ -317,16 +323,16 @@ This optimization includes the changes made in the first stage:
 
 **Key Changes:**
 
-* **Endpoint `/api/v1/access/signup`:**
+* **Endpoint `/signup`:**
 * **ORM-level optimization:** The `auto_refresh=False` parameter was introduced when calling the user creation method in `advanced-alchemy`. This eliminated the redundant hidden `SELECT` query (a repeated round-trip to the DB) after the `INSERT` operation, as all necessary auto-generated fields are read from the session context.
 * **Transport layer optimization:** A complete rejection of Pydantic models on the output layer in favor of `msgspec.Struct` structures. Instead of the standard FastAPI serializer, the native `MsgSpecJSONResponse` was used, which completely eliminated the heavy `jsonable_encoder` from the serialization process.
 
 
-* **Endpoint `/api/v1/access/signin`:**
+* **Endpoint `/signin`:**
 * **Elimination of redundant queries and limitation of field selection (ORM layer):** In the `UserService.authenticate` method, the data loading strategy was optimized. The `noload(m.User.role)` directive was applied, which canceled the default `selectinload` strategy for this relationship. The `load_only` directive was also used, limiting the initial query to the `user_account` table to strictly the fields necessary for validation (`id`, `email`, `is_active`, `password`).
 
 
-* **Endpoint `/api/v1/access/me`:**
+* **Endpoint `/me`:**
 * **Elimination of redundant queries and limitation of field selection (ORM layer):** In the `_get_user_from_payload` method, the data loading strategy was optimized. Instead of two separate queries (the primary one to the user and the automatic `selectinload` to their role), a single SQL query with a `LEFT JOIN` via `joinedload(User.role)` is now executed. At the same time, `load_only` at both levels limits the selection to the absolute minimum (`Role.slug` and 5 basic user fields).
 * **Transport layer optimization:** The `UserAuth` transport model was replaced from Pydantic to a lightweight `msgspec.Struct` structure.
 * **Switch to In-Memory Caching:** The `fastapi-cache2` library was replaced with `cashews` with local caching enabled (`client_side=True`).
@@ -375,7 +381,7 @@ A shift in load is observed: to the IO-bound area (waiting for data) and the app
 
 **Note:** Before starting the final series of runs, the database was cleared.
 
-#### Endpoint `/api/v1/access/signup`
+#### Endpoint `/signup`
 
 | Metric                | **Baseline** | **Optimization 1** | **Final**     | **Delta (Baseline → Final)**  |
 |-----------------------|--------------|--------------------|---------------|-------------------------------|
@@ -393,7 +399,7 @@ It should be noted that a small amount of data is serialized on this endpoint, a
 
 **Final optimization artifacts:** [wrk2-logs directory](https://github.com/bizoxe/iron-track/tree/benchmarks/benchmarks/results/auth-serialization/test-signup/final/wrk2-logs) | [sar-metrics directory](https://github.com/bizoxe/iron-track/tree/benchmarks/benchmarks/results/auth-serialization/test-signup/final/sar-metrics)
 
-#### Endpoint `/api/v1/access/signin`
+#### Endpoint `/signin`
 
 | Metric                | **Baseline** | **Optimization 1** | **Final**     | **Delta (Baseline → Final)**  |
 |-----------------------|--------------|--------------------|---------------|-------------------------------|
@@ -406,11 +412,11 @@ It should be noted that a small amount of data is serialized on this endpoint, a
 | **CPU Load (Core 1)** | 59.04%       | 35.68%             | **34.18%**    | **-42.1% (-24.86%)**          |
 
 **Brief analysis:** In the final optimization, the loading strategy was changed: limiting the selection of `User` model fields and applying the `noload(m.User.role)` directive. A decrease in Mean Latency of ~39% is observed (Delta Baseline → Final). Although ORM optimization improved the average latency by reducing I/O and memory overhead, the tail latencies P90/P99 between the first and final optimizations show diminishing returns.
-As with the `/api/v1/access/signup` endpoint, the determining factor remains the `Argon2id` cryptography.
+As with the `/signup` endpoint, the determining factor remains the `Argon2id` cryptography.
 
-**Final optimization artifacts:** [wrk2-logs directory](https://github.com/bizoxe/iron-track/tree/benchmarks/benchmarks/results/auth-serialization/test-signup/final/wrk2-logs) | [sar-metrics directory](https://github.com/bizoxe/iron-track/tree/benchmarks/benchmarks/results/auth-serialization/test-signup/final/sar-metrics)
+**Final optimization artifacts:** [wrk2-logs directory](https://github.com/bizoxe/iron-track/tree/benchmarks/benchmarks/results/auth-serialization/test-signin/final/wrk2-logs) | [sar-metrics directory](https://github.com/bizoxe/iron-track/tree/benchmarks/benchmarks/results/auth-serialization/test-signin/final/sar-metrics)
 
-#### Endpoint `/api/v1/access/me`
+#### Endpoint `/me`
 
 | Metric                | **Baseline** | **Optimization 1** | **Final**   | **Delta (Baseline → Final)** |
 |-----------------------|--------------|--------------------|-------------|------------------------------|
@@ -424,7 +430,7 @@ As with the `/api/v1/access/signup` endpoint, the determining factor remains the
 
 **Brief analysis:** During the first optimization, it was found that verifying access token signatures via the `Ed25519` algorithm introduces significant overhead. Optimization was performed at the transport and ORM layers. However, a significant performance boost and reduction in CPU load occurred due to local caching of access tokens (see flame graph analysis `me-cached.svg`).
 
-**Final optimization artifacts:** [wrk2-logs directory](https://github.com/bizoxe/iron-track/tree/benchmarks/benchmarks/results/auth-serialization/test-signup/final/wrk2-logs) | [sar-metrics directory](https://github.com/bizoxe/iron-track/tree/benchmarks/benchmarks/results/auth-serialization/test-signup/final/sar-metrics)
+**Final optimization artifacts:** [wrk2-logs directory](https://github.com/bizoxe/iron-track/tree/benchmarks/benchmarks/results/auth-serialization/test-me/final/wrk2-logs) | [sar-metrics directory](https://github.com/bizoxe/iron-track/tree/benchmarks/benchmarks/results/auth-serialization/test-me/final/sar-metrics)
 
 ---
 
