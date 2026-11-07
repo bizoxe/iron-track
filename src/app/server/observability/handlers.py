@@ -23,9 +23,9 @@ class CustomQueueHandler(logging.handlers.QueueHandler):
     def prepare(self, record: LogRecord) -> LogRecord:
         """Copy the record and capture thread-local state before queuing.
 
-        Resolves the native ``exc_info=True`` flag to a real tuple here, on the
+        Resolves the native `exc_info=True` flag to a real tuple here, on the
         emitting thread, inside the still-active except block; on the listener
-        thread ``sys.exc_info()`` is empty and the traceback is unrecoverable.
+        thread `sys.exc_info()` is empty and the traceback is unrecoverable.
         """
         record_copy = copy(record)
         msg = record_copy.msg

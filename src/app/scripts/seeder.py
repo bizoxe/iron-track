@@ -3,7 +3,7 @@
 Idempotent: tables are upserted on their natural keys within a single
 transaction, so re-running is safe.
 
-Standalone entrypoint: ``python -m app.scripts.seeder``.
+Standalone entrypoint: `python -m app.scripts.seeder`.
 """
 
 from __future__ import annotations

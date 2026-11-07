@@ -30,7 +30,10 @@ class AccessInfo(TypedDict, total=False):
 
 
 class StructLogMiddleware:
-    """ASGI middleware for structured request logging."""
+    """ASGI middleware for structured request logging.
+
+    Logs request details, processing time, and unhandled exceptions.
+    """
 
     def __init__(self, app: ASGIApp) -> None:
         self.app = app

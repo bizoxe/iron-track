@@ -1,7 +1,7 @@
 """Shared domain vocabulary.
 
 Single source of enum classes for API schemas, DB column types
-(via src/app/db/enums.py), and tests.
+(via :mod:`app.db.enums`), and tests.
 """
 
 from enum import StrEnum

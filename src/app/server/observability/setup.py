@@ -168,10 +168,12 @@ def configure_logging() -> None:
 
 
 def start_logging() -> None:
+    """Start the background log listener (called from the app lifespan)."""
     if log_listener:
         log_listener.start()
 
 
 def stop_logging() -> None:
+    """Stop the background log listener (called on app lifespan shutdown)."""
     if log_listener:
         log_listener.stop()

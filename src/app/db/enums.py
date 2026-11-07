@@ -1,4 +1,7 @@
-"""DB binding of the domain vocabulary: physical enum names, DDL, column types."""
+"""Database binding of the domain vocabulary.
+
+Defines physical enum names, DDL, and column types for :mod:`app.domain.enums`.
+"""
 
 import re
 from collections.abc import Iterator

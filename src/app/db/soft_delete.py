@@ -1,3 +1,9 @@
+"""Global soft-delete filtering.
+
+Excludes rows with `deleted_at` set from every ORM select unless the
+`include_deleted` execution option is set. Registered once at application startup.
+"""
+
 from sqlalchemy import event
 from sqlalchemy.orm import ORMExecuteState, Session, with_loader_criteria
 

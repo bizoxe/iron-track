@@ -4,6 +4,7 @@ This module provides the `server_cli_group`, a Typer-based interface for launchi
 the application using different server engines.
 
 It offers two main modes:
+
 - `dev`: A development-oriented mode (Uvicorn) with auto-reload.
 - `run`: A production-like performance testing mode (Granian).
 """
@@ -77,11 +78,10 @@ def start_server(
     uv_params: UvicornParams | None = None,
     gr_params: GranianParams | None = None,
 ) -> None:
-    """Start the specified server (Granian or Uvicorn)."""
-    if uv_params:
+    """Start the specified server (Uvicorn or Granian)."""
+    if uv_params is not None:
         uvicorn.run(**uv_params)
-
-    if gr_params:
+    elif gr_params is not None:
         server = Granian(**gr_params)
         server.serve()
 
@@ -93,7 +93,7 @@ def uvicorn_table_rows(table: Table, params: UvicornParams) -> None:
     base_url = f"http://{host}:{port}"
 
     table.add_row("Server:", "Uvicorn")
-    table.add_row("Reload:", "Enabled")
+    table.add_row("Reload:", "Enabled" if params["reload"] else "Disabled")
     table.add_row("Address:", f"[link={base_url}]{base_url}[/link]")
     table.add_row("Swagger:", f"[link={base_url}/docs]{base_url}/docs[/link]")
 
@@ -184,7 +184,7 @@ def dev(  # noqa: PLR0913
             )
         ),
     ] = None,
-) -> Any:
+) -> None:
     """Run the server in [green]development-like mode[/green] (using Uvicorn) with auto-reload."""
     params: UvicornParams = {
         "app": TARGET_APP_FACTORY,
@@ -253,7 +253,7 @@ def run(  # noqa: PLR0913
         int,
         Option(min=128, help="Maximum number of connections in backlog."),
     ] = 1024,
-) -> Any:
+) -> None:
     """Run the server in [green]production-like mode[/green] (using Granian) for performance testing."""
     params: GranianParams = {
         "target": TARGET_APP_FACTORY,
