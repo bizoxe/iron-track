@@ -1,7 +1,7 @@
 Application Configuration
 =========================
 
-Contains settings models, environment loading logic, and initialized config objects.
+Contains settings models, environment loading logic, the initialized SQLAlchemy configuration and session dependency, and application-wide constants.
 
 .. toctree::
    :maxdepth: 1

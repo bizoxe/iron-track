@@ -3,21 +3,14 @@ Infrastructure Utilities
 
 Infrastructure-level utilities for service orchestration and caching strategies.
 
----
-
 Service Orchestration
 ---------------------
 
-.. automodule:: app.lib.deps
-   :members: CompositeServiceMixin
-   :exclude-members: CacheKeyBuilder
-
----
+.. autoclass:: app.lib.deps.CompositeServiceMixin
+    :members:
 
 Cache Infrastructure
 --------------------
 
-.. automodule:: app.lib.deps
-   :no-index:
-   :members: CacheKeyBuilder
-   :exclude-members: CompositeServiceMixin
+.. autoclass:: app.lib.deps.CacheKeyBuilder
+    :members:

@@ -1,11 +1,13 @@
 Core Setup
 ==========
 
-Contains core functionality for initializing the application and its dependencies.
+Contains core functionality for initializing the application and its dependencies: the application factory with its lifespan, the cache backend lifecycle, server management CLI, and the observability stack.
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
    :caption: Setup Modules
 
    core
-   lifespan
+   cache
+   server_cli
+   observability/index

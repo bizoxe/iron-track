@@ -1,7 +1,7 @@
 Application Scripts
 ===================
 
-This section details the Command-Line Interface (CLI) commands and system initialization scripts.
+This section details the user management CLI commands and the database seeding script.
 
 .. toctree::
    :maxdepth: 1

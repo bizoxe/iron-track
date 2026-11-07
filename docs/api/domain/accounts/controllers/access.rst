@@ -1,6 +1,5 @@
 Access Controllers
 ==================
 
-.. automodule:: app.domain.users.controllers.access
+.. automodule:: app.domain.accounts.controllers.access
    :exclude-members: access_router
-

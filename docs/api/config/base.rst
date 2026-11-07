@@ -1,13 +1,11 @@
 Base Settings Models
 ====================
 
+Defines all application settings models (dataclasses) and the central function for loading configuration.
+
 .. automodule:: app.config.base
     :no-members:
     :no-inherited-members:
-
-Defines all application settings models (dataclasses) and the central function for loading configuration.
-
----
 
 Configuration Loader
 --------------------
@@ -15,55 +13,41 @@ Configuration Loader
 .. autofunction:: app.config.base.get_settings
    :noindex:
 
----
-
-Settings Container (`Settings`)
--------------------------------
+Settings Container
+------------------
 
 .. autoclass:: app.config.base.Settings
     :members:
-    :exclude-members: from_env, __post_init__
+    :exclude-members: from_env
 
 ---
 
-Application Settings (`AppSettings`)
-------------------------------------
+Application Settings
+--------------------
 
 .. autoclass:: app.config.base.AppSettings
     :members:
-    :exclude-members:
 
----
-
-Logger Settings (`LogSettings`)
--------------------------------
+Logger Settings
+---------------
 
 .. autoclass:: app.config.base.LogSettings
     :members:
-    :exclude-members: _settings
 
----
-
-Database Settings (`DatabaseSettings`)
---------------------------------------
+Database Settings
+-----------------
 
 .. autoclass:: app.config.base.DatabaseSettings
     :members:
-    :exclude-members: _engine_instance, get_engine, configure_standard_engine, configure_pgbouncer_engine
 
----
-
-JWT Settings (`JWTSettings`)
-----------------------------
+JWT Settings
+------------
 
 .. autoclass:: app.config.base.JWTSettings
     :members:
 
----
+Cache Settings
+--------------
 
-Redis Settings (`RedisSettings`)
---------------------------------
-
-.. autoclass:: app.config.base.RedisSettings
+.. autoclass:: app.config.base.CacheSettings
     :members:
-    :exclude-members: get_client

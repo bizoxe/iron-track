@@ -1,5 +1,5 @@
-Custom JSON Response
-====================
+Msgspec JSON Response
+=====================
 
 .. autoclass:: app.lib.json_response.MsgSpecJSONResponse
    :members: render
