@@ -1,7 +1,7 @@
 Usage Guide
 ===========
 
-This guide covers everything from initial setup and infrastructure provisioning to daily development workflows and CLI usage.
+This guide covers environment setup and infrastructure provisioning, daily development workflows, and CLI usage for application lifecycle management.
 
 .. toctree::
    :titlesonly:
@@ -9,4 +9,3 @@ This guide covers everything from initial setup and infrastructure provisioning 
    installation
    development
    cli-guide
-

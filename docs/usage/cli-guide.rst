@@ -11,7 +11,7 @@ All core operations are performed using the ``app`` command. You can always use 
 Server Management
 +++++++++++++++++
 
-Manage the FastAPI application server.
+Manage the application server (Uvicorn / Granian).
 
 .. list-table::
    :widths: 30 70
@@ -20,9 +20,9 @@ Manage the FastAPI application server.
    * - Command
      - Description
    * - ``app server dev``
-     - Starts the development server with **hot-reload** enabled.
+     - Starts the development server (**Uvicorn**) with hot-reload enabled.
    * - ``app server run``
-     - Starts the server in **production mode** (no reload, optimized).
+     - Starts the server in production-like mode (**Granian**).
 
 Database Administration
 +++++++++++++++++++++++
@@ -35,13 +35,15 @@ Handle schema evolution and database state.
 
    * - Command
      - Description
-   * - ``app database upgrade``
-     - Applies all pending SQLAlchemy/Alembic migrations.
+   * - ``app database upgrade [REVISION]``
+     - Applies migrations up to the given revision (default: `head`); add `--no-prompt` to skip the confirmation prompt.
+   * - ``app database make-migrations``
+     - Creates a new database migration revision.
    * - ``app database --help``
      - Shows additional database tools (revision, downgrade, etc.).
 
 User & Access Management
-------------------------
+++++++++++++++++++++++++
 
 These commands manage roles and user accounts. **Note:** Some commands will prompt for missing information (like passwords) interactively.
 
@@ -57,7 +59,7 @@ These commands manage roles and user accounts. **Note:** Some commands will prom
      - Creates a default administrator using the email defined in config.
    * - ``app users create-user``
      - Interactive command to create a new regular or superuser.
-   * - - ``app users promote-to-superuser``
+   * - ``app users promote-to-superuser``
      - Grants superuser status and the superuser role to an existing email.
 
 **Example: Promoting a user**
@@ -67,9 +69,9 @@ These commands manage roles and user accounts. **Note:** Some commands will prom
     app users promote-to-superuser --email user@example.com
 
 Database Seeding
-----------------
+++++++++++++++++
 
-To populate the database with reference books (muscle groups, equipment, etc.) and the standard exercise collection, use the command:
+To populate the database with reference data (muscle groups, equipment, exercise tags) and the system exercise catalog, use the command:
 
 .. code-block:: bash
 

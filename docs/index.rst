@@ -8,7 +8,7 @@ IronTrack
 .. image:: https://img.shields.io/badge/license-MIT-4bc51d.svg?logo=opensourceinitiative&logoColor=white
     :target: https://opensource.org/licenses/MIT
 
-**IronTrack** is an experimental async backend sandbox designed for architectural exploration and architectural efficiency analysis.
+**IronTrack** is an experimental async backend sandbox designed for architectural exploration and performance analysis.
 
 The project serves as a laboratory for testing concurrency patterns, database optimization, and constraint-driven experiments within a workout tracking domain.
 
@@ -20,54 +20,11 @@ The project serves as a laboratory for testing concurrency patterns, database op
 .. warning::
    This is a learning-focused sandbox. It is not intended for production-driven business applications.
 
----
-
-Implemented Components
-----------------------
-
-I. Architecture and Design Patterns
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* **Layered Structure:** Separation into ``domain`` (logic), ``db`` (models), ``config``, and ``lib`` layers to ensure code maintainability.
-* **Repository Pattern:** Decouples business logic from **SQLAlchemy** operations using **Advanced-Alchemy**.
-* **Schema Evolution:** Database versioning and migrations via **Alembic**.
-
-II. Performance & Optimization
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* **Runtime & Proxy:** Uses **Granian** (Rust-based ASGI) and **Angie** (reverse proxy).
-* **Infrastructure Efficiency:** **Bypass TCP stack overhead** via Unix Domain Sockets (UDS) for inter-container communication.
-* **Containerization:** Multi-stage **Docker** builds (**Builder/Runner**) with dependency optimization via **uv**.
-* **Local Deployment:** Orchestrated via **docker-compose** with automated migrations and service health checks.
-* **Serialization:** Fast JSON processing with **msgspec** to minimize response latency.
-* **Connection Pooling:** **PgBouncer** integration for efficient database transaction management.
-
-III. Security & Administration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* **Auth System:** Secure JWT (Ed25519) via HTTP-only cookies with token blacklisting and user caching.
-* **Access Control (RBAC):** Permission system supporting different user roles (e.g., `superuser`, `trainer`).
-* **Unified CLI:** Centralized command-line interface built with **Typer** for server management, migrations, and administrative tools.
-
-IV. Engineering Standards (DX)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-* **Type Safety:** Strict static analysis with **Mypy** and runtime validation via **Pydantic v2**.
-* **Testing:** Integration suite using **transactional rollbacks** for clean and isolated tests.
-* **Code Quality:** Automated linting and formatting via **Ruff** and **pre-commit**.
-* **Observability:** Structured logging with **structlog** and request correlation IDs.
-
-V. Data & Content
-~~~~~~~~~~~~~~~~~
-
-* **Automated Seeding:** Built-in infrastructure to populate the database with a catalog of 1000+ exercises and reference directories.
-
----
-
 Navigation
 ----------
 
-.. grid:: 2
+.. grid:: 1 2 2 2
+    :gutter: 3
 
     .. grid-item-card:: 🚀 Get Started
         :link: usage/installation
@@ -91,10 +48,8 @@ Navigation
 
 .. toctree::
     :titlesonly:
-    :caption: Development
+    :caption: Project
     :hidden:
 
     contribution-guide
     changelog
-
-
