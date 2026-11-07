@@ -1,7 +1,7 @@
 Installation
 ============
 
-This guide covers setting up **IronTrack** using a hybrid approach: running the infrastructure (Database, Cache) in Docker and the application locally on your machine.
+This guide covers setting up **IronTrack** using a hybrid approach: running **PostgreSQL and Valkey** in Docker and the application locally on your machine.
 
 Prerequisites
 -------------
@@ -10,7 +10,7 @@ Before you begin, ensure you have the following installed:
 
 * **Docker** and **Docker Compose** (V2)
 * **Git**
-* **Python 3.12+** (managed via `uv <https://docs.astral.sh/uv/>`_)
+* **Python 3.12+** (managed via ``uv``)
 * **Make**
 
 1. Clone the Repository
@@ -21,8 +21,8 @@ Before you begin, ensure you have the following installed:
     git clone https://github.com/bizoxe/iron-track.git
     cd iron-track
 
-2. Environment Configuration
-----------------------------
+2. Environment & Security Configuration
+---------------------------------------
 
 First, install the project dependencies and set up your local configuration files.
 
@@ -33,6 +33,18 @@ First, install the project dependencies and set up your local configuration file
 
     # 2. Copy the local development template to the config directory
     cp .env.local.template src/app/config/.env
+
+Next, generate a new JWK for JWT signing and set it as ``JWT_PRIVATE_KEY`` in ``src/app/config/.env``:
+
+.. code-block:: bash
+
+    make gen-key
+
+Then copy the generated key into the ``JWT_PRIVATE_KEY`` variable:
+
+.. code-block:: text
+
+    JWT_PRIVATE_KEY='{"crv": "Ed25519", "x": "...", "d": "...", "kty": "OKP"}'
 
 .. tip::
    The ``.env.local.template`` is pre-configured to connect to services via ``localhost``. It uses port ``5432`` for a **direct connection** to PostgreSQL (used for simplicity of deployment in the local environment).
@@ -58,12 +70,12 @@ Once the infrastructure containers are running and healthy, you must initialize 
 .. code-block:: bash
 
     # 1. Deploy database migrations
-    app database upgrade
+    app database upgrade --no-prompt
 
     # 2. Create mandatory system roles
     app users create-roles
 
-    # 3. (Optional) Seed the database with reference books and exercise data
+    # 3. (Optional) Seed the database with reference and exercise data
     make seed
 
 .. important::
@@ -72,22 +84,16 @@ Once the infrastructure containers are running and healthy, you must initialize 
 5. Running the Server
 ---------------------
 
-Start the FastAPI development server with hot-reload enabled:
+Start the development server with hot-reload enabled:
 
 .. code-block:: bash
 
     app server dev
 
-Accessing the Application
--------------------------
-
-Once the server is running, you can access:
-
-* **Interactive API Documentation (Swagger):** ``http://127.0.0.1:8000/docs``
+Once the server is running, the **Interactive API Documentation (Swagger)** is accessible at ``http://127.0.0.1:8000/docs``.
 
 Next Steps
 ----------
 
 * Explore the :doc:`cli-guide` for a full list of **available CLI commands**.
 * Check the :doc:`development` guide for further technical information and advanced setups.
-
