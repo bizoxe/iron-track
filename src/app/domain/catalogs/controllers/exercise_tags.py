@@ -1,4 +1,4 @@
-"""Exercise Tags Management Endpoints.
+"""Exercise Tag Endpoints.
 
 Provides functionality for managing exercise tags.
 

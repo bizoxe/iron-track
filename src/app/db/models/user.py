@@ -63,7 +63,7 @@ class User(SoftDeleteMixin, UUIDv7AuditBase):
     # ORM Relationships
     # ------------
     role: Mapped[Role] = relationship(lazy="selectin")
-    """Relationship to the user's Role model."""
+    """Role assigned to the user."""
 
     # ------------
     # Association Proxies

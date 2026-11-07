@@ -41,8 +41,11 @@ class ExerciseMuscle(DefaultBase):
     __tablename__ = "exercise_muscle"
 
     exercise_id: Mapped[UUID] = mapped_column(ForeignKey("exercise.id", ondelete="CASCADE"), primary_key=True)
+    """Referenced exercise ID."""
     muscle_group_id: Mapped[int] = mapped_column(ForeignKey("muscle_group.id", ondelete="CASCADE"), primary_key=True)
+    """Referenced muscle group ID."""
     muscle_role: Mapped[MuscleRole] = mapped_column(pg_enum(MuscleRole), nullable=False)
+    """Targeting role of the muscle group in the exercise."""
 
     __table_args__ = (
         Index(
@@ -57,7 +60,9 @@ class ExerciseMuscle(DefaultBase):
     # ORM Relationships
     # ------------
     exercise: Mapped[Exercise] = relationship(back_populates="exercise_muscles")
+    """The exercise this muscle targeting belongs to."""
     muscle_group: Mapped[MuscleGroup] = relationship(lazy="joined", innerjoin=True)
+    """Targeted muscle group."""
 
 
 # --- Association Tables ---

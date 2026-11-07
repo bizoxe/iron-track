@@ -1,4 +1,4 @@
-"""Muscle Groups Management Endpoints.
+"""Muscle Group Endpoints.
 
 Provides functionality for managing muscle groups.
 

@@ -1,4 +1,4 @@
-"""Equipment Management Endpoints.
+"""Equipment Endpoints.
 
 Provides functionality for managing equipment.
 

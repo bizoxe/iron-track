@@ -1,4 +1,4 @@
-"""Exercise Management Endpoints.
+"""Exercise Endpoints.
 
 Provides functionality for CRUD operations on exercises.
 Distinguishes between system exercises and user-defined custom exercises.
