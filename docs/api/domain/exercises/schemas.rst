@@ -1,32 +1,19 @@
-Exercises Domain Schemas
-========================
+Exercises Schemas
+=================
 
-Pydantic & msgspec.Struct Data Transfer Objects (DTOs) for the Exercises sub-domain.
-
----
-
-Utility Definitions
--------------------
+Shared Definitions
+------------------
 
 .. autoclass:: app.domain.exercises.schemas.ExerciseScope
-    :members: SYSTEM, USER, ALL
-    :undoc-members:
+   :members: SYSTEM, USER, ALL
+   :undoc-members:
 
-.. autoclass:: app.domain.exercises.schemas.DifficultyLevelType
-    :members: BEGINNER, INTERMEDIATE, EXPERT
-    :undoc-members:
+.. data:: app.domain.exercises.schemas.CdnRelativePath
+   :annotation: = Annotated[str, Field(...)]
 
-.. autoclass:: app.domain.exercises.schemas.ForceType
-    :members: PULL, PUSH, STATIC
-    :undoc-members:
-
-.. autoclass:: app.domain.exercises.schemas.MechanicType
-    :members: COMPOUND, ISOLATION
-    :undoc-members:
-
-.. autoclass:: app.domain.exercises.schemas.CategoryType
-    :members: STRENGTH, STRETCHING, PLYOMETRICS, STRONGMAN, POWERLIFTING, CARDIO, OLYMPIC_WEIGHTLIFTING
-    :undoc-members:
+   Annotated ``str`` type constraining relative CDN image paths: leading ``/``,
+   format ``/{exercise-directory}/{filename}.{ext}`` with a ``jpe?g``/``png``/``webp``
+   extension, max 512 characters. Join rule: ``CDN_BASE_URL.rstrip('/') + path``.
 
 Base Definitions
 ----------------
@@ -34,7 +21,11 @@ Base Definitions
 .. autopydantic_model:: app.domain.exercises.schemas.ExerciseBase
    :field-show-constraints: false
 
----
+Response Models
+---------------
+
+.. autoclass:: app.domain.exercises.schemas.ExerciseRead
+   :undoc-members:
 
 User Exercise Models
 --------------------
@@ -47,25 +38,20 @@ User Exercise Models
    :field-show-constraints: false
    :inherited-members: ExerciseBase
 
----
-
 System Exercise Models
 ----------------------
 
 .. autopydantic_model:: app.domain.exercises.schemas.ExerciseCreateSystem
    :field-show-constraints: false
-   :inherited-members: ExerciseCreate
+   :inherited-members: ExerciseBase
 
 .. autopydantic_model:: app.domain.exercises.schemas.ExerciseUpdateSystem
    :field-show-constraints: false
-   :model-show-validator-summary: false
-   :field-list-validators: false
    :inherited-members: ExerciseUpdate
 
----
+Page Envelopes
+--------------
 
-Response Models
----------------
-
-.. autoclass:: app.domain.exercises.schemas.ExerciseRead
+.. autoclass:: app.domain.exercises.schemas.ExercisePage
    :undoc-members:
+   :inherited-members:

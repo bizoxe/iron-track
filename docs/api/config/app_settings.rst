@@ -1,7 +1,7 @@
 SQLAlchemy and Dependency Configuration
 =======================================
 
-Configures SQLAlchemy, Alembic, and the database session dependency injection.
+Configures SQLAlchemy and Alembic, and defines the FastAPI dependency for the database session.
 
 .. autodata:: app.config.app_settings.alchemy
    :noindex:

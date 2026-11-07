@@ -1,22 +1,20 @@
-Catalogs Domain Dependencies
-============================
-
-Provides dependency injection providers for catalog services, ensuring scoped database sessions for each request.
+Catalogs Dependencies
+=====================
 
 .. automodule:: app.domain.catalogs.deps
-   :members: provide_muscle_group_service, provide_equipment_service, provide_exercise_tag_service
+   :members: provide_muscle_groups_service, provide_equipment_service, provide_tags_service
 
 .. data:: MuscleGroupDep
-   :annotation: = Annotated[MuscleGroupService, Depends(provide_muscle_group_service)]
+   :annotation: = Annotated[MuscleGroupService, Depends(provide_muscle_groups_service)]
 
-   Dependency injection provider for the muscle group service.
+   Injectable ``MuscleGroupService`` scoped to the request.
 
 .. data:: EquipmentDep
    :annotation: = Annotated[EquipmentService, Depends(provide_equipment_service)]
 
-   Dependency injection provider for the equipment service.
+   Injectable ``EquipmentService`` scoped to the request.
 
-.. data:: ExerciseTagDep
-   :annotation: = Annotated[ExerciseTagService, Depends(provide_exercise_tag_service)]
+.. data:: TagDep
+   :annotation: = Annotated[TagService, Depends(provide_tags_service)]
 
-   Dependency injection provider for the exercise tag service.
+   Injectable ``TagService`` scoped to the request.

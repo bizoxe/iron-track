@@ -1,25 +1,23 @@
-Users Domain
-============
+Accounts
+========
 
-This domain encapsulates all logic related to user accounts, authentication, and role-based access control.
-
----
+This domain encapsulates all logic related to user account management, authentication and token lifecycle, role-based access control, and administrative access to user-created exercises.
 
 API Endpoints (Controllers)
 ---------------------------
-FastAPI routers defining the public API for users management and access control.
+
+FastAPI routers defining the public API for authentication and account self-service, user administration, and role assignment and revocation.
 
 .. toctree::
     :maxdepth: 2
 
     controllers/access
     controllers/users
-    controllers/user_role
-
----
+    controllers/user_roles
 
 Core Components (Services and DTOs)
 -----------------------------------
+
 Implementation of business logic and data transfer objects.
 We use a hybrid approach:
 - ``Pydantic`` for input validation and FastAPI integration.
@@ -31,11 +29,10 @@ We use a hybrid approach:
     services
     schemas
 
----
+Supporting Modules
+------------------
 
-Supporting Modules (Authentication and Utilities)
--------------------------------------------------
-Core dependencies, JWT identity management, and resource filtering utilities.
+Authentication and service dependencies, resource filtering, JWT identity management, and account utilities.
 
 .. toctree::
     :maxdepth: 1

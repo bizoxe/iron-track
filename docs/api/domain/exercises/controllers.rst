@@ -1,5 +1,5 @@
-Exercise Management Controllers
-===============================
+Exercise Controllers
+====================
 
 .. automodule:: app.domain.exercises.controllers
-   :exclude-members: exercise_router
+   :exclude-members: exercises_router

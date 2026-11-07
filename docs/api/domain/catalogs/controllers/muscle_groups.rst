@@ -2,4 +2,4 @@ Muscle Group Controllers
 ========================
 
 .. automodule:: app.domain.catalogs.controllers.muscle_groups
-   :exclude-members: muscle_router
+   :exclude-members: muscle_groups_router

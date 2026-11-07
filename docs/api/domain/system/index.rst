@@ -1,13 +1,11 @@
-System Domain
-=============
+System
+======
 
-This domain provides essential utilities for health monitoring, connectivity checks,
-and system availability status.
-
----
+This domain provides the functionality for system health monitoring, critical infrastructure connectivity checks, and availability status reporting.
 
 API Endpoints (Controllers)
 ---------------------------
+
 FastAPI routers defining the public API for system health.
 
 .. toctree::
@@ -15,11 +13,10 @@ FastAPI routers defining the public API for system health.
 
     controllers
 
----
-
 Data Structures (Schemas)
 -------------------------
-Data Transfer Objects (DTOs) used for reporting system status.
+
+Data Transfer Objects (DTOs) and structures representing system state and configuration.
 
 .. toctree::
     :maxdepth: 1

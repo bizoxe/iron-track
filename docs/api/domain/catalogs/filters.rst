@@ -1,9 +1,20 @@
-Catalogs Domain Filters
-=======================
+Catalogs Filters
+================
 
-Provides filter schemas for catalog resources, enabling search, sorting, and caching strategies.
+Base Catalog Filters
+--------------------
 
 .. autopydantic_model:: app.domain.catalogs.filters.CatalogFilters
    :field-show-constraints: false
-   :exclude-members: aa_filters, model_post_init
+   :exclude-members: model_post_init, as_aa_filters
 
+.. autoproperty:: app.domain.catalogs.filters.CatalogFilters.as_aa_filters
+
+Catalog Filters with Retired Items
+----------------------------------
+
+.. autopydantic_model:: app.domain.catalogs.filters.CatalogFiltersWithRetired
+   :field-show-constraints: false
+   :inherited-members: CatalogFilters
+
+.. autoproperty:: app.domain.catalogs.filters.CatalogFiltersWithRetired.as_aa_filters
