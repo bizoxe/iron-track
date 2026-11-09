@@ -26,18 +26,18 @@ dependencies = [
     "email-validator>=2.3.0",
     "fastapi>=0.136.3,<0.137.0",
     "granian>=2.7.0",
+    "httpx2>=2.12.0",
     "joserfc>=1.6.1",
     "msgspec>=0.20.0",
     "pwdlib[argon2]>=0.3.0",
     "python-dotenv>=1.2.1",
     "python-multipart>=0.0.22",
-    "redis>=7.1.0",
     "structlog>=25.5.0",
     "typer>=0.21.1",
     "uuid-utils>=0.16.0",
     "uvicorn[standard]>=0.40.0",
 ]
-description = "Experimental async sandbox for performance testing and constraint-driven architectural experiments."
+description = "Experimental async backend sandbox for architectural exploration and performance analysis."
 keywords = [
     "fastapi",
     "advanced-alchemy",
@@ -58,7 +58,7 @@ version = "0.2.0"
 
 [project.urls]
 Repository = "https://github.com/bizoxe/iron-track"
-Documentation = "https://github.com/bizoxe/iron-track/docs"
+Documentation = "https://bizoxe.github.io/iron-track/"
 
 [project.scripts]
 app = "app.main:run_cli"
@@ -81,9 +81,8 @@ test = [
     "pytest-xdist",
     "pytest-cov",
     "coverage",
-    "pytest-databases[postgres,redis]>=0.15.0",
-    "httpx",
     "pytest-mock",
+    "pytest-databases[postgres,valkey]>=0.19.0",
 ]
 docs = [
     "sphinx>=8.1.3,<9.0.0",
@@ -94,8 +93,8 @@ docs = [
     "sphinx-click",
     "sphinxcontrib-mermaid",
     "shibuya",
-    "autodoc_pydantic",
     "sphinxcontrib-typer",
+    "autodoc_pydantic>=2.2.0,<3.0.0",
 ]
 
 [tool.hatch.build]
@@ -116,23 +115,25 @@ default-groups = ["dev", "linting", "test", "docs"]
 
 [tool.coverage.run]
 branch = true
+concurrency = ["greenlet", "thread"]
 source = ["src/app"]
 omit = [
-    "tests/*",
     "src/app/__about__.py",
     "src/app/db/alembic/*",
     "src/app/main.py",
     "src/app/scripts/*",
-    "src/app/utils/server_cli.py",
+    "src/app/server/server_cli.py",
     "src/app/db/models/base.py",
+    "src/app/db/models/mixins.py",
     "src/app/domain/*/urls.py",
-    "src/app/utils/log_utils/setup.py",
+    "src/app/server/observability/setup.py",
+    "src/app/server/openapi.py",
+    "src/app/server/cache.py",
     "**/__init__.py",
     "src/app/config/*",
 ]
 
 [tool.coverage.report]
-omit = ["*/tests/*"]
 show_missing = true
 exclude_lines = [
     "pragma: no cover",
@@ -222,13 +223,13 @@ max-complexity = 9
 known-first-party = ["tests", "app"]
 
 [tool.ruff.lint.per-file-ignores]
-"src/app/scripts/commands.py" = ["FBT001", "PLC0415", "FBT002", "RSE102"]
-"src/app/scripts/seeder.py" = ["C901", "PLR0915", "PLC0415", "TRY400", "S608"]
-"docs/conf.py" = ["PLR0913", "FBT001", "A001", "INP001"]
-"src/app/config/base.py" = ["PLC0415"]
+"src/app/scripts/*.py" = ["PLC0415", "FBT001", "TRY400", "S608"]
+"docs/conf.py" = ["PLR0913", "FBT001", "A001", "INP001", "PLC0415", "SLF001"]
+"src/app/config/base.py" = ["PLC0415", "SLF001"]
 "src/app/main.py" = ["PLC0415"]
-"tests/*" = ["PLR0913", "FBT001", "PLC0415", "FURB171", "E501"]
+"tests/*" = ["PLR0913", "FBT001", "PLC0415", "FURB171", "E501", "E402"]
 "src/app/domain/catalogs/services.py" = ["PLR0913", "ARG002"]
+"src/app/domain/exercises/services.py" = ["PLR0913", "ARG002"]
 
 [tool.mypy]
 python_version = "3.12"
@@ -253,14 +254,6 @@ warn_unreachable = true
 warn_unused_configs = true
 warn_unused_ignores = true
 ignore_missing_imports = true
-
-[[tool.mypy.overrides]]
-module = [
-    "app.lib.json_response.*",
-    "app.lib.jwt_utils.*"
-]
-warn_return_any = false
-disallow_subclassing_any = false
 
 [tool.codespell]
 ignore-words-list = "selectin,selectinload,Flyes,Delt,Te,tread"
