@@ -19,12 +19,9 @@ class JWTCookieSecurity(SecurityBase):
         self,
         authentication_token: str,
         scheme_name: str | None = None,
-        *,
-        auto_error: bool = True,
     ) -> None:
         self.authentication_token = authentication_token
         self.scheme_name = scheme_name or self.__class__.__name__
-        self.auto_error = auto_error
         api_key_kwargs: dict[str, Any] = {
             "type": "apiKey",
             "in": APIKeyIn.cookie,
@@ -35,14 +32,11 @@ class JWTCookieSecurity(SecurityBase):
             **api_key_kwargs,
         )
 
-    async def __call__(self, request: Request) -> str | None:
+    async def __call__(self, request: Request) -> str:
         token = request.cookies.get(self.authentication_token)
-        if token is not None:
-            return token
-
-        if self.auto_error:
+        if token is None:
             raise UnauthorizedException
-        return None
+        return token
 
 
 access_token = JWTCookieSecurity(authentication_token="access_token")
