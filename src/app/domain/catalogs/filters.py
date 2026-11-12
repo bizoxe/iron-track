@@ -8,7 +8,7 @@ from typing import (
 )
 
 from advanced_alchemy.extensions.fastapi import filters as aa_filters
-from pydantic import AfterValidator, Field, PrivateAttr
+from pydantic import Field, PrivateAttr, StringConstraints
 
 from app.lib.schema import CamelizedBaseSchema
 
@@ -16,14 +16,13 @@ if TYPE_CHECKING:
     from advanced_alchemy.filters import StatementFilter
 
 
+CatalogSearchTerm = Annotated[str, StringConstraints(strip_whitespace=True, max_length=50)]
+
+
 class CatalogFilters(CamelizedBaseSchema):
     """Specific filters for Catalog domain."""
 
-    search_string: Annotated[
-        str | None,
-        AfterValidator(lambda v: v.strip() if v else v),
-        Field(max_length=50, description="Search term."),
-    ] = None
+    search_string: Annotated[CatalogSearchTerm | None, Field(description="Search term.")] = None
     order_by: Annotated[Literal["id", "name"], Field(description="Field to order by.")] = "name"
     sort_order: Annotated[Literal["asc", "desc"], Field(description="Sort order ('asc' or 'desc').")] = "asc"
 
@@ -62,6 +61,8 @@ class CatalogFiltersWithRetired(CatalogFilters):
     Extends the base catalog filters with an option to filter for retired
     (soft-deleted) catalog items.
     """
+
+    # Uncached by design: low query frequency does not justify caching overhead.
 
     show_only_retired: Annotated[
         bool,
