@@ -6,16 +6,14 @@ from typing import (
     Any,
     ClassVar,
     Literal,
+    Self,
 )
 
 from advanced_alchemy.extensions.fastapi import filters as aa_filters
-from pydantic import Field
+from pydantic import Field, model_validator
 from sqlalchemy import and_
 
-from app.lib.filters import (
-    CommonFilters,
-    CreatedAtRangeFilters,
-)
+from app.lib.filters import CommonFilters, CreatedAtRangeFilters
 
 if TYPE_CHECKING:
     from uuid import UUID
@@ -40,6 +38,13 @@ class UserFilters(CreatedAtRangeFilters, CommonFilters):
         Field(description="Show only retired (soft-deleted) accounts."),
     ] = False
 
+    @model_validator(mode="after")
+    def check_status_flags_not_combined(self) -> Self:
+        if self.show_only_banned and self.show_only_retired:
+            msg = "Cannot filter by banned and retired accounts simultaneously. Select only one status"
+            raise ValueError(msg)
+        return self
+
     @property
     def as_aa_filters(self) -> list[StatementFilter]:
         """Base filters with user-specific criteria."""
@@ -50,7 +55,7 @@ class UserFilters(CreatedAtRangeFilters, CommonFilters):
                     logical_operator=and_,
                     filters=[
                         aa_filters.ComparisonFilter(field_name="is_active", operator="eq", value=False),
-                        aa_filters.ComparisonFilter(field_name="deleted_at", operator="ne", value=None),
+                        aa_filters.ComparisonFilter(field_name="deleted_at", operator="eq", value=None),
                     ],
                 )
             )
@@ -78,6 +83,9 @@ class UserFilters(CreatedAtRangeFilters, CommonFilters):
 
 class UserExerciseFilters(CreatedAtRangeFilters, CommonFilters):
     """Admin filters for a user's exercises."""
+
+    # Uncached by design: low query frequency and small per-user dataset
+    # do not justify caching overhead.
 
     order_by: Annotated[
         Literal["name", "createdAt"],
