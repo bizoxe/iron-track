@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import UTC
+from datetime import UTC, datetime
 from re import compile as re_compile
 from typing import (
     TYPE_CHECKING,
@@ -11,12 +11,26 @@ from typing import (
 )
 
 from advanced_alchemy.extensions.fastapi import filters as aa_filters
-from pydantic import AfterValidator, AwareDatetime, Field, PrivateAttr
+from pydantic import (
+    AfterValidator,
+    AwareDatetime,
+    Field,
+    PrivateAttr,
+    StringConstraints,
+)
 
 from app.lib.schema import CamelizedBaseSchema
 
 if TYPE_CHECKING:
     from advanced_alchemy.filters import StatementFilter
+
+
+def _convert_to_utc(dt: datetime) -> datetime:
+    return dt.astimezone(UTC)
+
+
+UTCDateTime = Annotated[AwareDatetime, AfterValidator(func=_convert_to_utc)]
+SearchTerm = Annotated[str, StringConstraints(strip_whitespace=True, max_length=100)]
 
 
 _CAMEL_TO_SNAKE_RE = re_compile(r"(?<!^)(?=[A-Z])")
@@ -35,9 +49,8 @@ class CommonFilters(CamelizedBaseSchema):
     """
 
     search_string: Annotated[
-        str | None,
-        AfterValidator(lambda v: v.strip() if v else v),
-        Field(max_length=100, description="Search term."),
+        SearchTerm | None,
+        Field(description="Search term."),
     ] = None
     search_fields: ClassVar[str | set[str]] = "name"
     current_page: Annotated[
@@ -100,8 +113,7 @@ class CreatedAtRangeFilters(CamelizedBaseSchema):
 
     range_field_name: ClassVar[str] = "created_at"
     created_before: Annotated[
-        AwareDatetime | None,
-        AfterValidator(lambda v: v.astimezone(UTC) if v else v),
+        UTCDateTime | None,
         Field(
             description=(
                 "Filter by created date on or before this timestamp (ISO 8601 UTC). Example: 2026-03-10T14:00:00Z"
@@ -109,8 +121,7 @@ class CreatedAtRangeFilters(CamelizedBaseSchema):
         ),
     ] = None
     created_after: Annotated[
-        AwareDatetime | None,
-        AfterValidator(lambda v: v.astimezone(UTC) if v else v),
+        UTCDateTime | None,
         Field(
             description=(
                 "Filter by created date on or after this timestamp (ISO 8601 UTC). Example: 2026-03-10T14:00:00Z"
