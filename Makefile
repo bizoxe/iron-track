@@ -119,7 +119,7 @@ release: ## Bump the project version and sync the lockfile (usage: make release 
 .PHONY: mypy
 mypy: ## Run static type checking with mypy
 	@echo "${INFO} Running mypy... 🔍"
-	@uv run dmypy run src/app
+	@uv run dmypy run src/app tests
 	@echo "${OK} Mypy checks passed ✨"
 
 .PHONY: pre-commit
