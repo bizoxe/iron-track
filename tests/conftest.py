@@ -1,29 +1,31 @@
+# Convention: fx_* — named fixtures, always requested via name=.
+#              _* — infrastructure, never requested directly
+#                       (autouse or helper-only).
+#              Types and classes: plain names in test files.
+
 from __future__ import annotations
 
 from pathlib import Path
-from typing import (
-    TYPE_CHECKING,
-    NoReturn,
-)
-from unittest import mock
+
+from dotenv import load_dotenv
+
+# Set test environment BEFORE any app imports (settings are cached on first import)
+load_dotenv(Path(__file__).resolve().parent.parent / ".env.testing", override=True)
+
+# Now import app modules after environment is configured
+from typing import TYPE_CHECKING, Any, NoReturn
 
 import pytest
 import structlog
 
-from app.config import base
-
 if TYPE_CHECKING:
-    from collections.abc import AsyncGenerator, Generator
+    from fastapi import FastAPI
 
-    from pytest_databases.docker.redis import RedisService
-
-
-pytestmark = pytest.mark.anyio
 
 pytest_plugins = [
     "tests.data_fixtures",
     "pytest_databases.docker.postgres",
-    "pytest_databases.docker.redis",
+    "pytest_databases.docker.valkey",
 ]
 
 
@@ -32,22 +34,21 @@ def anyio_backend() -> str:
     return "asyncio"
 
 
-@pytest.fixture(scope="session", autouse=True)
-def _path_settings() -> Generator[None, None, None]:
-    """Patch the settings."""
-    base_dir = Path(__file__).parent.parent
-    env_testing_file = base_dir / ".env.testing"
+@pytest.fixture(name="app")
+def fx_app(
+    monkeypatch: pytest.MonkeyPatch,
+) -> FastAPI:
+    from app.server.core import create_app
 
-    settings = base.Settings.from_env(dotenv_file=env_testing_file)
-    with mock.patch.object(base, "get_settings", return_value=settings):
-        yield
+    monkeypatch.setattr("app.server.core.configure_logging", lambda: None)
+    return create_app()
 
 
 @pytest.fixture(scope="session", autouse=True)
 def _configure_structlog_for_tests() -> None:
     """Disable all logging output during test session by dropping all events."""
 
-    def drop_everything(_, __, ___) -> NoReturn:  # type: ignore[no-untyped-def] # noqa: ANN001
+    def drop_everything(_logger: Any, _name: Any, _event_dict: Any) -> NoReturn:
         raise structlog.DropEvent
 
     structlog.configure(
@@ -57,19 +58,3 @@ def _configure_structlog_for_tests() -> None:
         logger_factory=structlog.PrintLoggerFactory(),
         cache_logger_on_first_use=False,
     )
-
-
-@pytest.fixture(scope="session", autouse=True)
-def _setup_cashews(redis_service: RedisService) -> None:
-    from cashews import cache as cashews_cache
-
-    test_redis_url = f"redis://{redis_service.host}:{redis_service.port}/{redis_service.db}"
-    cashews_cache.setup(settings_url=test_redis_url, client_side=True)
-
-
-@pytest.fixture(autouse=True)
-async def _clear_cache() -> AsyncGenerator[None, None]:
-    from cashews import cache as cashews_cache
-
-    await cashews_cache.clear()
-    yield
