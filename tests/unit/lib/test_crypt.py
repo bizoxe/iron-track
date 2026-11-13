@@ -6,7 +6,7 @@ pytestmark = pytest.mark.anyio
 
 
 async def test_get_password_hash() -> None:
-    """Test that the encryption key is formatted correctly."""
+    """Both str and bytes secrets hash to an Argon2 identifier."""
     secret_str = "This is a password!"  # noqa: S105
     secret_bytes = b"This is a password too!"
     secret_str_hash = await crypt.get_password_hash(secret_str)
@@ -24,7 +24,7 @@ async def test_get_password_hash() -> None:
     ],
 )
 async def test_verify_password(valid_password: str, tested_password: str, expected_result: bool) -> None:
-    """Test that the encryption key is formatted correctly."""
+    """A password verifies against its own hash and rejects a different one."""
     secret_str_hash = await crypt.get_password_hash(valid_password)
     is_valid = await crypt.verify_password(tested_password, secret_str_hash)
 
