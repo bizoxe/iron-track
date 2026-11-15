@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 concurrency:
   group: release-${{ github.ref }}
@@ -15,14 +15,15 @@ env:
   PYTHONUNBUFFERED: "1"
   FORCE_COLOR: "1"
 
+permissions:
+  contents: read
+
 jobs:
   validate-tag:
     name: Validate Release Tag
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
-
       - name: Validate tag format
         run: |
           TAG="${GITHUB_REF#refs/tags/}"
@@ -37,6 +38,7 @@ jobs:
     name: Pre-commit Checks
     needs: validate-tag
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v7
@@ -48,8 +50,9 @@ jobs:
 
   test:
     name: Run Tests
-    needs: validate-code
+    needs: validate-tag
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v7
@@ -62,8 +65,9 @@ jobs:
 
   release:
     name: Create GitHub Release
-    needs: test
+    needs: [validate-code, test]
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: write
     steps:
@@ -82,7 +86,7 @@ jobs:
         run: uv build
 
       - name: Generate Release Notes
-        uses: orhun/git-cliff-action@v4
+        uses: orhun/git-cliff-action@v4.7.1
         with:
           config: pyproject.toml
           args: --latest --strip header --output RELEASE_NOTES.md
@@ -100,3 +104,23 @@ jobs:
           name: Release ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  docker:
+    name: Docker Image Smoke Test
+    needs: [validate-code, test]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Build production image
+        run: docker build --tag iron-track:smoke --file deploy/app/run/Dockerfile .
+
+      - name: Smoke test (container starts, app imports)
+        run: |
+          set -a
+          source .env.testing
+          set +a
+          docker run --rm --entrypoint python -e "JWT_PRIVATE_KEY=${JWT_PRIVATE_KEY}" iron-track:smoke \
+            -c "from app.main import app; print('smoke ok:', len(app.routes), 'routes')"
