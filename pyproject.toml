@@ -46,14 +46,14 @@ keywords = [
     "granian",
     "pgbouncer",
     "postgresql",
-    "redis",
+    "valkey",
     "workout-tracker",
     "fitness-api"
 ]
 license = { text = "MIT" }
 name = "irontrack"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.13"
 version = "0.2.0"
 
 [project.urls]
@@ -103,12 +103,13 @@ ignore-vcs = true
 sources = ["src"]
 
 [tool.hatch.build.targets.sdist]
-exclude = [".github", "docs"]
+exclude = [".github", "docs", "src/app/config/.env"]
 include = ["src", "tests", "LICENSE"]
 skip-excluded-dirs = false
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/app"]
+exclude = ["src/app/config/.env"]
 
 [tool.uv]
 default-groups = ["dev", "linting", "test", "docs"]
