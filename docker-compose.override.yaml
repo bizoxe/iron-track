@@ -14,8 +14,10 @@ services:
     build:
       context: .
       dockerfile: deploy/app/dev/Dockerfile
+    image: irontrack-app:dev
     tty: true
     restart: unless-stopped
+    entrypoint: ["tini", "--"]
     command: app server dev --host 0.0.0.0 --port 8000
     env_file:
       - .env.docker.dev
@@ -37,10 +39,14 @@ services:
       retries: 3
       start_period: 15s
 
+  angie:
+    profiles: ["proxy"]
+
   migrator:
     build:
       context: .
       dockerfile: deploy/app/dev/Dockerfile
+    image: irontrack-app:dev
     command: app database upgrade --no-prompt
     restart: "no"
     env_file:

@@ -23,9 +23,6 @@ ERROR := $(shell printf "$(RED)✖$(NC)")
 # Define configuration
 COMPOSE_INFRA_FILE := deploy/docker-compose.infra.yaml
 COMPOSE_INFRA      := docker compose -f $(COMPOSE_INFRA_FILE)
-POSTGRES_CONTAINER := postgres_V18_iron_track
-PGBOUNCER_USERLIST := deploy/pgbouncer/conf/userlist.txt
-SYNC_USERS ?= 'alfacat', 'admin', 'monitor'
 
 ##@ General
 .PHONY: help
@@ -65,7 +62,7 @@ install: destroy clean ## Install project dependencies and dev packages
 	@echo "${INFO} Starting fresh installation (Python 3.12)..."
 	@uv python pin 3.12 >/dev/null 2>&1
 	@uv venv >/dev/null 2>&1
-	@uv sync --all-extras --dev
+	@uv sync
 	@echo "${OK} Installation complete! 🎉"
 
 .PHONY: lock
@@ -231,21 +228,10 @@ seed: ## Populate database with initial data
 	@echo "${OK} Seeding complete"
 
 .PHONY: pgbouncer-sync
-pgbouncer-sync: ## Sync Postgres roles to PgBouncer userlist (usage: make pgbouncer-sync SYNC_USERS="'user1','user2'")
-	@echo "${INFO} Checking if PostgreSQL container is healthy... 🔍"
-	@STATUS=$$(docker inspect --format='{{.State.Health.Status}}' $(POSTGRES_CONTAINER) 2>/dev/null); \
-	if [ "$$STATUS" != "healthy" ]; then \
-		echo "${ERROR} Container $(POSTGRES_CONTAINER) is not ready (Status: $$STATUS)"; \
-		exit 1; \
-	fi
-	@echo "${INFO} Syncing users: $(SYNC_USERS) -> $(PGBOUNCER_USERLIST)"
-	@mkdir -p $$(dirname $(PGBOUNCER_USERLIST))
-	@rm -f $(PGBOUNCER_USERLIST)
-	@docker exec -i $(POSTGRES_CONTAINER) psql -U postgres -d postgres -t -q -A -c \
-		"SELECT '\"' || rolname || '\" \"' || rolpassword || '\"' FROM pg_authid WHERE rolname IN ($(SYNC_USERS));" \
-		>> $(PGBOUNCER_USERLIST)
-	@chmod 644 $(PGBOUNCER_USERLIST)
-	@echo "${OK} Sync complete! ✨"
+pgbouncer-sync: ## Sync Postgres roles to PgBouncer userlist (usage: make pgbouncer-sync SYNC_USERS="user1,user2")
+	@echo "${INFO} Syncing Postgres roles to PgBouncer... 🔄"
+	@bash deploy/scripts/sync-pgbouncer.sh "$(SYNC_USERS)"
+	@echo "${OK} PgBouncer userlist synced"
 
 .PHONY: gen-key
 gen-key: ## Generate a new Ed25519 JWK for JWT_PRIVATE_KEY

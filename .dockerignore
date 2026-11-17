@@ -1,3 +1,5 @@
+.git
+.github
 .venv
 venv
 __pycache__
@@ -5,3 +7,18 @@ __pycache__
 dist/
 tmp/
 src/app/config/.env
+.env*
+.env.*.template
+docs/
+tests/
+benchmarks/
+dev/
+CONTRIBUTING.rst
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+.pre-commit-cache/
+htmlcov/
+.coverage*
+*.egg-info/
+deploy/certs/

@@ -31,7 +31,7 @@ services:
     volumes:
       - cache-data:/data
     healthcheck:
-      test: [ "CMD", "valkey-cli", "ping" ]
+      test: ["CMD", "valkey-cli", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -42,9 +42,9 @@ services:
         max-file: "3"
 
   postgres:
-    # Postgres tuned for HDD performance
-    # Resources optimized for 12GB+ RAM systems (configured via postgresql.conf)
-    # If using less RAM, scale memory limit and postgresql.conf settings accordingly
+    # Postgres tuned for HDD performance.
+    # Resources optimized for 12GB+ RAM systems (configured via postgresql.conf).
+    # If using less RAM, scale memory limit and postgresql.conf settings accordingly.
     container_name: postgres_V18_iron_track
     hostname: postgres
     build:
@@ -70,10 +70,10 @@ services:
       PGBOUNCER_MONITOR_PASSWORD: ${PGBOUNCER_MONITOR_PASSWORD:-monitorpwd}
     volumes:
       - db-data:/var/lib/postgresql
-      - ./deploy/postgres/conf/postgresql.conf:/etc/postgresql/postgresql.conf
+      - ./deploy/postgres/conf:/etc/postgresql:ro
     command: postgres -c config_file=/etc/postgresql/postgresql.conf
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER:-alfacat} -d ${DB_NAME:-iron_track}" ]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-alfacat} -d ${DB_NAME:-iron_track}"]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -89,7 +89,7 @@ services:
         soft: 65535
         hard: 65535
     ports:
-      - "6432:6432"
+      - "127.0.0.1:6432:6432"
     depends_on:
       postgres:
         condition: service_healthy
@@ -106,7 +106,7 @@ services:
     volumes:
       - ./deploy/pgbouncer/conf:/etc/pgbouncer:ro
     healthcheck:
-      test: [ "CMD-SHELL", "PGPASSWORD=${PGBOUNCER_MONITOR_PASSWORD:-monitorpwd} psql -h localhost -p 6432 -U ${PGBOUNCER_MONITOR_USER:-monitor} -d pgbouncer -c 'SHOW STATS'" ]
+      test: ["CMD-SHELL", "PGPASSWORD=${PGBOUNCER_MONITOR_PASSWORD:-monitorpwd} psql -h localhost -p 6432 -U ${PGBOUNCER_MONITOR_USER:-monitor} -d pgbouncer -c 'SHOW STATS'"]
       interval: 30s
       timeout: 5s
       retries: 5
@@ -117,6 +117,7 @@ services:
     build:
       context: .
       dockerfile: deploy/app/run/Dockerfile
+    image: irontrack-app:prod
     restart: unless-stopped
     stop_grace_period: 20s
     ulimits:
@@ -153,6 +154,7 @@ services:
     build:
       context: .
       dockerfile: deploy/app/run/Dockerfile
+    image: irontrack-app:prod
     restart: "no"
     command: app database upgrade --no-prompt
     depends_on:
@@ -180,27 +182,36 @@ services:
           cpus: "0.25"
           memory: 128M
         limits:
-          cpus: "1.0"
+          cpus: "2.0"
           memory: 512M
     ports:
       - "80:80"
       - "443:443"
       - "443:443/udp"
-      - "8080:8080"
+      - "127.0.0.1:8080:8080"
     depends_on:
       app:
         condition: service_healthy
-    env_file:
-      - .env.docker
+    # No fallback defaults by design: values must come from --env-file (.env.docker).
+    environment:
+      SERVER_NAME: "${SERVER_NAME}"
+      ALLOWED_ORIGINS_REGEX: '${ALLOWED_ORIGINS_REGEX}'
+      ALLOWED_ORIGINS: "${ALLOWED_ORIGINS}"
+      SSL_CERT_PATH: "${SSL_CERT_PATH}"
+      SSL_KEY_PATH: "${SSL_KEY_PATH}"
     volumes:
       - ./deploy/certs:/certs:ro
-      - sockets:/run/app:rw
+      - sockets:/run/app:ro
     healthcheck:
-      test: [ "CMD", "curl", "-s", "-f", "http://localhost:8080/console/" ]
+      test: ["CMD-SHELL", "curl -ksf https://localhost/health && curl -sf http://localhost:8080/console/"]
       interval: 10s
       timeout: 5s
       retries: 3
       start_period: 15s
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 
 volumes:

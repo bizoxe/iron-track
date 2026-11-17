@@ -1,5 +1,7 @@
 user angie;
-worker_processes auto;
+# Production (compose limit 2.0): 2
+# Benchmarks (no limit): auto
+worker_processes 2;
 worker_cpu_affinity auto;
 worker_rlimit_nofile 65535;
 
@@ -43,24 +45,28 @@ http {
     }
 
     # WebSocket support (map the 'Upgrade' header to the 'Connection' header)
-    # If $http_upgrade is present, set Connection to 'upgrade', otherwise 'close'
+    # If $http_upgrade is present, set Connection to 'upgrade', otherwise leave empty
     map $http_upgrade $connection_upgrade {
         default upgrade;
-        '' close;
+        ''      '';
     }
 
-    # Strict CSP: No inlines, only self domain and API connections allowed
+    # Strict CSP: No inline scripts/styles, only self domain (plus data: images) and API connections allowed
     map $host $csp_header {
-    default "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' ${ALLOWED_ORIGINS_REGEX};";
+        default "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' ${ALLOWED_ORIGINS}; frame-ancestors 'self';";
     }
 
     # Anti-DoS zones
     limit_req_zone $binary_remote_addr zone=api_limit:10m rate=20r/s;
     limit_conn_zone $binary_remote_addr zone=addr_limit:10m;
+    # 429 (Too Many Requests) instead of the default 503 — semantically honest for
+    # throttled clients and not mistaken for backend failures in monitoring
+    limit_req_status 429;
+    limit_conn_status 429;
 
     log_format main '$remote_addr - $remote_user [$time_local] "$request" '
-                '$status $body_bytes_sent "$http_referer" '
-                '"$http_user_agent" "$http_x_forwarded_for"';
+                    '$status $body_bytes_sent "$http_referer" '
+                    '"$http_user_agent" "$http_x_forwarded_for"';
 
     access_log /var/log/angie/access.log main if=$should_log;
 
