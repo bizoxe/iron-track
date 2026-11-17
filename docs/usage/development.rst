@@ -28,6 +28,16 @@ This generates the necessary configuration files from templates:
    credentials (``DB_USER``, ``DB_USER_PASSWORD``, ``DB_NAME``, ``PGBOUNCER_ADMIN_*``,
    ``PGBOUNCER_MONITOR_*``) fall back to the defaults baked into ``docker-compose.yaml``.
 
+   The ``angie`` service relies on this interpolation by design: it receives its variables
+   (``SERVER_NAME``, ``ALLOWED_ORIGINS_REGEX``, ``ALLOWED_ORIGINS``, ``SSL_CERT_PATH``,
+   ``SSL_KEY_PATH``) via explicit ``environment:`` entries rather than ``env_file:``, so
+   that application secrets (``DATABASE_URL``, ``JWT_PRIVATE_KEY``) never reach the web
+   tier. Always start the stack with ``--env-file`` (see the examples below) — otherwise
+   these variables resolve to empty values and the ``angie`` container exits at startup
+   with an explicit configuration error. The web tier deliberately has no fallback
+   defaults in ``docker-compose.yaml`` (unlike the database services): its configuration
+   must always come explicitly from the environment file.
+
    If you customize credentials, keep them in sync with ``DATABASE_URL``: add the
    infrastructure variables to your local env file and pass it to Compose:
 
@@ -82,8 +92,13 @@ The initial bootstrap requires a manual role synchronization for PgBouncer:
    Infrastructure credentials (``DB_USER_PASSWORD``, ``PGBOUNCER_*``) are applied by the
    Postgres init script only during the **first** initialization of the ``db-data`` volume.
    Changing them later requires updating the role directly in Postgres
-   (``ALTER ROLE ... WITH PASSWORD``) or recreating the volume
-   (``docker compose -f docker-compose.yaml down -v``).
+   (``ALTER ROLE ... WITH PASSWORD``) or recreating the environment
+   (``docker compose down -v`` — note this wipes **all** project volumes:
+   ``db-data``, ``cache-data`` and ``sockets``).
+
+   After ``ALTER ROLE`` re-run ``make pgbouncer-sync``: the SCRAM verifier in
+   ``pg_authid`` changes, so a previously generated ``userlist.txt`` becomes stale.
+   The script re-reads the verifiers and reloads PgBouncer via SIGHUP automatically.
 
 Database Migrations
 +++++++++++++++++++

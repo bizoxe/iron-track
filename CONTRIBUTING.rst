@@ -38,7 +38,7 @@ Workflow
 
 1. `Fork <https://github.com/bizoxe/iron-track/fork>`_ the `repository <https://github.com/bizoxe/iron-track>`_.
 2. Clone your fork locally with git.
-3. Run ``make install`` (see `Setting up the environment`_)
+3. Run ``make install`` (see `Setting up the environment`_).
 4. Create a branch for your changes.
 5. Make your changes and ensure they follow the project style.
 6. (Optional) Run ``make lint`` or ``uv run pre-commit run --all-files`` manually to apply fixes and check types before committing.
