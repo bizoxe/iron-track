@@ -1,5 +1,5 @@
 ARG BUILDER_IMAGE=python:3.12-slim-bookworm
-ARG UV_INSTALL_ARGS="--all-extras --dev"
+ARG UV_INSTALL_ARGS="--no-default-groups --group dev"
 
 # --- Stage 1: Base (Environment & System) ---
 FROM ${BUILDER_IMAGE} AS python-base

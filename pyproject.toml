@@ -112,7 +112,7 @@ packages = ["src/app"]
 exclude = ["src/app/config/.env"]
 
 [tool.uv]
-default-groups = ["dev", "linting", "test", "docs"]
+default-groups = ["dev"]
 
 [tool.coverage.run]
 branch = true

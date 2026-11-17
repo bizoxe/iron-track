@@ -1,48 +1,61 @@
+name: irontrack-infra
+
 services:
 
   valkey:
-    hostname: valkey
-    image: valkey/valkey:latest
+    container_name: valkey_iron_track_infra
+    hostname: valkey-infra
+    image: valkey/valkey:8.0.6-trixie
     environment:
       ALLOW_EMPTY_PASSWORD: "yes"
     volumes:
-      - cache-data:/data
-    command: redis-server --appendonly yes
+      - infra-cache-data:/data
+    command: valkey-server --appendonly yes
     restart: unless-stopped
     ports:
       - "6379:6379"
+    networks:
+      - infra-net
     logging:
       options:
-        max-size: 10m
+        max-size: "10m"
         max-file: "3"
     healthcheck:
-      test: [ "CMD-SHELL", "valkey-cli ping | grep PONG" ]
+      test: ["CMD", "valkey-cli", "ping"]
       interval: 5s
       timeout: 3s
       retries: 3
 
   postgres:
-    image: postgres:latest
-    hostname: postgres
+    container_name: postgres_iron_track_infra
+    image: postgres:18.3-bookworm
+    hostname: postgres-infra
     restart: unless-stopped
     environment:
       POSTGRES_PASSWORD: "alfacatpwd"
       POSTGRES_USER: "alfacat"
       POSTGRES_DB: "iron_track"
     volumes:
-      - db-data:/var/lib/postgresql
+      - infra-db-data:/var/lib/postgresql
     ports:
       - "5432:5432"
+    networks:
+      - infra-net
     logging:
       options:
-        max-size: 10m
+        max-size: "10m"
         max-file: "3"
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U alfacat" ]
+      test: ["CMD-SHELL", "pg_isready -U alfacat"]
       interval: 10s
       timeout: 5s
       retries: 3
 
+
 volumes:
-  cache-data: {}
-  db-data: {}
+  infra-cache-data: {}
+  infra-db-data: {}
+
+networks:
+  infra-net:
+    driver: bridge

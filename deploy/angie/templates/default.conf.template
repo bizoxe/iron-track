@@ -1,12 +1,15 @@
 server {
     listen 80;
     server_name ${SERVER_NAME};
-    return 301 https://$host$request_uri;
+    return 301 https://${SERVER_NAME}$request_uri;
 }
 
 server {
     listen 443 ssl;
     listen 443 quic reuseport;
+
+    # HTTP/2 over TCP for clients without QUIC (HTTP/3 is served by the quic listener)
+    http2 on;
 
     server_name ${SERVER_NAME};
 
@@ -47,6 +50,8 @@ server {
             add_header Access-Control-Allow-Methods 'GET, POST, PUT, PATCH, DELETE, OPTIONS' always;
             add_header Access-Control-Allow-Headers 'Authorization,Content-Type,Accept,Origin' always;
             add_header Access-Control-Max-Age 1728000 always;
+            add_header Access-Control-Allow-Credentials "true" always;
+            include /etc/angie/snippets/security.conf;
 
             add_header Alt-Svc 'h3=":443"; ma=86400' always;
             add_header X-Protocol $server_protocol always;
@@ -58,7 +63,9 @@ server {
 
         # Proxying to Unix socket
         proxy_pass http://app_backend;
-        proxy_next_upstream error timeout http_503;
+        # NOTE: proxy_next_upstream is a no-op while the upstream has a single server
+        # (there is nowhere to retry). Re-enable when a second backend appears:
+        # proxy_next_upstream error timeout http_503;
 
         # Proxy params snippet
         include /etc/angie/snippets/proxy_params.conf;
