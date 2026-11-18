@@ -55,7 +55,7 @@ jobs:
         run: uv run python -c "import json; from joserfc.jwk import OKPKey; print('JWT_PRIVATE_KEY=' + json.dumps(OKPKey.generate_key('Ed25519').as_dict(private=True)))" >> "$GITHUB_ENV"
 
       - name: Generate Changelog
-        uses: orhun/git-cliff-action@v4.7.1
+        uses: orhun/git-cliff-action@v4.9.1
         with:
           config: pyproject.toml
           args: --verbose --output docs/changelog.rst
@@ -90,7 +90,7 @@ jobs:
           fetch-tags: true
 
       - name: Generate Changelog
-        uses: orhun/git-cliff-action@v4.7.1
+        uses: orhun/git-cliff-action@v4.9.1
         with:
           config: pyproject.toml
           args: --verbose --output docs/changelog.rst
