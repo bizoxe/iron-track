@@ -86,7 +86,7 @@ jobs:
         run: uv build
 
       - name: Generate Release Notes
-        uses: orhun/git-cliff-action@v4.7.1
+        uses: orhun/git-cliff-action@v4.9.1
         with:
           config: pyproject.toml
           args: --latest --strip header --output RELEASE_NOTES.md
