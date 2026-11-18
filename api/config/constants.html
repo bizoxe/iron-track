@@ -78,40 +78,40 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../server/index.html">Core Setup</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../server/core.html">Server Core</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../server/lifespan.html">Lifespan Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/cache.html">Application Cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/observability/index.html">Observability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../server/observability/setup.html">Logging Setup and Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/observability/handlers.html">Logging Handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/observability/middleware.html">ASGI Logging Middleware</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../db/index.html">ORM Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../db/base.html">Base Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../db/user.html">User Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../db/role.html">Role Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../db/reference.html">Reference Data Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../db/index.html">Database Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../db/catalog.html">Catalog Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../db/exercise.html">Exercise Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/user.html">User Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/base.html">Base Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/enums.html">Database Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/mixins.html">Shared Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/soft_delete.html">Soft-Delete Filter</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../lib/index.html">Core Utilities (lib)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../lib/index.html">Shared Components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../lib/auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/crypt.html">Security Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/deps.html">Infrastructure Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/exceptions.html">API Exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/filters.html">Query Filters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/handlers.html">Exception Handlers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/invalidate_cache.html">Cache Invalidation Helpers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/json_response.html">Custom JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/crypt.html">Password Hashing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lib/jwt_utils.html">JWT Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/filters.html">Query Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/json_response.html">Msgspec JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/openapi_helpers.html">OpenAPI Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/schema.html">Base Structs &amp; Schemas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lib/pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/schema.html">Base Models &amp; Structures</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/serializers.html">Serialization Registry</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../utils/index.html">Utilities and Helpers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../utils/log_utils/index.html">Structured Logging Configuration</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../utils/log_utils/handlers.html">Logging Handlers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../utils/log_utils/setup.html">Logging Setup and Configuration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../utils/log_utils/middleware.html">ASGI Logging Middleware</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/deps.html">Infrastructure Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/serializers.html">Cache Serializers</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../scripts/index.html">Application Scripts</a><ul>
@@ -120,40 +120,42 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../domain/index.html">Domains Overview</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../domain/users/index.html">Users Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/access.html">Access Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/users.html">User CRUD Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/user_role.html">User Role Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/services.html">User and Role Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication &amp; Authorization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/deps.html">User Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/filters.html">Users Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/utils.html">User Utilities and Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/enums.html">Shared Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/accounts/index.html">Accounts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/controllers/access.html">Access Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/controllers/users.html">User Account Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/controllers/user_roles.html">User Role Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/services.html">Accounts Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/schemas.html">Accounts Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/auth.html">Authentication &amp; Authorization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/deps.html">Accounts Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/filters.html">Accounts Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/utils.html">Accounts Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../domain/catalogs/index.html">Catalogs Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../domain/catalogs/index.html">Catalogs</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/equipment.html">Equipment Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/exercise_tags.html">Exercise Tag Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/muscle_groups.html">Muscle Group Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/services.html">Catalogs Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/schemas.html">Catalogs Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/deps.html">Catalogs Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/filters.html">Catalogs Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/services.html">Catalogs Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/schemas.html">Catalogs Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/deps.html">Catalogs Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/filters.html">Catalogs Filters</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../domain/exercises/index.html">Exercises Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/controllers.html">Exercise Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/services.html">Exercises Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/schemas.html">Exercises Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/filters.html">Exercises Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/deps.html">Exercises Domain Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/exercises/index.html">Exercises</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/controllers.html">Exercise Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/services.html">Exercises Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/schemas.html">Exercises Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/deps.html">Exercises Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/filters.html">Exercises Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/utils.html">Exercises Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../domain/system/index.html">System Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../domain/system/index.html">System</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../domain/system/controllers.html">System Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/system/schemas.html">System Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/system/schemas.html">System Schemas</a></li>
 </ul>
 </li>
 </ul>
@@ -162,7 +164,7 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading" aria-level="3"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../contribution-guide.html">Contribution Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
@@ -181,8 +183,8 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#app.config.constants.DEFAULT_USER_ROLE_SLUG"><code class="docutils literal notranslate"><span class="pre">DEFAULT_USER_ROLE_SLUG</span></code></a></li>
 <li><a class="reference internal" href="#app.config.constants.SUPERUSER_ROLE_SLUG"><code class="docutils literal notranslate"><span class="pre">SUPERUSER_ROLE_SLUG</span></code></a></li>
 <li><a class="reference internal" href="#app.config.constants.FITNESS_TRAINER_ROLE_SLUG"><code class="docutils literal notranslate"><span class="pre">FITNESS_TRAINER_ROLE_SLUG</span></code></a></li>
-<li><a class="reference internal" href="#app.config.constants.CATALOG_LIST_CACHE_TTL"><code class="docutils literal notranslate"><span class="pre">CATALOG_LIST_CACHE_TTL</span></code></a></li>
-<li><a class="reference internal" href="#app.config.constants.CATALOG_ALL_CACHE_TTL"><code class="docutils literal notranslate"><span class="pre">CATALOG_ALL_CACHE_TTL</span></code></a></li>
+<li><a class="reference internal" href="#app.config.constants.DEFAULT_ADMIN_EMAIL"><code class="docutils literal notranslate"><span class="pre">DEFAULT_ADMIN_EMAIL</span></code></a></li>
+<li><a class="reference internal" href="#app.config.constants.USER_AUTH_CACHE_KEY_PREFIX"><code class="docutils literal notranslate"><span class="pre">USER_AUTH_CACHE_KEY_PREFIX</span></code></a></li>
 <li><a class="reference internal" href="#app.config.constants.ARGON2_TIME_COST"><code class="docutils literal notranslate"><span class="pre">ARGON2_TIME_COST</span></code></a></li>
 <li><a class="reference internal" href="#app.config.constants.ARGON2_MEMORY_COST"><code class="docutils literal notranslate"><span class="pre">ARGON2_MEMORY_COST</span></code></a></li>
 <li><a class="reference internal" href="#app.config.constants.ARGON2_PARALLELISM"><code class="docutils literal notranslate"><span class="pre">ARGON2_PARALLELISM</span></code></a></li>
@@ -224,55 +226,54 @@ data-aria-dark="Switch to auto color mode">
 </div><div class="flex flex-col break-words justify-between">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
-          <section id="application-constants">
-<h1>Application Constants<a class="headerlink" href="#application-constants" title="Link to this heading">¶</a></h1>
-<p>Defines global and immutable application-wide configuration constants.</p>
-<dl class="py data" id="module-app.config.constants">
+          <section id="module-app.config.constants">
+<span id="application-constants"></span><h1>Application Constants<a class="headerlink" href="#module-app.config.constants" title="Link to this heading">¶</a></h1>
+<dl class="py data">
 <dt class="sig sig-object py" id="app.config.constants.DEFAULT_USER_ROLE_SLUG">
 <span class="sig-name descname"><span class="pre">DEFAULT_USER_ROLE_SLUG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'application-access'</span></em><a class="headerlink" href="#app.config.constants.DEFAULT_USER_ROLE_SLUG" title="Link to this definition">¶</a></dt>
-<dd><p>The slug of the default role assigned to all users.</p>
+<dd><p>Slug of the default role assigned to all users.</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="app.config.constants.SUPERUSER_ROLE_SLUG">
 <span class="sig-name descname"><span class="pre">SUPERUSER_ROLE_SLUG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'superuser'</span></em><a class="headerlink" href="#app.config.constants.SUPERUSER_ROLE_SLUG" title="Link to this definition">¶</a></dt>
-<dd><p>The slug of the superuser role.</p>
+<dd><p>Slug of the superuser role.</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="app.config.constants.FITNESS_TRAINER_ROLE_SLUG">
 <span class="sig-name descname"><span class="pre">FITNESS_TRAINER_ROLE_SLUG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'fitness-trainer'</span></em><a class="headerlink" href="#app.config.constants.FITNESS_TRAINER_ROLE_SLUG" title="Link to this definition">¶</a></dt>
-<dd><p>The slug of the fitness trainer role.</p>
+<dd><p>Slug of the fitness trainer role.</p>
 </dd></dl>
 
 <dl class="py data">
-<dt class="sig sig-object py" id="app.config.constants.CATALOG_LIST_CACHE_TTL">
-<span class="sig-name descname"><span class="pre">CATALOG_LIST_CACHE_TTL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'3m'</span></em><a class="headerlink" href="#app.config.constants.CATALOG_LIST_CACHE_TTL" title="Link to this definition">¶</a></dt>
-<dd><p>TTL for cached catalog lists with filters and sorting.</p>
+<dt class="sig sig-object py" id="app.config.constants.DEFAULT_ADMIN_EMAIL">
+<span class="sig-name descname"><span class="pre">DEFAULT_ADMIN_EMAIL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'system.admin&#64;example.com'</span></em><a class="headerlink" href="#app.config.constants.DEFAULT_ADMIN_EMAIL" title="Link to this definition">¶</a></dt>
+<dd><p>Primary system admin email.</p>
 </dd></dl>
 
 <dl class="py data">
-<dt class="sig sig-object py" id="app.config.constants.CATALOG_ALL_CACHE_TTL">
-<span class="sig-name descname"><span class="pre">CATALOG_ALL_CACHE_TTL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'3h'</span></em><a class="headerlink" href="#app.config.constants.CATALOG_ALL_CACHE_TTL" title="Link to this definition">¶</a></dt>
-<dd><p>TTL for full catalog tables cached as a single entity.</p>
+<dt class="sig sig-object py" id="app.config.constants.USER_AUTH_CACHE_KEY_PREFIX">
+<span class="sig-name descname"><span class="pre">USER_AUTH_CACHE_KEY_PREFIX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'user_auth'</span></em><a class="headerlink" href="#app.config.constants.USER_AUTH_CACHE_KEY_PREFIX" title="Link to this definition">¶</a></dt>
+<dd><p>Prefix for cached user auth data, keyed by token subject.</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="app.config.constants.ARGON2_TIME_COST">
 <span class="sig-name descname"><span class="pre">ARGON2_TIME_COST</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#app.config.constants.ARGON2_TIME_COST" title="Link to this definition">¶</a></dt>
-<dd><p>The number of iterations for the Argon2id hashing algorithm.</p>
+<dd><p>Number of iterations for the Argon2id hashing algorithm.</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="app.config.constants.ARGON2_MEMORY_COST">
 <span class="sig-name descname"><span class="pre">ARGON2_MEMORY_COST</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">65536</span></em><a class="headerlink" href="#app.config.constants.ARGON2_MEMORY_COST" title="Link to this definition">¶</a></dt>
-<dd><p>The amount of memory (in KiB) to be used by the Argon2id algorithm.</p>
+<dd><p>Amount of memory (in KiB) used by the Argon2id algorithm.</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="app.config.constants.ARGON2_PARALLELISM">
 <span class="sig-name descname"><span class="pre">ARGON2_PARALLELISM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#app.config.constants.ARGON2_PARALLELISM" title="Link to this definition">¶</a></dt>
-<dd><p>The number of parallel threads used during hashing.</p>
+<dd><p>Number of parallel threads used during hashing.</p>
 </dd></dl>
 
 </section>

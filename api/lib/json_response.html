@@ -2,7 +2,7 @@
 <html lang="en" data-accent-color="violet" data-content_root="../../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Custom JSON Response - IronTrack Docs</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="JWT Utilities" href="jwt_utils.html" /><link rel="prev" title="Cache Invalidation Helpers" href="invalidate_cache.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Msgspec JSON Response - IronTrack Docs</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="OpenAPI Helpers" href="openapi_helpers.html" /><link rel="prev" title="Query Filters" href="filters.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
@@ -21,7 +21,7 @@
 }
 </style>
     
-  <meta property="og:type" content="website"/><meta property="og:title" content="Custom JSON Response"/>
+  <meta property="og:type" content="website"/><meta property="og:title" content="Msgspec JSON Response"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -78,40 +78,40 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../server/index.html">Core Setup</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../server/core.html">Server Core</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../server/lifespan.html">Lifespan Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/cache.html">Application Cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/observability/index.html">Observability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../server/observability/setup.html">Logging Setup and Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/observability/handlers.html">Logging Handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/observability/middleware.html">ASGI Logging Middleware</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../db/index.html">ORM Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../db/base.html">Base Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../db/user.html">User Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../db/role.html">Role Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../db/reference.html">Reference Data Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../db/index.html">Database Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../db/catalog.html">Catalog Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../db/exercise.html">Exercise Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/user.html">User Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/base.html">Base Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/enums.html">Database Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/mixins.html">Shared Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/soft_delete.html">Soft-Delete Filter</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Core Utilities (lib)</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Shared Components</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="crypt.html">Security Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="deps.html">Infrastructure Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exceptions.html">API Exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="filters.html">Query Filters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="handlers.html">Exception Handlers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="invalidate_cache.html">Cache Invalidation Helpers</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Custom JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="crypt.html">Password Hashing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="jwt_utils.html">JWT Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="filters.html">Query Filters</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Msgspec JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="openapi_helpers.html">OpenAPI Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="schema.html">Base Structs &amp; Schemas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="schema.html">Base Models &amp; Structures</a></li>
-<li class="toctree-l3"><a class="reference internal" href="serializers.html">Serialization Registry</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../utils/index.html">Utilities and Helpers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../utils/log_utils/index.html">Structured Logging Configuration</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../utils/log_utils/handlers.html">Logging Handlers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../utils/log_utils/setup.html">Logging Setup and Configuration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../utils/log_utils/middleware.html">ASGI Logging Middleware</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deps.html">Infrastructure Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="serializers.html">Cache Serializers</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../scripts/index.html">Application Scripts</a><ul>
@@ -120,40 +120,42 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../domain/index.html">Domains Overview</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../domain/users/index.html">Users Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/access.html">Access Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/users.html">User CRUD Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/user_role.html">User Role Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/services.html">User and Role Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication &amp; Authorization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/deps.html">User Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/filters.html">Users Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/utils.html">User Utilities and Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/enums.html">Shared Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/accounts/index.html">Accounts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/controllers/access.html">Access Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/controllers/users.html">User Account Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/controllers/user_roles.html">User Role Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/services.html">Accounts Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/schemas.html">Accounts Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/auth.html">Authentication &amp; Authorization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/deps.html">Accounts Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/filters.html">Accounts Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/utils.html">Accounts Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../domain/catalogs/index.html">Catalogs Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../domain/catalogs/index.html">Catalogs</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/equipment.html">Equipment Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/exercise_tags.html">Exercise Tag Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/muscle_groups.html">Muscle Group Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/services.html">Catalogs Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/schemas.html">Catalogs Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/deps.html">Catalogs Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/filters.html">Catalogs Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/services.html">Catalogs Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/schemas.html">Catalogs Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/deps.html">Catalogs Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/filters.html">Catalogs Filters</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../domain/exercises/index.html">Exercises Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/controllers.html">Exercise Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/services.html">Exercises Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/schemas.html">Exercises Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/filters.html">Exercises Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/deps.html">Exercises Domain Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/exercises/index.html">Exercises</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/controllers.html">Exercise Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/services.html">Exercises Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/schemas.html">Exercises Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/deps.html">Exercises Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/filters.html">Exercises Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/utils.html">Exercises Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../domain/system/index.html">System Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../domain/system/index.html">System</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../domain/system/controllers.html">System Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/system/schemas.html">System Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/system/schemas.html">System Schemas</a></li>
 </ul>
 </li>
 </ul>
@@ -162,7 +164,7 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading" aria-level="3"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../contribution-guide.html">Contribution Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
@@ -203,11 +205,11 @@ data-aria-dark="Switch to auto color mode">
         <span>/</span>
         <meta itemprop="position" content="2" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <a itemprop="item" href="index.html"><span itemprop="name">Core Utilities (lib)</span></a>
+        <a itemprop="item" href="index.html"><span itemprop="name">Shared Components</span></a>
         <span>/</span>
         <meta itemprop="position" content="3" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <strong itemprop="name">Custom JSON Response</strong>
+        <strong itemprop="name">Msgspec JSON Response</strong>
         <meta itemprop="position" content="4" />
       </li></ol>
     <div class="xl:hidden ml-1">
@@ -220,17 +222,17 @@ data-aria-dark="Switch to auto color mode">
 </div><div class="flex flex-col break-words justify-between">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
-          <section id="custom-json-response">
-<h1>Custom JSON Response<a class="headerlink" href="#custom-json-response" title="Link to this heading">¶</a></h1>
+          <section id="msgspec-json-response">
+<h1>Msgspec JSON Response<a class="headerlink" href="#msgspec-json-response" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.lib.json_response.MsgSpecJSONResponse">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MsgSpecJSONResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">media_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'application/json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BackgroundTask</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/lib/json_response.html#MsgSpecJSONResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.json_response.MsgSpecJSONResponse" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://fastapi.tiangolo.com/reference/responses/#fastapi.responses.Response" title="(in FastAPI vNone)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></a></p>
-<p>High-performance JSON response using <cite>msgspec</cite> for serialization.</p>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MsgSpecJSONResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status_code</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">media_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'application/json'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BackgroundTask</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/lib/json_response.html#MsgSpecJSONResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.json_response.MsgSpecJSONResponse" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://fastapi.tiangolo.com/reference/response/#fastapi.Response" title="(in FastAPI v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></a></p>
+<p>High-performance JSON response using <code class="code docutils literal notranslate"><span class="pre">msgspec</span></code> for serialization.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="app.lib.json_response.MsgSpecJSONResponse.render">
-<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><span class="pre">bytes</span></a></span></span><a class="reference internal" href="../../_modules/app/lib/json_response.html#MsgSpecJSONResponse.render"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.json_response.MsgSpecJSONResponse.render" title="Link to this definition">¶</a></dt>
-<dd><p>Serialize the content using the <cite>msgspec</cite> encoder.</p>
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bytes" title="(in Python v3.15)"><span class="pre">bytes</span></a></span></span><a class="reference internal" href="../../_modules/app/lib/json_response.html#MsgSpecJSONResponse.render"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.json_response.MsgSpecJSONResponse.render" title="Link to this definition">¶</a></dt>
+<dd><p>Serialize the content using the <code class="code docutils literal notranslate"><span class="pre">msgspec</span></code> encoder.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>content</strong> – The data to serialize.</p>
@@ -239,7 +241,7 @@ data-aria-dark="Switch to auto color mode">
 <dd class="field-even"><p>Serialized JSON content as bytes.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><em>bytes</em></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bytes" title="(in Python v3.15)"><em>bytes</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -254,16 +256,16 @@ data-aria-dark="Switch to auto color mode">
   </svg>
   <span>Back to top</span>
 </button><div class="navigation flex print:hidden"><div class="navigation-prev">
-    <a href="invalidate_cache.html">
+    <a href="filters.html">
       <i class="i-lucide chevron-left"></i>
       <div class="page-info">
-        <span>Previous</span><div class="title">Cache Invalidation Helpers</div></div>
+        <span>Previous</span><div class="title">Query Filters</div></div>
     </a>
   </div><div class="navigation-next">
-    <a href="jwt_utils.html">
+    <a href="openapi_helpers.html">
       <div class="page-info">
         <span>Next</span>
-        <div class="title">JWT Utilities</div>
+        <div class="title">OpenAPI Helpers</div>
       </div>
       <i class="i-lucide chevron-right"></i>
     </a>

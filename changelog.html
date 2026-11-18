@@ -78,40 +78,40 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/server/index.html">Core Setup</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api/server/core.html">Server Core</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/server/lifespan.html">Lifespan Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/server/cache.html">Application Cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/server/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/server/observability/index.html">Observability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/server/observability/setup.html">Logging Setup and Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/server/observability/handlers.html">Logging Handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/server/observability/middleware.html">ASGI Logging Middleware</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api/db/index.html">ORM Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/db/base.html">Base Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/db/user.html">User Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/db/role.html">Role Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/db/reference.html">Reference Data Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/db/index.html">Database Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/db/catalog.html">Catalog Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/db/exercise.html">Exercise Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/db/user.html">User Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/db/base.html">Base Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/db/enums.html">Database Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/db/mixins.html">Shared Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/db/soft_delete.html">Soft-Delete Filter</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api/lib/index.html">Core Utilities (lib)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/lib/index.html">Shared Components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api/lib/auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/crypt.html">Security Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/deps.html">Infrastructure Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/exceptions.html">API Exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/filters.html">Query Filters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/handlers.html">Exception Handlers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/invalidate_cache.html">Cache Invalidation Helpers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/json_response.html">Custom JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/crypt.html">Password Hashing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/lib/jwt_utils.html">JWT Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/filters.html">Query Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/json_response.html">Msgspec JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/openapi_helpers.html">OpenAPI Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/schema.html">Base Structs &amp; Schemas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/lib/pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/schema.html">Base Models &amp; Structures</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/serializers.html">Serialization Registry</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api/utils/index.html">Utilities and Helpers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/utils/log_utils/index.html">Structured Logging Configuration</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/utils/log_utils/handlers.html">Logging Handlers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/utils/log_utils/setup.html">Logging Setup and Configuration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/utils/log_utils/middleware.html">ASGI Logging Middleware</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api/utils/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/deps.html">Infrastructure Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/serializers.html">Cache Serializers</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/scripts/index.html">Application Scripts</a><ul>
@@ -120,40 +120,42 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/domain/index.html">Domains Overview</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/domain/users/index.html">Users Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/controllers/access.html">Access Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/controllers/users.html">User CRUD Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/controllers/user_role.html">User Role Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/services.html">User and Role Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/auth.html">Authentication &amp; Authorization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/deps.html">User Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/filters.html">Users Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/utils.html">User Utilities and Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/domain/enums.html">Shared Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/domain/accounts/index.html">Accounts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/controllers/access.html">Access Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/controllers/users.html">User Account Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/controllers/user_roles.html">User Role Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/services.html">Accounts Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/schemas.html">Accounts Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/auth.html">Authentication &amp; Authorization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/deps.html">Accounts Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/filters.html">Accounts Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/utils.html">Accounts Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="api/domain/catalogs/index.html">Catalogs Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/domain/catalogs/index.html">Catalogs</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/controllers/equipment.html">Equipment Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/controllers/exercise_tags.html">Exercise Tag Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/controllers/muscle_groups.html">Muscle Group Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/services.html">Catalogs Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/schemas.html">Catalogs Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/deps.html">Catalogs Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/filters.html">Catalogs Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/services.html">Catalogs Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/schemas.html">Catalogs Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/deps.html">Catalogs Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/filters.html">Catalogs Filters</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="api/domain/exercises/index.html">Exercises Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/controllers.html">Exercise Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/services.html">Exercises Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/schemas.html">Exercises Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/filters.html">Exercises Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/deps.html">Exercises Domain Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/domain/exercises/index.html">Exercises</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/controllers.html">Exercise Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/services.html">Exercises Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/schemas.html">Exercises Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/deps.html">Exercises Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/filters.html">Exercises Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/utils.html">Exercises Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="api/domain/system/index.html">System Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/domain/system/index.html">System</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/domain/system/controllers.html">System Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/system/schemas.html">System Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/system/schemas.html">System Schemas</a></li>
 </ul>
 </li>
 </ul>
@@ -162,7 +164,7 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading" aria-level="3"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="contribution-guide.html">Contribution Guide</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a></li>
@@ -178,23 +180,38 @@ data-aria-dark="Switch to auto color mode">
       <i class="i-lucide close"></i>
     </button>
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
-<li><a class="reference internal" href="#id1">Release [v0.2.0] - 2026-06-13</a><ul>
+<li><a class="reference internal" href="#unreleased">[Unreleased]</a><ul>
 <li><a class="reference internal" href="#miscellaneous-tasks">&#9881;&#65039; Miscellaneous Tasks</a></li>
+<li><a class="reference internal" href="#styling">&#127912; Styling</a></li>
 <li><a class="reference internal" href="#bug-fixes">&#128027; Bug Fixes</a></li>
+<li><a class="reference internal" href="#ci-cd">&#128119; CI/CD</a></li>
 <li><a class="reference internal" href="#documentation">&#128218; Documentation</a></li>
-<li><a class="reference internal" href="#features">&#128640; Features</a></li>
+<li><a class="reference internal" href="#build-system">&#128230; Build System</a></li>
 <li><a class="reference internal" href="#refactor">&#128736;&#65039; Refactor</a></li>
 <li><a class="reference internal" href="#testing">&#129514; Testing</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#id6">Release [v0.1.0] - 2026-01-10</a><ul>
-<li><a class="reference internal" href="#id7">&#9881;&#65039; Miscellaneous Tasks</a></li>
+<li><a class="reference internal" href="#id2">Release [v0.2.0] - 2026-06-13</a><ul>
+<li><a class="reference internal" href="#id3">&#9881;&#65039; Miscellaneous Tasks</a></li>
+<li><a class="reference internal" href="#id4">&#128027; Bug Fixes</a></li>
+<li><a class="reference internal" href="#id6">&#128119; CI/CD</a></li>
+<li><a class="reference internal" href="#id7">&#128218; Documentation</a></li>
+<li><a class="reference internal" href="#id9">&#128230; Build System</a></li>
+<li><a class="reference internal" href="#features">&#128640; Features</a></li>
+<li><a class="reference internal" href="#id11">&#128736;&#65039; Refactor</a></li>
+<li><a class="reference internal" href="#id13">&#129514; Testing</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id14">Release [v0.1.0] - 2026-01-10</a><ul>
+<li><a class="reference internal" href="#id15">&#9881;&#65039; Miscellaneous Tasks</a></li>
 <li><a class="reference internal" href="#performance">&#9889; Performance</a></li>
-<li><a class="reference internal" href="#id11">&#128027; Bug Fixes</a></li>
-<li><a class="reference internal" href="#id12">&#128218; Documentation</a></li>
-<li><a class="reference internal" href="#id14">&#128640; Features</a></li>
-<li><a class="reference internal" href="#id16">&#128736;&#65039; Refactor</a></li>
-<li><a class="reference internal" href="#id17">&#129514; Testing</a></li>
+<li><a class="reference internal" href="#id19">&#128027; Bug Fixes</a></li>
+<li><a class="reference internal" href="#id20">&#128119; CI/CD</a></li>
+<li><a class="reference internal" href="#id21">&#128218; Documentation</a></li>
+<li><a class="reference internal" href="#id23">&#128230; Build System</a></li>
+<li><a class="reference internal" href="#id24">&#128640; Features</a></li>
+<li><a class="reference internal" href="#id26">&#128736;&#65039; Refactor</a></li>
+<li><a class="reference internal" href="#id27">&#129514; Testing</a></li>
 </ul>
 </li>
 </ul>
@@ -230,145 +247,258 @@ data-aria-dark="Switch to auto color mode">
           <section id="changelog">
 <h1>Changelog<a class="headerlink" href="#changelog" title="Link to this heading">¶</a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
-<section id="id1">
-<h2><a class="reference external" href="https://github.com/bizoxe/iron-track/releases/tag/v0.2.0">Release [v0.2.0] - 2026-06-13</a><a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://github.com/bizoxe/iron-track/commits/v0.2.0">See All commits in v0.2.0</a></p></li>
-</ul>
+<section id="unreleased">
+<h2>[Unreleased]<a class="headerlink" href="#unreleased" title="Link to this heading">¶</a></h2>
 <section id="miscellaneous-tasks">
 <h3>⚙️ Miscellaneous Tasks<a class="headerlink" href="#miscellaneous-tasks" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/c0a527f43b4352a45b9726ad68b177c0c3389b62">c0a527f</a>) - Bump version to 0.2.0 (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/366c9067cb20157436792315858cf9dd5ab37ed1">366c906</a>) - Save local changes before bumping version (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/d3f24bdbfc0c515e39598786b52a9dcc76f512c5">d3f24bd</a>) - Update project dependencies (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/0bc188e8ae17b631a262c4bf014623eada803a8c">0bc188e</a>) - Remove async overhead from health logs (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/c9a1c37891bbba62a4c78e2e27d40944148d82fb">c9a1c37</a>) - Pin postgres 18.3 and use custom config (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/28d2208f307391906ef6a2604270545042d4087a">28d2208</a>) - Generate alembic migration for exercise system (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/c69a2baeccdf6e5a8fa7550c63d67cf41af844bb">c69a2ba</a>) - Formalize repository infrastructure and optimize docs CI (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/ef5dcebeabadf7407051e373d580593b5137797e">ef5dceb</a>) - Include tests in mypy checks and bump ruff-pre-commit (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/a4aea16c921dc41cf6690e2509ada4652fb0ba2d">a4aea16</a>) - Cosmetic code fixes and documentation polish (alexander)</p></li>
+</ul>
+</section>
+<section id="styling">
+<h3>🎨 Styling<a class="headerlink" href="#styling" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/7516069665f0584fa1b47a48b0a4b9b3aa93f703">7516069</a>) (<strong>alembic</strong>) - Wrap long line in env.py (alexander)</p></li>
 </ul>
 </section>
 <section id="bug-fixes">
 <h3>🐛 Bug Fixes<a class="headerlink" href="#bug-fixes" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/04eb4eac1d92c734151efef470df72563c80ed4d">04eb4ea</a>) - Fix CLI help handling (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/dffc73ced68447bce0e645ba20d2d4399313e6df">dffc73c</a>) - Fix import in commands.py (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/a2e0ef2a0c7988ec30997d7730cc80e3670effbc">a2e0ef2</a>) - Use .is_(True) for system-default comparisons (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/7074953901d06f02adb9c359822753cb5ddcb081">7074953</a>) - Enforce timezone-aware datetimes in filters (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/9d63dffe6b0dfaa8db92268fb50430cd0b06fec9">9d63dff</a>) (<strong>filters</strong>) - Scope query-param constraints to the non-null branch (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/ffc5fd4307f72d1de76266866bc8a5eb4303574b">ffc5fd4</a>) (<strong>accounts</strong>) - Return banned accounts from the banned slice (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/69f4b81c38a85295c8d80972669817cc23733954">69f4b81</a>) (<strong>lib</strong>) - Prevent search cache key collisions in filters.py (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/a2f1d7fc39195e18ddd4033d9dfbb64422ae63e6">a2f1d7f</a>) (<strong>accounts</strong>) - Harden JWT validation (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/3cc3616ec400aac1efe44e3196f6ab78db78c76a">3cc3616</a>) (<strong>system</strong>) - Report health check failures without crashing (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/c1bf81ac87362f758010b0552c2a22a5d8210ccb">c1bf81a</a>) (<strong>observability</strong>) - Lost json tracebacks and duplicate listener (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/c79ee3c7a1f8ed55c18a19426adb60f1e5406218">c79ee3c</a>) (<strong>main</strong>) - Handle ClickException for clean error output (alexander)</p></li>
+</ul>
+</section>
+<section id="ci-cd">
+<h3>👷 CI/CD<a class="headerlink" href="#ci-cd" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/ddd114aba28f59522a9c286e9ec6e2e61b5c2666">ddd114a</a>) - Harden github actions workflows (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/a267fec1468b1cc79c8d4aa43e6a992e210b2876">a267fec</a>) - Remove unused JWT env from tests and drop release prerelease flag (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/02077ba09e14a44f36719880a3fbe8ef518b180a">02077ba</a>) (<strong>docs</strong>) - Setup automated changelog generation (alexander)</p></li>
 </ul>
 </section>
 <section id="documentation">
 <h3>📚 Documentation<a class="headerlink" href="#documentation" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/3265145c7672e113d36fa0227a73a28f44029140">3265145</a>) - Update sphinx documentation (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/7ce928844d1bb1ba53bdc0f1d2516cdb06facf37">7ce9288</a>) - Update sphinx documentation (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/2a797e521fc034ee9dd29237cb5573c03267c34a">2a797e5</a>) - Update sphinx documentation (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/8b11188850f0168e023500df83f0c6cf78c12a94">8b11188</a>) - Update sphinx documentation (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/5ed683d200af05f5becc54c1a6d3e70cc7923009">5ed683d</a>) - Update sphinx documentation (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/a37ffe2d3c339b8e054b21250ecf8f1401caa7cf">a37ffe2</a>) - Add sphinx documentation (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/a0469011fafd8ea0be76849f5e94a74349f89761">a046901</a>) - Add sphinx documentation (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/2c300e3f7c4262bd490243776a2471746d537bc9">2c300e3</a>) - Add Authentication and Serialization (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/b4ebcd7064a2282947ca694c87930f4d7b83ff46">b4ebcd7</a>) - Add authentication and serialization benchmark (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/532828ee4a7732d60f9329214ef2adc160b9da7f">532828e</a>) - Setup community health files (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/d36343bf49a7221464619852ef36812ad099934f">d36343b</a>) - Add stack rationale and update readme (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/8397d8960acd3f6acbe9835f699457063f311000">8397d89</a>) - Add database blueprint [skip ci] (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/6fbdc5833917d1896de8ea583104361b8e138eb4">6fbdc58</a>) - Explain env policy and pgbouncer resync (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/02fb94028956244356c6c1eb416f4f7646aef7c0">02fb940</a>) - Redesign schema blueprint and add deletion policy ADR (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/cef87c149037c6afb1f28f2af0feff0701f75500">cef87c1</a>) (<strong>benchmarks</strong>) - Fix links and pin code revision (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/690c0761bd69601bb4bd7a072fc75f1a2a639d84">690c076</a>) (<strong>api</strong>) - Regenerate reference for current code (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/262f2628cc7d229e5ad02de766459fcaa6beb6d4">262f262</a>) - Rework usage guides, landing page, config (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/2366f7646599e78a46a7c42013aea55231ec7ae2">2366f76</a>) (<strong>contributing</strong>) - Update contribution guide (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/713af1f707b37d5faac556316142a4c9a735a3ce">713af1f</a>) - Update changelog [skip ci] (github-actions[bot])</p></li>
 </ul>
 </section>
-<section id="features">
-<h3>🚀 Features<a class="headerlink" href="#features" title="Link to this heading">¶</a></h3>
+<section id="build-system">
+<h3>📦 Build System<a class="headerlink" href="#build-system" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/746845adc38a69b52cc1f43549f829f243ae6da0">746845a</a>) - Add case-insensitive email normalization (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/c6902a5e1a4576bdb626e1d9119992056bcd977c">c6902a5</a>) - Implement CRUD operations for exercises (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/76653242261ec3b8a194919630b4996e2bd3a35f">7665324</a>) - Implement CRUD operations for catalogs (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/65ca78040351bdea4f77b78f55cb40d2d884a957">65ca780</a>) - Add exercise and reference models with m2m relations (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/ef098da3250492ce61afbd0775adc983a8869bac">ef098da</a>) - Implement cache key normalization in CommonFilters (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/fd10eb9de570c680f97b4b49a63afe5da1ef005b">fd10eb9</a>) - Rework deploy stack and docker tooling (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/6ad398e8e86b531ce55d75ea5cf1c7557263b485">6ad398e</a>) - Pin python to 3.12 and exclude .env from distributions (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/ea049723645a099adc491401fbafe251f4c66086">ea04972</a>) - Refresh deps, tooling, and env templates (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/94e2b0288cd625fc219713cc6982c88729fc31b0">94e2b02</a>) (<strong>pgbouncer</strong>) - Bump PgBouncer to 1.25.2 (alpine 3.24) (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/692de4a95de7efd4805c7d0290ab0d6f77068251">692de4a</a>) (<strong>git-cliff</strong>) - Enhance changelog template and commit parsers (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/5c8ccac4703f3b0adbd5e82081577124df76fa13">5c8ccac</a>) (<strong>deps</strong>) - Bump github/codeql-action from 4 to 4.37.4 (#16) [skip ci] (dependabot[bot])</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/9a73b6b1a5aa17f5f43fe8941f090dfea0d0cde2">9a73b6b</a>) (<strong>deps</strong>) - Bump JamesIves/github-pages-deploy-action (#17) [skip ci] (dependabot[bot])</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/366c560cff1caad24db776c58ad29e20794b8d19">366c560</a>) (<strong>deps</strong>) - Bump actions/checkout from 6 to 7 [skip ci] (dependabot[bot])</p></li>
 </ul>
 </section>
 <section id="refactor">
 <h3>🛠️ Refactor<a class="headerlink" href="#refactor" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/3400259eeeb475b81037023dbe0388623e2742fe">3400259</a>) - Unify and optimize CI/CD pipelines (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/76e568a567756e1785b5ef9596c1a64ae19d8fc3">76e568a</a>) - Optimize data handling and authentication (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/db5ebd9ea75379c1042a1ac7c512cf322c316891">db5ebd9</a>) - Cosmetic improvements and cleanup (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/819e95d216e34bbb63a876de23d83a2804d7ac31">819e95d</a>) - Externalize crypto thread pool configuration (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/63abf8d2370dc82cb0f3d885a29a067eb858b4ab">63abf8d</a>) - Optimize middleware and lifecycle management (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/b45abda56ab5d54ee44e4fdda780b8b5dce84acd">b45abda</a>) - Optimize resource limits and pgbouncer volume config (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/dd40b85a11a5635a7cf0246e19dde873f88e0a0a">dd40b85</a>) - Harden database seeding logic (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/dcbe85fbc0dcc0bcd5dd0de83786421316cf0624">dcbe85f</a>) - Rename utils.py to filters.py (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/29202adcd484f0409517fbdc6e174e8f0caee9e3">29202ad</a>) - Add multi-engine server support (Uvicorn/Granian) (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/96a7e27f060796099ed9817477aae87dc644692d">96a7e27</a>) - Normalize exercise slugs and relative image paths (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/41291b0d0fc350d28ecdd2a1fa31ee1dcaa4fb2d">41291b0</a>) - Optimize system performance and security baseline (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/00d147e6624188f9d4c9b1adfaca1fe261d02e59">00d147e</a>) (<strong>lib</strong>) - Remove unused auto_error flag in JWTCookieSecurity (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/ff81308d011bc6afadd065cf974c6c5a47b84f39">ff81308</a>) (<strong>lib</strong>) - Rework error responses and reorder exceptions (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/566c006fad8c7a6706526bf26c9b0d5a03392577">566c006</a>) (<strong>serialization</strong>) - Replace pickle cache with msgspec envelopes (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/11d7d490820a0c10b1b475b24e375e016d9f23a5">11d7d49</a>) (<strong>config</strong>) - Tighten settings structure and docstrings (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/15556de4f77993c5fc76cec10c87595fd13e7a14">15556de</a>) (<strong>exercises</strong>) - Rework muscle junction and refine system schemas (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/82b43f847ec4c470048a574aa9e2365e21fddd72">82b43f8</a>) (<strong>catalogs</strong>) - Migrate to soft delete with restore and Tag rename (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/9144a1e147a165780c152e88824e64b91389c068">9144a1e</a>) (<strong>scripts</strong>) - Restructure user CLI commands and seeder (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/fef161d0972aecc0738af7fd69b533eeffb34c65">fef161d</a>) (<strong>fixtures</strong>) - Rework exercise fixtures and role descriptions (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/281080f8af628fdebfe5e20e856d86e976154a78">281080f</a>) (<strong>migrations</strong>) - Rebase history for singular tables and soft delete (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/35b1f762b7651f9195e4c068a8c789aef14b3258">35b1f76</a>) (<strong>db</strong>) - Introduce soft delete and singular table names (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/98a9af5653fa63a3f5663e3e1dc356faf53005b5">98a9af5</a>) (<strong>domain</strong>) - Extract shared enums into enums.py (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/658b8cc0736bf4cd4be5a0a51e0fa853259a836b">658b8cc</a>) (<strong>accounts</strong>) - Rename from users and rework access control (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/693f5a940d49a06e0a9fe22880d1ffbb91b3315f">693f5a9</a>) (<strong>lib</strong>) - Codebase refactoring and cleanup (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/d4399290ffb573a76d206dab301690c99eeb573e">d439929</a>) (<strong>db</strong>) - Consolidate all ENUM creations into initial migration (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/34dd1573abf625c8b46b4245440b06acd90ca0d3">34dd157</a>) (<strong>server</strong>) - Move logging and CLI into server layer (alexander)</p></li>
 </ul>
 </section>
 <section id="testing">
 <h3>🧪 Testing<a class="headerlink" href="#testing" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/56f70fad06af1ae552512b1b29bd7057cb368ba3">56f70fa</a>) - Refactor test data to use shared constants (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/64424ef4032704d6086a22fd313aad88333c1a1a">64424ef</a>) - Adapt tests to architectural changes (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/89b755a38196594243329b160b79f66c1a29d0c0">89b755a</a>) - Add integration tests (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/edf9418ede6a5c05a1034fb3e68954e240fa7c11">edf9418</a>) - Add special cases for activity, dates and sorting (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/9b37a2b30011ab4015ee2914bc8b036ef2295df1">9b37a2b</a>) - Add integration tests (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/8feb433fbc9a907f5dbbc15cdb2998334b54deaa">8feb433</a>) (<strong>integration</strong>) - Rewrite the integration suite (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/50260a40b4e8a71a5e3c8594a1049fac4635e441">50260a4</a>) (<strong>unit</strong>) - Add filters, schemas and observability (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/493a5d045733e2ba6cf1b814c12f2b5b2b830008">493a5d0</a>) (<strong>integration</strong>) - Rework integration conftest (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/95de11922f4d5537ff48912fd9b650172f773ef1">95de119</a>) (<strong>infra</strong>) - Rework shared fixtures, seeds and helpers (alexander)</p></li>
 </ul>
 </section>
 </section>
+<section id="id2">
+<h2><a class="reference external" href="https://github.com/bizoxe/iron-track/releases/tag/v0.2.0">Release [v0.2.0] - 2026-06-13</a><a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/bizoxe/iron-track/commits/v0.2.0">See All commits in v0.2.0</a></p></li>
+</ul>
+<section id="id3">
+<h3>⚙️ Miscellaneous Tasks<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/c0a527f43b4352a45b9726ad68b177c0c3389b62">c0a527f</a>) - Bump version to 0.2.0 (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/366c9067cb20157436792315858cf9dd5ab37ed1">366c906</a>) - Save local changes before bumping version (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/d3f24bdbfc0c515e39598786b52a9dcc76f512c5">d3f24bd</a>) (<strong>deps</strong>) - Update project dependencies (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/0bc188e8ae17b631a262c4bf014623eada803a8c">0bc188e</a>) (<strong>system</strong>) - Remove async overhead from health logs (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/c9a1c37891bbba62a4c78e2e27d40944148d82fb">c9a1c37</a>) (<strong>infra</strong>) - Pin postgres 18.3 and use custom config (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/28d2208f307391906ef6a2604270545042d4087a">28d2208</a>) (<strong>migrations</strong>) - Generate alembic migration for exercise system (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/c69a2baeccdf6e5a8fa7550c63d67cf41af844bb">c69a2ba</a>) - Formalize repository infrastructure and optimize docs CI (alexander)</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>🐛 Bug Fixes<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/04eb4eac1d92c734151efef470df72563c80ed4d">04eb4ea</a>) (<strong>main</strong>) - Fix CLI help handling (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/dffc73ced68447bce0e645ba20d2d4399313e6df">dffc73c</a>) (<strong>scripts</strong>) - Fix import in commands.py (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/a2e0ef2a0c7988ec30997d7730cc80e3670effbc">a2e0ef2</a>) (<strong>exercises</strong>) - Use .is_(True) for system-default comparisons (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/7074953901d06f02adb9c359822753cb5ddcb081">7074953</a>) (<strong>users</strong>) - Enforce timezone-aware datetimes in filters (alexander)</p></li>
+</ul>
+</section>
 <section id="id6">
-<h2><a class="reference external" href="https://github.com/bizoxe/iron-track/releases/tag/v0.1.0">Release [v0.1.0] - 2026-01-10</a><a class="headerlink" href="#id6" title="Link to this heading">¶</a></h2>
+<h3>👷 CI/CD<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/707d0700d0167ccbea3920c8da8ef7d45b9178a9">707d070</a>) - Update actions and fix docs build environment (alexander)</p></li>
+</ul>
+</section>
+<section id="id7">
+<h3>📚 Documentation<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/3265145c7672e113d36fa0227a73a28f44029140">3265145</a>) (<strong>users</strong>) - Update sphinx documentation (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/7ce928844d1bb1ba53bdc0f1d2516cdb06facf37">7ce9288</a>) (<strong>config</strong>) - Update sphinx documentation (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/2a797e521fc034ee9dd29237cb5573c03267c34a">2a797e5</a>) (<strong>server</strong>) - Update sphinx documentation (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/8b11188850f0168e023500df83f0c6cf78c12a94">8b11188</a>) (<strong>utils</strong>) - Update sphinx documentation (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/5ed683d200af05f5becc54c1a6d3e70cc7923009">5ed683d</a>) (<strong>lib</strong>) - Update sphinx documentation (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/a37ffe2d3c339b8e054b21250ecf8f1401caa7cf">a37ffe2</a>) (<strong>catalogs</strong>) - Add sphinx documentation (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/a0469011fafd8ea0be76849f5e94a74349f89761">a046901</a>) (<strong>exercises</strong>) - Add sphinx documentation (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/2c300e3f7c4262bd490243776a2471746d537bc9">2c300e3</a>) (<strong>adr</strong>) - Add Authentication and Serialization (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/b4ebcd7064a2282947ca694c87930f4d7b83ff46">b4ebcd7</a>) (<strong>benchmarks</strong>) - Add authentication and serialization benchmark (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/532828ee4a7732d60f9329214ef2adc160b9da7f">532828e</a>) - Setup community health files (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/d36343bf49a7221464619852ef36812ad099934f">d36343b</a>) (<strong>adr</strong>) - Add stack rationale and update readme (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/8397d8960acd3f6acbe9835f699457063f311000">8397d89</a>) (<strong>readme</strong>) - Add database blueprint [skip ci] (alexander)</p></li>
+</ul>
+</section>
+<section id="id9">
+<h3>📦 Build System<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/a07d9cceddf42784cac441897dfd0059b425c750">a07d9cc</a>) (<strong>deps</strong>) - Bump codecov/codecov-action from 6 to 7 (#6) (dependabot[bot])</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/caed57bdc7936218249ecc48ca9821cb058c81b5">caed57b</a>) (<strong>deps</strong>) - Bump softprops/action-gh-release from 2 to 3 (#4) (dependabot[bot])</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/f21b3c0a1dde3c7dd896649e1a3418d7e81ad206">f21b3c0</a>) (<strong>scripts</strong>) - Implement automated db seeding (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/cb72e968f8ebf3aa490d8b01e74c9a1b4350ded4">cb72e96</a>) (<strong>fixtures</strong>) - Add exercise tags (alexander)</p></li>
+</ul>
+</section>
+<section id="features">
+<h3>🚀 Features<a class="headerlink" href="#features" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/746845adc38a69b52cc1f43549f829f243ae6da0">746845a</a>) (<strong>users</strong>) - Add case-insensitive email normalization (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/c6902a5e1a4576bdb626e1d9119992056bcd977c">c6902a5</a>) (<strong>domain</strong>) - Implement CRUD operations for exercises (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/76653242261ec3b8a194919630b4996e2bd3a35f">7665324</a>) (<strong>domain</strong>) - Implement CRUD operations for catalogs (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/65ca78040351bdea4f77b78f55cb40d2d884a957">65ca780</a>) (<strong>db</strong>) - Add exercise and reference models with m2m relations (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/ef098da3250492ce61afbd0775adc983a8869bac">ef098da</a>) (<strong>lib</strong>) - Implement cache key normalization in CommonFilters (alexander)</p></li>
+</ul>
+</section>
+<section id="id11">
+<h3>🛠️ Refactor<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/3400259eeeb475b81037023dbe0388623e2742fe">3400259</a>) (<strong>ci</strong>) - Unify and optimize CI/CD pipelines (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/76e568a567756e1785b5ef9596c1a64ae19d8fc3">76e568a</a>) (<strong>users</strong>) - Optimize data handling and authentication (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/db5ebd9ea75379c1042a1ac7c512cf322c316891">db5ebd9</a>) (<strong>lib</strong>) - Cosmetic improvements and cleanup (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/819e95d216e34bbb63a876de23d83a2804d7ac31">819e95d</a>) (<strong>lib</strong>) - Externalize crypto thread pool configuration (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/63abf8d2370dc82cb0f3d885a29a067eb858b4ab">63abf8d</a>) (<strong>logging</strong>) - Optimize middleware and lifecycle management (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/b45abda56ab5d54ee44e4fdda780b8b5dce84acd">b45abda</a>) (<strong>infra</strong>) - Optimize resource limits and pgbouncer volume config (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/dd40b85a11a5635a7cf0246e19dde873f88e0a0a">dd40b85</a>) (<strong>scripts</strong>) - Harden database seeding logic (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/dcbe85fbc0dcc0bcd5dd0de83786421316cf0624">dcbe85f</a>) (<strong>catalogs</strong>) - Rename utils.py to filters.py (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/29202adcd484f0409517fbdc6e174e8f0caee9e3">29202ad</a>) (<strong>cli</strong>) - Add multi-engine server support (Uvicorn/Granian) (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/96a7e27f060796099ed9817477aae87dc644692d">96a7e27</a>) (<strong>fixtures</strong>) - Normalize exercise slugs and relative image paths (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/41291b0d0fc350d28ecdd2a1fa31ee1dcaa4fb2d">41291b0</a>) - Optimize system performance and security baseline (alexander)</p></li>
+</ul>
+</section>
+<section id="id13">
+<h3>🧪 Testing<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/56f70fad06af1ae552512b1b29bd7057cb368ba3">56f70fa</a>) - Refactor test data to use shared constants (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/64424ef4032704d6086a22fd313aad88333c1a1a">64424ef</a>) (<strong>users</strong>) - Adapt tests to architectural changes (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/89b755a38196594243329b160b79f66c1a29d0c0">89b755a</a>) (<strong>exercises</strong>) - Add integration tests (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/edf9418ede6a5c05a1034fb3e68954e240fa7c11">edf9418</a>) (<strong>users</strong>) - Add special cases for activity, dates and sorting (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/9b37a2b30011ab4015ee2914bc8b036ef2295df1">9b37a2b</a>) (<strong>catalogs</strong>) - Add integration tests (alexander)</p></li>
+</ul>
+</section>
+</section>
+<section id="id14">
+<h2><a class="reference external" href="https://github.com/bizoxe/iron-track/releases/tag/v0.1.0">Release [v0.1.0] - 2026-01-10</a><a class="headerlink" href="#id14" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/bizoxe/iron-track/commits/v0.1.0">See All commits in v0.1.0</a></p></li>
 </ul>
-<section id="id7">
-<h3>⚙️ Miscellaneous Tasks<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h3>
+<section id="id15">
+<h3>⚙️ Miscellaneous Tasks<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/6a3e59b69c1a586213b626d1eac0f9a47cbbee82">6a3e59b</a>) - Update README.md (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/ed639194b3e87967a446e7a29cfc6fec3bb523dc">ed63919</a>) - Allow local imports in tests data fixtures (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/41ec569a68e41abedde60b0926269f26db4730eb">41ec569</a>) - Configure github actions and release tools (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/b02eeeb06fd17296fd6d7e68d87d8668d16df823">b02eeeb</a>) - Configure Makefile (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/3211b887764105adcbc5a6f53160d900ee74098b">3211b88</a>) - Configure git-cliff (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/6a3e59b69c1a586213b626d1eac0f9a47cbbee82">6a3e59b</a>) (<strong>certs</strong>) - Update README.md (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/ed639194b3e87967a446e7a29cfc6fec3bb523dc">ed63919</a>) (<strong>lint</strong>) - Allow local imports in tests data fixtures (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/41ec569a68e41abedde60b0926269f26db4730eb">41ec569</a>) (<strong>ci</strong>) - Configure github actions and release tools (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/b02eeeb06fd17296fd6d7e68d87d8668d16df823">b02eeeb</a>) (<strong>build</strong>) - Configure Makefile (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/3211b887764105adcbc5a6f53160d900ee74098b">3211b88</a>) (<strong>build</strong>) - Configure git-cliff (alexander)</p></li>
 <li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/45202889e7bc9c891c7aafa52ee833245894b50d">4520288</a>) - Configure bump-my-version for automated releases (alexander)</p></li>
 <li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/ccbc75eb8b57cc6462c0027c7f9758aa8d05ee2d">ccbc75e</a>) - Configure sphinx build settings (alexander)</p></li>
 <li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/92a44ecf18d0bee7422cfb1b1d559a8b0368a50d">92a44ec</a>) - Update and expand pre-commit hooks (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/8440a7ec8a697813ede05ec219bed65c373fce55">8440a7e</a>) - Initialize Alembic database migrations (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/94f17124fae7a07e353242d5e4d00563bd9bbb30">94f1712</a>) - Remove old migration files from Git index prior to re-init (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/8440a7ec8a697813ede05ec219bed65c373fce55">8440a7e</a>) (<strong>db</strong>) - Initialize Alembic database migrations (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/94f17124fae7a07e353242d5e4d00563bd9bbb30">94f1712</a>) (<strong>alembic</strong>) - Remove old migration files from Git index prior to re-init (alexander)</p></li>
 <li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/8cdaf2e1e84e21fea7910680e47b196e76a0cc73">8cdaf2e</a>) - Update dependencies and initialize project metadata (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/645c86c630f2f5f6167a7cb7dc62a0b7c0ba47fa">645c86c</a>) - Update logging configuration (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/08eef8d701c057c6a4741c55f29f3bfafc11e031">08eef8d</a>) - Add system-default muscle_groups, equipment, and exercise JSON data (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/06266a2187d0cebbebdd80fbb4a37fad3dcd92db">06266a2</a>) - Add User + Role models (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/bd0f51f46c8d52724fccb5427e50d5c685ecf551">bd0f51f</a>) - Add add_token_to_blacklist + is_token_in_blacklist funcs (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/38c1383eb0daa28cb2d437b276d831c46b657e48">38c1383</a>) - Update JWTSettings class (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/adfd6ba198f06b77f5c6e920a6effafcea15dd30">adfd6ba</a>) - Implement custom MsgPackCoderUserAuth class to encode/decode cache data (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/ea44acaa2feff9e968996f80352e17b441fa37fa">ea44aca</a>) - Add Docker Compose stack for local development (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/f10a53086d968e1d72689474641438fdf80732eb">f10a530</a>) - Configure pgbouncer (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/cf0e31f3c45e25e620cfbf5e69965ea6b6107062">cf0e31f</a>) - Configure postgres (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/ef0277de6c315f4c10e972042fd31d971fca9cd9">ef0277d</a>) - Implement cli command to create system admin (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/95182589630a1e670bfdd8e24dcbda4bda70024b">9518258</a>) - Add NotFoundException class (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/e3f44cf9d42c4251821a42829942e85ddc38dd54">e3f44cf</a>) - Add application settings (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/e533a79885bf4e64b6b28a523fbb6b871a04c7f6">e533a79</a>) - Implement CLI command to create and assign default roles (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/c3a41580d01bb91e03aad3c0aee39cdce21c5654">c3a4158</a>) - Update mypy + ruff configuration in pyproject.toml (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/4419314e9e6cdd13a7adc70b244d387085b19723">4419314</a>) - Add mypy hook (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/645c86c630f2f5f6167a7cb7dc62a0b7c0ba47fa">645c86c</a>) (<strong>config</strong>) - Update logging configuration (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/08eef8d701c057c6a4741c55f29f3bfafc11e031">08eef8d</a>) (<strong>fixtures</strong>) - Add system-default muscle_groups, equipment, and exercise JSON data (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/06266a2187d0cebbebdd80fbb4a37fad3dcd92db">06266a2</a>) (<strong>db</strong>) - Add User + Role models (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/bd0f51f46c8d52724fccb5427e50d5c685ecf551">bd0f51f</a>) (<strong>jwt_helpers</strong>) - Add add_token_to_blacklist + is_token_in_blacklist funcs (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/38c1383eb0daa28cb2d437b276d831c46b657e48">38c1383</a>) (<strong>config</strong>) - Update JWTSettings class (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/adfd6ba198f06b77f5c6e920a6effafcea15dd30">adfd6ba</a>) (<strong>lib</strong>) - Implement custom MsgPackCoderUserAuth class to encode/decode cache data (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/ea44acaa2feff9e968996f80352e17b441fa37fa">ea44aca</a>) (<strong>deploy</strong>) - Add Docker Compose stack for local development (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/f10a53086d968e1d72689474641438fdf80732eb">f10a530</a>) (<strong>deploy</strong>) - Configure pgbouncer (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/cf0e31f3c45e25e620cfbf5e69965ea6b6107062">cf0e31f</a>) (<strong>deploy</strong>) - Configure postgres (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/ef0277de6c315f4c10e972042fd31d971fca9cd9">ef0277d</a>) (<strong>users</strong>) - Implement cli command to create system admin (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/95182589630a1e670bfdd8e24dcbda4bda70024b">9518258</a>) (<strong>lib</strong>) - Add NotFoundException class (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/e3f44cf9d42c4251821a42829942e85ddc38dd54">e3f44cf</a>) (<strong>config</strong>) - Add application settings (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/e533a79885bf4e64b6b28a523fbb6b871a04c7f6">e533a79</a>) (<strong>users</strong>) - Implement CLI command to create and assign default roles (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/c3a41580d01bb91e03aad3c0aee39cdce21c5654">c3a4158</a>) (<strong>lint</strong>) - Update mypy + ruff configuration in pyproject.toml (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/4419314e9e6cdd13a7adc70b244d387085b19723">4419314</a>) (<strong>pre-commit</strong>) - Add mypy hook (alexander)</p></li>
 </ul>
 </section>
 <section id="performance">
 <h3>⚡ Performance<a class="headerlink" href="#performance" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/d8cb3b7e70c6a4d96ff45e7ac9277581708f3303">d8cb3b7</a>) - Optimize infra for high-load and document benchmarks (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/45c7eccd5f9ccc5594286d4ecd5d83714e20dbea">45c7ecc</a>) - Optimize user password update to avoid redundant SELECT query (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/45c7eccd5f9ccc5594286d4ecd5d83714e20dbea">45c7ecc</a>) (<strong>users</strong>) - Optimize user password update to avoid redundant SELECT query (alexander)</p></li>
 </ul>
 </section>
-<section id="id11">
-<h3>🐛 Bug Fixes<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h3>
+<section id="id19">
+<h3>🐛 Bug Fixes<a class="headerlink" href="#id19" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/7afcc39cbd9b45760e323d47faa14d5b99825a99">7afcc39</a>) - Fix typos in exercises and configure codespell ignores (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/03ee0dfb871c9341aeb7a642182b4e51f6784baf">03ee0df</a>) - Remove redundant frozen flag to fix uv sync conflict (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/c1bcb062852b8772b51d4b71041987f615fa1098">c1bcb06</a>) - Switch user cache invalidation to direct Redis delete (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/deedf60d35da7fb3925c003ed76e70355a8d9597">deedf60</a>) - Add role_id in User CRUD by user create (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/7afcc39cbd9b45760e323d47faa14d5b99825a99">7afcc39</a>) (<strong>data</strong>) - Fix typos in exercises and configure codespell ignores (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/03ee0dfb871c9341aeb7a642182b4e51f6784baf">03ee0df</a>) (<strong>ci</strong>) - Remove redundant frozen flag to fix uv sync conflict (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/c1bcb062852b8772b51d4b71041987f615fa1098">c1bcb06</a>) (<strong>cache</strong>) - Switch user cache invalidation to direct Redis delete (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/deedf60d35da7fb3925c003ed76e70355a8d9597">deedf60</a>) (<strong>users</strong>) - Add role_id in User CRUD by user create (alexander)</p></li>
 </ul>
 </section>
-<section id="id12">
-<h3>📚 Documentation<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
+<section id="id20">
+<h3>👷 CI/CD<a class="headerlink" href="#id20" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/4137cc443b1d929dc3f70c5c80fb23b5c421afdf">4137cc4</a>) - Disable automatic changelog commit to main (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/7eace6dd11c9e0e81a0793972fba87c98c18cfdb">7eace6d</a>) - Configure angie proxy with tls1.3, http3 and rate limiting (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/a51905c93b43a0e2b58510fb980381dc4e5cbe13">a51905c</a>) - Configure docker-compose.infra.yaml for local development (alexander)</p></li>
+</ul>
+</section>
+<section id="id21">
+<h3>📚 Documentation<a class="headerlink" href="#id21" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/d36efd1a14b9d3d33410a27e54305d6f3b690a75">d36efd1</a>) - Finalize changelog for v0.1.0 (alexander)</p></li>
 <li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/5815f5e0005a15753bfb59d864149b0c64c565ab">5815f5e</a>) - Update changelog for v0.1.0 (alexander)</p></li>
 <li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/7eb6b8494ea5cb5852d9a22e2d78e4e03f91b8f4">7eb6b84</a>) - Update changelog [skip ci] (github-actions[bot])</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/c51d2ce768061a3f10b26cdd70e7f098d399ee37">c51d2ce</a>) - Generate api documentation for system domain (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/c51d2ce768061a3f10b26cdd70e7f098d399ee37">c51d2ce</a>) (<strong>system</strong>) - Generate api documentation for system domain (alexander)</p></li>
 <li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/136c3a6bb278d51091c4aea4f5b52987a79e8b58">136c3a6</a>) - Update changelog [skip ci] (github-actions[bot])</p></li>
 <li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/2fcab9c19fbee5e6b47648289f46324a623fce36">2fcab9c</a>) - Finalize README layout with  header and tech stack (alexander)</p></li>
 <li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/987155159855d51b08193f0ddcdc8b56f5106f90">9871551</a>) - Update changelog [skip ci] (github-actions[bot])</p></li>
@@ -376,56 +506,63 @@ data-aria-dark="Switch to auto color mode">
 <li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/86b0b0f418e9b6c379e062be074bbcd4373a1f35">86b0b0f</a>) - Update changelog [skip ci] (github-actions[bot])</p></li>
 <li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/c6be6331003f07fc54cce5ae8aad4427427bbc40">c6be633</a>) - Add root index file and usage guide (alexander)</p></li>
 <li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/e2f0412b464966b5b54eeb892a138f418041bb37">e2f0412</a>) - Add CONTRIBUTING.rst with workflow and release guides (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/39904afaeb09d0e95862377532c6ae4d7f3c43d2">39904af</a>) - Generate files for users management and db seeder (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/d6393df5aa5ffc91ff4b806071d9e6979298dfea">d6393df</a>) - Generate files and add docstrings (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/c576d0cae9b9f249d6b779e093b9675240db7e20">c576d0c</a>) - Generate files and update docstrings (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/8cdace5b2fd6cf1b3ace74e6a1bc65f87b2487ea">8cdace5</a>) - Generate files and update docstrings (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/768e75423f11bc6cf42d3ea43de3807196b7229d">768e754</a>) - Generate files and update docstrings (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/4c051fdf0b6589464a8cd351a0f8516aaf49869e">4c051fd</a>) - Generate files and update docstrings for main.py (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/4f6b05a5ebc448f68bb78523644d7bd370e97410">4f6b05a</a>) - Generate files and update docstrings for user, role and base models (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/7a1cf0bbffd67f78c2ad32426a6636d6db10b3a2">7a1cf0b</a>) - Generate files and update docstrings (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/3c3a7863c0201690983da8cbefbcb6a570514523">3c3a786</a>) - Add docstrings for encode_jwt/decode_jwt functions (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/39904afaeb09d0e95862377532c6ae4d7f3c43d2">39904af</a>) (<strong>scripts</strong>) - Generate files for users management and db seeder (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/d6393df5aa5ffc91ff4b806071d9e6979298dfea">d6393df</a>) (<strong>server</strong>) - Generate files and add docstrings (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/c576d0cae9b9f249d6b779e093b9675240db7e20">c576d0c</a>) (<strong>users</strong>) - Generate files and update docstrings (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/8cdace5b2fd6cf1b3ace74e6a1bc65f87b2487ea">8cdace5</a>) (<strong>lib</strong>) - Generate files and update docstrings (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/768e75423f11bc6cf42d3ea43de3807196b7229d">768e754</a>) (<strong>utils</strong>) - Generate files and update docstrings (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/4c051fdf0b6589464a8cd351a0f8516aaf49869e">4c051fd</a>) (<strong>cli</strong>) - Generate files and update docstrings for main.py (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/4f6b05a5ebc448f68bb78523644d7bd370e97410">4f6b05a</a>) (<strong>db</strong>) - Generate files and update docstrings for user, role and base models (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/7a1cf0bbffd67f78c2ad32426a6636d6db10b3a2">7a1cf0b</a>) (<strong>config</strong>) - Generate files and update docstrings (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/3c3a7863c0201690983da8cbefbcb6a570514523">3c3a786</a>) (<strong>lib</strong>) - Add docstrings for encode_jwt/decode_jwt functions (alexander)</p></li>
 </ul>
 </section>
-<section id="id14">
-<h3>🚀 Features<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h3>
+<section id="id23">
+<h3>📦 Build System<a class="headerlink" href="#id23" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/f12bc0a9785b67a80242e0e2c932d206dd1bfa19">f12bc0a</a>) (<strong>migrations</strong>) - Add user_account and role tables (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/47dd84b73b4908b447f739192c204973bc8a4cf7">47dd84b</a>) (<strong>system</strong>) - Configure build backend to use Hatchling (alexander)</p></li>
+</ul>
+</section>
+<section id="id24">
+<h3>🚀 Features<a class="headerlink" href="#id24" title="Link to this heading">¶</a></h3>
 <ul class="simple">
 <li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/916c4bf329a234933c956096effd5c0efccfb6c0">916c4bf</a>) - Implement multi-stage docker and angie orchestration (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/271016d3fc75cd0bdcc031432849ec060feb25c7">271016d</a>) - Pin alpine version and tighten postgres security (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/a436738b396cbda172a10d502ae27d8ba53d352b">a436738</a>) - Configure healthcheck (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/4bf89fb4083c4bcb46593f0a0711274573da394f">4bf89fb</a>) - Introduce custom server commands with default entrypoint (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/b6cf415d38085c858de65d25e81f27666e25c737">b6cf415</a>) - Migrate PostgreSQL from v17 to v18 (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/95e0e1d5e3cf5b6c241a6c16f40dce6dd573f46d">95e0e1d</a>) - Modernize application architecture and integrate services (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/68817b674071b991cec8b65590e9c18d5edae5df">68817b6</a>) - Configure test environment, fixtures, and constants (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/f13e46c5d2af5fabecf25cfefe7437a33b1f57a0">f13e46c</a>) - Implement full authentication and access management API (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/ef94601883112671a2223cf00f358413fbc71cf2">ef94601</a>) - Implement User CRUD endpoints (Requires Superuser) (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/2ebf21e7f74afb62f27a466307e926fdc9d602c2">2ebf21e</a>) - Implement assign and revoke role (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/477617894657e6f4f791103737b978cc6b72afab">4776178</a>) - Implement Authenticate class for user authentication/authorization (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/07fbd4b1e0a72c5e5c781a188ac15b0c01c4d5af">07fbd4b</a>) - Introduce JWTCookieSecurity for precise token handling (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/271016d3fc75cd0bdcc031432849ec060feb25c7">271016d</a>) (<strong>deploy</strong>) - Pin alpine version and tighten postgres security (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/a436738b396cbda172a10d502ae27d8ba53d352b">a436738</a>) (<strong>api</strong>) - Configure healthcheck (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/4bf89fb4083c4bcb46593f0a0711274573da394f">4bf89fb</a>) (<strong>cli</strong>) - Introduce custom server commands with default entrypoint (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/b6cf415d38085c858de65d25e81f27666e25c737">b6cf415</a>) (<strong>deploy</strong>) - Migrate PostgreSQL from v17 to v18 (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/95e0e1d5e3cf5b6c241a6c16f40dce6dd573f46d">95e0e1d</a>) (<strong>core</strong>) - Modernize application architecture and integrate services (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/68817b674071b991cec8b65590e9c18d5edae5df">68817b6</a>) (<strong>testing</strong>) - Configure test environment, fixtures, and constants (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/f13e46c5d2af5fabecf25cfefe7437a33b1f57a0">f13e46c</a>) (<strong>users</strong>) - Implement full authentication and access management API (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/ef94601883112671a2223cf00f358413fbc71cf2">ef94601</a>) (<strong>users</strong>) - Implement User CRUD endpoints (Requires Superuser) (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/2ebf21e7f74afb62f27a466307e926fdc9d602c2">2ebf21e</a>) (<strong>users</strong>) - Implement assign and revoke role (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/477617894657e6f4f791103737b978cc6b72afab">4776178</a>) (<strong>auth</strong>) - Implement Authenticate class for user authentication/authorization (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/07fbd4b1e0a72c5e5c781a188ac15b0c01c4d5af">07fbd4b</a>) (<strong>auth</strong>) - Introduce JWTCookieSecurity for precise token handling (alexander)</p></li>
 </ul>
 </section>
-<section id="id16">
-<h3>🛠️ Refactor<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h3>
+<section id="id26">
+<h3>🛠️ Refactor<a class="headerlink" href="#id26" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/068e581f5f90933cba52769fd827aeaf966f0677">068e581</a>) - Secure JWT handling and update CodeQL (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/c6a748da5a8156ecbb70664e135da5438eda1f02">c6a748d</a>) - Remove redundant password utility functions (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/b851e32d8d0764bccaa612cfe00887b2941ca3cd">b851e32</a>) - Integrate advanced-alchemy PasswordHash type (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/e83d6a8353d90c0b2d91c8d363c222f48f392100">e83d6a8</a>) - Move application source code into ‘src/app’ directory (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/be0863e187a380fb198537d11aad0b44807ec59f">be0863e</a>) - Update docstrings (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/1aa3a1cc8fa7b20923bc0c9d28f4f9dbaf622c5e">1aa3a1c</a>) - Centralize CLI logic and add user management group (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/d0a5e6c2362b6579f2c6697e399c30c973890c72">d0a5e6c</a>) - Use sqlalchemy_config.get_session() for direct session management (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/a9fb397f09fd634c29a5898539581c95ee44141c">a9fb397</a>) - Simplify pgbouncer entrypoint variable handling (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/e31f493fd0287a6f1a101ed95dbb1ceb73592581">e31f493</a>) - Migrate logging to Stdout-only (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/f7f4d43af9e0f1e440d108efb300f27cf022b14f">f7f4d43</a>) - Improve error handling and logging reliability in StructLogMiddleware (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/4a9f98741c3b05e9443d404a59c82209e90c19da">4a9f987</a>) - Rename base class to BaseAPIException (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/4e9d7202ab58cb3d9f26203cdcfeabd224a6b4ae">4e9d720</a>) - Reuse global msgspec JSON objects (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/068e581f5f90933cba52769fd827aeaf966f0677">068e581</a>) (<strong>ci</strong>) - Secure JWT handling and update CodeQL (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/c6a748da5a8156ecbb70664e135da5438eda1f02">c6a748d</a>) (<strong>users</strong>) - Remove redundant password utility functions (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/b851e32d8d0764bccaa612cfe00887b2941ca3cd">b851e32</a>) (<strong>users</strong>) - Integrate advanced-alchemy PasswordHash type (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/e83d6a8353d90c0b2d91c8d363c222f48f392100">e83d6a8</a>) (<strong>structure</strong>) - Move application source code into ‘src/app’ directory (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/be0863e187a380fb198537d11aad0b44807ec59f">be0863e</a>) (<strong>users</strong>) - Update docstrings (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/1aa3a1cc8fa7b20923bc0c9d28f4f9dbaf622c5e">1aa3a1c</a>) (<strong>cli</strong>) - Centralize CLI logic and add user management group (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/d0a5e6c2362b6579f2c6697e399c30c973890c72">d0a5e6c</a>) (<strong>cli</strong>) - Use sqlalchemy_config.get_session() for direct session management (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/a9fb397f09fd634c29a5898539581c95ee44141c">a9fb397</a>) (<strong>deploy</strong>) - Simplify pgbouncer entrypoint variable handling (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/e31f493fd0287a6f1a101ed95dbb1ceb73592581">e31f493</a>) (<strong>logging</strong>) - Migrate logging to Stdout-only (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/f7f4d43af9e0f1e440d108efb300f27cf022b14f">f7f4d43</a>) (<strong>logging</strong>) - Improve error handling and logging reliability in StructLogMiddleware (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/4a9f98741c3b05e9443d404a59c82209e90c19da">4a9f987</a>) (<strong>exceptions</strong>) - Rename base class to BaseAPIException (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/4e9d7202ab58cb3d9f26203cdcfeabd224a6b4ae">4e9d720</a>) (<strong>lib</strong>) - Reuse global msgspec JSON objects (alexander)</p></li>
 </ul>
 </section>
-<section id="id17">
-<h3>🧪 Testing<a class="headerlink" href="#id17" title="Link to this heading">¶</a></h3>
+<section id="id27">
+<h3>🧪 Testing<a class="headerlink" href="#id27" title="Link to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/294eb61eb208f4f88205b056ae57681b78c651c9">294eb61</a>) - Add tests for system health (alexander)</p></li>
-<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/476c6ce582eecd19e903693c0b5d0a01fd4cb957">476c6ce</a>) - Add tests for users, roles and access controllers (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/294eb61eb208f4f88205b056ae57681b78c651c9">294eb61</a>) (<strong>system</strong>) - Add tests for system health (alexander)</p></li>
+<li><p>(<a class="reference external" href="https://github.com/bizoxe/iron-track/commit/476c6ce582eecd19e903693c0b5d0a01fd4cb957">476c6ce</a>) (<strong>users</strong>) - Add tests for users, roles and access controllers (alexander)</p></li>
 </ul>
 <p>IronTrack Changelog</p>
 </section>

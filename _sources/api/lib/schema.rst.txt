@@ -1,22 +1,23 @@
-Base Models & Structures
-========================
-
-This module provides foundation classes for data representation, ensuring consistent
-**camelCase** naming for frontend integration across both **msgspec** and **Pydantic**.
+Base Structs & Schemas
+======================
 
 Msgspec Structures
 ------------------
-High-performance structures for efficient serialization.
 
 .. autoclass:: app.lib.schema.BaseStruct
 
 .. autoclass:: app.lib.schema.CamelizedBaseStruct
 
+.. autoclass:: app.lib.schema.BasePage
+   :undoc-members:
+
 Pydantic Schemas
 ----------------
-Validation-ready schemas for request parsing and complex data logic.
 
 .. autopydantic_model:: app.lib.schema.CamelizedBaseSchema
 
+.. autopydantic_model:: app.lib.schema.ErrorInfo
 
+.. autopydantic_model:: app.lib.schema.ValidationErrorDetail
 
+.. autopydantic_model:: app.lib.schema.ValidationErrorSchema

@@ -78,40 +78,40 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../server/index.html">Core Setup</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../server/core.html">Server Core</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../server/lifespan.html">Lifespan Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../server/cache.html">Application Cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../server/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../server/observability/index.html">Observability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../server/observability/setup.html">Logging Setup and Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../server/observability/handlers.html">Logging Handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../server/observability/middleware.html">ASGI Logging Middleware</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../db/index.html">ORM Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../db/base.html">Base Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../db/user.html">User Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../db/role.html">Role Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../db/reference.html">Reference Data Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../db/index.html">Database Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../db/catalog.html">Catalog Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../db/exercise.html">Exercise Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../db/user.html">User Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../db/base.html">Base Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../db/enums.html">Database Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../db/mixins.html">Shared Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../db/soft_delete.html">Soft-Delete Filter</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../lib/index.html">Core Utilities (lib)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../lib/index.html">Shared Components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../lib/auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../lib/crypt.html">Security Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../lib/deps.html">Infrastructure Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../lib/exceptions.html">API Exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../lib/filters.html">Query Filters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../lib/handlers.html">Exception Handlers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../lib/invalidate_cache.html">Cache Invalidation Helpers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../lib/json_response.html">Custom JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lib/crypt.html">Password Hashing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../lib/jwt_utils.html">JWT Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lib/filters.html">Query Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lib/json_response.html">Msgspec JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lib/openapi_helpers.html">OpenAPI Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lib/schema.html">Base Structs &amp; Schemas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lib/exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lib/handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../lib/pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../lib/schema.html">Base Models &amp; Structures</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../lib/serializers.html">Serialization Registry</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../utils/index.html">Utilities and Helpers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../utils/log_utils/index.html">Structured Logging Configuration</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../utils/log_utils/handlers.html">Logging Handlers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../utils/log_utils/setup.html">Logging Setup and Configuration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../utils/log_utils/middleware.html">ASGI Logging Middleware</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../utils/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lib/deps.html">Infrastructure Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lib/serializers.html">Cache Serializers</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../scripts/index.html">Application Scripts</a><ul>
@@ -120,40 +120,42 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="../../index.html">Domains Overview</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../../users/index.html">Users Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../users/controllers/access.html">Access Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../users/controllers/users.html">User CRUD Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../users/controllers/user_role.html">User Role Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../users/services.html">User and Role Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../users/auth.html">Authentication &amp; Authorization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../users/deps.html">User Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../users/filters.html">Users Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../users/jwt_helpers.html">JWT Token Utilities</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../users/utils.html">User Utilities and Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../enums.html">Shared Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../accounts/index.html">Accounts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../accounts/controllers/access.html">Access Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../accounts/controllers/users.html">User Account Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../accounts/controllers/user_roles.html">User Role Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../accounts/services.html">Accounts Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../accounts/schemas.html">Accounts Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../accounts/auth.html">Authentication &amp; Authorization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../accounts/deps.html">Accounts Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../accounts/filters.html">Accounts Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../accounts/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../accounts/utils.html">Accounts Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="reference internal" href="../index.html">Catalogs Domain</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html">Catalogs</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="equipment.html">Equipment Controllers</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">Exercise Tag Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="muscle_groups.html">Muscle Group Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../services.html">Catalogs Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../schemas.html">Catalogs Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../deps.html">Catalogs Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../filters.html">Catalogs Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../services.html">Catalogs Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../schemas.html">Catalogs Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../deps.html">Catalogs Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../filters.html">Catalogs Filters</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../exercises/index.html">Exercises Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../exercises/controllers.html">Exercise Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../exercises/services.html">Exercises Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../exercises/schemas.html">Exercises Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../exercises/filters.html">Exercises Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../exercises/deps.html">Exercises Domain Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../exercises/index.html">Exercises</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../exercises/controllers.html">Exercise Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../exercises/services.html">Exercises Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../exercises/schemas.html">Exercises Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../exercises/deps.html">Exercises Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../exercises/filters.html">Exercises Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../exercises/utils.html">Exercises Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../system/index.html">System Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../system/index.html">System</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../system/controllers.html">System Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../system/schemas.html">System Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../system/schemas.html">System Schemas</a></li>
 </ul>
 </li>
 </ul>
@@ -162,7 +164,7 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading" aria-level="3"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../contribution-guide.html">Contribution Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">Changelog</a></li>
@@ -180,8 +182,10 @@ data-aria-dark="Switch to auto color mode">
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
 <li><a class="reference internal" href="#app.domain.catalogs.controllers.exercise_tags.create_exercise_tag"><code class="docutils literal notranslate"><span class="pre">create_exercise_tag()</span></code></a></li>
 <li><a class="reference internal" href="#app.domain.catalogs.controllers.exercise_tags.get_list_exercise_tags"><code class="docutils literal notranslate"><span class="pre">get_list_exercise_tags()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.controllers.exercise_tags.get_list_with_retired_exercise_tags"><code class="docutils literal notranslate"><span class="pre">get_list_with_retired_exercise_tags()</span></code></a></li>
 <li><a class="reference internal" href="#app.domain.catalogs.controllers.exercise_tags.get_exercise_tag"><code class="docutils literal notranslate"><span class="pre">get_exercise_tag()</span></code></a></li>
 <li><a class="reference internal" href="#app.domain.catalogs.controllers.exercise_tags.update_exercise_tag"><code class="docutils literal notranslate"><span class="pre">update_exercise_tag()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.controllers.exercise_tags.restore_exercise_tag"><code class="docutils literal notranslate"><span class="pre">restore_exercise_tag()</span></code></a></li>
 <li><a class="reference internal" href="#app.domain.catalogs.controllers.exercise_tags.delete_exercise_tag"><code class="docutils literal notranslate"><span class="pre">delete_exercise_tag()</span></code></a></li>
 </ul>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
@@ -208,7 +212,7 @@ data-aria-dark="Switch to auto color mode">
         <span>/</span>
         <meta itemprop="position" content="3" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <a itemprop="item" href="../index.html"><span itemprop="name">Catalogs Domain</span></a>
+        <a itemprop="item" href="../index.html"><span itemprop="name">Catalogs</span></a>
         <span>/</span>
         <meta itemprop="position" content="4" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
@@ -227,99 +231,72 @@ data-aria-dark="Switch to auto color mode">
   <article class="yue" role="main">
           <section id="module-app.domain.catalogs.controllers.exercise_tags">
 <span id="exercise-tag-controllers"></span><h1>Exercise Tag Controllers<a class="headerlink" href="#module-app.domain.catalogs.controllers.exercise_tags" title="Link to this heading">¶</a></h1>
-<p>Exercise Tags Management Endpoints.</p>
-<p>Provides functionality for CRUD operations on exercise tags.
-Exercise tags are strictly system-wide identifiers used solely for classifying
-and searching system-default exercises.</p>
+<p>Exercise Tag Endpoints.</p>
+<p>Provides functionality for managing exercise tags.</p>
+<p>Exercise tags are strictly system-wide identifiers used solely for classifying
+and searching system exercises.</p>
 <p>Users cannot associate tags with their custom exercises.
-Creating, updating, and deleting tags requires superuser privileges.
-Reading tag data is available to all authenticated users.</p>
+Creating, updating, retiring, or restoring tags requires superuser privileges.
+Reading tag data is available to all users.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="app.domain.catalogs.controllers.exercise_tags.create_exercise_tag">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_exercise_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.schemas.UserAuth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../schemas.html#app.domain.catalogs.schemas.ExerciseTagCreate" title="app.domain.catalogs.schemas.ExerciseTagCreate"><span class="pre">ExerciseTagCreate</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/exercise_tags.html#create_exercise_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.exercise_tags.create_exercise_tag" title="Link to this definition">¶</a></dt>
-<dd><p>Create a new exercise tag entry.</p>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_exercise_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../accounts/schemas.html#app.domain.accounts.schemas.UserAuth" title="app.domain.accounts.schemas.UserAuth"><span class="pre">UserAuth</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags_service</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../services.html#app.domain.catalogs.services.TagService" title="app.domain.catalogs.services.TagService"><span class="pre">TagService</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../schemas.html#app.domain.catalogs.schemas.TagCreate" title="app.domain.catalogs.schemas.TagCreate"><span class="pre">TagCreate</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/exercise_tags.html#create_exercise_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.exercise_tags.create_exercise_tag" title="Link to this definition">¶</a></dt>
+<dd><p>Create a new exercise tag.</p>
 <p>Requires superuser privileges.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The created exercise tag data.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="../schemas.html#app.domain.catalogs.schemas.ExerciseTagRead" title="app.domain.catalogs.schemas.ExerciseTagRead"><em>ExerciseTagRead</em></a></p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../../../lib/exceptions.html#app.lib.exceptions.ConflictException" title="app.lib.exceptions.ConflictException"><strong>ConflictException</strong></a> – If an exercise tag with the same name already exists.</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="app.domain.catalogs.controllers.exercise_tags.get_list_exercise_tags">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_list_exercise_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.schemas.UserAuth</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/exercise_tags.html#get_list_exercise_tags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.exercise_tags.get_list_exercise_tags" title="Link to this definition">¶</a></dt>
-<dd><p>Retrieve all exercise tags with filtering and sorting.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A list of exercise tags items.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>[<a class="reference internal" href="../schemas.html#app.domain.catalogs.schemas.ExerciseTagRead" title="app.domain.catalogs.schemas.ExerciseTagRead"><em>ExerciseTagRead</em></a>]</p>
-</dd>
-</dl>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_list_exercise_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../accounts/schemas.html#app.domain.accounts.schemas.UserAuth" title="app.domain.accounts.schemas.UserAuth"><span class="pre">UserAuth</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags_service</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../services.html#app.domain.catalogs.services.TagService" title="app.domain.catalogs.services.TagService"><span class="pre">TagService</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../filters.html#app.domain.catalogs.filters.CatalogFilters" title="app.domain.catalogs.filters.CatalogFilters"><span class="pre">CatalogFilters</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/exercise_tags.html#get_list_exercise_tags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.exercise_tags.get_list_exercise_tags" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve a list of exercise tags.</p>
+<p>Visibility:</p>
+<ul class="simple">
+<li><p>Only active exercise tags are returned.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.domain.catalogs.controllers.exercise_tags.get_list_with_retired_exercise_tags">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_list_with_retired_exercise_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../accounts/schemas.html#app.domain.accounts.schemas.UserAuth" title="app.domain.accounts.schemas.UserAuth"><span class="pre">UserAuth</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags_service</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../services.html#app.domain.catalogs.services.TagService" title="app.domain.catalogs.services.TagService"><span class="pre">TagService</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../filters.html#app.domain.catalogs.filters.CatalogFiltersWithRetired" title="app.domain.catalogs.filters.CatalogFiltersWithRetired"><span class="pre">CatalogFiltersWithRetired</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/exercise_tags.html#get_list_with_retired_exercise_tags"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.exercise_tags.get_list_with_retired_exercise_tags" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve a list of exercise tags with retired items.</p>
+<p>Requires superuser privileges.</p>
+<p>Visibility:</p>
+<ul class="simple">
+<li><p>Active and retired exercise tags are returned.</p></li>
+</ul>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="app.domain.catalogs.controllers.exercise_tags.get_exercise_tag">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_exercise_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.schemas.UserAuth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/exercise_tags.html#get_exercise_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.exercise_tags.get_exercise_tag" title="Link to this definition">¶</a></dt>
-<dd><p>Get information about a specific exercise tag.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Detailed exercise tag data.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="../schemas.html#app.domain.catalogs.schemas.ExerciseTagRead" title="app.domain.catalogs.schemas.ExerciseTagRead"><em>ExerciseTagRead</em></a></p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../../../lib/exceptions.html#app.lib.exceptions.NotFoundException" title="app.lib.exceptions.NotFoundException"><strong>NotFoundException</strong></a> – If the exercise tag with the given ID does not exist.</p>
-</dd>
-</dl>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_exercise_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../accounts/schemas.html#app.domain.accounts.schemas.UserAuth" title="app.domain.accounts.schemas.UserAuth"><span class="pre">UserAuth</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags_service</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../services.html#app.domain.catalogs.services.TagService" title="app.domain.catalogs.services.TagService"><span class="pre">TagService</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/exercise_tags.html#get_exercise_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.exercise_tags.get_exercise_tag" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve exercise tag by ID.</p>
+<p>Visibility:</p>
+<ul class="simple">
+<li><p>Only active exercise tags are returned.</p></li>
+</ul>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="app.domain.catalogs.controllers.exercise_tags.update_exercise_tag">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_exercise_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.schemas.UserAuth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../schemas.html#app.domain.catalogs.schemas.ExerciseTagUpdate" title="app.domain.catalogs.schemas.ExerciseTagUpdate"><span class="pre">ExerciseTagUpdate</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/exercise_tags.html#update_exercise_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.exercise_tags.update_exercise_tag" title="Link to this definition">¶</a></dt>
-<dd><p>Update information about a specific exercise tag.</p>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_exercise_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../accounts/schemas.html#app.domain.accounts.schemas.UserAuth" title="app.domain.accounts.schemas.UserAuth"><span class="pre">UserAuth</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags_service</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../services.html#app.domain.catalogs.services.TagService" title="app.domain.catalogs.services.TagService"><span class="pre">TagService</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../schemas.html#app.domain.catalogs.schemas.TagUpdate" title="app.domain.catalogs.schemas.TagUpdate"><span class="pre">TagUpdate</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/exercise_tags.html#update_exercise_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.exercise_tags.update_exercise_tag" title="Link to this definition">¶</a></dt>
+<dd><p>Update exercise tag by ID.</p>
 <p>Requires superuser privileges.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The updated exercise tag data.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="../schemas.html#app.domain.catalogs.schemas.ExerciseTagRead" title="app.domain.catalogs.schemas.ExerciseTagRead"><em>ExerciseTagRead</em></a></p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><a class="reference internal" href="../../../lib/exceptions.html#app.lib.exceptions.NotFoundException" title="app.lib.exceptions.NotFoundException"><strong>NotFoundException</strong></a> – If the exercise tag with the given ID does not exist.</p></li>
-<li><p><a class="reference internal" href="../../../lib/exceptions.html#app.lib.exceptions.ConflictException" title="app.lib.exceptions.ConflictException"><strong>ConflictException</strong></a> – If an exercise tag with the same name already exists.</p></li>
-</ul>
-</dd>
-</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.domain.catalogs.controllers.exercise_tags.restore_exercise_tag">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">restore_exercise_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../accounts/schemas.html#app.domain.accounts.schemas.UserAuth" title="app.domain.accounts.schemas.UserAuth"><span class="pre">UserAuth</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags_service</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../services.html#app.domain.catalogs.services.TagService" title="app.domain.catalogs.services.TagService"><span class="pre">TagService</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../schemas.html#app.domain.catalogs.schemas.TagRestore" title="app.domain.catalogs.schemas.TagRestore"><span class="pre">TagRestore</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/exercise_tags.html#restore_exercise_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.exercise_tags.restore_exercise_tag" title="Link to this definition">¶</a></dt>
+<dd><p>Restore a retired exercise tag, optionally renaming it.</p>
+<p>Requires superuser privileges.</p>
+<p>A name change may be required if the original name is already used
+by another active exercise tag.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="app.domain.catalogs.controllers.exercise_tags.delete_exercise_tag">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_exercise_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.schemas.UserAuth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://fastapi.tiangolo.com/reference/responses/#fastapi.responses.Response" title="(in FastAPI vNone)"><span class="pre">Response</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/exercise_tags.html#delete_exercise_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.exercise_tags.delete_exercise_tag" title="Link to this definition">¶</a></dt>
-<dd><p>Remove an exercise tag from the system.</p>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_exercise_tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../accounts/schemas.html#app.domain.accounts.schemas.UserAuth" title="app.domain.accounts.schemas.UserAuth"><span class="pre">UserAuth</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags_service</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../services.html#app.domain.catalogs.services.TagService" title="app.domain.catalogs.services.TagService"><span class="pre">TagService</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">tag_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://fastapi.tiangolo.com/reference/response/#fastapi.Response" title="(in FastAPI v0.0.0)"><span class="pre">Response</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/exercise_tags.html#delete_exercise_tag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.exercise_tags.delete_exercise_tag" title="Link to this definition">¶</a></dt>
+<dd><p>Retire an exercise tag.</p>
 <p>Requires superuser privileges.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>204 No Content on success.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Response</p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../../../lib/exceptions.html#app.lib.exceptions.NotFoundException" title="app.lib.exceptions.NotFoundException"><strong>NotFoundException</strong></a> – If the exercise tag with the given ID does not exist.</p>
-</dd>
-</dl>
 </dd></dl>
 
 </section>

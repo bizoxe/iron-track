@@ -1,6 +1,4 @@
-System Domain Schemas
-=====================
+System Schemas
+==============
 
 .. automodule:: app.domain.system.schemas
-
-

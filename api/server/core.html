@@ -2,7 +2,7 @@
 <html lang="en" data-accent-color="violet" data-content_root="../../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Server Core - IronTrack Docs</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Lifespan Management" href="lifespan.html" /><link rel="prev" title="Core Setup" href="index.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Server Core - IronTrack Docs</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Application Cache" href="cache.html" /><link rel="prev" title="Core Setup" href="index.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
@@ -78,40 +78,40 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Core Setup</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Server Core</a></li>
-<li class="toctree-l3"><a class="reference internal" href="lifespan.html">Lifespan Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cache.html">Application Cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="observability/index.html">Observability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="observability/setup.html">Logging Setup and Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="observability/handlers.html">Logging Handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="observability/middleware.html">ASGI Logging Middleware</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../db/index.html">ORM Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../db/base.html">Base Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../db/user.html">User Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../db/role.html">Role Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../db/reference.html">Reference Data Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../db/index.html">Database Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../db/catalog.html">Catalog Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../db/exercise.html">Exercise Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/user.html">User Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/base.html">Base Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/enums.html">Database Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/mixins.html">Shared Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/soft_delete.html">Soft-Delete Filter</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../lib/index.html">Core Utilities (lib)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../lib/index.html">Shared Components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../lib/auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/crypt.html">Security Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/deps.html">Infrastructure Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/exceptions.html">API Exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/filters.html">Query Filters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/handlers.html">Exception Handlers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/invalidate_cache.html">Cache Invalidation Helpers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/json_response.html">Custom JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/crypt.html">Password Hashing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lib/jwt_utils.html">JWT Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/filters.html">Query Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/json_response.html">Msgspec JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/openapi_helpers.html">OpenAPI Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/schema.html">Base Structs &amp; Schemas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../lib/pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/schema.html">Base Models &amp; Structures</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../lib/serializers.html">Serialization Registry</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../utils/index.html">Utilities and Helpers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../utils/log_utils/index.html">Structured Logging Configuration</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../utils/log_utils/handlers.html">Logging Handlers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../utils/log_utils/setup.html">Logging Setup and Configuration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../utils/log_utils/middleware.html">ASGI Logging Middleware</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/deps.html">Infrastructure Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lib/serializers.html">Cache Serializers</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../scripts/index.html">Application Scripts</a><ul>
@@ -120,40 +120,42 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../domain/index.html">Domains Overview</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../domain/users/index.html">Users Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/access.html">Access Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/users.html">User CRUD Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/user_role.html">User Role Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/services.html">User and Role Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication &amp; Authorization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/deps.html">User Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/filters.html">Users Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/utils.html">User Utilities and Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/enums.html">Shared Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/accounts/index.html">Accounts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/controllers/access.html">Access Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/controllers/users.html">User Account Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/controllers/user_roles.html">User Role Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/services.html">Accounts Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/schemas.html">Accounts Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/auth.html">Authentication &amp; Authorization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/deps.html">Accounts Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/filters.html">Accounts Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/utils.html">Accounts Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../domain/catalogs/index.html">Catalogs Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../domain/catalogs/index.html">Catalogs</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/equipment.html">Equipment Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/exercise_tags.html">Exercise Tag Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/muscle_groups.html">Muscle Group Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/services.html">Catalogs Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/schemas.html">Catalogs Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/deps.html">Catalogs Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/filters.html">Catalogs Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/services.html">Catalogs Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/schemas.html">Catalogs Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/deps.html">Catalogs Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/filters.html">Catalogs Filters</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../domain/exercises/index.html">Exercises Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/controllers.html">Exercise Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/services.html">Exercises Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/schemas.html">Exercises Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/filters.html">Exercises Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/deps.html">Exercises Domain Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/exercises/index.html">Exercises</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/controllers.html">Exercise Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/services.html">Exercises Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/schemas.html">Exercises Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/deps.html">Exercises Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/filters.html">Exercises Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/utils.html">Exercises Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../domain/system/index.html">System Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../domain/system/index.html">System</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../domain/system/controllers.html">System Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/system/schemas.html">System Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/system/schemas.html">System Schemas</a></li>
 </ul>
 </li>
 </ul>
@@ -162,7 +164,7 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading" aria-level="3"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../contribution-guide.html">Contribution Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
@@ -222,36 +224,14 @@ data-aria-dark="Switch to auto color mode">
 <h1>Server Core<a class="headerlink" href="#server-core" title="Link to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="app.server.core.create_app">
-<span class="sig-name descname"><span class="pre">create_app</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://fastapi.tiangolo.com/reference/fastapi/#fastapi.FastAPI" title="(in FastAPI vNone)"><span class="pre">FastAPI</span></a></span></span><a class="reference internal" href="../../_modules/app/server/core.html#create_app"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.server.core.create_app" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">create_app</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://fastapi.tiangolo.com/reference/fastapi/#fastapi.FastAPI" title="(in FastAPI v0.0.0)"><span class="pre">FastAPI</span></a></span></span><a class="reference internal" href="../../_modules/app/server/core.html#create_app"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.server.core.create_app" title="Link to this definition">¶</a></dt>
 <dd><p>Create and configure the core FastAPI application instance.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The fully configured application instance.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>FastAPI</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="app.server.core.lifespan">
-<span class="sig-name descname"><span class="pre">lifespan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FastAPI</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../config/base.html#app.config.base.Settings" title="app.config.base.Settings"><span class="pre">Settings</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">AsyncIterator</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/app/server/core.html#lifespan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.server.core.lifespan" title="Link to this definition">¶</a></dt>
-<dd><p>Manage application lifecycle resources.</p>
-<p>Handles the setup and teardown of essential asynchronous services, including
-logging queue, Redis client, and application-level caches.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>app</strong> (<em>FastAPI</em>) – The main application instance.</p></li>
-<li><p><strong>settings</strong> (<a class="reference internal" href="../config/base.html#app.config.base.Settings" title="app.config.base.Settings"><em>Settings</em></a>) – The application settings object.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Yields<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>AsyncIterator[None]</em> – Context manager flow control.</p>
-</dd>
-</dl>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">lifespan</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">FastAPI</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../config/base.html#app.config.base.Settings" title="app.config.base.Settings"><span class="pre">Settings</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">AsyncIterator</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/app/server/core.html#lifespan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.server.core.lifespan" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </section>
 
@@ -267,10 +247,10 @@ logging queue, Redis client, and application-level caches.</p>
         <span>Previous</span><div class="title">Core Setup</div></div>
     </a>
   </div><div class="navigation-next">
-    <a href="lifespan.html">
+    <a href="cache.html">
       <div class="page-info">
         <span>Next</span>
-        <div class="title">Lifespan Management</div>
+        <div class="title">Application Cache</div>
       </div>
       <i class="i-lucide chevron-right"></i>
     </a>

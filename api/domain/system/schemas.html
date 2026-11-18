@@ -2,7 +2,7 @@
 <html lang="en" data-accent-color="violet" data-content_root="../../../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>System Domain Schemas - IronTrack Docs</title><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Entry Point (main.py)" href="../../main.html" /><link rel="prev" title="System Controllers" href="controllers.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>System Schemas - IronTrack Docs</title><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Entry Point (main.py)" href="../../main.html" /><link rel="prev" title="System Controllers" href="controllers.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=e1a1ceaf" />
@@ -21,7 +21,7 @@
 }
 </style>
     
-  <meta property="og:type" content="website"/><meta property="og:title" content="System Domain Schemas"/>
+  <meta property="og:type" content="website"/><meta property="og:title" content="System Schemas"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -78,40 +78,40 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../server/index.html">Core Setup</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../server/core.html">Server Core</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../server/lifespan.html">Lifespan Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/cache.html">Application Cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/observability/index.html">Observability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../server/observability/setup.html">Logging Setup and Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/observability/handlers.html">Logging Handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/observability/middleware.html">ASGI Logging Middleware</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../db/index.html">ORM Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../db/base.html">Base Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../db/user.html">User Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../db/role.html">Role Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../db/reference.html">Reference Data Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../db/index.html">Database Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../db/catalog.html">Catalog Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../db/exercise.html">Exercise Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/user.html">User Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/base.html">Base Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/enums.html">Database Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/mixins.html">Shared Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/soft_delete.html">Soft-Delete Filter</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../lib/index.html">Core Utilities (lib)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../lib/index.html">Shared Components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../lib/auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/crypt.html">Security Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/deps.html">Infrastructure Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/exceptions.html">API Exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/filters.html">Query Filters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/handlers.html">Exception Handlers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/invalidate_cache.html">Cache Invalidation Helpers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/json_response.html">Custom JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/crypt.html">Password Hashing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../lib/jwt_utils.html">JWT Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/filters.html">Query Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/json_response.html">Msgspec JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/openapi_helpers.html">OpenAPI Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/schema.html">Base Structs &amp; Schemas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../lib/pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/schema.html">Base Models &amp; Structures</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/serializers.html">Serialization Registry</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../utils/index.html">Utilities and Helpers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../utils/log_utils/index.html">Structured Logging Configuration</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../utils/log_utils/handlers.html">Logging Handlers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../utils/log_utils/setup.html">Logging Setup and Configuration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../utils/log_utils/middleware.html">ASGI Logging Middleware</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../utils/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/deps.html">Infrastructure Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/serializers.html">Cache Serializers</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../scripts/index.html">Application Scripts</a><ul>
@@ -120,40 +120,42 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html">Domains Overview</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../users/index.html">Users Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../users/controllers/access.html">Access Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/controllers/users.html">User CRUD Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/controllers/user_role.html">User Role Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/services.html">User and Role Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/auth.html">Authentication &amp; Authorization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/deps.html">User Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/filters.html">Users Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/jwt_helpers.html">JWT Token Utilities</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/utils.html">User Utilities and Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../enums.html">Shared Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../accounts/index.html">Accounts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/controllers/access.html">Access Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/controllers/users.html">User Account Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/controllers/user_roles.html">User Role Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/services.html">Accounts Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/schemas.html">Accounts Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/auth.html">Authentication &amp; Authorization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/deps.html">Accounts Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/filters.html">Accounts Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/utils.html">Accounts Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../catalogs/index.html">Catalogs Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../catalogs/index.html">Catalogs</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../catalogs/controllers/equipment.html">Equipment Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../catalogs/controllers/exercise_tags.html">Exercise Tag Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../catalogs/controllers/muscle_groups.html">Muscle Group Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../catalogs/services.html">Catalogs Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../catalogs/schemas.html">Catalogs Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../catalogs/deps.html">Catalogs Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../catalogs/filters.html">Catalogs Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../catalogs/services.html">Catalogs Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../catalogs/schemas.html">Catalogs Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../catalogs/deps.html">Catalogs Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../catalogs/filters.html">Catalogs Filters</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../exercises/index.html">Exercises Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../exercises/controllers.html">Exercise Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../exercises/services.html">Exercises Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../exercises/schemas.html">Exercises Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../exercises/filters.html">Exercises Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../exercises/deps.html">Exercises Domain Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../exercises/index.html">Exercises</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/controllers.html">Exercise Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/services.html">Exercises Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/schemas.html">Exercises Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/deps.html">Exercises Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/filters.html">Exercises Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/utils.html">Exercises Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="reference internal" href="index.html">System Domain</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">System</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="controllers.html">System Controllers</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">System Domain Schemas</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">System Schemas</a></li>
 </ul>
 </li>
 </ul>
@@ -162,7 +164,7 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading" aria-level="3"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../contribution-guide.html">Contribution Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
@@ -204,11 +206,11 @@ data-aria-dark="Switch to auto color mode">
         <span>/</span>
         <meta itemprop="position" content="3" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <a itemprop="item" href="index.html"><span itemprop="name">System Domain</span></a>
+        <a itemprop="item" href="index.html"><span itemprop="name">System</span></a>
         <span>/</span>
         <meta itemprop="position" content="4" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <strong itemprop="name">System Domain Schemas</strong>
+        <strong itemprop="name">System Schemas</strong>
         <meta itemprop="position" content="5" />
       </li></ol>
     <div class="xl:hidden ml-1">
@@ -222,11 +224,11 @@ data-aria-dark="Switch to auto color mode">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
           <section id="module-app.domain.system.schemas">
-<span id="system-domain-schemas"></span><h1>System Domain Schemas<a class="headerlink" href="#module-app.domain.system.schemas" title="Link to this heading">¶</a></h1>
+<span id="system-schemas"></span><h1>System Schemas<a class="headerlink" href="#module-app.domain.system.schemas" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.domain.system.schemas.SystemHealth">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SystemHealth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.14)"><span class="pre">Literal</span></a><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'online'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'offline'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.14)"><span class="pre">Literal</span></a><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'online'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'offline'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'IronTrack'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'0.2.0'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/app/domain/system/schemas.html#SystemHealth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.system.schemas.SystemHealth" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SystemHealth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.15)"><span class="pre">Literal</span></a><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'online'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'offline'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Literal" title="(in Python v3.15)"><span class="pre">Literal</span></a><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'online'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'offline'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'IronTrack'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'0.2.0'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/app/domain/system/schemas.html#SystemHealth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.system.schemas.SystemHealth" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>System health status report.</p>
 </dd></dl>
 

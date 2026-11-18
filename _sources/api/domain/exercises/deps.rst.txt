@@ -1,12 +1,10 @@
-Exercises Domain Dependencies
-=============================
-
-Provides dependency injection providers for exercise services, ensuring scoped database sessions for each request.
+Exercises Dependencies
+======================
 
 .. automodule:: app.domain.exercises.deps
-   :members: provide_exercise_service
+   :members:
 
 .. data:: ExerciseServiceDep
-   :annotation: = Annotated[ExerciseService, Depends(provide_exercise_service)]
+   :annotation: = Annotated[ExerciseService, Depends(provide_exercises_service)]
 
-   Dependency injection provider for the exercise service.
+   Injectable ``ExerciseService`` scoped to the request.

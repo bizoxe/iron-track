@@ -1,48 +1,30 @@
-Catalogs Domain Services
-========================
+Catalogs Services
+=================
 
-Domain services encapsulating the business logic and caching strategies for catalog models.
-
----
-
-Base Catalog Service (`BaseCatalogService`)
--------------------------------------------
+Base Catalog Service
+--------------------
 
 .. autoclass:: app.domain.catalogs.services.BaseCatalogService()
    :no-inherited-members:
-   :undoc-members:
-   :members: read_schema, get_list_items, get_all_cached, get_managed_objs, upsert_many, create, update, delete
-   :exclude-members: _invalidate_cache
+   :exclude-members: read_schema, list_envelope
 
----
-
-Muscle Group Service (`MuscleGroupService`)
--------------------------------------------
+Muscle Group Service
+--------------------
 
 .. autoclass:: app.domain.catalogs.services.MuscleGroupService()
    :no-inherited-members:
-   :undoc-members:
-   :members: read_schema
-   :exclude-members: MuscleGroupRepository, repository_type
+   :exclude-members: MuscleGroupRepository, model_type, repository_type
 
----
-
-Equipment Service (`EquipmentService`)
---------------------------------------
+Equipment Service
+-----------------
 
 .. autoclass:: app.domain.catalogs.services.EquipmentService()
    :no-inherited-members:
-   :undoc-members:
-   :members: read_schema
-   :exclude-members: EquipmentRepository, repository_type
+   :exclude-members: EquipmentRepository, model_type, repository_type
 
----
+Tag Service
+-----------
 
-Exercise Tag Service (`ExerciseTagService`)
--------------------------------------------
-
-.. autoclass:: app.domain.catalogs.services.ExerciseTagService()
+.. autoclass:: app.domain.catalogs.services.TagService()
    :no-inherited-members:
-   :undoc-members:
-   :members: read_schema
-   :exclude-members: ExerciseTagRepository, repository_type
+   :exclude-members: TagRepository, model_type, repository_type

@@ -78,40 +78,40 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/server/index.html">Core Setup</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api/server/core.html">Server Core</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/server/lifespan.html">Lifespan Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/server/cache.html">Application Cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/server/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/server/observability/index.html">Observability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/server/observability/setup.html">Logging Setup and Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/server/observability/handlers.html">Logging Handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/server/observability/middleware.html">ASGI Logging Middleware</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api/db/index.html">ORM Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/db/base.html">Base Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/db/user.html">User Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/db/role.html">Role Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/db/reference.html">Reference Data Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/db/index.html">Database Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/db/catalog.html">Catalog Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/db/exercise.html">Exercise Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/db/user.html">User Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/db/base.html">Base Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/db/enums.html">Database Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/db/mixins.html">Shared Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/db/soft_delete.html">Soft-Delete Filter</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api/lib/index.html">Core Utilities (lib)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/lib/index.html">Shared Components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api/lib/auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/crypt.html">Security Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/deps.html">Infrastructure Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/exceptions.html">API Exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/filters.html">Query Filters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/handlers.html">Exception Handlers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/invalidate_cache.html">Cache Invalidation Helpers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/json_response.html">Custom JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/crypt.html">Password Hashing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/lib/jwt_utils.html">JWT Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/filters.html">Query Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/json_response.html">Msgspec JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/openapi_helpers.html">OpenAPI Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/schema.html">Base Structs &amp; Schemas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/lib/pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/schema.html">Base Models &amp; Structures</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/serializers.html">Serialization Registry</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api/utils/index.html">Utilities and Helpers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/utils/log_utils/index.html">Structured Logging Configuration</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/utils/log_utils/handlers.html">Logging Handlers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/utils/log_utils/setup.html">Logging Setup and Configuration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/utils/log_utils/middleware.html">ASGI Logging Middleware</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api/utils/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/deps.html">Infrastructure Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/serializers.html">Cache Serializers</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/scripts/index.html">Application Scripts</a><ul>
@@ -120,40 +120,42 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/domain/index.html">Domains Overview</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/domain/users/index.html">Users Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/controllers/access.html">Access Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/controllers/users.html">User CRUD Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/controllers/user_role.html">User Role Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/services.html">User and Role Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/auth.html">Authentication &amp; Authorization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/deps.html">User Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/filters.html">Users Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/utils.html">User Utilities and Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/domain/enums.html">Shared Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/domain/accounts/index.html">Accounts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/controllers/access.html">Access Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/controllers/users.html">User Account Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/controllers/user_roles.html">User Role Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/services.html">Accounts Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/schemas.html">Accounts Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/auth.html">Authentication &amp; Authorization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/deps.html">Accounts Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/filters.html">Accounts Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/utils.html">Accounts Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="api/domain/catalogs/index.html">Catalogs Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/domain/catalogs/index.html">Catalogs</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/controllers/equipment.html">Equipment Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/controllers/exercise_tags.html">Exercise Tag Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/controllers/muscle_groups.html">Muscle Group Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/services.html">Catalogs Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/schemas.html">Catalogs Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/deps.html">Catalogs Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/filters.html">Catalogs Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/services.html">Catalogs Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/schemas.html">Catalogs Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/deps.html">Catalogs Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/filters.html">Catalogs Filters</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="api/domain/exercises/index.html">Exercises Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/controllers.html">Exercise Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/services.html">Exercises Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/schemas.html">Exercises Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/filters.html">Exercises Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/deps.html">Exercises Domain Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/domain/exercises/index.html">Exercises</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/controllers.html">Exercise Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/services.html">Exercises Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/schemas.html">Exercises Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/deps.html">Exercises Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/filters.html">Exercises Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/utils.html">Exercises Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="api/domain/system/index.html">System Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/domain/system/index.html">System</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/domain/system/controllers.html">System Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/system/schemas.html">System Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/system/schemas.html">System Schemas</a></li>
 </ul>
 </li>
 </ul>
@@ -162,7 +164,7 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading" aria-level="3"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="contribution-guide.html">Contribution Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
@@ -178,14 +180,6 @@ data-aria-dark="Switch to auto color mode">
       <i class="i-lucide close"></i>
     </button>
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
-<li><a class="reference internal" href="#implemented-components">Implemented Components</a><ul>
-<li><a class="reference internal" href="#i-architecture-and-design-patterns">I. Architecture and Design Patterns</a></li>
-<li><a class="reference internal" href="#ii-performance-optimization">II. Performance &amp; Optimization</a></li>
-<li><a class="reference internal" href="#iii-security-administration">III. Security &amp; Administration</a></li>
-<li><a class="reference internal" href="#iv-engineering-standards-dx">IV. Engineering Standards (DX)</a></li>
-<li><a class="reference internal" href="#v-data-content">V. Data &amp; Content</a></li>
-</ul>
-</li>
 <li><a class="reference internal" href="#navigation">Navigation</a><ul>
 </ul>
 </li>
@@ -227,7 +221,7 @@ data-aria-dark="Switch to auto color mode">
 </a>
 <a class="reference external image-reference" href="https://opensource.org/licenses/MIT"><img alt="https://img.shields.io/badge/license-MIT-4bc51d.svg?logo=opensourceinitiative&amp;logoColor=white" src="https://img.shields.io/badge/license-MIT-4bc51d.svg?logo=opensourceinitiative&amp;logoColor=white" />
 </a>
-<p><strong>IronTrack</strong> is an experimental async backend sandbox designed for architectural exploration and architectural efficiency analysis.</p>
+<p><strong>IronTrack</strong> is an experimental async backend sandbox designed for architectural exploration and performance analysis.</p>
 <p>The project serves as a laboratory for testing concurrency patterns, database optimization, and constraint-driven experiments within a workout tracking domain.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -238,57 +232,10 @@ data-aria-dark="Switch to auto color mode">
 <p class="admonition-title">Warning</p>
 <p>This is a learning-focused sandbox. It is not intended for production-driven business applications.</p>
 </div>
-<p>—</p>
-<section id="implemented-components">
-<h2>Implemented Components<a class="headerlink" href="#implemented-components" title="Link to this heading">¶</a></h2>
-<section id="i-architecture-and-design-patterns">
-<h3>I. Architecture and Design Patterns<a class="headerlink" href="#i-architecture-and-design-patterns" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p><strong>Layered Structure:</strong> Separation into <code class="docutils literal notranslate"><span class="pre">domain</span></code> (logic), <code class="docutils literal notranslate"><span class="pre">db</span></code> (models), <code class="docutils literal notranslate"><span class="pre">config</span></code>, and <code class="docutils literal notranslate"><span class="pre">lib</span></code> layers to ensure code maintainability.</p></li>
-<li><p><strong>Repository Pattern:</strong> Decouples business logic from <strong>SQLAlchemy</strong> operations using <strong>Advanced-Alchemy</strong>.</p></li>
-<li><p><strong>Schema Evolution:</strong> Database versioning and migrations via <strong>Alembic</strong>.</p></li>
-</ul>
-</section>
-<section id="ii-performance-optimization">
-<h3>II. Performance &amp; Optimization<a class="headerlink" href="#ii-performance-optimization" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p><strong>Runtime &amp; Proxy:</strong> Uses <strong>Granian</strong> (Rust-based ASGI) and <strong>Angie</strong> (reverse proxy).</p></li>
-<li><p><strong>Infrastructure Efficiency:</strong> <strong>Bypass TCP stack overhead</strong> via Unix Domain Sockets (UDS) for inter-container communication.</p></li>
-<li><p><strong>Containerization:</strong> Multi-stage <strong>Docker</strong> builds (<strong>Builder/Runner</strong>) with dependency optimization via <strong>uv</strong>.</p></li>
-<li><p><strong>Local Deployment:</strong> Orchestrated via <strong>docker-compose</strong> with automated migrations and service health checks.</p></li>
-<li><p><strong>Serialization:</strong> Fast JSON processing with <strong>msgspec</strong> to minimize response latency.</p></li>
-<li><p><strong>Connection Pooling:</strong> <strong>PgBouncer</strong> integration for efficient database transaction management.</p></li>
-</ul>
-</section>
-<section id="iii-security-administration">
-<h3>III. Security &amp; Administration<a class="headerlink" href="#iii-security-administration" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p><strong>Auth System:</strong> Secure JWT (Ed25519) via HTTP-only cookies with token blacklisting and user caching.</p></li>
-<li><p><strong>Access Control (RBAC):</strong> Permission system supporting different user roles (e.g., <cite>superuser</cite>, <cite>trainer</cite>).</p></li>
-<li><p><strong>Unified CLI:</strong> Centralized command-line interface built with <strong>Typer</strong> for server management, migrations, and administrative tools.</p></li>
-</ul>
-</section>
-<section id="iv-engineering-standards-dx">
-<h3>IV. Engineering Standards (DX)<a class="headerlink" href="#iv-engineering-standards-dx" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p><strong>Type Safety:</strong> Strict static analysis with <strong>Mypy</strong> and runtime validation via <strong>Pydantic v2</strong>.</p></li>
-<li><p><strong>Testing:</strong> Integration suite using <strong>transactional rollbacks</strong> for clean and isolated tests.</p></li>
-<li><p><strong>Code Quality:</strong> Automated linting and formatting via <strong>Ruff</strong> and <strong>pre-commit</strong>.</p></li>
-<li><p><strong>Observability:</strong> Structured logging with <strong>structlog</strong> and request correlation IDs.</p></li>
-</ul>
-</section>
-<section id="v-data-content">
-<h3>V. Data &amp; Content<a class="headerlink" href="#v-data-content" title="Link to this heading">¶</a></h3>
-<ul class="simple">
-<li><p><strong>Automated Seeding:</strong> Built-in infrastructure to populate the database with a catalog of 1000+ exercises and reference directories.</p></li>
-</ul>
-<p>—</p>
-</section>
-</section>
 <section id="navigation">
 <h2>Navigation<a class="headerlink" href="#navigation" title="Link to this heading">¶</a></h2>
 <div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
-<div class="sd-row sd-row-cols-2 sd-row-cols-xs-2 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 docutils">
+<div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-3 sd-g-xs-3 sd-g-sm-3 sd-g-md-3 sd-g-lg-3 docutils">
 <div class="sd-col sd-d-flex-row docutils">
 <div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
 <div class="sd-card-body docutils">

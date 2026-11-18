@@ -78,40 +78,40 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/server/index.html">Core Setup</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api/server/core.html">Server Core</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/server/lifespan.html">Lifespan Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/server/cache.html">Application Cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/server/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/server/observability/index.html">Observability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/server/observability/setup.html">Logging Setup and Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/server/observability/handlers.html">Logging Handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/server/observability/middleware.html">ASGI Logging Middleware</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api/db/index.html">ORM Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/db/base.html">Base Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/db/user.html">User Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/db/role.html">Role Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/db/reference.html">Reference Data Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/db/index.html">Database Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/db/catalog.html">Catalog Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/db/exercise.html">Exercise Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/db/user.html">User Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/db/base.html">Base Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/db/enums.html">Database Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/db/mixins.html">Shared Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/db/soft_delete.html">Soft-Delete Filter</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api/lib/index.html">Core Utilities (lib)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/lib/index.html">Shared Components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api/lib/auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/crypt.html">Security Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/deps.html">Infrastructure Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/exceptions.html">API Exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/filters.html">Query Filters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/handlers.html">Exception Handlers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/invalidate_cache.html">Cache Invalidation Helpers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/json_response.html">Custom JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/crypt.html">Password Hashing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/lib/jwt_utils.html">JWT Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/filters.html">Query Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/json_response.html">Msgspec JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/openapi_helpers.html">OpenAPI Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/schema.html">Base Structs &amp; Schemas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/lib/pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/schema.html">Base Models &amp; Structures</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/lib/serializers.html">Serialization Registry</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api/utils/index.html">Utilities and Helpers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/utils/log_utils/index.html">Structured Logging Configuration</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/utils/log_utils/handlers.html">Logging Handlers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/utils/log_utils/setup.html">Logging Setup and Configuration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/utils/log_utils/middleware.html">ASGI Logging Middleware</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api/utils/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/deps.html">Infrastructure Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lib/serializers.html">Cache Serializers</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/scripts/index.html">Application Scripts</a><ul>
@@ -120,40 +120,42 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/domain/index.html">Domains Overview</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/domain/users/index.html">Users Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/controllers/access.html">Access Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/controllers/users.html">User CRUD Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/controllers/user_role.html">User Role Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/services.html">User and Role Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/auth.html">Authentication &amp; Authorization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/deps.html">User Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/filters.html">Users Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/users/utils.html">User Utilities and Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/domain/enums.html">Shared Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/domain/accounts/index.html">Accounts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/controllers/access.html">Access Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/controllers/users.html">User Account Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/controllers/user_roles.html">User Role Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/services.html">Accounts Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/schemas.html">Accounts Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/auth.html">Authentication &amp; Authorization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/deps.html">Accounts Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/filters.html">Accounts Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/accounts/utils.html">Accounts Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="api/domain/catalogs/index.html">Catalogs Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/domain/catalogs/index.html">Catalogs</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/controllers/equipment.html">Equipment Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/controllers/exercise_tags.html">Exercise Tag Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/controllers/muscle_groups.html">Muscle Group Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/services.html">Catalogs Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/schemas.html">Catalogs Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/deps.html">Catalogs Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/filters.html">Catalogs Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/services.html">Catalogs Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/schemas.html">Catalogs Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/deps.html">Catalogs Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/catalogs/filters.html">Catalogs Filters</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="api/domain/exercises/index.html">Exercises Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/controllers.html">Exercise Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/services.html">Exercises Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/schemas.html">Exercises Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/filters.html">Exercises Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/deps.html">Exercises Domain Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/domain/exercises/index.html">Exercises</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/controllers.html">Exercise Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/services.html">Exercises Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/schemas.html">Exercises Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/deps.html">Exercises Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/filters.html">Exercises Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/exercises/utils.html">Exercises Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="api/domain/system/index.html">System Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/domain/system/index.html">System</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/domain/system/controllers.html">System Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/domain/system/schemas.html">System Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/domain/system/schemas.html">System Schemas</a></li>
 </ul>
 </li>
 </ul>
@@ -162,7 +164,7 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading" aria-level="3"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Contribution Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
@@ -183,11 +185,13 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#workflow">Workflow</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#running-the-tests">Running the tests</a></li>
 <li><a class="reference internal" href="#project-documentation">Project documentation</a><ul>
 <li><a class="reference internal" href="#docs-theme">Docs theme</a></li>
 <li><a class="reference internal" href="#running-the-docs-locally">Running the docs locally</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#community-standards">Community standards</a></li>
 </ul>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
   </aside>
@@ -230,14 +234,22 @@ This project requires <a class="reference external" href="https://docs.astral.sh
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="go">make install</span>
 </span></pre></div>
 </div>
-<p>This command creates a virtual environment, installs the project in <strong>editable mode</strong>, and sets up all development dependencies.</p>
+<p>This command <strong>re-creates the environment</strong> (an existing <code class="docutils literal notranslate"><span class="pre">.venv</span></code> is removed along with build artifacts), installs the project in <strong>editable mode</strong>, and sets up all development dependencies.</p>
 </li>
 <li><p>Install <a class="reference external" href="https://pre-commit.com/">pre-commit</a> hooks:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="go">uv run pre-commit install</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="go">uv run pre-commit install --hook-type pre-commit --hook-type commit-msg</span>
 </span></pre></div>
 </div>
+<p>This registers both hook stages locally: <code class="docutils literal notranslate"><span class="pre">pre-commit</span></code> (linters on staged files)
+and <code class="docutils literal notranslate"><span class="pre">commit-msg</span></code> (Conventional Commit format validation).</p>
 </li>
 </ol>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>For detailed setup instructions and development workflows,
+see the <a class="reference external" href="https://bizoxe.github.io/iron-track/usage/installation.html">Installation Guide</a>
+and the <a class="reference external" href="https://bizoxe.github.io/iron-track/usage/development.html">Development Workflow</a>.</p>
+</div>
 </section>
 <section id="code-contributions">
 <h2>Code contributions<a class="headerlink" href="#code-contributions" title="Link to this heading">¶</a></h2>
@@ -246,7 +258,7 @@ This project requires <a class="reference external" href="https://docs.astral.sh
 <ol class="arabic">
 <li><p><a class="reference external" href="https://github.com/bizoxe/iron-track/fork">Fork</a> the <a class="reference external" href="https://github.com/bizoxe/iron-track">repository</a>.</p></li>
 <li><p>Clone your fork locally with git.</p></li>
-<li><p><a class="reference internal" href="#setting-up-the-environment">Setting up the environment</a> using <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code>.</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code> (see <a class="reference internal" href="#setting-up-the-environment">Setting up the environment</a>).</p></li>
 <li><p>Create a branch for your changes.</p></li>
 <li><p>Make your changes and ensure they follow the project style.</p></li>
 <li><p>(Optional) Run <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">lint</span></code> or <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span> <span class="pre">pre-commit</span> <span class="pre">run</span> <span class="pre">--all-files</span></code> manually to apply fixes and check types before committing.</p></li>
@@ -263,10 +275,28 @@ For example: <code class="docutils literal notranslate"><span class="pre">fix:</
 </ol>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>All commits and pull requests must follow the <a class="reference external" href="https://www.conventionalcommits.org">Conventional Commit format</a>.
+<p>All commits and pull requests must follow the <a class="reference external" href="https://www.conventionalcommits.org">Conventional Commit format</a> —
+commit messages are parsed by <code class="docutils literal notranslate"><span class="pre">git-cliff</span></code> to generate the public changelog.
 Before pushing, ensure all tests pass by running <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">test</span></code>.</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Every pull request is automatically verified by CI: <strong>pre-commit</strong> checks, the <strong>pytest</strong>
+suite with coverage, and <strong>CodeQL</strong> analysis. Changes to the documentation or application
+sources additionally trigger a strict Sphinx build.</p>
+</div>
 </section>
+</section>
+<section id="running-the-tests">
+<h2>Running the tests<a class="headerlink" href="#running-the-tests" title="Link to this heading">¶</a></h2>
+<p>The test suite requires <strong>Docker</strong>: the <code class="docutils literal notranslate"><span class="pre">pytest-databases</span></code> fixtures automatically spin up
+dedicated PostgreSQL and Valkey containers. No additional environment setup is needed —
+the committed <code class="docutils literal notranslate"><span class="pre">.env.testing</span></code> provides the required configuration, including a test-only
+JWT key.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="go">make test        # Run the suite in parallel (2 workers)</span>
+</span><span data-line="2"><span class="go">make coverage    # Run tests and generate HTML/XML coverage reports</span>
+</span></pre></div>
+</div>
 </section>
 <section id="project-documentation">
 <h2>Project documentation<a class="headerlink" href="#project-documentation" title="Link to this heading">¶</a></h2>
@@ -288,6 +318,14 @@ Before pushing, ensure all tests pass by running <code class="docutils literal n
 </span></pre></div>
 </div>
 </section>
+</section>
+<section id="community-standards">
+<h2>Community standards<a class="headerlink" href="#community-standards" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p>This project follows the <a class="reference external" href="https://github.com/bizoxe/iron-track/blob/main/.github/CODE_OF_CONDUCT.md">Code of Conduct</a>. By participating, you are expected to uphold it.</p></li>
+<li><p>Please do not report security vulnerabilities through public GitHub issues — see the <a class="reference external" href="https://github.com/bizoxe/iron-track/blob/main/.github/SECURITY.md">Security Policy</a> and contact the maintainer directly.</p></li>
+</ul>
+<p>By contributing to IronTrack, you agree that your contributions will be licensed under the <a class="reference external" href="https://github.com/bizoxe/iron-track/blob/main/LICENSE">MIT License</a>.</p>
 </section>
 </section>
 

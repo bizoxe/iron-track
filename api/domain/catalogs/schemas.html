@@ -2,7 +2,7 @@
 <html lang="en" data-accent-color="violet" data-content_root="../../../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Catalogs Domain Schemas - IronTrack Docs</title><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Catalogs Domain Dependencies" href="deps.html" /><link rel="prev" title="Catalogs Domain Services" href="services.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Catalogs Schemas - IronTrack Docs</title><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Catalogs Dependencies" href="deps.html" /><link rel="prev" title="Catalogs Services" href="services.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=e1a1ceaf" />
@@ -21,7 +21,7 @@
 }
 </style>
     
-  <meta property="og:type" content="website"/><meta property="og:title" content="Catalogs Domain Schemas"/>
+  <meta property="og:type" content="website"/><meta property="og:title" content="Catalogs Schemas"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -78,40 +78,40 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../server/index.html">Core Setup</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../server/core.html">Server Core</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../server/lifespan.html">Lifespan Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/cache.html">Application Cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/observability/index.html">Observability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../server/observability/setup.html">Logging Setup and Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/observability/handlers.html">Logging Handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/observability/middleware.html">ASGI Logging Middleware</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../db/index.html">ORM Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../db/base.html">Base Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../db/user.html">User Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../db/role.html">Role Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../db/reference.html">Reference Data Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../db/index.html">Database Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../db/catalog.html">Catalog Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../db/exercise.html">Exercise Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/user.html">User Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/base.html">Base Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/enums.html">Database Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/mixins.html">Shared Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/soft_delete.html">Soft-Delete Filter</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../lib/index.html">Core Utilities (lib)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../lib/index.html">Shared Components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../lib/auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/crypt.html">Security Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/deps.html">Infrastructure Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/exceptions.html">API Exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/filters.html">Query Filters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/handlers.html">Exception Handlers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/invalidate_cache.html">Cache Invalidation Helpers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/json_response.html">Custom JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/crypt.html">Password Hashing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../lib/jwt_utils.html">JWT Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/filters.html">Query Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/json_response.html">Msgspec JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/openapi_helpers.html">OpenAPI Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/schema.html">Base Structs &amp; Schemas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../lib/pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/schema.html">Base Models &amp; Structures</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/serializers.html">Serialization Registry</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../utils/index.html">Utilities and Helpers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../utils/log_utils/index.html">Structured Logging Configuration</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../utils/log_utils/handlers.html">Logging Handlers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../utils/log_utils/setup.html">Logging Setup and Configuration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../utils/log_utils/middleware.html">ASGI Logging Middleware</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../utils/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/deps.html">Infrastructure Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/serializers.html">Cache Serializers</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../scripts/index.html">Application Scripts</a><ul>
@@ -120,40 +120,42 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html">Domains Overview</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../users/index.html">Users Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../users/controllers/access.html">Access Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/controllers/users.html">User CRUD Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/controllers/user_role.html">User Role Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/services.html">User and Role Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/auth.html">Authentication &amp; Authorization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/deps.html">User Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/filters.html">Users Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/jwt_helpers.html">JWT Token Utilities</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/utils.html">User Utilities and Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../enums.html">Shared Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../accounts/index.html">Accounts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/controllers/access.html">Access Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/controllers/users.html">User Account Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/controllers/user_roles.html">User Role Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/services.html">Accounts Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/schemas.html">Accounts Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/auth.html">Authentication &amp; Authorization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/deps.html">Accounts Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/filters.html">Accounts Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/utils.html">Accounts Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="reference internal" href="index.html">Catalogs Domain</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Catalogs</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="controllers/equipment.html">Equipment Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="controllers/exercise_tags.html">Exercise Tag Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="controllers/muscle_groups.html">Muscle Group Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="services.html">Catalogs Domain Services</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Catalogs Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="deps.html">Catalogs Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="filters.html">Catalogs Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="services.html">Catalogs Services</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Catalogs Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="deps.html">Catalogs Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="filters.html">Catalogs Filters</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../exercises/index.html">Exercises Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../exercises/controllers.html">Exercise Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../exercises/services.html">Exercises Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../exercises/schemas.html">Exercises Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../exercises/filters.html">Exercises Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../exercises/deps.html">Exercises Domain Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../exercises/index.html">Exercises</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/controllers.html">Exercise Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/services.html">Exercises Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/schemas.html">Exercises Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/deps.html">Exercises Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/filters.html">Exercises Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../exercises/utils.html">Exercises Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../system/index.html">System Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../system/index.html">System</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../system/controllers.html">System Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../system/schemas.html">System Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../system/schemas.html">System Schemas</a></li>
 </ul>
 </li>
 </ul>
@@ -162,7 +164,7 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading" aria-level="3"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../contribution-guide.html">Contribution Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
@@ -179,25 +181,58 @@ data-aria-dark="Switch to auto color mode">
     </button>
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
 <li><a class="reference internal" href="#base-definitions">Base Definitions</a><ul>
-<li><a class="reference internal" href="#app.domain.catalogs.schemas.FieldsReadBase"><code class="docutils literal notranslate"><span class="pre">FieldsReadBase</span></code></a><ul>
-<li><a class="reference internal" href="#app.domain.catalogs.schemas.FieldsReadBase.id"><code class="docutils literal notranslate">id</span></code></a></li>
-<li><a class="reference internal" href="#app.domain.catalogs.schemas.FieldsReadBase.name"><code class="docutils literal notranslate">name</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.CatalogReadBase"><code class="docutils literal notranslate"><span class="pre">CatalogReadBase</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.CatalogReadBase.id"><code class="docutils literal notranslate">id</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.CatalogReadBase.name"><code class="docutils literal notranslate">name</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.CatalogReadBase.deleted_at"><code class="docutils literal notranslate">deleted_at</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#app.domain.catalogs.schemas.FieldsCreateBase"><code class="docutils literal notranslate"><span class="pre">FieldsCreateBase</span></code></a><ul>
-<li><a class="reference internal" href="#app.domain.catalogs.schemas.FieldsCreateBase.name"><code class="docutils literal notranslate">name</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.CatalogCreateBase"><code class="docutils literal notranslate"><span class="pre">CatalogCreateBase</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.CatalogCreateBase.name"><code class="docutils literal notranslate">name</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#app.domain.catalogs.schemas.FieldsUpdateBase"><code class="docutils literal notranslate"><span class="pre">FieldsUpdateBase</span></code></a><ul>
-<li><a class="reference internal" href="#app.domain.catalogs.schemas.FieldsUpdateBase.name"><code class="docutils literal notranslate">name</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.CatalogUpdateBase"><code class="docutils literal notranslate"><span class="pre">CatalogUpdateBase</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.CatalogUpdateBase.name"><code class="docutils literal notranslate">name</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.CatalogRestoreBase"><code class="docutils literal notranslate"><span class="pre">CatalogRestoreBase</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.CatalogRestoreBase.name"><code class="docutils literal notranslate">name</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#muscle-group-models">Muscle Group Models</a><ul>
+<li><a class="reference internal" href="#response-models">Response Models</a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.EquipmentRead"><code class="docutils literal notranslate"><span class="pre">EquipmentRead</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.EquipmentRead.deleted_at"><code class="docutils literal notranslate">deleted_at</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.EquipmentRead.id"><code class="docutils literal notranslate">id</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.EquipmentRead.name"><code class="docutils literal notranslate">name</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#app.domain.catalogs.schemas.MuscleGroupRead"><code class="docutils literal notranslate"><span class="pre">MuscleGroupRead</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.MuscleGroupRead.deleted_at"><code class="docutils literal notranslate">deleted_at</span></code></a></li>
 <li><a class="reference internal" href="#app.domain.catalogs.schemas.MuscleGroupRead.id"><code class="docutils literal notranslate">id</span></code></a></li>
 <li><a class="reference internal" href="#app.domain.catalogs.schemas.MuscleGroupRead.name"><code class="docutils literal notranslate">name</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.TagRead"><code class="docutils literal notranslate"><span class="pre">TagRead</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.TagRead.deleted_at"><code class="docutils literal notranslate">deleted_at</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.TagRead.id"><code class="docutils literal notranslate">id</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.TagRead.name"><code class="docutils literal notranslate">name</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#input-models">Input Models</a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.EquipmentCreate"><code class="docutils literal notranslate"><span class="pre">EquipmentCreate</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.EquipmentCreate.name"><code class="docutils literal notranslate">name</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.EquipmentUpdate"><code class="docutils literal notranslate"><span class="pre">EquipmentUpdate</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.EquipmentUpdate.name"><code class="docutils literal notranslate">name</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.EquipmentRestore"><code class="docutils literal notranslate"><span class="pre">EquipmentRestore</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.EquipmentRestore.name"><code class="docutils literal notranslate">name</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#app.domain.catalogs.schemas.MuscleGroupCreate"><code class="docutils literal notranslate"><span class="pre">MuscleGroupCreate</span></code></a><ul>
@@ -208,36 +243,39 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#app.domain.catalogs.schemas.MuscleGroupUpdate.name"><code class="docutils literal notranslate">name</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.MuscleGroupRestore"><code class="docutils literal notranslate"><span class="pre">MuscleGroupRestore</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.MuscleGroupRestore.name"><code class="docutils literal notranslate">name</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#equipment-models">Equipment Models</a><ul>
-<li><a class="reference internal" href="#app.domain.catalogs.schemas.EquipmentRead"><code class="docutils literal notranslate"><span class="pre">EquipmentRead</span></code></a><ul>
-<li><a class="reference internal" href="#app.domain.catalogs.schemas.EquipmentRead.id"><code class="docutils literal notranslate">id</span></code></a></li>
-<li><a class="reference internal" href="#app.domain.catalogs.schemas.EquipmentRead.name"><code class="docutils literal notranslate">name</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.TagCreate"><code class="docutils literal notranslate"><span class="pre">TagCreate</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.TagCreate.name"><code class="docutils literal notranslate">name</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#app.domain.catalogs.schemas.EquipmentCreate"><code class="docutils literal notranslate"><span class="pre">EquipmentCreate</span></code></a><ul>
-<li><a class="reference internal" href="#app.domain.catalogs.schemas.EquipmentCreate.name"><code class="docutils literal notranslate">name</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.TagUpdate"><code class="docutils literal notranslate"><span class="pre">TagUpdate</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.TagUpdate.name"><code class="docutils literal notranslate">name</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#app.domain.catalogs.schemas.EquipmentUpdate"><code class="docutils literal notranslate"><span class="pre">EquipmentUpdate</span></code></a><ul>
-<li><a class="reference internal" href="#app.domain.catalogs.schemas.EquipmentUpdate.name"><code class="docutils literal notranslate">name</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.TagRestore"><code class="docutils literal notranslate"><span class="pre">TagRestore</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.TagRestore.name"><code class="docutils literal notranslate">name</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#exercise-tag-models">Exercise Tag Models</a><ul>
-<li><a class="reference internal" href="#app.domain.catalogs.schemas.ExerciseTagRead"><code class="docutils literal notranslate"><span class="pre">ExerciseTagRead</span></code></a><ul>
-<li><a class="reference internal" href="#app.domain.catalogs.schemas.ExerciseTagRead.id"><code class="docutils literal notranslate">id</span></code></a></li>
-<li><a class="reference internal" href="#app.domain.catalogs.schemas.ExerciseTagRead.name"><code class="docutils literal notranslate">name</span></code></a></li>
+<li><a class="reference internal" href="#list-envelopes">List Envelopes</a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.CatalogList"><code class="docutils literal notranslate"><span class="pre">CatalogList</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.CatalogList.items"><code class="docutils literal notranslate">items</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#app.domain.catalogs.schemas.ExerciseTagCreate"><code class="docutils literal notranslate"><span class="pre">ExerciseTagCreate</span></code></a><ul>
-<li><a class="reference internal" href="#app.domain.catalogs.schemas.ExerciseTagCreate.name"><code class="docutils literal notranslate">name</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.EquipmentList"><code class="docutils literal notranslate"><span class="pre">EquipmentList</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.EquipmentList.items"><code class="docutils literal notranslate">items</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#app.domain.catalogs.schemas.ExerciseTagUpdate"><code class="docutils literal notranslate"><span class="pre">ExerciseTagUpdate</span></code></a><ul>
-<li><a class="reference internal" href="#app.domain.catalogs.schemas.ExerciseTagUpdate.name"><code class="docutils literal notranslate">name</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.MuscleGroupList"><code class="docutils literal notranslate"><span class="pre">MuscleGroupList</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.MuscleGroupList.items"><code class="docutils literal notranslate">items</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.TagList"><code class="docutils literal notranslate"><span class="pre">TagList</span></code></a><ul>
+<li><a class="reference internal" href="#app.domain.catalogs.schemas.TagList.items"><code class="docutils literal notranslate">items</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -267,11 +305,11 @@ data-aria-dark="Switch to auto color mode">
         <span>/</span>
         <meta itemprop="position" content="3" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <a itemprop="item" href="index.html"><span itemprop="name">Catalogs Domain</span></a>
+        <a itemprop="item" href="index.html"><span itemprop="name">Catalogs</span></a>
         <span>/</span>
         <meta itemprop="position" content="4" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <strong itemprop="name">Catalogs Domain Schemas</strong>
+        <strong itemprop="name">Catalogs Schemas</strong>
         <meta itemprop="position" content="5" />
       </li></ol>
     <div class="xl:hidden ml-1">
@@ -284,128 +322,148 @@ data-aria-dark="Switch to auto color mode">
 </div><div class="flex flex-col break-words justify-between">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
-          <section id="catalogs-domain-schemas">
-<h1>Catalogs Domain Schemas<a class="headerlink" href="#catalogs-domain-schemas" title="Link to this heading">¶</a></h1>
-<p>Pydantic &amp; msgspec.Struct Data Transfer Objects (DTOs) for the Catalogs sub-domain.</p>
+          <section id="catalogs-schemas">
+<h1>Catalogs Schemas<a class="headerlink" href="#catalogs-schemas" title="Link to this heading">¶</a></h1>
 <section id="base-definitions">
 <h2>Base Definitions<a class="headerlink" href="#base-definitions" title="Link to this heading">¶</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="app.domain.catalogs.schemas.FieldsReadBase">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">FieldsReadBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#FieldsReadBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.FieldsReadBase" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.CatalogReadBase">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CatalogReadBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleted_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.15)"><span class="pre">datetime</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#CatalogReadBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.CatalogReadBase" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../../lib/schema.html#app.lib.schema.CamelizedBaseStruct" title="app.lib.schema.CamelizedBaseStruct"><code class="xref py py-class docutils literal notranslate"><span class="pre">CamelizedBaseStruct</span></code></a></p>
 <p>Base schema for reading catalog items.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="app.domain.catalogs.schemas.FieldsReadBase.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.domain.catalogs.schemas.FieldsReadBase.id" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.CatalogReadBase.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.domain.catalogs.schemas.CatalogReadBase.id" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="app.domain.catalogs.schemas.FieldsReadBase.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.domain.catalogs.schemas.FieldsReadBase.name" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.CatalogReadBase.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.domain.catalogs.schemas.CatalogReadBase.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.CatalogReadBase.deleted_at">
+<span class="sig-name descname"><span class="pre">deleted_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.15)"><span class="pre">datetime</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></em><a class="headerlink" href="#app.domain.catalogs.schemas.CatalogReadBase.deleted_at" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class pydantic_model">
-<dt class="sig sig-object py" id="app.domain.catalogs.schemas.FieldsCreateBase">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">FieldsCreateBase</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#FieldsCreateBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.FieldsCreateBase" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.CatalogCreateBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CatalogCreateBase</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#CatalogCreateBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.CatalogCreateBase" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../../lib/schema.html#app.lib.schema.CamelizedBaseSchema" title="app.lib.schema.CamelizedBaseSchema"><code class="xref py py-class docutils literal notranslate"><span class="pre">CamelizedBaseSchema</span></code></a></p>
 <p>Base schema for creating new catalog items.</p>
 <dl class="py attribute pydantic_field">
-<dt class="sig sig-object py" id="app.domain.catalogs.schemas.FieldsCreateBase.name">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Annotated" title="(in Python v3.14)"><span class="pre">Annotated</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">max_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.catalogs.schemas.FieldsCreateBase.name" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.CatalogCreateBase.name">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">max_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.catalogs.schemas.CatalogCreateBase.name" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class pydantic_model">
-<dt class="sig sig-object py" id="app.domain.catalogs.schemas.FieldsUpdateBase">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">FieldsUpdateBase</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#FieldsUpdateBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.FieldsUpdateBase" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.FieldsCreateBase" title="app.domain.catalogs.schemas.FieldsCreateBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldsCreateBase</span></code></a></p>
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.CatalogUpdateBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CatalogUpdateBase</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#CatalogUpdateBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.CatalogUpdateBase" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.CatalogCreateBase" title="app.domain.catalogs.schemas.CatalogCreateBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CatalogCreateBase</span></code></a></p>
 <p>Base schema for updating catalog items.</p>
 <dl class="py attribute pydantic_field">
-<dt class="sig sig-object py" id="app.domain.catalogs.schemas.FieldsUpdateBase.name">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.catalogs.schemas.FieldsUpdateBase.name" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<p>—</p>
-</section>
-<section id="muscle-group-models">
-<h2>Muscle Group Models<a class="headerlink" href="#muscle-group-models" title="Link to this heading">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="app.domain.catalogs.schemas.MuscleGroupRead">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MuscleGroupRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#MuscleGroupRead"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.MuscleGroupRead" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.FieldsReadBase" title="app.domain.catalogs.schemas.FieldsReadBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldsReadBase</span></code></a></p>
-<p>Public representation of a muscle group.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="app.domain.catalogs.schemas.MuscleGroupRead.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.domain.catalogs.schemas.MuscleGroupRead.id" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="app.domain.catalogs.schemas.MuscleGroupRead.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.domain.catalogs.schemas.MuscleGroupRead.name" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.CatalogUpdateBase.name">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.catalogs.schemas.CatalogUpdateBase.name" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class pydantic_model">
-<dt class="sig sig-object py" id="app.domain.catalogs.schemas.MuscleGroupCreate">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MuscleGroupCreate</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#MuscleGroupCreate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.MuscleGroupCreate" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.FieldsCreateBase" title="app.domain.catalogs.schemas.FieldsCreateBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldsCreateBase</span></code></a></p>
-<p>Schema for creating a new muscle group.</p>
-<p>Example: ‘chest’, ‘biceps’.</p>
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.CatalogRestoreBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CatalogRestoreBase</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#CatalogRestoreBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.CatalogRestoreBase" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.CatalogCreateBase" title="app.domain.catalogs.schemas.CatalogCreateBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CatalogCreateBase</span></code></a></p>
+<p>Base schema for restoring catalog items.</p>
 <dl class="py attribute pydantic_field">
-<dt class="sig sig-object py" id="app.domain.catalogs.schemas.MuscleGroupCreate.name">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.catalogs.schemas.MuscleGroupCreate.name" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.CatalogRestoreBase.name">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">max_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.catalogs.schemas.CatalogRestoreBase.name" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="py class pydantic_model">
-<dt class="sig sig-object py" id="app.domain.catalogs.schemas.MuscleGroupUpdate">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MuscleGroupUpdate</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#MuscleGroupUpdate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.MuscleGroupUpdate" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.FieldsUpdateBase" title="app.domain.catalogs.schemas.FieldsUpdateBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldsUpdateBase</span></code></a></p>
-<p>Schema for updating a muscle group.</p>
-<dl class="py attribute pydantic_field">
-<dt class="sig sig-object py" id="app.domain.catalogs.schemas.MuscleGroupUpdate.name">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.catalogs.schemas.MuscleGroupUpdate.name" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<p>—</p>
 </section>
-<section id="equipment-models">
-<h2>Equipment Models<a class="headerlink" href="#equipment-models" title="Link to this heading">¶</a></h2>
+<section id="response-models">
+<h2>Response Models<a class="headerlink" href="#response-models" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.domain.catalogs.schemas.EquipmentRead">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EquipmentRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#EquipmentRead"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.EquipmentRead" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.FieldsReadBase" title="app.domain.catalogs.schemas.FieldsReadBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldsReadBase</span></code></a></p>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EquipmentRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleted_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.15)"><span class="pre">datetime</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#EquipmentRead"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.EquipmentRead" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.CatalogReadBase" title="app.domain.catalogs.schemas.CatalogReadBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CatalogReadBase</span></code></a></p>
 <p>Public representation of a piece of equipment.</p>
 <dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.EquipmentRead.deleted_at">
+<span class="sig-name descname"><span class="pre">deleted_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.15)"><span class="pre">datetime</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></em><a class="headerlink" href="#app.domain.catalogs.schemas.EquipmentRead.deleted_at" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="app.domain.catalogs.schemas.EquipmentRead.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.domain.catalogs.schemas.EquipmentRead.id" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.domain.catalogs.schemas.EquipmentRead.id" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.domain.catalogs.schemas.EquipmentRead.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.domain.catalogs.schemas.EquipmentRead.name" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.domain.catalogs.schemas.EquipmentRead.name" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.MuscleGroupRead">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MuscleGroupRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleted_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.15)"><span class="pre">datetime</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#MuscleGroupRead"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.MuscleGroupRead" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.CatalogReadBase" title="app.domain.catalogs.schemas.CatalogReadBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CatalogReadBase</span></code></a></p>
+<p>Public representation of a muscle group.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.MuscleGroupRead.deleted_at">
+<span class="sig-name descname"><span class="pre">deleted_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.15)"><span class="pre">datetime</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></em><a class="headerlink" href="#app.domain.catalogs.schemas.MuscleGroupRead.deleted_at" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.MuscleGroupRead.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.domain.catalogs.schemas.MuscleGroupRead.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.MuscleGroupRead.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.domain.catalogs.schemas.MuscleGroupRead.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.TagRead">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TagRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">deleted_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.15)"><span class="pre">datetime</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#TagRead"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.TagRead" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.CatalogReadBase" title="app.domain.catalogs.schemas.CatalogReadBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CatalogReadBase</span></code></a></p>
+<p>Public representation of an exercise tag.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.TagRead.deleted_at">
+<span class="sig-name descname"><span class="pre">deleted_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.15)"><span class="pre">datetime</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></em><a class="headerlink" href="#app.domain.catalogs.schemas.TagRead.deleted_at" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.TagRead.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.domain.catalogs.schemas.TagRead.id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.TagRead.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.domain.catalogs.schemas.TagRead.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="input-models">
+<h2>Input Models<a class="headerlink" href="#input-models" title="Link to this heading">¶</a></h2>
 <dl class="py class pydantic_model">
 <dt class="sig sig-object py" id="app.domain.catalogs.schemas.EquipmentCreate">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EquipmentCreate</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#EquipmentCreate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.EquipmentCreate" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.FieldsCreateBase" title="app.domain.catalogs.schemas.FieldsCreateBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldsCreateBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.CatalogCreateBase" title="app.domain.catalogs.schemas.CatalogCreateBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CatalogCreateBase</span></code></a></p>
 <p>Schema for creating a new piece of equipment.</p>
-<p>Example: ‘barbell’, ‘kettlebells’.</p>
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="app.domain.catalogs.schemas.EquipmentCreate.name">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.catalogs.schemas.EquipmentCreate.name" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.catalogs.schemas.EquipmentCreate.name" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -413,57 +471,146 @@ data-aria-dark="Switch to auto color mode">
 <dl class="py class pydantic_model">
 <dt class="sig sig-object py" id="app.domain.catalogs.schemas.EquipmentUpdate">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EquipmentUpdate</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#EquipmentUpdate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.EquipmentUpdate" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.FieldsUpdateBase" title="app.domain.catalogs.schemas.FieldsUpdateBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldsUpdateBase</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.CatalogUpdateBase" title="app.domain.catalogs.schemas.CatalogUpdateBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CatalogUpdateBase</span></code></a></p>
 <p>Schema for updating a piece of equipment.</p>
 <dl class="py attribute pydantic_field">
 <dt class="sig sig-object py" id="app.domain.catalogs.schemas.EquipmentUpdate.name">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.catalogs.schemas.EquipmentUpdate.name" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<p>—</p>
-</section>
-<section id="exercise-tag-models">
-<h2>Exercise Tag Models<a class="headerlink" href="#exercise-tag-models" title="Link to this heading">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="app.domain.catalogs.schemas.ExerciseTagRead">
-<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ExerciseTagRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#ExerciseTagRead"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.ExerciseTagRead" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.FieldsReadBase" title="app.domain.catalogs.schemas.FieldsReadBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldsReadBase</span></code></a></p>
-<p>Public representation of an exercise tag.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="app.domain.catalogs.schemas.ExerciseTagRead.id">
-<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.domain.catalogs.schemas.ExerciseTagRead.id" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="app.domain.catalogs.schemas.ExerciseTagRead.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#app.domain.catalogs.schemas.ExerciseTagRead.name" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.catalogs.schemas.EquipmentUpdate.name" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class pydantic_model">
-<dt class="sig sig-object py" id="app.domain.catalogs.schemas.ExerciseTagCreate">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ExerciseTagCreate</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#ExerciseTagCreate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.ExerciseTagCreate" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.FieldsCreateBase" title="app.domain.catalogs.schemas.FieldsCreateBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldsCreateBase</span></code></a></p>
-<p>Schema for creating a new exercise tag.</p>
-<p>Example: ‘mobility’, ‘isometric’.</p>
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.EquipmentRestore">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EquipmentRestore</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#EquipmentRestore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.EquipmentRestore" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.CatalogRestoreBase" title="app.domain.catalogs.schemas.CatalogRestoreBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CatalogRestoreBase</span></code></a></p>
+<p>Schema for restoring a retired piece of equipment.</p>
 <dl class="py attribute pydantic_field">
-<dt class="sig sig-object py" id="app.domain.catalogs.schemas.ExerciseTagCreate.name">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.catalogs.schemas.ExerciseTagCreate.name" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.EquipmentRestore.name">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.catalogs.schemas.EquipmentRestore.name" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class pydantic_model">
-<dt class="sig sig-object py" id="app.domain.catalogs.schemas.ExerciseTagUpdate">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ExerciseTagUpdate</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#ExerciseTagUpdate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.ExerciseTagUpdate" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.FieldsUpdateBase" title="app.domain.catalogs.schemas.FieldsUpdateBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldsUpdateBase</span></code></a></p>
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.MuscleGroupCreate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MuscleGroupCreate</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#MuscleGroupCreate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.MuscleGroupCreate" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.CatalogCreateBase" title="app.domain.catalogs.schemas.CatalogCreateBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CatalogCreateBase</span></code></a></p>
+<p>Schema for creating a new muscle group.</p>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.MuscleGroupCreate.name">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.catalogs.schemas.MuscleGroupCreate.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.MuscleGroupUpdate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MuscleGroupUpdate</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#MuscleGroupUpdate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.MuscleGroupUpdate" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.CatalogUpdateBase" title="app.domain.catalogs.schemas.CatalogUpdateBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CatalogUpdateBase</span></code></a></p>
+<p>Schema for updating a muscle group.</p>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.MuscleGroupUpdate.name">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.catalogs.schemas.MuscleGroupUpdate.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.MuscleGroupRestore">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MuscleGroupRestore</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#MuscleGroupRestore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.MuscleGroupRestore" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.CatalogRestoreBase" title="app.domain.catalogs.schemas.CatalogRestoreBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CatalogRestoreBase</span></code></a></p>
+<p>Schema for restoring a retired muscle group.</p>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.MuscleGroupRestore.name">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.catalogs.schemas.MuscleGroupRestore.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.TagCreate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TagCreate</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#TagCreate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.TagCreate" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.CatalogCreateBase" title="app.domain.catalogs.schemas.CatalogCreateBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CatalogCreateBase</span></code></a></p>
+<p>Schema for creating a new exercise tag.</p>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.TagCreate.name">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.catalogs.schemas.TagCreate.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.TagUpdate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TagUpdate</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#TagUpdate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.TagUpdate" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.CatalogUpdateBase" title="app.domain.catalogs.schemas.CatalogUpdateBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CatalogUpdateBase</span></code></a></p>
 <p>Schema for updating an exercise tag.</p>
 <dl class="py attribute pydantic_field">
-<dt class="sig sig-object py" id="app.domain.catalogs.schemas.ExerciseTagUpdate.name">
-<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.catalogs.schemas.ExerciseTagUpdate.name" title="Link to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.TagUpdate.name">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.domain.catalogs.schemas.TagUpdate.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.TagRestore">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TagRestore</span></span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#TagRestore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.TagRestore" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.CatalogRestoreBase" title="app.domain.catalogs.schemas.CatalogRestoreBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">CatalogRestoreBase</span></code></a></p>
+<p>Schema for restoring a retired exercise tag.</p>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.TagRestore.name">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">3</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="m"><span class="pre">100</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.domain.catalogs.schemas.TagRestore.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="list-envelopes">
+<h2>List Envelopes<a class="headerlink" href="#list-envelopes" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.CatalogList">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CatalogList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#CatalogList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.CatalogList" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../lib/schema.html#app.lib.schema.BaseStruct" title="app.lib.schema.BaseStruct"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseStruct</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generic" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a></p>
+<p>Base envelope for catalog list results.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.CatalogList.items">
+<span class="sig-name descname"><span class="pre">items</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#app.domain.catalogs.schemas.CatalogList.items" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.EquipmentList">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EquipmentList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#EquipmentList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.EquipmentList" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.CatalogList" title="app.domain.catalogs.schemas.CatalogList"><code class="xref py py-class docutils literal notranslate"><span class="pre">CatalogList</span></code></a>[<a class="reference internal" href="#app.domain.catalogs.schemas.EquipmentRead" title="app.domain.catalogs.schemas.EquipmentRead"><code class="xref py py-class docutils literal notranslate"><span class="pre">EquipmentRead</span></code></a>]</p>
+<p>Cache envelope for the equipment list.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.EquipmentList.items">
+<span class="sig-name descname"><span class="pre">items</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#app.domain.catalogs.schemas.EquipmentList.items" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.MuscleGroupList">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MuscleGroupList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#MuscleGroupList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.MuscleGroupList" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.CatalogList" title="app.domain.catalogs.schemas.CatalogList"><code class="xref py py-class docutils literal notranslate"><span class="pre">CatalogList</span></code></a>[<a class="reference internal" href="#app.domain.catalogs.schemas.MuscleGroupRead" title="app.domain.catalogs.schemas.MuscleGroupRead"><code class="xref py py-class docutils literal notranslate"><span class="pre">MuscleGroupRead</span></code></a>]</p>
+<p>Cache envelope for the muscle group list.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.MuscleGroupList.items">
+<span class="sig-name descname"><span class="pre">items</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#app.domain.catalogs.schemas.MuscleGroupList.items" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.TagList">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TagList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/app/domain/catalogs/schemas.html#TagList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.schemas.TagList" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.domain.catalogs.schemas.CatalogList" title="app.domain.catalogs.schemas.CatalogList"><code class="xref py py-class docutils literal notranslate"><span class="pre">CatalogList</span></code></a>[<a class="reference internal" href="#app.domain.catalogs.schemas.TagRead" title="app.domain.catalogs.schemas.TagRead"><code class="xref py py-class docutils literal notranslate"><span class="pre">TagRead</span></code></a>]</p>
+<p>Cache envelope for the tag list.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.domain.catalogs.schemas.TagList.items">
+<span class="sig-name descname"><span class="pre">items</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#app.domain.catalogs.schemas.TagList.items" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -480,13 +627,13 @@ data-aria-dark="Switch to auto color mode">
     <a href="services.html">
       <i class="i-lucide chevron-left"></i>
       <div class="page-info">
-        <span>Previous</span><div class="title">Catalogs Domain Services</div></div>
+        <span>Previous</span><div class="title">Catalogs Services</div></div>
     </a>
   </div><div class="navigation-next">
     <a href="deps.html">
       <div class="page-info">
         <span>Next</span>
-        <div class="title">Catalogs Domain Dependencies</div>
+        <div class="title">Catalogs Dependencies</div>
       </div>
       <i class="i-lucide chevron-right"></i>
     </a>

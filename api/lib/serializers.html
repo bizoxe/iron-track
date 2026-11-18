@@ -2,7 +2,7 @@
 <html lang="en" data-accent-color="violet" data-content_root="../../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Serialization Registry - IronTrack Docs</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Utilities and Helpers" href="../utils/index.html" /><link rel="prev" title="Base Models &amp; Structures" href="schema.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Cache Serializers - IronTrack Docs</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Application Scripts" href="../scripts/index.html" /><link rel="prev" title="Infrastructure Utilities" href="deps.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
@@ -21,7 +21,7 @@
 }
 </style>
     
-  <meta property="og:type" content="website"/><meta property="og:title" content="Serialization Registry"/>
+  <meta property="og:type" content="website"/><meta property="og:title" content="Cache Serializers"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -78,40 +78,40 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../server/index.html">Core Setup</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../server/core.html">Server Core</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../server/lifespan.html">Lifespan Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/cache.html">Application Cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/observability/index.html">Observability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../server/observability/setup.html">Logging Setup and Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/observability/handlers.html">Logging Handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/observability/middleware.html">ASGI Logging Middleware</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../db/index.html">ORM Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../db/base.html">Base Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../db/user.html">User Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../db/role.html">Role Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../db/reference.html">Reference Data Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../db/index.html">Database Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../db/catalog.html">Catalog Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../db/exercise.html">Exercise Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/user.html">User Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/base.html">Base Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/enums.html">Database Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/mixins.html">Shared Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/soft_delete.html">Soft-Delete Filter</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Core Utilities (lib)</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Shared Components</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="crypt.html">Security Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="deps.html">Infrastructure Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exceptions.html">API Exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="filters.html">Query Filters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="handlers.html">Exception Handlers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="invalidate_cache.html">Cache Invalidation Helpers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="json_response.html">Custom JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="crypt.html">Password Hashing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="jwt_utils.html">JWT Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="filters.html">Query Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="json_response.html">Msgspec JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="openapi_helpers.html">OpenAPI Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="schema.html">Base Structs &amp; Schemas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="schema.html">Base Models &amp; Structures</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Serialization Registry</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../utils/index.html">Utilities and Helpers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../utils/log_utils/index.html">Structured Logging Configuration</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../utils/log_utils/handlers.html">Logging Handlers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../utils/log_utils/setup.html">Logging Setup and Configuration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../utils/log_utils/middleware.html">ASGI Logging Middleware</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deps.html">Infrastructure Utilities</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Cache Serializers</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../scripts/index.html">Application Scripts</a><ul>
@@ -120,40 +120,42 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../domain/index.html">Domains Overview</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../domain/users/index.html">Users Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/access.html">Access Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/users.html">User CRUD Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/user_role.html">User Role Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/services.html">User and Role Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication &amp; Authorization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/deps.html">User Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/filters.html">Users Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/utils.html">User Utilities and Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/enums.html">Shared Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/accounts/index.html">Accounts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/controllers/access.html">Access Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/controllers/users.html">User Account Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/controllers/user_roles.html">User Role Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/services.html">Accounts Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/schemas.html">Accounts Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/auth.html">Authentication &amp; Authorization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/deps.html">Accounts Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/filters.html">Accounts Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/utils.html">Accounts Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../domain/catalogs/index.html">Catalogs Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../domain/catalogs/index.html">Catalogs</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/equipment.html">Equipment Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/exercise_tags.html">Exercise Tag Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/muscle_groups.html">Muscle Group Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/services.html">Catalogs Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/schemas.html">Catalogs Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/deps.html">Catalogs Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/filters.html">Catalogs Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/services.html">Catalogs Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/schemas.html">Catalogs Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/deps.html">Catalogs Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/filters.html">Catalogs Filters</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../domain/exercises/index.html">Exercises Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/controllers.html">Exercise Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/services.html">Exercises Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/schemas.html">Exercises Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/filters.html">Exercises Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/deps.html">Exercises Domain Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/exercises/index.html">Exercises</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/controllers.html">Exercise Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/services.html">Exercises Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/schemas.html">Exercises Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/deps.html">Exercises Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/filters.html">Exercises Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/utils.html">Exercises Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../domain/system/index.html">System Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../domain/system/index.html">System</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../domain/system/controllers.html">System Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/system/schemas.html">System Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/system/schemas.html">System Schemas</a></li>
 </ul>
 </li>
 </ul>
@@ -162,7 +164,7 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading" aria-level="3"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../contribution-guide.html">Contribution Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
@@ -178,15 +180,8 @@ data-aria-dark="Switch to auto color mode">
       <i class="i-lucide close"></i>
     </button>
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
-<li><a class="reference internal" href="#msgspec-integration">MsgSpec Integration</a><ul>
 <li><a class="reference internal" href="#app.lib.serializers.MsgSpecRegistry"><code class="docutils literal notranslate"><span class="pre">MsgSpecRegistry</span></code></a><ul>
-<li><a class="reference internal" href="#app.lib.serializers.MsgSpecRegistry.get_cashews_pair"><code class="docutils literal notranslate">get_cashews_pair()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a class="reference internal" href="#registration-logic">Registration Logic</a><ul>
-<li><a class="reference internal" href="#app.lib.serializers.cashews_registry"><code class="docutils literal notranslate"><span class="pre">cashews_registry()</span></code></a></li>
+<li><a class="reference internal" href="#app.lib.serializers.MsgSpecRegistry.register_in_cashews"><code class="docutils literal notranslate">register_in_cashews()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -210,11 +205,11 @@ data-aria-dark="Switch to auto color mode">
         <span>/</span>
         <meta itemprop="position" content="2" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <a itemprop="item" href="index.html"><span itemprop="name">Core Utilities (lib)</span></a>
+        <a itemprop="item" href="index.html"><span itemprop="name">Shared Components</span></a>
         <span>/</span>
         <meta itemprop="position" content="3" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <strong itemprop="name">Serialization Registry</strong>
+        <strong itemprop="name">Cache Serializers</strong>
         <meta itemprop="position" content="4" />
       </li></ol>
     <div class="xl:hidden ml-1">
@@ -227,37 +222,21 @@ data-aria-dark="Switch to auto color mode">
 </div><div class="flex flex-col break-words justify-between">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
-          <section id="serialization-registry">
-<h1>Serialization Registry<a class="headerlink" href="#serialization-registry" title="Link to this heading">¶</a></h1>
-<p>This module provides a centralized registry for high-performance serialization logic.
-It defines how domain models are encoded and decoded when interacting with external
-systems like distributed caches, message brokers, or database drivers.</p>
-<section id="msgspec-integration">
-<h2>MsgSpec Integration<a class="headerlink" href="#msgspec-integration" title="Link to this heading">¶</a></h2>
-<p>Core components utilizing <strong>msgpack</strong> for compact binary representation.</p>
+          <section id="cache-serializers">
+<h1>Cache Serializers<a class="headerlink" href="#cache-serializers" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.lib.serializers.MsgSpecRegistry">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MsgSpecRegistry</span></span><a class="reference internal" href="../../_modules/app/lib/serializers.html#MsgSpecRegistry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.serializers.MsgSpecRegistry" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>Registry for msgspec-based serialization.</p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/builtins/functions.html#object" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Domain types serialized with msgspec inside the <code class="code docutils literal notranslate"><span class="pre">cashews</span></code> registry.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="app.lib.serializers.MsgSpecRegistry.get_cashews_pair">
-<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_cashews_pair</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Awaitable</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><span class="pre">bytes</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Awaitable</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/app/lib/serializers.html#MsgSpecRegistry.get_cashews_pair"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.serializers.MsgSpecRegistry.get_cashews_pair" title="Link to this definition">¶</a></dt>
-<dd><p>Create an asynchronous encoder/decoder pair for a specific type.</p>
+<dt class="sig sig-object py" id="app.lib.serializers.MsgSpecRegistry.register_in_cashews">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">register_in_cashews</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../_modules/app/lib/serializers.html#MsgSpecRegistry.register_in_cashews"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.serializers.MsgSpecRegistry.register_in_cashews" title="Link to this definition">¶</a></dt>
+<dd><p>Register the cached domain schemas with cashews.</p>
 </dd></dl>
 
 </dd></dl>
 
-</section>
-<section id="registration-logic">
-<h2>Registration Logic<a class="headerlink" href="#registration-logic" title="Link to this heading">¶</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="app.lib.serializers.cashews_registry">
-<span class="sig-name descname"><span class="pre">cashews_registry</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../_modules/app/lib/serializers.html#cashews_registry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.serializers.cashews_registry" title="Link to this definition">¶</a></dt>
-<dd><p>Register domain data models with the cashews serialization system.</p>
-</dd></dl>
-
-</section>
 </section>
 
         </article><button class="back-to-top" type="button">
@@ -266,16 +245,16 @@ systems like distributed caches, message brokers, or database drivers.</p>
   </svg>
   <span>Back to top</span>
 </button><div class="navigation flex print:hidden"><div class="navigation-prev">
-    <a href="schema.html">
+    <a href="deps.html">
       <i class="i-lucide chevron-left"></i>
       <div class="page-info">
-        <span>Previous</span><div class="title">Base Models &amp; Structures</div></div>
+        <span>Previous</span><div class="title">Infrastructure Utilities</div></div>
     </a>
   </div><div class="navigation-next">
-    <a href="../utils/index.html">
+    <a href="../scripts/index.html">
       <div class="page-info">
         <span>Next</span>
-        <div class="title">Utilities and Helpers</div>
+        <div class="title">Application Scripts</div>
       </div>
       <i class="i-lucide chevron-right"></i>
     </a>

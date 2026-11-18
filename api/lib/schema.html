@@ -2,7 +2,7 @@
 <html lang="en" data-accent-color="violet" data-content_root="../../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Base Models &amp; Structures - IronTrack Docs</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Serialization Registry" href="serializers.html" /><link rel="prev" title="Custom Regex Errors" href="pretty_regex_error_msgs.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Base Structs &amp; Schemas - IronTrack Docs</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="API Exceptions" href="exceptions.html" /><link rel="prev" title="OpenAPI Helpers" href="openapi_helpers.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
@@ -21,7 +21,7 @@
 }
 </style>
     
-  <meta property="og:type" content="website"/><meta property="og:title" content="Base Models &amp; Structures"/>
+  <meta property="og:type" content="website"/><meta property="og:title" content="Base Structs &amp; Schemas"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -78,40 +78,40 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../server/index.html">Core Setup</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../server/core.html">Server Core</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../server/lifespan.html">Lifespan Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/cache.html">Application Cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/observability/index.html">Observability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../server/observability/setup.html">Logging Setup and Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/observability/handlers.html">Logging Handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/observability/middleware.html">ASGI Logging Middleware</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../db/index.html">ORM Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../db/base.html">Base Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../db/user.html">User Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../db/role.html">Role Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../db/reference.html">Reference Data Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../db/index.html">Database Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../db/catalog.html">Catalog Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../db/exercise.html">Exercise Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/user.html">User Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/base.html">Base Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/enums.html">Database Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/mixins.html">Shared Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/soft_delete.html">Soft-Delete Filter</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Core Utilities (lib)</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Shared Components</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="crypt.html">Security Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="deps.html">Infrastructure Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exceptions.html">API Exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="filters.html">Query Filters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="handlers.html">Exception Handlers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="invalidate_cache.html">Cache Invalidation Helpers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="json_response.html">Custom JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="crypt.html">Password Hashing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="jwt_utils.html">JWT Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="filters.html">Query Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="json_response.html">Msgspec JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="openapi_helpers.html">OpenAPI Helpers</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Base Structs &amp; Schemas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Base Models &amp; Structures</a></li>
-<li class="toctree-l3"><a class="reference internal" href="serializers.html">Serialization Registry</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../utils/index.html">Utilities and Helpers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../utils/log_utils/index.html">Structured Logging Configuration</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../utils/log_utils/handlers.html">Logging Handlers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../utils/log_utils/setup.html">Logging Setup and Configuration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../utils/log_utils/middleware.html">ASGI Logging Middleware</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deps.html">Infrastructure Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="serializers.html">Cache Serializers</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../scripts/index.html">Application Scripts</a><ul>
@@ -120,40 +120,42 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../domain/index.html">Domains Overview</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../domain/users/index.html">Users Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/access.html">Access Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/users.html">User CRUD Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/user_role.html">User Role Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/services.html">User and Role Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication &amp; Authorization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/deps.html">User Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/filters.html">Users Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/utils.html">User Utilities and Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/enums.html">Shared Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/accounts/index.html">Accounts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/controllers/access.html">Access Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/controllers/users.html">User Account Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/controllers/user_roles.html">User Role Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/services.html">Accounts Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/schemas.html">Accounts Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/auth.html">Authentication &amp; Authorization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/deps.html">Accounts Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/filters.html">Accounts Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/utils.html">Accounts Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../domain/catalogs/index.html">Catalogs Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../domain/catalogs/index.html">Catalogs</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/equipment.html">Equipment Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/exercise_tags.html">Exercise Tag Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/muscle_groups.html">Muscle Group Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/services.html">Catalogs Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/schemas.html">Catalogs Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/deps.html">Catalogs Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/filters.html">Catalogs Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/services.html">Catalogs Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/schemas.html">Catalogs Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/deps.html">Catalogs Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/filters.html">Catalogs Filters</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../domain/exercises/index.html">Exercises Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/controllers.html">Exercise Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/services.html">Exercises Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/schemas.html">Exercises Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/filters.html">Exercises Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/deps.html">Exercises Domain Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/exercises/index.html">Exercises</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/controllers.html">Exercise Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/services.html">Exercises Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/schemas.html">Exercises Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/deps.html">Exercises Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/filters.html">Exercises Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/utils.html">Exercises Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../domain/system/index.html">System Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../domain/system/index.html">System</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../domain/system/controllers.html">System Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/system/schemas.html">System Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/system/schemas.html">System Schemas</a></li>
 </ul>
 </li>
 </ul>
@@ -162,7 +164,7 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading" aria-level="3"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../contribution-guide.html">Contribution Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
@@ -181,10 +183,33 @@ data-aria-dark="Switch to auto color mode">
 <li><a class="reference internal" href="#msgspec-structures">Msgspec Structures</a><ul>
 <li><a class="reference internal" href="#app.lib.schema.BaseStruct"><code class="docutils literal notranslate"><span class="pre">BaseStruct</span></code></a></li>
 <li><a class="reference internal" href="#app.lib.schema.CamelizedBaseStruct"><code class="docutils literal notranslate"><span class="pre">CamelizedBaseStruct</span></code></a></li>
+<li><a class="reference internal" href="#app.lib.schema.BasePage"><code class="docutils literal notranslate"><span class="pre">BasePage</span></code></a><ul>
+<li><a class="reference internal" href="#app.lib.schema.BasePage.items"><code class="docutils literal notranslate">items</span></code></a></li>
+<li><a class="reference internal" href="#app.lib.schema.BasePage.total"><code class="docutils literal notranslate">total</span></code></a></li>
+<li><a class="reference internal" href="#app.lib.schema.BasePage.limit"><code class="docutils literal notranslate">limit</span></code></a></li>
+<li><a class="reference internal" href="#app.lib.schema.BasePage.offset"><code class="docutils literal notranslate">offset</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#pydantic-schemas">Pydantic Schemas</a><ul>
 <li><a class="reference internal" href="#app.lib.schema.CamelizedBaseSchema"><code class="docutils literal notranslate"><span class="pre">CamelizedBaseSchema</span></code></a></li>
+<li><a class="reference internal" href="#app.lib.schema.ErrorInfo"><code class="docutils literal notranslate"><span class="pre">ErrorInfo</span></code></a><ul>
+<li><a class="reference internal" href="#app.lib.schema.ErrorInfo.message"><code class="docutils literal notranslate">message</span></code></a></li>
+<li><a class="reference internal" href="#app.lib.schema.ErrorInfo.details"><code class="docutils literal notranslate">details</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.lib.schema.ValidationErrorDetail"><code class="docutils literal notranslate"><span class="pre">ValidationErrorDetail</span></code></a><ul>
+<li><a class="reference internal" href="#app.lib.schema.ValidationErrorDetail.type"><code class="docutils literal notranslate">type</span></code></a></li>
+<li><a class="reference internal" href="#app.lib.schema.ValidationErrorDetail.field"><code class="docutils literal notranslate">field</span></code></a></li>
+<li><a class="reference internal" href="#app.lib.schema.ValidationErrorDetail.message"><code class="docutils literal notranslate">message</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#app.lib.schema.ValidationErrorSchema"><code class="docutils literal notranslate"><span class="pre">ValidationErrorSchema</span></code></a><ul>
+<li><a class="reference internal" href="#app.lib.schema.ValidationErrorSchema.message"><code class="docutils literal notranslate">message</span></code></a></li>
+<li><a class="reference internal" href="#app.lib.schema.ValidationErrorSchema.details"><code class="docutils literal notranslate">details</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -208,11 +233,11 @@ data-aria-dark="Switch to auto color mode">
         <span>/</span>
         <meta itemprop="position" content="2" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <a itemprop="item" href="index.html"><span itemprop="name">Core Utilities (lib)</span></a>
+        <a itemprop="item" href="index.html"><span itemprop="name">Shared Components</span></a>
         <span>/</span>
         <meta itemprop="position" content="3" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <strong itemprop="name">Base Models &amp; Structures</strong>
+        <strong itemprop="name">Base Structs &amp; Schemas</strong>
         <meta itemprop="position" content="4" />
       </li></ol>
     <div class="xl:hidden ml-1">
@@ -225,17 +250,14 @@ data-aria-dark="Switch to auto color mode">
 </div><div class="flex flex-col break-words justify-between">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
-          <section id="base-models-structures">
-<h1>Base Models &amp; Structures<a class="headerlink" href="#base-models-structures" title="Link to this heading">¶</a></h1>
-<p>This module provides foundation classes for data representation, ensuring consistent
-<strong>camelCase</strong> naming for frontend integration across both <strong>msgspec</strong> and <strong>Pydantic</strong>.</p>
+          <section id="base-structs-schemas">
+<h1>Base Structs &amp; Schemas<a class="headerlink" href="#base-structs-schemas" title="Link to this heading">¶</a></h1>
 <section id="msgspec-structures">
 <h2>Msgspec Structures<a class="headerlink" href="#msgspec-structures" title="Link to this heading">¶</a></h2>
-<p>High-performance structures for efficient serialization.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.lib.schema.BaseStruct">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BaseStruct</span></span><a class="reference internal" href="../../_modules/app/lib/schema.html#BaseStruct"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.schema.BaseStruct" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Struct</span></code></p>
+<dd><p>Bases: <a class="reference external" href="https://msgspec.dev/api.html#msgspec.Struct" title="(in msgspec)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Struct</span></code></a></p>
 <p>Base msgspec structure for API responses.</p>
 </dd></dl>
 
@@ -246,15 +268,102 @@ data-aria-dark="Switch to auto color mode">
 <p>Camelized base msgspec structure for frontend responses.</p>
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="app.lib.schema.BasePage">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BasePage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.15)"><span class="pre">Sequence</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">total</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/app/lib/schema.html#BasePage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.schema.BasePage" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#app.lib.schema.BaseStruct" title="app.lib.schema.BaseStruct"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseStruct</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Generic" title="(in Python v3.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a></p>
+<p>Base envelope for paginated list results.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.lib.schema.BasePage.items">
+<span class="sig-name descname"><span class="pre">items</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence" title="(in Python v3.15)"><span class="pre">Sequence</span></a></em><a class="headerlink" href="#app.lib.schema.BasePage.items" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.lib.schema.BasePage.total">
+<span class="sig-name descname"><span class="pre">total</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.lib.schema.BasePage.total" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.lib.schema.BasePage.limit">
+<span class="sig-name descname"><span class="pre">limit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.lib.schema.BasePage.limit" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="app.lib.schema.BasePage.offset">
+<span class="sig-name descname"><span class="pre">offset</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></em><a class="headerlink" href="#app.lib.schema.BasePage.offset" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="pydantic-schemas">
 <h2>Pydantic Schemas<a class="headerlink" href="#pydantic-schemas" title="Link to this heading">¶</a></h2>
-<p>Validation-ready schemas for request parsing and complex data logic.</p>
 <dl class="py class pydantic_model">
 <dt class="sig sig-object py" id="app.lib.schema.CamelizedBaseSchema">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CamelizedBaseSchema</span></span><a class="reference internal" href="../../_modules/app/lib/schema.html#CamelizedBaseSchema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.schema.CamelizedBaseSchema" title="Link to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://pydantic.dev/docs/validation/latest/api/pydantic/base_model/#pydantic.BaseModel" title="(in Pydantic v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
 <p>Camelized Base pydantic schema.</p>
+</dd></dl>
+
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="app.lib.schema.ErrorInfo">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ErrorInfo</span></span><a class="reference internal" href="../../_modules/app/lib/schema.html#ErrorInfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.schema.ErrorInfo" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://pydantic.dev/docs/validation/latest/api/pydantic/base_model/#pydantic.BaseModel" title="(in Pydantic v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<p>Generic application error structure.</p>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.lib.schema.ErrorInfo.message">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">message</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.lib.schema.ErrorInfo.message" title="Link to this definition">¶</a></dt>
+<dd><p>Error description message.</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.lib.schema.ErrorInfo.details">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">details</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.15)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#app.lib.schema.ErrorInfo.details" title="Link to this definition">¶</a></dt>
+<dd><p>Additional error context.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="app.lib.schema.ValidationErrorDetail">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ValidationErrorDetail</span></span><a class="reference internal" href="../../_modules/app/lib/schema.html#ValidationErrorDetail"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.schema.ValidationErrorDetail" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://pydantic.dev/docs/validation/latest/api/pydantic/base_model/#pydantic.BaseModel" title="(in Pydantic v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<p>Detailed information about a specific validation error.</p>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.lib.schema.ValidationErrorDetail.type">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.lib.schema.ValidationErrorDetail.type" title="Link to this definition">¶</a></dt>
+<dd><p>Error type</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.lib.schema.ValidationErrorDetail.field">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">field</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.lib.schema.ValidationErrorDetail.field" title="Link to this definition">¶</a></dt>
+<dd><p>Field name</p>
+</dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.lib.schema.ValidationErrorDetail.message">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">message</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.lib.schema.ValidationErrorDetail.message" title="Link to this definition">¶</a></dt>
+<dd><p>Error message</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class pydantic_model">
+<dt class="sig sig-object py" id="app.lib.schema.ValidationErrorSchema">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ValidationErrorSchema</span></span><a class="reference internal" href="../../_modules/app/lib/schema.html#ValidationErrorSchema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.schema.ValidationErrorSchema" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://pydantic.dev/docs/validation/latest/api/pydantic/base_model/#pydantic.BaseModel" title="(in Pydantic v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></a></p>
+<p>Schema for input data validation errors.</p>
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.lib.schema.ValidationErrorSchema.message">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">message</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.lib.schema.ValidationErrorSchema.message" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute pydantic_field">
+<dt class="sig sig-object py" id="app.lib.schema.ValidationErrorSchema.details">
+<em class="property"><span class="pre">field</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">details</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#list" title="(in Python v3.15)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#app.lib.schema.ValidationErrorDetail" title="app.lib.schema.ValidationErrorDetail"><span class="pre">ValidationErrorDetail</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">[Required]</span></em><a class="headerlink" href="#app.lib.schema.ValidationErrorSchema.details" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>
@@ -266,16 +375,16 @@ data-aria-dark="Switch to auto color mode">
   </svg>
   <span>Back to top</span>
 </button><div class="navigation flex print:hidden"><div class="navigation-prev">
-    <a href="pretty_regex_error_msgs.html">
+    <a href="openapi_helpers.html">
       <i class="i-lucide chevron-left"></i>
       <div class="page-info">
-        <span>Previous</span><div class="title">Custom Regex Errors</div></div>
+        <span>Previous</span><div class="title">OpenAPI Helpers</div></div>
     </a>
   </div><div class="navigation-next">
-    <a href="serializers.html">
+    <a href="exceptions.html">
       <div class="page-info">
         <span>Next</span>
-        <div class="title">Serialization Registry</div>
+        <div class="title">API Exceptions</div>
       </div>
       <i class="i-lucide chevron-right"></i>
     </a>

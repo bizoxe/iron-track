@@ -2,7 +2,7 @@
 <html lang="en" data-accent-color="violet" data-content_root="../../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>JWT Utilities - IronTrack Docs</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Custom Regex Errors" href="pretty_regex_error_msgs.html" /><link rel="prev" title="Custom JSON Response" href="json_response.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>JWT Utilities - IronTrack Docs</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Query Filters" href="filters.html" /><link rel="prev" title="Password Hashing" href="crypt.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
@@ -78,40 +78,40 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../server/index.html">Core Setup</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../server/core.html">Server Core</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../server/lifespan.html">Lifespan Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/cache.html">Application Cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../server/observability/index.html">Observability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../server/observability/setup.html">Logging Setup and Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/observability/handlers.html">Logging Handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../server/observability/middleware.html">ASGI Logging Middleware</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../db/index.html">ORM Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../db/base.html">Base Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../db/user.html">User Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../db/role.html">Role Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../db/reference.html">Reference Data Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../db/index.html">Database Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../db/catalog.html">Catalog Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../db/exercise.html">Exercise Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/user.html">User Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/base.html">Base Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/enums.html">Database Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/mixins.html">Shared Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../db/soft_delete.html">Soft-Delete Filter</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Core Utilities (lib)</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Shared Components</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="crypt.html">Security Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="deps.html">Infrastructure Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="exceptions.html">API Exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="filters.html">Query Filters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="handlers.html">Exception Handlers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="invalidate_cache.html">Cache Invalidation Helpers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="json_response.html">Custom JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="crypt.html">Password Hashing</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">JWT Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="filters.html">Query Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="json_response.html">Msgspec JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="openapi_helpers.html">OpenAPI Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="schema.html">Base Structs &amp; Schemas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="schema.html">Base Models &amp; Structures</a></li>
-<li class="toctree-l3"><a class="reference internal" href="serializers.html">Serialization Registry</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../utils/index.html">Utilities and Helpers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../utils/log_utils/index.html">Structured Logging Configuration</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../utils/log_utils/handlers.html">Logging Handlers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../utils/log_utils/setup.html">Logging Setup and Configuration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../utils/log_utils/middleware.html">ASGI Logging Middleware</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../utils/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="deps.html">Infrastructure Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="serializers.html">Cache Serializers</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../scripts/index.html">Application Scripts</a><ul>
@@ -120,40 +120,42 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../domain/index.html">Domains Overview</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../domain/users/index.html">Users Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/access.html">Access Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/users.html">User CRUD Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/controllers/user_role.html">User Role Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/services.html">User and Role Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/auth.html">Authentication &amp; Authorization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/deps.html">User Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/filters.html">Users Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/jwt_helpers.html">JWT Token Utilities</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/users/utils.html">User Utilities and Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/enums.html">Shared Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/accounts/index.html">Accounts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/controllers/access.html">Access Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/controllers/users.html">User Account Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/controllers/user_roles.html">User Role Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/services.html">Accounts Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/schemas.html">Accounts Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/auth.html">Authentication &amp; Authorization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/deps.html">Accounts Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/filters.html">Accounts Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/accounts/utils.html">Accounts Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../domain/catalogs/index.html">Catalogs Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../domain/catalogs/index.html">Catalogs</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/equipment.html">Equipment Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/exercise_tags.html">Exercise Tag Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/controllers/muscle_groups.html">Muscle Group Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/services.html">Catalogs Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/schemas.html">Catalogs Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/deps.html">Catalogs Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/filters.html">Catalogs Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/services.html">Catalogs Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/schemas.html">Catalogs Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/deps.html">Catalogs Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/catalogs/filters.html">Catalogs Filters</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../domain/exercises/index.html">Exercises Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/controllers.html">Exercise Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/services.html">Exercises Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/schemas.html">Exercises Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/filters.html">Exercises Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/deps.html">Exercises Domain Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../domain/exercises/index.html">Exercises</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/controllers.html">Exercise Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/services.html">Exercises Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/schemas.html">Exercises Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/deps.html">Exercises Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/filters.html">Exercises Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/exercises/utils.html">Exercises Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../domain/system/index.html">System Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../domain/system/index.html">System</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../domain/system/controllers.html">System Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../domain/system/schemas.html">System Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../domain/system/schemas.html">System Schemas</a></li>
 </ul>
 </li>
 </ul>
@@ -162,7 +164,7 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading" aria-level="3"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../contribution-guide.html">Contribution Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog.html">Changelog</a></li>
@@ -201,7 +203,7 @@ data-aria-dark="Switch to auto color mode">
         <span>/</span>
         <meta itemprop="position" content="2" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <a itemprop="item" href="index.html"><span itemprop="name">Core Utilities (lib)</span></a>
+        <a itemprop="item" href="index.html"><span itemprop="name">Shared Components</span></a>
         <span>/</span>
         <meta itemprop="position" content="3" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
@@ -222,29 +224,30 @@ data-aria-dark="Switch to auto color mode">
 <span id="jwt-utilities"></span><h1>JWT Utilities<a class="headerlink" href="#module-app.lib.jwt_utils" title="Link to this heading">¶</a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="app.lib.jwt_utils.encode_jwt">
-<span class="sig-name descname"><span class="pre">encode_jwt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">payload:</span> <span class="pre">dict[str,</span> <span class="pre">Any],</span> <span class="pre">key_obj:</span> <span class="pre">OKPKey</span> <span class="pre">=</span> <span class="pre">&lt;joserfc._rfc8037.okp_key.OKPKey</span> <span class="pre">object&gt;,</span> <span class="pre">algorithm:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'Ed25519',</span> <span class="pre">expire_minutes:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">30,</span> <span class="pre">expire_timedelta:</span> <span class="pre">timedelta</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../../_modules/app/lib/jwt_utils.html#encode_jwt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.jwt_utils.encode_jwt" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">encode_jwt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">payload:</span> <span class="pre">dict[str,</span> <span class="pre">Any],</span> <span class="pre">key_obj:</span> <span class="pre">OKPKey</span> <span class="pre">=</span> <span class="pre">&lt;joserfc._rfc8037.okp_key.OKPKey</span> <span class="pre">object&gt;,</span> <span class="pre">algorithm:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'Ed25519',</span> <span class="pre">expire_minutes:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">30,</span> <span class="pre">expire_timedelta:</span> <span class="pre">timedelta</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../../_modules/app/lib/jwt_utils.html#encode_jwt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.jwt_utils.encode_jwt" title="Link to this definition">¶</a></dt>
 <dd><p>Encode a JWT based on the provided payload and expiration settings.</p>
-<p>This function adds standard claims: <cite>iat</cite> (issued at), <cite>exp</cite> (expiration),
-and <cite>jti</cite> (JWT ID) to the token payload before encoding.</p>
+<p>This function adds standard claims: <code class="code docutils literal notranslate"><span class="pre">iat</span></code> (issued at), <code class="code docutils literal notranslate"><span class="pre">exp</span></code> (expiration),
+and <code class="code docutils literal notranslate"><span class="pre">jti</span></code> (JWT ID) to the token payload before encoding.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><em>dict</em></a>) – The base data to include in the token (e.g., user ID, email).</p></li>
+<li><p><strong>payload</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#dict" title="(in Python v3.15)"><em>dict</em></a>) – The base data to include in the token (e.g., user ID, email).</p></li>
 <li><p><strong>key_obj</strong> (<em>OKPKey</em>) – The private key used for signing the token.
 Defaults to the application’s configured private key.</p></li>
-<li><p><strong>algorithm</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The cryptographic algorithm used for signing (e.g., ‘Ed25519’).
+<li><p><strong>algorithm</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – the <code class="code docutils literal notranslate"><span class="pre">alg</span></code> identifier written into the token header;
+the decode side accepts only this same value.
 Defaults to the configured algorithm.</p></li>
-<li><p><strong>expire_minutes</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – The token’s lifespan in minutes, used only if
-<cite>expire_timedelta</cite> is not provided.</p></li>
+<li><p><strong>expire_minutes</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><em>int</em></a>) – The token’s lifespan in minutes, used only if
+<code class="code docutils literal notranslate"><span class="pre">expire_timedelta</span></code> is not provided.</p></li>
 <li><p><strong>expire_timedelta</strong> (<em>timedelta</em><em> | </em><em>None</em>) – Explicit timedelta defining the token’s total lifespan.
-Overrides <cite>expire_minutes</cite>. Used primarily for Refresh Tokens.</p></li>
+Overrides <code class="code docutils literal notranslate"><span class="pre">expire_minutes</span></code>. Used primarily for Refresh Tokens.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The encoded JWT string.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -252,16 +255,18 @@ Overrides <cite>expire_minutes</cite>. Used primarily for Refresh Tokens.</p></l
 <dl class="py function">
 <dt class="sig sig-object py" id="app.lib.jwt_utils.decode_jwt">
 <span class="sig-name descname"><span class="pre">decode_jwt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_obj:</span> <span class="pre">OKPKey</span> <span class="pre">=</span> <span class="pre">&lt;joserfc._rfc8037.okp_key.OKPKey</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">algorithm:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'Ed25519'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Token</span></span></span><a class="reference internal" href="../../_modules/app/lib/jwt_utils.html#decode_jwt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.lib.jwt_utils.decode_jwt" title="Link to this definition">¶</a></dt>
-<dd><p>Decode and validate a JWT using the application’s key.</p>
-<p>This function automatically verifies the token’s signature and standard claims
-(such as expiration time).</p>
+<dd><p>Decode and verify a JWT’s signature using the application’s key.</p>
+<p>Verifies the signature and parses the payload as JSON; claim structure
+and semantics (e.g. expiration) are NOT checked here - the caller
+validates them (<code class="code docutils literal notranslate"><span class="pre">TokenPayloadAccess(**claims)</span></code> / <code class="code docutils literal notranslate"><span class="pre">.is_expired</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>token</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.14)"><em>bytes</em></a>) – The encoded JWT string or bytes to be decoded.</p></li>
+<li><p><strong>token</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#bytes" title="(in Python v3.15)"><em>bytes</em></a>) – The encoded JWT string or bytes to be decoded.</p></li>
 <li><p><strong>key_obj</strong> (<em>OKPKey</em>) – The key used for verifying the token’s signature.
 Defaults to the application’s configured key.</p></li>
-<li><p><strong>algorithm</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – The cryptographic algorithm used for verification (e.g., ‘Ed25519’).
+<li><p><strong>algorithm</strong> (<a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><em>str</em></a>) – the only accepted <code class="code docutils literal notranslate"><span class="pre">alg</span></code> value; anything else - e.g. the
+legacy <code class="code docutils literal notranslate"><span class="pre">EdDSA</span></code> - fails before the signature check.
 Defaults to the configured algorithm.</p></li>
 </ul>
 </dd>
@@ -288,16 +293,16 @@ Defaults to the configured algorithm.</p></li>
   </svg>
   <span>Back to top</span>
 </button><div class="navigation flex print:hidden"><div class="navigation-prev">
-    <a href="json_response.html">
+    <a href="crypt.html">
       <i class="i-lucide chevron-left"></i>
       <div class="page-info">
-        <span>Previous</span><div class="title">Custom JSON Response</div></div>
+        <span>Previous</span><div class="title">Password Hashing</div></div>
     </a>
   </div><div class="navigation-next">
-    <a href="pretty_regex_error_msgs.html">
+    <a href="filters.html">
       <div class="page-info">
         <span>Next</span>
-        <div class="title">Custom Regex Errors</div>
+        <div class="title">Query Filters</div>
       </div>
       <i class="i-lucide chevron-right"></i>
     </a>

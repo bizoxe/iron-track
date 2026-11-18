@@ -2,7 +2,7 @@
 <html lang="en" data-accent-color="violet" data-content_root="../../../../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Equipment Controllers - IronTrack Docs</title><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" /><link rel="next" title="Exercise Tag Controllers" href="exercise_tags.html" /><link rel="prev" title="Catalogs Domain" href="../index.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Equipment Controllers - IronTrack Docs</title><link rel="index" title="Index" href="../../../../genindex.html" /><link rel="search" title="Search" href="../../../../search.html" /><link rel="next" title="Exercise Tag Controllers" href="exercise_tags.html" /><link rel="prev" title="Catalogs" href="../index.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=e1a1ceaf" />
@@ -78,40 +78,40 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../server/index.html">Core Setup</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../server/core.html">Server Core</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../server/lifespan.html">Lifespan Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../server/cache.html">Application Cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../server/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../server/observability/index.html">Observability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../server/observability/setup.html">Logging Setup and Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../server/observability/handlers.html">Logging Handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../server/observability/middleware.html">ASGI Logging Middleware</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../db/index.html">ORM Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../db/base.html">Base Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../db/user.html">User Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../db/role.html">Role Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../db/reference.html">Reference Data Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../db/index.html">Database Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../db/catalog.html">Catalog Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../db/exercise.html">Exercise Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../db/user.html">User Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../db/base.html">Base Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../db/enums.html">Database Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../db/mixins.html">Shared Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../db/soft_delete.html">Soft-Delete Filter</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../lib/index.html">Core Utilities (lib)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../lib/index.html">Shared Components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../lib/auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../lib/crypt.html">Security Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../lib/deps.html">Infrastructure Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../lib/exceptions.html">API Exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../lib/filters.html">Query Filters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../lib/handlers.html">Exception Handlers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../lib/invalidate_cache.html">Cache Invalidation Helpers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../lib/json_response.html">Custom JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lib/crypt.html">Password Hashing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../lib/jwt_utils.html">JWT Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lib/filters.html">Query Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lib/json_response.html">Msgspec JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lib/openapi_helpers.html">OpenAPI Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lib/schema.html">Base Structs &amp; Schemas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lib/exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lib/handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../lib/pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../lib/schema.html">Base Models &amp; Structures</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../lib/serializers.html">Serialization Registry</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../../utils/index.html">Utilities and Helpers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../utils/log_utils/index.html">Structured Logging Configuration</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../utils/log_utils/handlers.html">Logging Handlers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../utils/log_utils/setup.html">Logging Setup and Configuration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../utils/log_utils/middleware.html">ASGI Logging Middleware</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../utils/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lib/deps.html">Infrastructure Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../lib/serializers.html">Cache Serializers</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../scripts/index.html">Application Scripts</a><ul>
@@ -120,40 +120,42 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="../../index.html">Domains Overview</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../../users/index.html">Users Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../users/controllers/access.html">Access Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../users/controllers/users.html">User CRUD Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../users/controllers/user_role.html">User Role Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../users/services.html">User and Role Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../users/auth.html">Authentication &amp; Authorization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../users/deps.html">User Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../users/filters.html">Users Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../users/jwt_helpers.html">JWT Token Utilities</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../users/utils.html">User Utilities and Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../enums.html">Shared Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../accounts/index.html">Accounts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../accounts/controllers/access.html">Access Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../accounts/controllers/users.html">User Account Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../accounts/controllers/user_roles.html">User Role Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../accounts/services.html">Accounts Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../accounts/schemas.html">Accounts Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../accounts/auth.html">Authentication &amp; Authorization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../accounts/deps.html">Accounts Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../accounts/filters.html">Accounts Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../accounts/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../accounts/utils.html">Accounts Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="reference internal" href="../index.html">Catalogs Domain</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../index.html">Catalogs</a><ul class="current">
 <li class="toctree-l4 current"><a class="current reference internal" href="#">Equipment Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="exercise_tags.html">Exercise Tag Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="muscle_groups.html">Muscle Group Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../services.html">Catalogs Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../schemas.html">Catalogs Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../deps.html">Catalogs Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../filters.html">Catalogs Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../services.html">Catalogs Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../schemas.html">Catalogs Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../deps.html">Catalogs Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../filters.html">Catalogs Filters</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../exercises/index.html">Exercises Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../exercises/controllers.html">Exercise Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../exercises/services.html">Exercises Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../exercises/schemas.html">Exercises Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../exercises/filters.html">Exercises Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../exercises/deps.html">Exercises Domain Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../exercises/index.html">Exercises</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../exercises/controllers.html">Exercise Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../exercises/services.html">Exercises Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../exercises/schemas.html">Exercises Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../exercises/deps.html">Exercises Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../exercises/filters.html">Exercises Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../exercises/utils.html">Exercises Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../system/index.html">System Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../system/index.html">System</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../system/controllers.html">System Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../system/schemas.html">System Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../system/schemas.html">System Schemas</a></li>
 </ul>
 </li>
 </ul>
@@ -162,7 +164,7 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading" aria-level="3"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../contribution-guide.html">Contribution Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../changelog.html">Changelog</a></li>
@@ -180,8 +182,10 @@ data-aria-dark="Switch to auto color mode">
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
 <li><a class="reference internal" href="#app.domain.catalogs.controllers.equipment.create_equipment"><code class="docutils literal notranslate"><span class="pre">create_equipment()</span></code></a></li>
 <li><a class="reference internal" href="#app.domain.catalogs.controllers.equipment.get_list_equipment"><code class="docutils literal notranslate"><span class="pre">get_list_equipment()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.controllers.equipment.get_list_with_retired_equipment"><code class="docutils literal notranslate"><span class="pre">get_list_with_retired_equipment()</span></code></a></li>
 <li><a class="reference internal" href="#app.domain.catalogs.controllers.equipment.get_equipment"><code class="docutils literal notranslate"><span class="pre">get_equipment()</span></code></a></li>
 <li><a class="reference internal" href="#app.domain.catalogs.controllers.equipment.update_equipment"><code class="docutils literal notranslate"><span class="pre">update_equipment()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.catalogs.controllers.equipment.restore_equipment"><code class="docutils literal notranslate"><span class="pre">restore_equipment()</span></code></a></li>
 <li><a class="reference internal" href="#app.domain.catalogs.controllers.equipment.delete_equipment"><code class="docutils literal notranslate"><span class="pre">delete_equipment()</span></code></a></li>
 </ul>
 </div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
@@ -208,7 +212,7 @@ data-aria-dark="Switch to auto color mode">
         <span>/</span>
         <meta itemprop="position" content="3" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <a itemprop="item" href="../index.html"><span itemprop="name">Catalogs Domain</span></a>
+        <a itemprop="item" href="../index.html"><span itemprop="name">Catalogs</span></a>
         <span>/</span>
         <meta itemprop="position" content="4" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
@@ -227,96 +231,70 @@ data-aria-dark="Switch to auto color mode">
   <article class="yue" role="main">
           <section id="module-app.domain.catalogs.controllers.equipment">
 <span id="equipment-controllers"></span><h1>Equipment Controllers<a class="headerlink" href="#module-app.domain.catalogs.controllers.equipment" title="Link to this heading">¶</a></h1>
-<p>Equipment Management Endpoints.</p>
-<p>Provides functionality for CRUD operations on fitness equipment.</p>
-<p>Creating, updating, and deleting equipment entries requires superuser privileges.
-Reading equipment data is available to all authenticated users.</p>
+<p>Equipment Endpoints.</p>
+<p>Provides functionality for managing equipment.</p>
+<p>Creating, updating, retiring, or restoring equipment requires
+superuser privileges.
+Reading equipment data is available to all users.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="app.domain.catalogs.controllers.equipment.create_equipment">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_equipment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.schemas.UserAuth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../schemas.html#app.domain.catalogs.schemas.EquipmentCreate" title="app.domain.catalogs.schemas.EquipmentCreate"><span class="pre">EquipmentCreate</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/equipment.html#create_equipment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.equipment.create_equipment" title="Link to this definition">¶</a></dt>
-<dd><p>Create a new equipment entry.</p>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_equipment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../accounts/schemas.html#app.domain.accounts.schemas.UserAuth" title="app.domain.accounts.schemas.UserAuth"><span class="pre">UserAuth</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">equipment_service</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../services.html#app.domain.catalogs.services.EquipmentService" title="app.domain.catalogs.services.EquipmentService"><span class="pre">EquipmentService</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../schemas.html#app.domain.catalogs.schemas.EquipmentCreate" title="app.domain.catalogs.schemas.EquipmentCreate"><span class="pre">EquipmentCreate</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/equipment.html#create_equipment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.equipment.create_equipment" title="Link to this definition">¶</a></dt>
+<dd><p>Create new equipment.</p>
 <p>Requires superuser privileges.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The created equipment data.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="../schemas.html#app.domain.catalogs.schemas.EquipmentRead" title="app.domain.catalogs.schemas.EquipmentRead"><em>EquipmentRead</em></a></p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../../../lib/exceptions.html#app.lib.exceptions.ConflictException" title="app.lib.exceptions.ConflictException"><strong>ConflictException</strong></a> – If equipment with the same name already exists.</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="app.domain.catalogs.controllers.equipment.get_list_equipment">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_list_equipment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.schemas.UserAuth</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/equipment.html#get_list_equipment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.equipment.get_list_equipment" title="Link to this definition">¶</a></dt>
-<dd><p>Retrieve all equipment with filtering and sorting.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A list of equipment items.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a>[<a class="reference internal" href="../schemas.html#app.domain.catalogs.schemas.EquipmentRead" title="app.domain.catalogs.schemas.EquipmentRead"><em>EquipmentRead</em></a>]</p>
-</dd>
-</dl>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_list_equipment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../accounts/schemas.html#app.domain.accounts.schemas.UserAuth" title="app.domain.accounts.schemas.UserAuth"><span class="pre">UserAuth</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">equipment_service</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../services.html#app.domain.catalogs.services.EquipmentService" title="app.domain.catalogs.services.EquipmentService"><span class="pre">EquipmentService</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../filters.html#app.domain.catalogs.filters.CatalogFilters" title="app.domain.catalogs.filters.CatalogFilters"><span class="pre">CatalogFilters</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/equipment.html#get_list_equipment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.equipment.get_list_equipment" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve a list of equipment.</p>
+<p>Visibility:</p>
+<ul class="simple">
+<li><p>Only active equipment is returned.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.domain.catalogs.controllers.equipment.get_list_with_retired_equipment">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_list_with_retired_equipment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../accounts/schemas.html#app.domain.accounts.schemas.UserAuth" title="app.domain.accounts.schemas.UserAuth"><span class="pre">UserAuth</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">equipment_service</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../services.html#app.domain.catalogs.services.EquipmentService" title="app.domain.catalogs.services.EquipmentService"><span class="pre">EquipmentService</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../filters.html#app.domain.catalogs.filters.CatalogFiltersWithRetired" title="app.domain.catalogs.filters.CatalogFiltersWithRetired"><span class="pre">CatalogFiltersWithRetired</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/equipment.html#get_list_with_retired_equipment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.equipment.get_list_with_retired_equipment" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve a list of equipment with retired items.</p>
+<p>Requires superuser privileges.</p>
+<p>Visibility:</p>
+<ul class="simple">
+<li><p>Active and retired equipment are returned.</p></li>
+</ul>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="app.domain.catalogs.controllers.equipment.get_equipment">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_equipment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.schemas.UserAuth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equipment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/equipment.html#get_equipment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.equipment.get_equipment" title="Link to this definition">¶</a></dt>
-<dd><p>Get information about specific equipment.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Detailed equipment data.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="../schemas.html#app.domain.catalogs.schemas.EquipmentRead" title="app.domain.catalogs.schemas.EquipmentRead"><em>EquipmentRead</em></a></p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../../../lib/exceptions.html#app.lib.exceptions.NotFoundException" title="app.lib.exceptions.NotFoundException"><strong>NotFoundException</strong></a> – If equipment with the given ID does not exist.</p>
-</dd>
-</dl>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_equipment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../accounts/schemas.html#app.domain.accounts.schemas.UserAuth" title="app.domain.accounts.schemas.UserAuth"><span class="pre">UserAuth</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">equipment_service</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../services.html#app.domain.catalogs.services.EquipmentService" title="app.domain.catalogs.services.EquipmentService"><span class="pre">EquipmentService</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">equipment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/equipment.html#get_equipment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.equipment.get_equipment" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve equipment by ID.</p>
+<p>Visibility:</p>
+<ul class="simple">
+<li><p>Only active equipment is returned.</p></li>
+</ul>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="app.domain.catalogs.controllers.equipment.update_equipment">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_equipment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.schemas.UserAuth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../schemas.html#app.domain.catalogs.schemas.EquipmentUpdate" title="app.domain.catalogs.schemas.EquipmentUpdate"><span class="pre">EquipmentUpdate</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">equipment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/equipment.html#update_equipment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.equipment.update_equipment" title="Link to this definition">¶</a></dt>
-<dd><p>Update information about specific equipment.</p>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_equipment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../accounts/schemas.html#app.domain.accounts.schemas.UserAuth" title="app.domain.accounts.schemas.UserAuth"><span class="pre">UserAuth</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">equipment_service</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../services.html#app.domain.catalogs.services.EquipmentService" title="app.domain.catalogs.services.EquipmentService"><span class="pre">EquipmentService</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">equipment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../schemas.html#app.domain.catalogs.schemas.EquipmentUpdate" title="app.domain.catalogs.schemas.EquipmentUpdate"><span class="pre">EquipmentUpdate</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/equipment.html#update_equipment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.equipment.update_equipment" title="Link to this definition">¶</a></dt>
+<dd><p>Update equipment by ID.</p>
 <p>Requires superuser privileges.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The updated equipment data.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="../schemas.html#app.domain.catalogs.schemas.EquipmentRead" title="app.domain.catalogs.schemas.EquipmentRead"><em>EquipmentRead</em></a></p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><a class="reference internal" href="../../../lib/exceptions.html#app.lib.exceptions.NotFoundException" title="app.lib.exceptions.NotFoundException"><strong>NotFoundException</strong></a> – If equipment with the given ID does not exist.</p></li>
-<li><p><a class="reference internal" href="../../../lib/exceptions.html#app.lib.exceptions.ConflictException" title="app.lib.exceptions.ConflictException"><strong>ConflictException</strong></a> – If equipment with the same name already exists.</p></li>
-</ul>
-</dd>
-</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.domain.catalogs.controllers.equipment.restore_equipment">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">restore_equipment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../accounts/schemas.html#app.domain.accounts.schemas.UserAuth" title="app.domain.accounts.schemas.UserAuth"><span class="pre">UserAuth</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">equipment_service</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../services.html#app.domain.catalogs.services.EquipmentService" title="app.domain.catalogs.services.EquipmentService"><span class="pre">EquipmentService</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">equipment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../schemas.html#app.domain.catalogs.schemas.EquipmentRestore" title="app.domain.catalogs.schemas.EquipmentRestore"><span class="pre">EquipmentRestore</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../../../lib/json_response.html#app.lib.json_response.MsgSpecJSONResponse" title="app.lib.json_response.MsgSpecJSONResponse"><span class="pre">MsgSpecJSONResponse</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/equipment.html#restore_equipment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.equipment.restore_equipment" title="Link to this definition">¶</a></dt>
+<dd><p>Restore retired equipment, optionally renaming it.</p>
+<p>Requires superuser privileges.</p>
+<p>A name change may be required if the original name is already used
+by another active equipment item.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="app.domain.catalogs.controllers.equipment.delete_equipment">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_equipment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">app.domain.users.schemas.UserAuth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">equipment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://fastapi.tiangolo.com/reference/responses/#fastapi.responses.Response" title="(in FastAPI vNone)"><span class="pre">Response</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/equipment.html#delete_equipment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.equipment.delete_equipment" title="Link to this definition">¶</a></dt>
-<dd><p>Remove equipment from the system.</p>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_equipment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../../accounts/schemas.html#app.domain.accounts.schemas.UserAuth" title="app.domain.accounts.schemas.UserAuth"><span class="pre">UserAuth</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">equipment_service</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../services.html#app.domain.catalogs.services.EquipmentService" title="app.domain.catalogs.services.EquipmentService"><span class="pre">EquipmentService</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">equipment_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#int" title="(in Python v3.15)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://fastapi.tiangolo.com/reference/response/#fastapi.Response" title="(in FastAPI v0.0.0)"><span class="pre">Response</span></a></span></span><a class="reference internal" href="../../../../_modules/app/domain/catalogs/controllers/equipment.html#delete_equipment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.catalogs.controllers.equipment.delete_equipment" title="Link to this definition">¶</a></dt>
+<dd><p>Retire equipment.</p>
 <p>Requires superuser privileges.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>204 No Content on success.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Response</p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../../../lib/exceptions.html#app.lib.exceptions.NotFoundException" title="app.lib.exceptions.NotFoundException"><strong>NotFoundException</strong></a> – If equipment with the given ID does not exist.</p>
-</dd>
-</dl>
 </dd></dl>
 
 </section>
@@ -330,7 +308,7 @@ Reading equipment data is available to all authenticated users.</p>
     <a href="../index.html">
       <i class="i-lucide chevron-left"></i>
       <div class="page-info">
-        <span>Previous</span><div class="title">Catalogs Domain</div></div>
+        <span>Previous</span><div class="title">Catalogs</div></div>
     </a>
   </div><div class="navigation-next">
     <a href="exercise_tags.html">

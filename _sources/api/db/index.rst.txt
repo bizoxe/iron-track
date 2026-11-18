@@ -1,15 +1,23 @@
-ORM Models
-==========
+Database Layer
+==============
 
-Defines the application's data structure and ORM models.
+SQLAlchemy models for the application's persistent data, plus the shared database machinery around them:
+model bases and mixins, PostgreSQL bindings for the domain enums, and global soft-delete filtering.
 
 .. toctree::
    :maxdepth: 1
-   :caption: Available Models
+   :caption: Models
+
+   catalog
+   exercise
+   role
+   user
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Shared Building Blocks
 
    base
-   user
-   role
-   reference
-   exercise
-
+   enums
+   mixins
+   soft_delete

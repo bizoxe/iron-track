@@ -2,7 +2,7 @@
 <html lang="en" data-accent-color="violet" data-content_root="../../../">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Exercises Domain Services - IronTrack Docs</title><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Exercises Domain Schemas" href="schemas.html" /><link rel="prev" title="Exercise Management Controllers" href="controllers.html" /><script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Exercises Services - IronTrack Docs</title><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Exercises Schemas" href="schemas.html" /><link rel="prev" title="Exercise Controllers" href="controllers.html" /><script>
     function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
     setColorMode(localStorage._theme||"auto");
   </script><link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=e1a1ceaf" />
@@ -21,7 +21,7 @@
 }
 </style>
     
-  <meta property="og:type" content="website"/><meta property="og:title" content="Exercises Domain Services"/>
+  <meta property="og:type" content="website"/><meta property="og:title" content="Exercises Services"/>
     <meta name="twitter:card" content="summary"/>
   </head>
 <body><div class="sy-head">
@@ -78,40 +78,40 @@ data-aria-dark="Switch to auto color mode">
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../server/index.html">Core Setup</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../server/core.html">Server Core</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../server/lifespan.html">Lifespan Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/cache.html">Application Cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../server/observability/index.html">Observability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../server/observability/setup.html">Logging Setup and Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/observability/handlers.html">Logging Handlers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../server/observability/middleware.html">ASGI Logging Middleware</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../db/index.html">ORM Models</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../db/base.html">Base Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../db/user.html">User Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../db/role.html">Role Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../db/reference.html">Reference Data Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../db/index.html">Database Layer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../db/catalog.html">Catalog Models</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../db/exercise.html">Exercise Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/role.html">Role Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/user.html">User Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/base.html">Base Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/enums.html">Database Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/mixins.html">Shared Mixins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../db/soft_delete.html">Soft-Delete Filter</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../lib/index.html">Core Utilities (lib)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../lib/index.html">Shared Components</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../lib/auth.html">JWT Cookie Security Scheme</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/crypt.html">Security Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/deps.html">Infrastructure Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/exceptions.html">API Exceptions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/filters.html">Query Filters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/handlers.html">Exception Handlers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/invalidate_cache.html">Cache Invalidation Helpers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/json_response.html">Custom JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/crypt.html">Password Hashing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../lib/jwt_utils.html">JWT Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/filters.html">Query Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/json_response.html">Msgspec JSON Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/openapi_helpers.html">OpenAPI Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/schema.html">Base Structs &amp; Schemas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/exceptions.html">API Exceptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/handlers.html">Exception Handlers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../lib/pretty_regex_error_msgs.html">Custom Regex Errors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/schema.html">Base Models &amp; Structures</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../lib/serializers.html">Serialization Registry</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../../utils/index.html">Utilities and Helpers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../utils/log_utils/index.html">Structured Logging Configuration</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../utils/log_utils/handlers.html">Logging Handlers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../utils/log_utils/setup.html">Logging Setup and Configuration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../utils/log_utils/middleware.html">ASGI Logging Middleware</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../utils/server_cli.html">Server CLI Commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/deps.html">Infrastructure Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../lib/serializers.html">Cache Serializers</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../scripts/index.html">Application Scripts</a><ul>
@@ -120,40 +120,42 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html">Domains Overview</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="../users/index.html">Users Domain</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../users/controllers/access.html">Access Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/controllers/users.html">User CRUD Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/controllers/user_role.html">User Role Management Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/services.html">User and Role Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/schemas.html">User Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/auth.html">Authentication &amp; Authorization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/deps.html">User Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/filters.html">Users Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/jwt_helpers.html">JWT Token Utilities</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../users/utils.html">User Utilities and Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../enums.html">Shared Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../accounts/index.html">Accounts</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/controllers/access.html">Access Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/controllers/users.html">User Account Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/controllers/user_roles.html">User Role Controllers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/services.html">Accounts Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/schemas.html">Accounts Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/auth.html">Authentication &amp; Authorization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/deps.html">Accounts Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/filters.html">Accounts Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/jwt_helpers.html">JWT Token Utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../accounts/utils.html">Accounts Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../catalogs/index.html">Catalogs Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../catalogs/index.html">Catalogs</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../catalogs/controllers/equipment.html">Equipment Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../catalogs/controllers/exercise_tags.html">Exercise Tag Controllers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../catalogs/controllers/muscle_groups.html">Muscle Group Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../catalogs/services.html">Catalogs Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../catalogs/schemas.html">Catalogs Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../catalogs/deps.html">Catalogs Domain Dependencies</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../catalogs/filters.html">Catalogs Domain Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../catalogs/services.html">Catalogs Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../catalogs/schemas.html">Catalogs Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../catalogs/deps.html">Catalogs Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../catalogs/filters.html">Catalogs Filters</a></li>
 </ul>
 </li>
-<li class="toctree-l3 current"><a class="reference internal" href="index.html">Exercises Domain</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="controllers.html">Exercise Management Controllers</a></li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">Exercises Domain Services</a></li>
-<li class="toctree-l4"><a class="reference internal" href="schemas.html">Exercises Domain Schemas</a></li>
-<li class="toctree-l4"><a class="reference internal" href="filters.html">Exercises Domain Filters</a></li>
-<li class="toctree-l4"><a class="reference internal" href="deps.html">Exercises Domain Dependencies</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Exercises</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="controllers.html">Exercise Controllers</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Exercises Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="schemas.html">Exercises Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="deps.html">Exercises Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="filters.html">Exercises Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.html">Exercises Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../system/index.html">System Domain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../system/index.html">System</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../system/controllers.html">System Controllers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../system/schemas.html">System Domain Schemas</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../system/schemas.html">System Schemas</a></li>
 </ul>
 </li>
 </ul>
@@ -162,7 +164,7 @@ data-aria-dark="Switch to auto color mode">
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading" aria-level="3"><span class="caption-text">Development</span></p>
+<p class="caption" role="heading" aria-level="3"><span class="caption-text">Project</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../contribution-guide.html">Contribution Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
@@ -178,14 +180,12 @@ data-aria-dark="Switch to auto color mode">
       <i class="i-lucide close"></i>
     </button>
     <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
-<li><a class="reference internal" href="#exercise-service-exerciseservice">Exercise Service (<cite>ExerciseService</cite>)</a><ul>
 <li><a class="reference internal" href="#app.domain.exercises.services.ExerciseService"><code class="docutils literal notranslate"><span class="pre">ExerciseService</span></code></a><ul>
-<li><a class="reference internal" href="#app.domain.exercises.services.ExerciseService.get_exercise_by_filter"><code class="docutils literal notranslate">get_exercise_by_filter()</span></code></a></li>
-<li><a class="reference internal" href="#app.domain.exercises.services.ExerciseService.update_exercise"><code class="docutils literal notranslate">update_exercise()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.services.ExerciseService.update"><code class="docutils literal notranslate">update()</span></code></a></li>
 <li><a class="reference internal" href="#app.domain.exercises.services.ExerciseService.delete_exercise"><code class="docutils literal notranslate">delete_exercise()</span></code></a></li>
 <li><a class="reference internal" href="#app.domain.exercises.services.ExerciseService.get_exercises_paginated_dto"><code class="docutils literal notranslate">get_exercises_paginated_dto()</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#app.domain.exercises.services.ExerciseService.get_by_name"><code class="docutils literal notranslate">get_by_name()</span></code></a></li>
+<li><a class="reference internal" href="#app.domain.exercises.services.ExerciseService.exercise_exists"><code class="docutils literal notranslate">exercise_exists()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -213,11 +213,11 @@ data-aria-dark="Switch to auto color mode">
         <span>/</span>
         <meta itemprop="position" content="3" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <a itemprop="item" href="index.html"><span itemprop="name">Exercises Domain</span></a>
+        <a itemprop="item" href="index.html"><span itemprop="name">Exercises</span></a>
         <span>/</span>
         <meta itemprop="position" content="4" />
       </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-        <strong itemprop="name">Exercises Domain Services</strong>
+        <strong itemprop="name">Exercises Services</strong>
         <meta itemprop="position" content="5" />
       </li></ol>
     <div class="xl:hidden ml-1">
@@ -230,36 +230,53 @@ data-aria-dark="Switch to auto color mode">
 </div><div class="flex flex-col break-words justify-between">
       <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
   <article class="yue" role="main">
-          <section id="exercises-domain-services">
-<h1>Exercises Domain Services<a class="headerlink" href="#exercises-domain-services" title="Link to this heading">¶</a></h1>
-<p>Domain services encapsulating the business logic for exercise models, including complex relationship management and custom filtering.</p>
-<p>—</p>
-<section id="exercise-service-exerciseservice">
-<h2>Exercise Service (<cite>ExerciseService</cite>)<a class="headerlink" href="#exercise-service-exerciseservice" title="Link to this heading">¶</a></h2>
+          <section id="exercises-services">
+<h1>Exercises Services<a class="headerlink" href="#exercises-services" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.domain.exercises.services.ExerciseService">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ExerciseService</span></span><a class="reference internal" href="../../../_modules/app/domain/exercises/services.html#ExerciseService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.exercises.services.ExerciseService" title="Link to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="../../lib/deps.html#app.lib.deps.CompositeServiceMixin" title="app.lib.deps.CompositeServiceMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">CompositeServiceMixin</span></code></a>, <a class="reference external" href="https://advanced-alchemy.litestar.dev/latest/reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService" title="(in advanced_alchemy)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SQLAlchemyAsyncRepositoryService</span></code></a>[<a class="reference internal" href="../../db/exercise.html#app.db.models.exercise.Exercise" title="app.db.models.exercise.Exercise"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exercise</span></code></a>, Any]</p>
-<p>Service for managing Exercise entities.</p>
-<p>Provides high-level business logic for exercises, including handling complex relationships
-with muscle groups, equipment, and tags via CompositeServiceMixin.</p>
+<dd><p>Bases: <a class="reference internal" href="../../lib/deps.html#app.lib.deps.CompositeServiceMixin" title="app.lib.deps.CompositeServiceMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">CompositeServiceMixin</span></code></a>, <a class="reference external" href="https://advanced-alchemy.litestar.dev/latest/reference/service.html#advanced_alchemy.service.SQLAlchemyAsyncRepositoryService" title="(in Advanced Alchemy)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SQLAlchemyAsyncRepositoryService</span></code></a>[<a class="reference internal" href="../../db/exercise.html#app.db.models.exercise.Exercise" title="app.db.models.exercise.Exercise"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exercise</span></code></a>, Any]</p>
+<p>Handles database operations for exercises.</p>
+<p>Composes catalog services (muscle groups, equipment, tags) via
+CompositeServiceMixin; composed services share the parent’s session.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="app.domain.exercises.services.ExerciseService.get_exercise_by_filter">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_exercise_by_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="schemas.html#app.domain.exercises.schemas.ExerciseRead" title="app.domain.exercises.schemas.ExerciseRead"><span class="pre">ExerciseRead</span></a></span></span><a class="reference internal" href="../../../_modules/app/domain/exercises/services.html#ExerciseService.get_exercise_by_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.exercises.services.ExerciseService.get_exercise_by_filter" title="Link to this definition">¶</a></dt>
-<dd><p>Fetch a specific exercise by name (for custom) or slug (for system).</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="app.domain.exercises.services.ExerciseService.update_exercise">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update_exercise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exercise_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_filters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">m.Exercise</span></span></span><a class="reference internal" href="../../../_modules/app/domain/exercises/services.html#ExerciseService.update_exercise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.exercises.services.ExerciseService.update_exercise" title="Link to this definition">¶</a></dt>
-<dd><p>Update an exercise with optimized relationship loading.</p>
+<dt class="sig sig-object py" id="app.domain.exercises.services.ExerciseService.update">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">data:</span> <span class="pre">ModelDictT[m.Exercise],</span> <span class="pre">item_id:</span> <span class="pre">Any</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">*,</span> <span class="pre">attribute_names:</span> <span class="pre">Iterable[str]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">with_for_update:</span> <span class="pre">ForUpdateParameter</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">auto_commit:</span> <span class="pre">bool</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">auto_expunge:</span> <span class="pre">bool</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">auto_refresh:</span> <span class="pre">bool</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">id_attribute:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">InstrumentedAttribute[Any]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">error_messages:</span> <span class="pre">ErrorMessages</span> <span class="pre">|</span> <span class="pre">EmptyType</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">&lt;class</span> <span class="pre">'advanced_alchemy.utils.dataclass.Empty'&gt;,</span> <span class="pre">load:</span> <span class="pre">LoadSpec</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">execution_options:</span> <span class="pre">dict[str,</span> <span class="pre">Any]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">uniquify:</span> <span class="pre">bool</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">bind_group:</span> <span class="pre">str</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None,</span> <span class="pre">schema_dump_config:</span> <span class="pre">SchemaDumpConfig</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">m.Exercise</span></span></span><a class="reference internal" href="../../../_modules/app/domain/exercises/services.html#ExerciseService.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.exercises.services.ExerciseService.update" title="Link to this definition">¶</a></dt>
+<dd><p>Update exercise with role-aware junction merge for muscle lists.</p>
+<p>Advanced Alchemy’s update() has no partial-collection contract: a collection
+key in the payload replaces the whole relationship, and the junction’s
+<code class="code docutils literal notranslate"><span class="pre">muscle_role</span></code> cannot be expressed by plain assignment — muscle keys are
+popped here and merged object-aware (see <code class="code docutils literal notranslate"><span class="pre">_merge_exercise_muscles</span></code>).</p>
+<p><code class="code docutils literal notranslate"><span class="pre">auto_commit</span></code> is accepted for interface compatibility but never honored:
+this method relies on the outer session lifecycle to commit, so the junction
+merge shares one transaction with the scalar update. <code class="code docutils literal notranslate"><span class="pre">schema_dump_config</span></code> is
+not forwarded — the payload is normalized to a dict before persistence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="../../lib/exceptions.html#app.lib.exceptions.NotFoundException" title="app.lib.exceptions.NotFoundException"><strong>NotFoundException</strong></a> – If a referenced muscle group, equipment, or tag id does not exist.</p></li>
+<li><p><a class="reference internal" href="../../lib/exceptions.html#app.lib.exceptions.ConflictException" title="app.lib.exceptions.ConflictException"><strong>ConflictException</strong></a> – If the same muscle group is listed as both primary and secondary.</p></li>
+<li><p><strong>DuplicateKeyError</strong> – If the resulting slug conflicts with an existing exercise.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="app.domain.exercises.services.ExerciseService.delete_exercise">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_exercise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exercise_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_auth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../users/schemas.html#app.domain.users.schemas.UserAuth" title="app.domain.users.schemas.UserAuth"><span class="pre">UserAuth</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../_modules/app/domain/exercises/services.html#ExerciseService.delete_exercise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.exercises.services.ExerciseService.delete_exercise" title="Link to this definition">¶</a></dt>
-<dd><p>Delete an exercise after checking ownership or superuser status.</p>
-<p>Deleting system-default exercises requires superuser privileges.</p>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">delete_exercise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exercise_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_auth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../accounts/schemas.html#app.domain.accounts.schemas.UserAuth" title="app.domain.accounts.schemas.UserAuth"><span class="pre">UserAuth</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../../../_modules/app/domain/exercises/services.html#ExerciseService.delete_exercise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.exercises.services.ExerciseService.delete_exercise" title="Link to this definition">¶</a></dt>
+<dd><p>Delete an exercise after checking access permissions.</p>
+<p>Deletion relies on the outer session lifecycle to commit, same as
+<code class="code docutils literal notranslate"><span class="pre">update()</span></code>: <code class="code docutils literal notranslate"><span class="pre">session.delete()</span></code> only stages the deletion, and the DELETE
+is issued during the flush triggered by the outer <code class="code docutils literal notranslate"><span class="pre">commit()</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="../../lib/exceptions.html#app.lib.exceptions.NotFoundException" title="app.lib.exceptions.NotFoundException"><strong>NotFoundException</strong></a> – If the exercise is not found.</p></li>
+<li><p><a class="reference internal" href="../../lib/exceptions.html#app.lib.exceptions.PermissionDeniedException" title="app.lib.exceptions.PermissionDeniedException"><strong>PermissionDeniedException</strong></a> – If the user lacks permission to delete the exercise.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -268,9 +285,29 @@ with muscle groups, equipment, and tags via CompositeServiceMixin.</p>
 <dd><p>Provide filtered and paginated list of exercises with caching.</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="app.domain.exercises.services.ExerciseService.get_by_name">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_by_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="pre">ExerciseScope.USER</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ExerciseScope.SYSTEM</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/builtins/stdtypes.html#str" title="(in Python v3.15)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">m.Exercise</span></span></span><a class="reference internal" href="../../../_modules/app/domain/exercises/services.html#ExerciseService.get_by_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.exercises.services.ExerciseService.get_by_name" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve user-defined or system exercise by name.</p>
+<p>The name is normalized to a slug before lookup, so names that normalize
+to the same slug resolve to the same exercise.</p>
+<p>The scope determines the search space: <code class="code docutils literal notranslate"><span class="pre">USER</span></code> searches exercises created
+by <code class="code docutils literal notranslate"><span class="pre">user_id</span></code>; <code class="code docutils literal notranslate"><span class="pre">SYSTEM</span></code> searches system defaults and ignores <code class="code docutils literal notranslate"><span class="pre">user_id</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../../lib/exceptions.html#app.lib.exceptions.NotFoundException" title="app.lib.exceptions.NotFoundException"><strong>NotFoundException</strong></a> – If no exercise matches the normalized name in the given scope.</p>
+</dd>
+</dl>
 </dd></dl>
 
-</section>
+<dl class="py method">
+<dt class="sig sig-object py" id="app.domain.exercises.services.ExerciseService.exercise_exists">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exercise_exists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exercise_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/builtins/constants.html#None" title="(in Python v3.15)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/builtins/functions.html#bool" title="(in Python v3.15)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../../../_modules/app/domain/exercises/services.html#ExerciseService.exercise_exists"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.domain.exercises.services.ExerciseService.exercise_exists" title="Link to this definition">¶</a></dt>
+<dd><p>Check existence under the caller’s ownership scope (owner id or system).</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
         </article><button class="back-to-top" type="button">
@@ -282,13 +319,13 @@ with muscle groups, equipment, and tags via CompositeServiceMixin.</p>
     <a href="controllers.html">
       <i class="i-lucide chevron-left"></i>
       <div class="page-info">
-        <span>Previous</span><div class="title">Exercise Management Controllers</div></div>
+        <span>Previous</span><div class="title">Exercise Controllers</div></div>
     </a>
   </div><div class="navigation-next">
     <a href="schemas.html">
       <div class="page-info">
         <span>Next</span>
-        <div class="title">Exercises Domain Schemas</div>
+        <div class="title">Exercises Schemas</div>
       </div>
       <i class="i-lucide chevron-right"></i>
     </a>
